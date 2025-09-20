@@ -8,15 +8,18 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 import { errorHandler } from '../utils/errorHandler';
 import { MuseAgent, MuseAgentOptions } from './museAgent';
+import { WriteAgent, WriteAgentOptions } from './writeAgent';
 
 export class CommandRouter {
   private agents: Map<string, AgentConfig> = new Map();
   private agentPath: string;
   private museAgent: MuseAgent;
+  private writeAgent: WriteAgent;
 
   constructor() {
     this.agentPath = path.join(process.cwd(), '.jester', 'agents');
     this.museAgent = new MuseAgent();
+    this.writeAgent = new WriteAgent();
     this.loadAgents();
   }
 
@@ -236,17 +239,79 @@ export class CommandRouter {
   }
 
   /**
-   * Handle write command (placeholder)
+   * Handle write command
    */
   private async handleWriteCommand(command: Command): Promise<CommandResult> {
-    return {
-      success: true,
-      message: 'Write command not yet implemented',
-      data: {
-        command: 'write',
-        subcommand: command.args[0] || 'story'
+    try {
+      const subcommand = command.args[0];
+      
+      if (!subcommand) {
+        return {
+          success: false,
+          message: 'Write command requires a subcommand',
+          error: 'Usage: /write <outline|story> [options]'
+        };
       }
-    };
+
+      switch (subcommand) {
+        case 'outline':
+          return await this.handleWriteOutlineCommand(command);
+        case 'story':
+          return {
+            success: true,
+            message: 'Write story command not yet implemented',
+            data: {
+              command: 'write',
+              subcommand: 'story'
+            }
+          };
+        default:
+          return {
+            success: false,
+            message: `Unknown write subcommand: ${subcommand}`,
+            error: 'Available subcommands: outline, story'
+          };
+      }
+    } catch (error) {
+      return {
+        success: false,
+        message: 'Write command failed',
+        error: errorHandler.formatError(error)
+      };
+    }
+  }
+
+  /**
+   * Handle write outline command
+   */
+  private async handleWriteOutlineCommand(command: Command): Promise<CommandResult> {
+    try {
+      const options: WriteAgentOptions = {
+        contextFile: command.options.contextFile as string | undefined || undefined,
+        outputPath: command.options.outputPath as string | undefined || undefined,
+        template: command.options.template as string | undefined || undefined
+      };
+
+      // Generate and save outline
+      const result = await this.writeAgent.generateAndSaveOutline(options);
+      
+      return {
+        success: true,
+        message: `Outline generated successfully!`,
+        data: {
+          outline: result.outline,
+          filePath: result.filePath,
+          estimatedWordCount: result.outline.estimated_word_count,
+          plotPointsCount: result.outline.plot_points.length
+        }
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: 'Failed to generate outline',
+        error: errorHandler.formatError(error)
+      };
+    }
   }
 
   /**
@@ -320,6 +385,21 @@ export class CommandRouter {
       helpData.examples = [
         '/muse "A brave little mouse" --ageRange="5-8" --plotTemplate="heroes_journey"',
         '/muse "Space adventure" --characters="Astronaut,Robot,Alien" --themes="Friendship,Exploration"'
+      ];
+    }
+
+    // Add specific help for write command
+    if (commandName === 'write') {
+      helpData.usage = '/write <outline|story> [options]';
+      helpData.options = {
+        '--contextFile': 'Path to context file (optional, uses most recent if not specified)',
+        '--outputPath': 'Output file path (optional)',
+        '--template': 'Template to use (optional)'
+      };
+      helpData.examples = [
+        '/write outline',
+        '/write outline --contextFile="my-story-context.yaml"',
+        '/write outline --outputPath="my-outline.md"'
       ];
     }
 
