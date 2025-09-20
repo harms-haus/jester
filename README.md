@@ -26,25 +26,59 @@ Context (YAML) → Outline (Markdown) → Story (Markdown)
 
 ```
 jester/
-├── agents/          # AI agent definitions (BMAD-style)
-├── templates/       # Story and context templates
-├── tasks/           # Reusable workflow tasks
-├── data/           # Knowledge base and reference data
-├── utils/          # Utility functions and helpers
-├── stories/        # Generated stories and contexts
-└── docs/           # Project documentation
+├── src/                    # TypeScript source code
+│   ├── agents/            # AI agent implementations
+│   ├── clients/           # External API clients (LightRAG)
+│   ├── types/             # TypeScript type definitions
+│   ├── utils/             # Utility functions
+│   └── index.ts           # Main entry point
+├── entities/              # Local entity files
+│   ├── characters/        # Character definitions
+│   ├── locations/         # Location definitions
+│   └── items/             # Item definitions
+├── stories/               # Generated stories
+├── outlines/              # Story outlines
+├── contexts/              # Story context files
+├── .jester/               # Framework configuration
+│   ├── agents/            # Agent rule files
+│   ├── templates/         # Document templates
+│   ├── tasks/             # Task definitions
+│   └── data/              # Reference data
+└── docs/                  # Project documentation
 ```
 
 ## Status
 
-**Current Phase**: Project Brief Complete  
-**Next Step**: PRD Creation
+**Current Phase**: Project Setup Complete  
+**Next Step**: Agent Implementation
 
-See `docs/brief.md` for complete project documentation.
+See `docs/` for complete project documentation:
+- `brief.md` - Project overview and requirements
+- `prd.md` - Product Requirements Document
+- `architecture.md` - Technical architecture and API specifications
+
+## Prerequisites
+
+- Node.js 18+ (recommended: use nvm)
+- npm or yarn
+- Git (for versioning and analytics)
 
 ## Quick Start
 
-*Coming soon - agents and templates in development*
+1. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+2. **Build the project**
+   ```bash
+   npm run build
+   ```
+
+3. **Run the application**
+   ```bash
+   npm start
+   ```
 
 ## Commands
 
