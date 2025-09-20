@@ -3,7 +3,7 @@
 /**
  * jester - AI-powered bedtime story creation system
  * 
- * This is the main entry point for the jester system.
+ * This is the main CLI entry point for the jester system.
  * It provides interactive commands for story creation and management.
  */
 
@@ -38,6 +38,9 @@ async function main() {
     
     // Initialize command router
     const router = new CommandRouter();
+    
+    // Wait for agents to load
+    await new Promise(resolve => setTimeout(resolve, 100));
     
     // Parse and route the command
     const command = router.parseCommand(commandString);

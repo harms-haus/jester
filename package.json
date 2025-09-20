@@ -2,12 +2,12 @@
   "name": "jester",
   "version": "0.1.0",
   "description": "A prompt-based bedtime story generation system with LightRAG integration",
-  "main": "dist/index.js",
+  "main": "dist/cli.js",
   "type": "module",
   "scripts": {
     "build": "tsc",
     "dev": "tsx src/index.ts",
-    "start": "node dist/index.js",
+    "start": "node dist/cli.js",
     "lint": "eslint src/**/*.ts",
     "test": "jest"
   },

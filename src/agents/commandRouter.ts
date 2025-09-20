@@ -286,11 +286,16 @@ export class CommandRouter {
    */
   private async handleWriteOutlineCommand(command: Command): Promise<CommandResult> {
     try {
-      const options: WriteAgentOptions = {
-        contextFile: command.options.contextFile as string | undefined || undefined,
-        outputPath: command.options.outputPath as string | undefined || undefined,
-        template: command.options.template as string | undefined || undefined
-      };
+      const options: WriteAgentOptions = {};
+      if (command.options.contextFile) {
+        options.contextFile = command.options.contextFile as string;
+      }
+      if (command.options.outputPath) {
+        options.outputPath = command.options.outputPath as string;
+      }
+      if (command.options.template) {
+        options.template = command.options.template as string;
+      }
 
       // Generate and save outline
       const result = await this.writeAgent.generateAndSaveOutline(options);
