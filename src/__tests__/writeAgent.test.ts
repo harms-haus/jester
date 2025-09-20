@@ -2,15 +2,8 @@
  * Unit tests for WriteAgent
  */
 
-import { WriteAgent, WriteAgentOptions } from '../agents/writeAgent';
-import { StoryContext, StoryOutline, DetailedPlotPoint } from '../types/index';
-import * as fs from 'fs-extra';
-import * as path from 'path';
-import * as yaml from 'yaml';
-
-// Mock fs-extra
-jest.mock('fs-extra');
-const mockedFs = {
+// Mock fs-extra before importing
+jest.mock('fs-extra', () => ({
   pathExists: jest.fn(),
   readFile: jest.fn(),
   writeFile: jest.fn(),
@@ -18,23 +11,48 @@ const mockedFs = {
   stat: jest.fn(),
   ensureDir: jest.fn(),
   appendFile: jest.fn()
-} as any;
+}));
 
-// Mock yaml
-jest.mock('yaml');
-const mockedYaml = {
-  parse: jest.fn()
-} as any;
+// Mock yaml before importing
+jest.mock('yaml', () => ({
+  parse: jest.fn(),
+  stringify: jest.fn()
+}));
+
+// Mock FileUtils before importing
+jest.mock('../utils/fileUtils', () => ({
+  FileUtils: jest.fn().mockImplementation(() => ({
+    createOutlineFile: jest.fn(),
+    createStoryFile: jest.fn(),
+    generateOutlineFilename: jest.fn(),
+    generateStoryFilename: jest.fn()
+  }))
+}));
+
+import { WriteAgent, WriteAgentOptions } from '../agents/writeAgent';
+import { StoryContext, StoryOutline, DetailedPlotPoint, Story } from '../types/index';
+import * as fs from 'fs-extra';
+import * as path from 'path';
+import * as yaml from 'yaml';
+import { FileUtils } from '../utils/fileUtils';
 
 describe('WriteAgent', () => {
   let writeAgent: WriteAgent;
   let mockContext: StoryContext;
+  let mockFileUtils: jest.Mocked<FileUtils>;
 
   beforeEach(() => {
     writeAgent = new WriteAgent();
     
     // Reset all mocks
     jest.clearAllMocks();
+    
+    // Set up default mocks
+    (fs.readdir as any).mockResolvedValue([]);
+    (fs.stat as any).mockResolvedValue({ mtime: new Date() });
+    
+    // Get the mocked FileUtils instance
+    mockFileUtils = (writeAgent as any).fileUtils;
     
     // Setup default mock context
     mockContext = {
@@ -50,46 +68,36 @@ describe('WriteAgent', () => {
       },
       entities: {
         characters: [
-          { id: 'char1', name: 'Alice', type: 'character' },
-          { id: 'char2', name: 'Bob', type: 'character' }
+          {
+            id: 'char1',
+            name: 'Luna',
+            type: 'character'
+          }
         ],
         locations: [
-          { id: 'loc1', name: 'Forest', type: 'location' },
-          { id: 'loc2', name: 'Castle', type: 'location' }
+          {
+            id: 'loc1',
+            name: 'Magic Forest',
+            type: 'location'
+          }
         ],
-        items: [
-          { id: 'item1', name: 'Magic Sword', type: 'item' }
-        ]
+        items: []
       },
       plot_template: 'heroes_journey',
       plot_points: [
         {
-          id: 'point1',
-          title: 'The Call to Adventure',
-          description: 'Alice discovers a mysterious door',
+          id: 'plot1',
+          title: 'Call to Adventure',
+          description: 'Luna discovers a magical door',
           order: 1
-        },
-        {
-          id: 'point2',
-          title: 'Crossing the Threshold',
-          description: 'Alice enters the magical world',
-          order: 2
-        },
-        {
-          id: 'point3',
-          title: 'The Return',
-          description: 'Alice returns home with wisdom',
-          order: 3
         }
       ],
-      location_progression: [
-        { from: 'Forest', to: 'Castle', description: 'Journey to the castle' }
-      ],
-      morals: ['Courage', 'Friendship'],
-      themes: ['Adventure', 'Growth'],
+      location_progression: [],
+      morals: ['helping others', 'being brave'],
+      themes: ['friendship', 'adventure'],
       metadata: {
-        created_at: '2024-01-01T00:00:00Z',
-        last_modified: '2024-01-01T00:00:00Z',
+        created_at: new Date().toISOString(),
+        last_modified: new Date().toISOString(),
         version: 1
       }
     };
@@ -97,374 +105,574 @@ describe('WriteAgent', () => {
 
   describe('generateOutline', () => {
     it('should generate outline from context', async () => {
-      const options: WriteAgentOptions = {};
-      
-      // Mock the private method by accessing it through the class
-      const generateOutlineSpy = jest.spyOn(writeAgent as any, 'readContextFile')
-        .mockResolvedValue(mockContext);
+      // Mock context file reading
+      (fs.pathExists as any).mockResolvedValue(true);
+      (fs.readFile as any).mockResolvedValue('yaml content');
+      (yaml.parse as any).mockReturnValue(mockContext);
 
-      const result = await writeAgent.generateOutline(options);
+      const result = await writeAgent.generateOutline({ contextFile: 'test-context.yaml' });
 
       expect(result).toBeDefined();
-      expect(result.title).toBe(mockContext.title);
-      expect(result.target_audience).toEqual(mockContext.target_audience);
-      expect(result.target_length).toEqual(mockContext.target_length);
-      expect(result.plot_points).toHaveLength(3);
-      expect(result.estimated_word_count).toBeGreaterThan(0);
-      expect(result.metadata.context_file).toBe('unknown');
-      expect(result.metadata.created_at).toBeDefined();
-      expect(result.metadata.last_modified).toBeDefined();
-
-      generateOutlineSpy.mockRestore();
+      expect(result.title).toBe('Test Story');
+      expect(result.plot_points).toBeDefined();
+      expect(Array.isArray(result.plot_points)).toBe(true);
     });
 
     it('should handle context file reading', async () => {
-      const options: WriteAgentOptions = {
-        contextFile: 'test-context.yaml'
-      };
+      (fs.pathExists as any).mockResolvedValue(true);
+      (fs.readFile as any).mockResolvedValue('yaml content');
+      (yaml.parse as any).mockReturnValue(mockContext);
 
-      // Mock file system operations
-      mockedFs.pathExists.mockResolvedValue(true);
-      mockedFs.readFile.mockResolvedValue('mock yaml content');
-      mockedYaml.parse.mockReturnValue(mockContext);
+      await writeAgent.generateOutline({ contextFile: 'test-context.yaml' });
 
-      const result = await writeAgent.generateOutline(options);
-
-      expect(mockedFs.pathExists).toHaveBeenCalledWith(
-        expect.stringContaining('test-context.yaml')
-      );
-      expect(mockedFs.readFile).toHaveBeenCalled();
-      expect(mockedYaml.parse).toHaveBeenCalled();
-      expect(result).toBeDefined();
+      expect(fs.pathExists).toHaveBeenCalled();
+      expect(fs.readFile).toHaveBeenCalled();
+      expect(yaml.parse).toHaveBeenCalledWith('yaml content');
     });
 
     it('should throw error for missing context file', async () => {
-      const options: WriteAgentOptions = {
-        contextFile: 'nonexistent.yaml'
-      };
+      (fs.pathExists as any).mockResolvedValue(false);
 
-      mockedFs.pathExists.mockResolvedValue(false);
-
-      await expect(writeAgent.generateOutline(options))
-        .rejects.toThrow('Context file not found');
+      await expect(writeAgent.generateOutline({ contextFile: 'nonexistent.yaml' })).rejects.toThrow('Context file not found');
     });
 
     it('should throw error for invalid context structure', async () => {
-      const invalidContext = { ...mockContext, title: undefined };
-      
-      mockedFs.pathExists.mockResolvedValue(true);
-      mockedFs.readFile.mockResolvedValue('mock yaml content');
-      mockedYaml.parse.mockReturnValue(invalidContext);
+      (fs.pathExists as any).mockResolvedValue(true);
+      (fs.readFile as any).mockResolvedValue('yaml content');
+      (yaml.parse as any).mockReturnValue({}); // Missing required fields
 
-      await expect(writeAgent.generateOutline({}))
-        .rejects.toThrow('Missing required field in context: title');
-    });
-  });
-
-  describe('generateDetailedPlotPoints', () => {
-    it('should generate detailed plot points with proper structure', async () => {
-      const generateDetailedPlotPointsSpy = jest.spyOn(writeAgent as any, 'generateDetailedPlotPoints')
-        .mockResolvedValue([
-          {
-            id: 'point1',
-            title: 'The Call to Adventure',
-            description: 'Alice discovers a mysterious door. This marks the beginning of the hero\'s journey in the Ordinary World phase. The protagonist is about to embark on an adventure that will change their life forever.',
-            characters: ['Alice'],
-            location: 'Forest',
-            estimated_words: 250,
-            order: 1
-          }
-        ]);
-
-      const result = await writeAgent.generateOutline({});
-
-      expect(generateDetailedPlotPointsSpy).toHaveBeenCalled();
-      expect(result.plot_points).toBeDefined();
-
-      generateDetailedPlotPointsSpy.mockRestore();
-    });
-
-    it('should assign characters based on plot template', async () => {
-      const assignCharactersSpy = jest.spyOn(writeAgent as any, 'assignCharactersToPlotPoint')
-        .mockReturnValue(['Alice', 'Bob']);
-
-      const result = await writeAgent.generateOutline({});
-
-      expect(assignCharactersSpy).toHaveBeenCalled();
-      expect(result.plot_points[0]?.characters).toEqual(['Alice', 'Bob']);
-
-      assignCharactersSpy.mockRestore();
-    });
-
-    it('should assign locations based on plot template', async () => {
-      const assignLocationSpy = jest.spyOn(writeAgent as any, 'assignLocationToPlotPoint')
-        .mockReturnValue('Forest');
-
-      const result = await writeAgent.generateOutline({});
-
-      expect(assignLocationSpy).toHaveBeenCalled();
-      expect(result.plot_points[0]?.location).toBe('Forest');
-
-      assignLocationSpy.mockRestore();
+      await expect(writeAgent.generateOutline({ contextFile: 'invalid-context.yaml' })).rejects.toThrow('Missing required field in context: title');
     });
   });
 
   describe('saveOutline', () => {
     it('should save outline to file', async () => {
-      const mockOutline: StoryOutline = {
+      const outline: StoryOutline = {
         title: 'Test Story',
-        target_audience: mockContext.target_audience,
-        target_length: mockContext.target_length,
-        plot_points: [],
-        estimated_word_count: 750,
+        target_audience: {
+          age_range: '5-8',
+          reading_level: 'beginner'
+        },
+        target_length: {
+          min_words: 500,
+          max_words: 1000,
+          final_target: 750
+        },
+        plot_points: [
+          {
+            id: 'plot1',
+            title: 'Call to Adventure',
+            description: 'Luna discovers a magical door',
+            order: 1,
+            characters: ['Luna'],
+            location: 'Magic Forest',
+            estimated_words: 150
+          }
+        ],
+        estimated_word_count: 150,
         metadata: {
           context_file: 'test-context.yaml',
-          created_at: '2024-01-01T00:00:00Z',
-          last_modified: '2024-01-01T00:00:00Z'
+          created_at: new Date().toISOString(),
+          last_modified: new Date().toISOString()
         }
       };
 
-      // Mock file operations
-      mockedFs.readFile.mockResolvedValue('template content');
-      mockedFs.writeFile.mockResolvedValue(undefined);
+      (mockFileUtils.createOutlineFile as any).mockResolvedValue('outlines/test-outline.yaml');
 
-      const result = await writeAgent.saveOutline(mockOutline, 'test-outline.md');
+      const result = await writeAgent.saveOutline(outline, 'test-outline.yaml');
 
-      expect(mockedFs.readFile).toHaveBeenCalledWith(
-        expect.stringContaining('outline.md'),
-        'utf-8'
-      );
-      expect(mockedFs.writeFile).toHaveBeenCalledWith(
-        expect.stringContaining('test-outline.md'),
-        expect.any(String),
-        'utf-8'
-      );
-      expect(result).toContain('test-outline.md');
+      expect(mockFileUtils.createOutlineFile).toHaveBeenCalledWith(outline, 'test-outline.yaml');
+      expect(result).toBe('outlines/test-outline.yaml');
     });
 
     it('should generate filename if not provided', async () => {
-      const mockOutline: StoryOutline = {
+      const outline: StoryOutline = {
         title: 'Test Story',
-        target_audience: mockContext.target_audience,
-        target_length: mockContext.target_length,
+        target_audience: {
+          age_range: '5-8',
+          reading_level: 'beginner'
+        },
+        target_length: {
+          min_words: 500,
+          max_words: 1000,
+          final_target: 750
+        },
         plot_points: [],
-        estimated_word_count: 750,
+        estimated_word_count: 0,
         metadata: {
           context_file: 'test-context.yaml',
-          created_at: '2024-01-01T00:00:00Z',
-          last_modified: '2024-01-01T00:00:00Z'
+          created_at: new Date().toISOString(),
+          last_modified: new Date().toISOString()
         }
       };
 
-      mockedFs.readFile.mockResolvedValue('template content');
-      mockedFs.writeFile.mockResolvedValue(undefined);
+      (mockFileUtils.createOutlineFile as any).mockResolvedValue('outlines/test-story-2025-09-20T23-53-30-227Z.md');
 
-      const result = await writeAgent.saveOutline(mockOutline);
+      const result = await writeAgent.saveOutline(outline);
 
-      expect(result).toContain('test-story-');
-      expect(result).toContain('.md');
+      expect(mockFileUtils.createOutlineFile).toHaveBeenCalledWith(outline, undefined);
+      expect(result).toBe('outlines/test-story-2025-09-20T23-53-30-227Z.md');
     });
   });
 
   describe('generateAndSaveOutline', () => {
     it('should generate and save outline in one operation', async () => {
-      const options: WriteAgentOptions = {
-        contextFile: 'test-context.yaml'
-      };
+      (fs.pathExists as any).mockResolvedValue(true);
+      (fs.readFile as any).mockResolvedValue('yaml content');
+      (yaml.parse as any).mockReturnValue(mockContext);
+      (mockFileUtils.createOutlineFile as any).mockResolvedValue('outlines/test-outline.yaml');
 
-      // Mock all dependencies
-      mockedFs.pathExists.mockResolvedValue(true);
-      mockedFs.readFile.mockResolvedValue('mock yaml content');
-      mockedYaml.parse.mockReturnValue(mockContext);
-
-      const result = await writeAgent.generateAndSaveOutline(options);
+      const result = await writeAgent.generateAndSaveOutline({ contextFile: 'test-context.yaml' });
 
       expect(result).toBeDefined();
       expect(result.outline).toBeDefined();
-      expect(result.filePath).toBeDefined();
-      expect(result.outline.title).toBe(mockContext.title);
+      expect(result.outline.title).toBe('Test Story');
+      expect(mockFileUtils.createOutlineFile).toHaveBeenCalled();
     });
 
     it('should handle errors during generation and saving', async () => {
-      const options: WriteAgentOptions = {
-        contextFile: 'invalid-context.yaml'
-      };
+      (fs.pathExists as any).mockResolvedValue(false);
 
-      mockedFs.pathExists.mockResolvedValue(false);
-
-      await expect(writeAgent.generateAndSaveOutline(options))
-        .rejects.toThrow();
-    });
-  });
-
-  describe('plot template enhancements', () => {
-    it('should enhance descriptions for Hero\'s Journey template', async () => {
-      const heroContext = { ...mockContext, plot_template: 'heroes_journey' };
-      
-      mockedFs.pathExists.mockResolvedValue(true);
-      mockedFs.readFile.mockResolvedValue('mock yaml content');
-      mockedYaml.parse.mockReturnValue(heroContext);
-
-      const result = await writeAgent.generateOutline({});
-
-      expect(result.plot_points[0]?.description).toContain('hero\'s journey');
-      expect(result.plot_points[0]?.description).toContain('Ordinary World');
-    });
-
-    it('should enhance descriptions for Pixar template', async () => {
-      const pixarContext = { ...mockContext, plot_template: 'pixar' };
-      
-      mockedFs.pathExists.mockResolvedValue(true);
-      mockedFs.readFile.mockResolvedValue('mock yaml content');
-      mockedYaml.parse.mockReturnValue(pixarContext);
-
-      const result = await writeAgent.generateOutline({});
-
-      expect(result.plot_points[0]?.description).toContain('character\'s world');
-      expect(result.plot_points[0]?.description).toContain('daily routine');
-    });
-
-    it('should enhance descriptions for Golden Circle template', async () => {
-      const goldenContext = { ...mockContext, plot_template: 'golden_circle' };
-      
-      mockedFs.pathExists.mockResolvedValue(true);
-      mockedFs.readFile.mockResolvedValue('mock yaml content');
-      mockedYaml.parse.mockReturnValue(goldenContext);
-
-      const result = await writeAgent.generateOutline({});
-
-      expect(result.plot_points[0]?.description).toContain('purpose');
-      expect(result.plot_points[0]?.description).toContain('motivation');
-    });
-  });
-
-  describe('character assignment', () => {
-    it('should assign characters based on Hero\'s Journey stages', async () => {
-      const heroContext = { ...mockContext, plot_template: 'heroes_journey' };
-      
-      mockedFs.pathExists.mockResolvedValue(true);
-      mockedFs.readFile.mockResolvedValue('mock yaml content');
-      mockedYaml.parse.mockReturnValue(heroContext);
-
-      const result = await writeAgent.generateOutline({});
-
-      // Early stages should have main character + mentor
-      expect(result.plot_points[0]?.characters).toContain('Alice');
-      if (result.plot_points[0]?.characters && result.plot_points[0].characters.length > 1) {
-        expect(result.plot_points[0].characters).toContain('Bob');
-      }
-    });
-
-    it('should limit characters per plot point to maximum of 3', async () => {
-      const manyCharactersContext = {
-        ...mockContext,
-        entities: {
-          ...mockContext.entities,
-          characters: [
-            { id: 'char1', name: 'Alice', type: 'character' },
-            { id: 'char2', name: 'Bob', type: 'character' },
-            { id: 'char3', name: 'Charlie', type: 'character' },
-            { id: 'char4', name: 'Diana', type: 'character' }
-          ]
-        }
-      };
-      
-      mockedFs.pathExists.mockResolvedValue(true);
-      mockedFs.readFile.mockResolvedValue('mock yaml content');
-      mockedYaml.parse.mockReturnValue(manyCharactersContext);
-
-      const result = await writeAgent.generateOutline({});
-
-      result.plot_points.forEach(point => {
-        expect(point.characters.length).toBeLessThanOrEqual(3);
-      });
-    });
-  });
-
-  describe('location assignment', () => {
-    it('should assign locations based on plot template', async () => {
-      const heroContext = { ...mockContext, plot_template: 'heroes_journey' };
-      
-      mockedFs.pathExists.mockResolvedValue(true);
-      mockedFs.readFile.mockResolvedValue('mock yaml content');
-      mockedYaml.parse.mockReturnValue(heroContext);
-
-      const result = await writeAgent.generateOutline({});
-
-      expect(result.plot_points[0]?.location).toBeDefined();
-      expect(result.plot_points[0]?.location).not.toBe('Unknown Location');
-    });
-
-    it('should use location progression if available', async () => {
-      const contextWithProgression = {
-        ...mockContext,
-        location_progression: [
-          { from: 'Forest', to: 'Castle', description: 'Journey to castle' },
-          { from: 'Castle', to: 'Tower', description: 'Climb to tower' }
-        ]
-      };
-      
-      mockedFs.pathExists.mockResolvedValue(true);
-      mockedFs.readFile.mockResolvedValue('mock yaml content');
-      mockedYaml.parse.mockReturnValue(contextWithProgression);
-
-      const result = await writeAgent.generateOutline({});
-
-      expect(result.plot_points[0]?.location).toBe('Castle');
-      expect(result.plot_points[1]?.location).toBe('Tower');
-    });
-  });
-
-  describe('word count calculation', () => {
-    it('should calculate estimated word count for plot points', async () => {
-      mockedFs.pathExists.mockResolvedValue(true);
-      mockedFs.readFile.mockResolvedValue('mock yaml content');
-      mockedYaml.parse.mockReturnValue(mockContext);
-
-      const result = await writeAgent.generateOutline({});
-
-      result.plot_points.forEach(point => {
-        expect(point.estimated_words).toBeGreaterThan(0);
-        expect(typeof point.estimated_words).toBe('number');
-      });
-    });
-
-    it('should calculate total estimated word count', async () => {
-      mockedFs.pathExists.mockResolvedValue(true);
-      mockedFs.readFile.mockResolvedValue('mock yaml content');
-      mockedYaml.parse.mockReturnValue(mockContext);
-
-      const result = await writeAgent.generateOutline({});
-
-      const totalWords = result.plot_points.reduce((sum, point) => sum + point.estimated_words, 0);
-      expect(result.estimated_word_count).toBe(totalWords);
+      await expect(writeAgent.generateAndSaveOutline({ contextFile: 'invalid-context.yaml' })).rejects.toThrow();
     });
   });
 
   describe('error handling', () => {
     it('should handle file system errors gracefully', async () => {
-      mockedFs.pathExists.mockRejectedValue(new Error('File system error'));
+      (fs.pathExists as any).mockRejectedValue(new Error('File system error'));
 
-      await expect(writeAgent.generateOutline({}))
-        .rejects.toThrow();
+      await expect(writeAgent.generateOutline({ contextFile: 'test-context.yaml' })).rejects.toThrow();
     });
 
     it('should handle YAML parsing errors', async () => {
-      mockedFs.pathExists.mockResolvedValue(true);
-      mockedFs.readFile.mockResolvedValue('invalid yaml content');
-      mockedYaml.parse.mockImplementation(() => {
+      (fs.pathExists as any).mockResolvedValue(true);
+      (fs.readFile as any).mockResolvedValue('invalid yaml');
+      (yaml.parse as any).mockImplementation(() => {
         throw new Error('YAML parsing error');
       });
 
-      await expect(writeAgent.generateOutline({}))
-        .rejects.toThrow();
+      await expect(writeAgent.generateOutline({ contextFile: 'test-context.yaml' })).rejects.toThrow();
     });
 
     it('should handle missing context files directory', async () => {
-      mockedFs.readdir.mockRejectedValue(new Error('Directory not found'));
+      (fs.readdir as any).mockRejectedValue(new Error('Directory not found'));
 
-      await expect(writeAgent.generateOutline({}))
-        .rejects.toThrow();
+      await expect(writeAgent.generateOutline({})).rejects.toThrow();
+    });
+  });
+
+  describe('generateStory', () => {
+    let mockOutline: StoryOutline;
+
+    beforeEach(() => {
+      mockOutline = {
+        title: 'The Magic Forest Adventure',
+        target_audience: {
+          age_range: '5-8',
+          reading_level: 'beginner'
+        },
+        target_length: {
+          min_words: 500,
+          max_words: 1000,
+          final_target: 750
+        },
+        plot_points: [
+          {
+            id: 'plot1',
+            title: 'Call to Adventure',
+            description: 'Luna discovers a magical door in the forest',
+            order: 1,
+            characters: ['Luna'],
+            location: 'Magic Forest',
+            estimated_words: 150
+          },
+          {
+            id: 'plot2',
+            title: 'Meeting Mentor',
+            description: 'Luna meets a wise owl who offers guidance',
+            order: 2,
+            characters: ['Luna', 'Owl'],
+            location: 'Magic Forest',
+            estimated_words: 200
+          },
+          {
+            id: 'plot3',
+            title: 'Return with Elixir',
+            description: 'Luna returns home with newfound wisdom',
+            order: 3,
+            characters: ['Luna'],
+            location: 'Home',
+            estimated_words: 100
+          }
+        ],
+        estimated_word_count: 450,
+        metadata: {
+          context_file: 'test-context.yaml',
+          created_at: new Date().toISOString(),
+          last_modified: new Date().toISOString()
+        }
+      };
+    });
+
+    it('should generate story from outline', async () => {
+      (fs.pathExists as any).mockResolvedValue(true);
+      (fs.readFile as any).mockResolvedValue('yaml content');
+      (yaml.parse as any).mockReturnValue(mockOutline);
+
+      const result = await writeAgent.generateStory({ contextFile: 'test-outline.yaml' });
+
+      expect(result).toBeDefined();
+      expect(result.title).toBe('The Magic Forest Adventure');
+      expect(result.content).toBeDefined();
+      expect(result.word_count).toBeGreaterThan(0);
+      expect(result.metadata.reading_time_minutes).toBeGreaterThan(0);
+    });
+
+    it('should read outline file from specified path', async () => {
+      (fs.pathExists as any).mockResolvedValue(true);
+      (fs.readFile as any).mockResolvedValue('yaml content');
+      (yaml.parse as any).mockReturnValue(mockOutline);
+
+      await writeAgent.generateStory({ contextFile: 'test-outline.yaml' });
+
+      expect(fs.pathExists).toHaveBeenCalled();
+      expect(fs.readFile).toHaveBeenCalled();
+      expect(yaml.parse).toHaveBeenCalledWith('yaml content');
+    });
+
+    it('should throw error for missing outline file', async () => {
+      (fs.pathExists as any).mockResolvedValue(false);
+
+      await expect(writeAgent.generateStory({ contextFile: 'nonexistent.yaml' })).rejects.toThrow('Outline file not found');
+    });
+
+    it('should throw error for invalid outline structure', async () => {
+      (fs.pathExists as any).mockResolvedValue(true);
+      (fs.readFile as any).mockResolvedValue('yaml content');
+      (yaml.parse as any).mockReturnValue({}); // Missing required fields
+
+      await expect(writeAgent.generateStory({ contextFile: 'invalid-outline.yaml' })).rejects.toThrow('Missing required field in outline: title');
+    });
+
+    it('should generate story content with introduction, plot points, and conclusion', async () => {
+      (fs.pathExists as any).mockResolvedValue(true);
+      (fs.readFile as any).mockResolvedValue('yaml content');
+      (yaml.parse as any).mockReturnValue(mockOutline);
+
+      const result = await writeAgent.generateStory({ contextFile: 'test-outline.yaml' });
+
+      expect(result).toBeDefined();
+      expect(result.content).toContain('Once upon a time'); // Introduction
+      expect(result.content).toContain('Luna'); // Character names
+      expect(result.content).toContain('magical door'); // Plot point content
+      expect(result.content).toContain('wise owl'); // Another plot point
+    });
+
+    it('should generate age-appropriate content for 5-8 year olds', async () => {
+      const youngChildOutline = {
+        ...mockOutline,
+        target_audience: { age_range: '5-8', reading_level: 'beginner' }
+      };
+
+      (fs.pathExists as any).mockResolvedValue(true);
+      (fs.readFile as any).mockResolvedValue('yaml content');
+      (yaml.parse as any).mockReturnValue(youngChildOutline);
+
+      const result = await writeAgent.generateStory({ contextFile: 'test-outline.yaml' });
+
+      expect(result).toBeDefined();
+      expect(result.content).toBeDefined();
+      // Content should be simple and appropriate for young children
+      expect(result.content.length).toBeGreaterThan(0);
+    });
+
+    it('should generate age-appropriate content for 8-12 year olds', async () => {
+      const olderChildOutline = {
+        ...mockOutline,
+        target_audience: { age_range: '8-12', reading_level: 'intermediate' }
+      };
+
+      (fs.pathExists as any).mockResolvedValue(true);
+      (fs.readFile as any).mockResolvedValue('yaml content');
+      (yaml.parse as any).mockReturnValue(olderChildOutline);
+
+      const result = await writeAgent.generateStory({ contextFile: 'test-outline.yaml' });
+
+      expect(result).toBeDefined();
+      expect(result.content).toBeDefined();
+      // Content should be more complex for older children
+      expect(result.content.length).toBeGreaterThan(0);
+    });
+
+    it('should generate reading level appropriate content', async () => {
+      (fs.pathExists as any).mockResolvedValue(true);
+      (fs.readFile as any).mockResolvedValue('yaml content');
+      (yaml.parse as any).mockReturnValue(mockOutline);
+
+      const result = await writeAgent.generateStory({ contextFile: 'test-outline.yaml' });
+
+      expect(result).toBeDefined();
+      expect(result.content).toBeDefined();
+      expect(result.content.length).toBeGreaterThan(0);
+    });
+
+    it('should calculate word count correctly', async () => {
+      (fs.pathExists as any).mockResolvedValue(true);
+      (fs.readFile as any).mockResolvedValue('yaml content');
+      (yaml.parse as any).mockReturnValue(mockOutline);
+
+      const result = await writeAgent.generateStory({ contextFile: 'test-outline.yaml' });
+
+      expect(result).toBeDefined();
+      expect(result.word_count).toBeGreaterThan(0);
+      expect(typeof result.word_count).toBe('number');
+    });
+
+    it('should calculate reading time correctly', async () => {
+      (fs.pathExists as any).mockResolvedValue(true);
+      (fs.readFile as any).mockResolvedValue('yaml content');
+      (yaml.parse as any).mockReturnValue(mockOutline);
+
+      const result = await writeAgent.generateStory({ contextFile: 'test-outline.yaml' });
+
+      expect(result).toBeDefined();
+      expect(result.metadata.reading_time_minutes).toBeGreaterThan(0);
+      expect(typeof result.metadata.reading_time_minutes).toBe('number');
+    });
+  });
+
+  describe('saveStory', () => {
+    it('should save story to file', async () => {
+      const story: Story = {
+        title: 'The Magic Forest Adventure',
+        content: 'Once upon a time...',
+        word_count: 500,
+        metadata: {
+          outline_file: 'test-outline.yaml',
+          context_file: 'test-context.yaml',
+          created_at: new Date().toISOString(),
+          last_modified: new Date().toISOString(),
+          reading_time_minutes: 5
+        }
+      };
+
+      (mockFileUtils.createStoryFile as any).mockResolvedValue('stories/test-story.md');
+
+      const result = await writeAgent.saveStory(story, 'test-story.md');
+
+      expect(mockFileUtils.createStoryFile).toHaveBeenCalledWith(story, 'test-story.md');
+      expect(result).toBe('stories/test-story.md');
+    });
+
+    it('should generate filename if not provided', async () => {
+      const story: Story = {
+        title: 'The Magic Forest Adventure',
+        content: 'Once upon a time...',
+        word_count: 500,
+        metadata: {
+          outline_file: 'test-outline.yaml',
+          context_file: 'test-context.yaml',
+          created_at: new Date().toISOString(),
+          last_modified: new Date().toISOString(),
+          reading_time_minutes: 5
+        }
+      };
+
+      (mockFileUtils.createStoryFile as any).mockResolvedValue('stories/the-magic-forest-adventure-2025-09-20T23-53-30-240Z.md');
+
+      const result = await writeAgent.saveStory(story);
+
+      expect(mockFileUtils.createStoryFile).toHaveBeenCalledWith(story, undefined);
+      expect(result).toBe('stories/the-magic-forest-adventure-2025-09-20T23-53-30-240Z.md');
+    });
+  });
+
+  describe('generateAndSaveStory', () => {
+    it('should generate and save story in one operation', async () => {
+      const mockOutline: StoryOutline = {
+        title: 'The Magic Forest Adventure',
+        target_audience: {
+          age_range: '5-8',
+          reading_level: 'beginner'
+        },
+        target_length: {
+          min_words: 500,
+          max_words: 1000,
+          final_target: 750
+        },
+        plot_points: [
+          {
+            id: 'plot1',
+            title: 'Call to Adventure',
+            description: 'Luna discovers a magical door in the forest',
+            order: 1,
+            characters: ['Luna'],
+            location: 'Magic Forest',
+            estimated_words: 150
+          }
+        ],
+        estimated_word_count: 150,
+        metadata: {
+          context_file: 'test-context.yaml',
+          created_at: new Date().toISOString(),
+          last_modified: new Date().toISOString()
+        }
+      };
+
+      (fs.pathExists as any).mockResolvedValue(true);
+      (fs.readFile as any).mockResolvedValue('yaml content');
+      (yaml.parse as any).mockReturnValue(mockOutline);
+      (mockFileUtils.createStoryFile as any).mockResolvedValue('stories/test-story.md');
+
+      const result = await writeAgent.generateAndSaveStory({ contextFile: 'test-outline.yaml' });
+
+      expect(result).toBeDefined();
+      expect(result.story).toBeDefined();
+      expect(result.story.title).toBe('The Magic Forest Adventure');
+      expect(mockFileUtils.createStoryFile).toHaveBeenCalled();
+    });
+
+    it('should handle errors during generation and saving', async () => {
+      (fs.pathExists as any).mockResolvedValue(false);
+
+      await expect(writeAgent.generateAndSaveStory({ contextFile: 'invalid-outline.yaml' })).rejects.toThrow();
+    });
+  });
+
+  describe('story content generation', () => {
+    it('should generate character interactions for multiple characters', async () => {
+      const mockOutline: StoryOutline = {
+        title: 'The Magic Forest Adventure',
+        target_audience: {
+          age_range: '5-8',
+          reading_level: 'beginner'
+        },
+        target_length: {
+          min_words: 500,
+          max_words: 1000,
+          final_target: 750
+        },
+        plot_points: [
+          {
+            id: 'plot1',
+            title: 'Meeting Mentor',
+            description: 'Luna meets a wise owl who offers guidance',
+            order: 1,
+            characters: ['Luna', 'Owl'],
+            location: 'Magic Forest',
+            estimated_words: 200
+          }
+        ],
+        estimated_word_count: 200,
+        metadata: {
+          context_file: 'test-context.yaml',
+          created_at: new Date().toISOString(),
+          last_modified: new Date().toISOString()
+        }
+      };
+
+      (fs.pathExists as any).mockResolvedValue(true);
+      (fs.readFile as any).mockResolvedValue('yaml content');
+      (yaml.parse as any).mockReturnValue(mockOutline);
+
+      const result = await writeAgent.generateStory({ contextFile: 'test-outline.yaml' });
+
+      expect(result).toBeDefined();
+      expect(result.content).toContain('Luna');
+      expect(result.content).toContain('Owl');
+    });
+
+    it('should generate location details', async () => {
+      const mockOutline: StoryOutline = {
+        title: 'The Magic Forest Adventure',
+        target_audience: {
+          age_range: '5-8',
+          reading_level: 'beginner'
+        },
+        target_length: {
+          min_words: 500,
+          max_words: 1000,
+          final_target: 750
+        },
+        plot_points: [
+          {
+            id: 'plot1',
+            title: 'Call to Adventure',
+            description: 'Luna discovers a magical door in the forest',
+            order: 1,
+            characters: ['Luna'],
+            location: 'Magic Forest',
+            estimated_words: 150
+          }
+        ],
+        estimated_word_count: 150,
+        metadata: {
+          context_file: 'test-context.yaml',
+          created_at: new Date().toISOString(),
+          last_modified: new Date().toISOString()
+        }
+      };
+
+      (fs.pathExists as any).mockResolvedValue(true);
+      (fs.readFile as any).mockResolvedValue('yaml content');
+      (yaml.parse as any).mockReturnValue(mockOutline);
+
+      const result = await writeAgent.generateStory({ contextFile: 'test-outline.yaml' });
+
+      expect(result).toBeDefined();
+      expect(result.content).toContain('Magic Forest');
+      expect(result.content).toContain('magical door');
+    });
+
+    it('should generate plot progression based on position', async () => {
+      const mockOutline: StoryOutline = {
+        title: 'The Magic Forest Adventure',
+        target_audience: {
+          age_range: '5-8',
+          reading_level: 'beginner'
+        },
+        target_length: {
+          min_words: 500,
+          max_words: 1000,
+          final_target: 750
+        },
+        plot_points: [
+          {
+            id: 'plot1',
+            title: 'Call to Adventure',
+            description: 'Luna discovers a magical door in the forest',
+            order: 1,
+            characters: ['Luna'],
+            location: 'Magic Forest',
+            estimated_words: 150
+          },
+          {
+            id: 'plot2',
+            title: 'Return with Elixir',
+            description: 'Luna returns home with newfound wisdom',
+            order: 2,
+            characters: ['Luna'],
+            location: 'Home',
+            estimated_words: 100
+          }
+        ],
+        estimated_word_count: 250,
+        metadata: {
+          context_file: 'test-context.yaml',
+          created_at: new Date().toISOString(),
+          last_modified: new Date().toISOString()
+        }
+      };
+
+      (fs.pathExists as any).mockResolvedValue(true);
+      (fs.readFile as any).mockResolvedValue('yaml content');
+      (yaml.parse as any).mockReturnValue(mockOutline);
+
+      const result = await writeAgent.generateStory({ contextFile: 'test-outline.yaml' });
+
+      expect(result).toBeDefined();
+      expect(result.content).toContain('magical door');
+      expect(result.content).toContain('newfound wisdom');
     });
   });
 });

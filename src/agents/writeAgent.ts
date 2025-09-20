@@ -6,7 +6,7 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as yaml from 'yaml';
-import { StoryContext, StoryOutline, DetailedPlotPoint } from '../types/index';
+import { StoryContext, StoryOutline, DetailedPlotPoint, Story } from '../types/index';
 import { FileUtils } from '../utils/fileUtils';
 import { errorHandler } from '../utils/errorHandler';
 
@@ -751,6 +751,349 @@ export class WriteAgent {
     } catch (error) {
       errorHandler.logError('Failed to generate and save outline', error, {
         operation: 'outline_generation_and_saving',
+        filePath: options.contextFile || 'unknown'
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Generate story from outline file
+   */
+  public async generateStory(options: WriteAgentOptions): Promise<Story> {
+    try {
+      // Read and parse outline file
+      const outline = await this.readOutlineFile(options.contextFile);
+      
+      // Generate story content from outline
+      const storyContent = await this.generateStoryContent(outline);
+      
+      // Calculate word count and reading time
+      const wordCount = this.calculateWordCount(storyContent);
+      const readingTimeMinutes = this.calculateReadingTime(wordCount);
+      
+      // Create story object
+      const story: Story = {
+        title: outline.title,
+        content: storyContent,
+        word_count: wordCount,
+        metadata: {
+          outline_file: options.contextFile || 'unknown',
+          context_file: outline.metadata.context_file,
+          created_at: new Date().toISOString(),
+          last_modified: new Date().toISOString(),
+          reading_time_minutes: readingTimeMinutes
+        }
+      };
+
+      return story;
+    } catch (error) {
+      errorHandler.logError('Failed to generate story', error, {
+        operation: 'story_generation',
+        filePath: options.contextFile || 'unknown'
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Read and parse outline file
+   */
+  private async readOutlineFile(outlineFile?: string): Promise<StoryOutline> {
+    try {
+      let filePath: string;
+      
+      if (outlineFile) {
+        filePath = path.isAbsolute(outlineFile) ? outlineFile : path.join(this.outlinesPath, outlineFile);
+      } else {
+        // Find the most recent outline file
+        filePath = await this.findMostRecentOutlineFile();
+      }
+
+      if (!await fs.pathExists(filePath)) {
+        throw new Error(`Outline file not found: ${filePath}`);
+      }
+
+      const content = await fs.readFile(filePath, 'utf-8');
+      const outline = yaml.parse(content) as StoryOutline;
+      
+      // Validate outline structure
+      this.validateOutline(outline);
+      
+      return outline;
+    } catch (error) {
+      errorHandler.logError('Failed to read outline file', error, {
+        operation: 'outline_reading',
+        filePath: outlineFile || 'unknown'
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Find the most recent outline file
+   */
+  private async findMostRecentOutlineFile(): Promise<string> {
+    try {
+      const files = await fs.readdir(this.outlinesPath);
+      const yamlFiles = files.filter(file => file.endsWith('.yaml') || file.endsWith('.yml'));
+      
+      if (yamlFiles.length === 0) {
+        throw new Error('No outline files found in outlines directory');
+      }
+
+      // Sort by modification time (most recent first)
+      const fileStats = await Promise.all(
+        yamlFiles.map(async (file) => {
+          const filePath = path.join(this.outlinesPath, file);
+          const stats = await fs.stat(filePath);
+          return { file, filePath, mtime: stats.mtime };
+        })
+      );
+
+      fileStats.sort((a, b) => b.mtime.getTime() - a.mtime.getTime());
+      return fileStats[0]?.filePath || '';
+    } catch (error) {
+      errorHandler.logError('Failed to find most recent outline file', error, {
+        operation: 'outline_file_discovery'
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Validate outline structure
+   */
+  private validateOutline(outline: any): void {
+    const requiredFields = ['title', 'target_audience', 'target_length', 'plot_points'];
+    
+    for (const field of requiredFields) {
+      if (!outline[field]) {
+        throw new Error(`Missing required field in outline: ${field}`);
+      }
+    }
+
+    // Validate target_audience structure
+    if (!outline.target_audience.age_range || !outline.target_audience.reading_level) {
+      throw new Error('Invalid target_audience structure in outline');
+    }
+
+    // Validate target_length structure
+    if (!outline.target_length.min_words || !outline.target_length.max_words || !outline.target_length.final_target) {
+      throw new Error('Invalid target_length structure in outline');
+    }
+
+    // Validate plot_points array
+    if (!Array.isArray(outline.plot_points) || outline.plot_points.length === 0) {
+      throw new Error('Invalid plot_points structure in outline');
+    }
+  }
+
+  /**
+   * Generate story content from outline
+   */
+  private async generateStoryContent(outline: StoryOutline): Promise<string> {
+    try {
+      const storyParts: string[] = [];
+      
+      // Generate introduction
+      const introduction = this.generateIntroduction(outline);
+      storyParts.push(introduction);
+      
+      // Generate main story content from plot points
+      for (const plotPoint of outline.plot_points) {
+        const storySection = await this.generateStorySection(plotPoint, outline);
+        storyParts.push(storySection);
+      }
+      
+      // Generate conclusion
+      const conclusion = this.generateConclusion(outline);
+      storyParts.push(conclusion);
+      
+      return storyParts.join('\n\n');
+    } catch (error) {
+      errorHandler.logError('Failed to generate story content', error, {
+        operation: 'story_content_generation'
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Generate story introduction
+   */
+  private generateIntroduction(outline: StoryOutline): string {
+    const ageRange = outline.target_audience.age_range;
+    const readingLevel = outline.target_audience.reading_level;
+    
+    let introduction = `Once upon a time, in a world filled with wonder and magic, there lived a brave and curious character. `;
+    
+    // Add age-appropriate introduction
+    if (ageRange.includes('5-8')) {
+      introduction += `This is a story about friendship, courage, and the power of believing in yourself. `;
+    } else if (ageRange.includes('8-12')) {
+      introduction += `This is a tale of adventure, discovery, and the importance of standing up for what's right. `;
+    } else {
+      introduction += `This is a story about growth, challenges, and the journey of becoming who you're meant to be. `;
+    }
+    
+    // Add reading level appropriate language
+    if (readingLevel === 'beginner') {
+      introduction += `The story is simple and easy to follow, perfect for young readers. `;
+    } else if (readingLevel === 'intermediate') {
+      introduction += `The story has some challenging words and concepts, but nothing too difficult. `;
+    } else {
+      introduction += `The story explores complex themes and uses rich vocabulary to tell its tale. `;
+    }
+    
+    return introduction.trim();
+  }
+
+  /**
+   * Generate story section from plot point
+   */
+  private async generateStorySection(plotPoint: DetailedPlotPoint, outline: StoryOutline): Promise<string> {
+    const characters = plotPoint.characters.join(' and ');
+    const location = plotPoint.location;
+    const description = plotPoint.description;
+    
+    // Generate narrative based on plot point
+    let section = `${characters} found themselves in ${location}. `;
+    section += `${description} `;
+    
+    // Add character interactions
+    if (plotPoint.characters.length > 1) {
+      section += this.generateCharacterInteraction(plotPoint.characters, outline);
+    }
+    
+    // Add location details
+    section += this.generateLocationDetails(location, outline);
+    
+    // Add plot progression
+    section += this.generatePlotProgression(plotPoint, outline);
+    
+    return section.trim();
+  }
+
+  /**
+   * Generate character interaction
+   */
+  private generateCharacterInteraction(characters: string[], outline: StoryOutline): string {
+    if (characters.length < 2) return '';
+    
+    const mainCharacter = characters[0];
+    const otherCharacter = characters[1];
+    
+    const interactions = [
+      `${mainCharacter} looked at ${otherCharacter} with determination. "We can do this together," they said.`,
+      `${mainCharacter} and ${otherCharacter} exchanged a knowing glance. They both understood what needed to be done.`,
+      `"I trust you," ${mainCharacter} said to ${otherCharacter}. "Let's face this challenge together."`,
+      `${mainCharacter} felt grateful to have ${otherCharacter} by their side during this difficult time.`
+    ];
+    
+    const randomInteraction = interactions[Math.floor(Math.random() * interactions.length)];
+    return ` ${randomInteraction}`;
+  }
+
+  /**
+   * Generate location details
+   */
+  private generateLocationDetails(location: string, outline: StoryOutline): string {
+    const locationDetails = [
+      `The ${location} was filled with mystery and possibility.`,
+      `In the ${location}, every corner held a new surprise.`,
+      `The ${location} seemed to whisper secrets to those who listened carefully.`,
+      `There was something special about the ${location} that made everything feel different.`
+    ];
+    
+    const randomDetail = locationDetails[Math.floor(Math.random() * locationDetails.length)];
+    return ` ${randomDetail}`;
+  }
+
+  /**
+   * Generate plot progression
+   */
+  private generatePlotProgression(plotPoint: DetailedPlotPoint, outline: StoryOutline): string {
+    const totalPoints = outline.plot_points.length;
+    const currentIndex = outline.plot_points.findIndex(p => p.id === plotPoint.id);
+    const position = currentIndex / (totalPoints - 1);
+    
+    if (position < 0.3) {
+      return ` This was just the beginning of their adventure, and they knew there was much more to come.`;
+    } else if (position < 0.7) {
+      return ` The challenges were getting harder, but they were determined to see this through.`;
+    } else {
+      return ` They could feel that the end of their journey was near, and they were ready for whatever came next.`;
+    }
+  }
+
+  /**
+   * Generate story conclusion
+   */
+  private generateConclusion(outline: StoryOutline): string {
+    const ageRange = outline.target_audience.age_range;
+    
+    let conclusion = `And so, the adventure came to an end. `;
+    
+    if (ageRange.includes('5-8')) {
+      conclusion += `The characters had learned valuable lessons about friendship, courage, and believing in themselves. `;
+      conclusion += `They knew that as long as they stuck together and never gave up, they could overcome any challenge. `;
+    } else if (ageRange.includes('8-12')) {
+      conclusion += `Through their journey, they had discovered their inner strength and the importance of standing up for what's right. `;
+      conclusion += `They had grown wiser and more confident, ready to face whatever adventures lay ahead. `;
+    } else {
+      conclusion += `Their journey had taught them about growth, resilience, and the power of determination. `;
+      conclusion += `They had transformed into the people they were meant to be, ready to embrace their future with courage and wisdom. `;
+    }
+    
+    conclusion += `And they all lived happily ever after.`;
+    
+    return conclusion;
+  }
+
+  /**
+   * Calculate word count
+   */
+  private calculateWordCount(content: string): number {
+    return content.split(/\s+/).filter(word => word.length > 0).length;
+  }
+
+  /**
+   * Calculate reading time in minutes
+   */
+  private calculateReadingTime(wordCount: number): number {
+    // Average reading speed: 200 words per minute
+    return Math.ceil(wordCount / 200);
+  }
+
+  /**
+   * Save story to file
+   */
+  public async saveStory(story: Story, filename?: string): Promise<string> {
+    try {
+      const filePath = await this.fileUtils.createStoryFile(story, filename);
+      return filePath;
+    } catch (error) {
+      errorHandler.logError('Failed to save story', error, {
+        operation: 'story_saving',
+        filePath: filename || 'unknown'
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Generate story and save to file
+   */
+  public async generateAndSaveStory(options: WriteAgentOptions): Promise<{ story: Story; filePath: string }> {
+    try {
+      const story = await this.generateStory(options);
+      const filePath = await this.saveStory(story, options.outputPath);
+      
+      return { story, filePath };
+    } catch (error) {
+      errorHandler.logError('Failed to generate and save story', error, {
+        operation: 'story_generation_and_saving',
         filePath: options.contextFile || 'unknown'
       });
       throw error;

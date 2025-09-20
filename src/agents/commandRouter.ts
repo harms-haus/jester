@@ -257,14 +257,7 @@ export class CommandRouter {
         case 'outline':
           return await this.handleWriteOutlineCommand(command);
         case 'story':
-          return {
-            success: true,
-            message: 'Write story command not yet implemented',
-            data: {
-              command: 'write',
-              subcommand: 'story'
-            }
-          };
+          return await this.handleWriteStoryCommand(command);
         default:
           return {
             success: false,
@@ -314,6 +307,44 @@ export class CommandRouter {
       return {
         success: false,
         message: 'Failed to generate outline',
+        error: errorHandler.formatError(error)
+      };
+    }
+  }
+
+  /**
+   * Handle write story command
+   */
+  private async handleWriteStoryCommand(command: Command): Promise<CommandResult> {
+    try {
+      const options: WriteAgentOptions = {};
+      if (command.options.contextFile) {
+        options.contextFile = command.options.contextFile as string;
+      }
+      if (command.options.outputPath) {
+        options.outputPath = command.options.outputPath as string;
+      }
+      if (command.options.template) {
+        options.template = command.options.template as string;
+      }
+
+      // Generate and save story
+      const result = await this.writeAgent.generateAndSaveStory(options);
+      
+      return {
+        success: true,
+        message: `Story generated successfully!`,
+        data: {
+          story: result.story,
+          filePath: result.filePath,
+          wordCount: result.story.word_count,
+          readingTimeMinutes: result.story.metadata.reading_time_minutes
+        }
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: 'Failed to generate story',
         error: errorHandler.formatError(error)
       };
     }
@@ -397,14 +428,17 @@ export class CommandRouter {
     if (commandName === 'write') {
       helpData.usage = '/write <outline|story> [options]';
       helpData.options = {
-        '--contextFile': 'Path to context file (optional, uses most recent if not specified)',
+        '--contextFile': 'Path to context/outline file (optional, uses most recent if not specified)',
         '--outputPath': 'Output file path (optional)',
         '--template': 'Template to use (optional)'
       };
       helpData.examples = [
         '/write outline',
         '/write outline --contextFile="my-story-context.yaml"',
-        '/write outline --outputPath="my-outline.md"'
+        '/write outline --outputPath="my-outline.md"',
+        '/write story',
+        '/write story --contextFile="my-outline.yaml"',
+        '/write story --outputPath="my-story.md"'
       ];
     }
 
