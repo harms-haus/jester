@@ -7,13 +7,16 @@ import { Command, CommandResult, AgentConfig } from '../types/index';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import { errorHandler } from '../utils/errorHandler';
+import { MuseAgent, MuseAgentOptions } from './museAgent';
 
 export class CommandRouter {
   private agents: Map<string, AgentConfig> = new Map();
   private agentPath: string;
+  private museAgent: MuseAgent;
 
   constructor() {
     this.agentPath = path.join(process.cwd(), '.jester', 'agents');
+    this.museAgent = new MuseAgent();
     this.loadAgents();
   }
 
@@ -165,17 +168,25 @@ export class CommandRouter {
 
       const agent = this.agents.get(command.name)!;
       
-      // For now, return success with agent info
-      // In future, this would delegate to actual agent execution
-      return {
-        success: true,
-        message: `Command '${command.name}' routed to ${agent.title}`,
-        data: {
-          agent: agent.name,
-          title: agent.title,
-          commands: agent.commands
-        }
-      };
+      // Route to specific agent implementations
+      switch (command.name) {
+        case 'muse':
+          return await this.handleMuseCommand(command);
+        case 'write':
+          return await this.handleWriteCommand(command);
+        case 'edit':
+          return await this.handleEditCommand(command);
+        default:
+          return {
+            success: true,
+            message: `Command '${command.name}' routed to ${agent.title}`,
+            data: {
+              agent: agent.name,
+              title: agent.title,
+              commands: agent.commands
+            }
+          };
+      }
     } catch (error) {
       return {
         success: false,
@@ -183,6 +194,73 @@ export class CommandRouter {
         error: errorHandler.formatError(error)
       };
     }
+  }
+
+  /**
+   * Handle muse command
+   */
+  private async handleMuseCommand(command: Command): Promise<CommandResult> {
+    try {
+      // Parse options from command arguments
+      const options: MuseAgentOptions = {
+        storyIdea: command.args.join(' ') || undefined,
+        ageRange: command.options.ageRange as string | undefined,
+        readingLevel: command.options.readingLevel as string | undefined,
+        targetLength: command.options.targetLength ? parseInt(command.options.targetLength as string) : undefined,
+        plotTemplate: command.options.plotTemplate as string | undefined,
+        characters: command.options.characters ? (command.options.characters as string).split(',') : undefined,
+        locations: command.options.locations ? (command.options.locations as string).split(',') : undefined,
+        items: command.options.items ? (command.options.items as string).split(',') : undefined,
+        themes: command.options.themes ? (command.options.themes as string).split(',') : undefined,
+        morals: command.options.morals ? (command.options.morals as string).split(',') : undefined
+      };
+
+      // Generate context
+      const context = await this.museAgent.generateContext(options);
+      
+      return {
+        success: true,
+        message: `Story context generated successfully!`,
+        data: {
+          context,
+          filePath: `contexts/context_${new Date().toISOString().split('T')[0]}_*.yaml`
+        }
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: 'Failed to generate story context',
+        error: errorHandler.formatError(error)
+      };
+    }
+  }
+
+  /**
+   * Handle write command (placeholder)
+   */
+  private async handleWriteCommand(command: Command): Promise<CommandResult> {
+    return {
+      success: true,
+      message: 'Write command not yet implemented',
+      data: {
+        command: 'write',
+        subcommand: command.args[0] || 'story'
+      }
+    };
+  }
+
+  /**
+   * Handle edit command (placeholder)
+   */
+  private async handleEditCommand(command: Command): Promise<CommandResult> {
+    return {
+      success: true,
+      message: 'Edit command not yet implemented',
+      data: {
+        command: 'edit',
+        target: command.args[0] || 'unknown'
+      }
+    };
   }
 
   /**
@@ -217,16 +295,38 @@ export class CommandRouter {
       };
     }
 
+    let helpData: any = {
+      name: agent.name,
+      title: agent.title,
+      description: agent.whenToUse,
+      commands: agent.commands,
+      dependencies: agent.dependencies
+    };
+
+    // Add specific help for muse command
+    if (commandName === 'muse') {
+      helpData.usage = '/muse [story idea] [options]';
+      helpData.options = {
+        '--ageRange': 'Target age range (e.g., "5-8", "8-12", "12+")',
+        '--readingLevel': 'Reading level (beginner, intermediate, advanced)',
+        '--targetLength': 'Target word count (number)',
+        '--plotTemplate': 'Plot template (heroes_journey, pixar, golden_circle)',
+        '--characters': 'Comma-separated list of character names',
+        '--locations': 'Comma-separated list of location names',
+        '--items': 'Comma-separated list of item names',
+        '--themes': 'Comma-separated list of themes',
+        '--morals': 'Comma-separated list of morals'
+      };
+      helpData.examples = [
+        '/muse "A brave little mouse" --ageRange="5-8" --plotTemplate="heroes_journey"',
+        '/muse "Space adventure" --characters="Astronaut,Robot,Alien" --themes="Friendship,Exploration"'
+      ];
+    }
+
     return {
       success: true,
       message: `Help for ${agent.title}`,
-      data: {
-        name: agent.name,
-        title: agent.title,
-        description: agent.whenToUse,
-        commands: agent.commands,
-        dependencies: agent.dependencies
-      }
+      data: helpData
     };
   }
 }
