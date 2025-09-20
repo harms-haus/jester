@@ -1,0 +1,52 @@
+# Story Context Template
+# This template defines the structure for story context files
+
+title: "{{STORY_TITLE}}"
+target_audience:
+  age_range: "{{AGE_RANGE}}"  # e.g., "5-8", "8-12", "12+"
+  reading_level: "{{READING_LEVEL}}"  # e.g., "beginner", "intermediate", "advanced"
+
+target_length:
+  min_words: {{MIN_WORDS}}  # e.g., 500
+  max_words: {{MAX_WORDS}}  # e.g., 1500
+  final_target: {{FINAL_TARGET}}  # e.g., 1000
+
+entities:
+  characters:
+    - id: "{{CHARACTER_ID}}"
+      name: "{{CHARACTER_NAME}}"
+      type: "character"
+  locations:
+    - id: "{{LOCATION_ID}}"
+      name: "{{LOCATION_NAME}}"
+      type: "location"
+  items:
+    - id: "{{ITEM_ID}}"
+      name: "{{ITEM_NAME}}"
+      type: "item"
+
+plot_template: "{{PLOT_TEMPLATE}}"  # e.g., "heroes_journey", "pixar", "golden_circle"
+
+plot_points:
+  - id: "{{PLOT_POINT_ID}}"
+    title: "{{PLOT_POINT_TITLE}}"
+    description: "{{PLOT_POINT_DESCRIPTION}}"
+    order: {{PLOT_POINT_ORDER}}
+
+location_progression:
+  - from: "{{FROM_LOCATION}}"
+    to: "{{TO_LOCATION}}"
+    description: "{{TRANSITION_DESCRIPTION}}"
+
+morals:
+  - "{{MORAL_1}}"
+  - "{{MORAL_2}}"
+
+themes:
+  - "{{THEME_1}}"
+  - "{{THEME_2}}"
+
+metadata:
+  created_at: "{{CREATED_AT}}"
+  last_modified: "{{LAST_MODIFIED}}"
+  version: {{VERSION}}

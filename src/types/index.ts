@@ -1,26 +1,84 @@
 /**
- * Core type definitions for the jester system
+ * Core data structures for the jester storytelling system
+ * Based on architecture/data-models.md
  */
+
+export interface EntityReference {
+  id: string;
+  name: string;
+  type: 'character' | 'location' | 'item';
+}
+
+export interface PlotPoint {
+  id: string;
+  title: string;
+  description: string;
+  order: number;
+}
+
+export interface DetailedPlotPoint extends PlotPoint {
+  characters: string[];
+  location: string;
+  estimated_words: number;
+}
+
+export interface LocationTransition {
+  from: string;
+  to: string;
+  description: string;
+}
 
 export interface StoryContext {
   title: string;
-  targetLength: number;
-  audience: {
-    age: number;
-    description: string;
+  target_audience: {
+    age_range: string;
+    reading_level: string;
+  };
+  target_length: {
+    min_words: number;
+    max_words: number;
+    final_target: number;
   };
   entities: {
-    characters: Entity[];
-    locations: Entity[];
-    items: Entity[];
+    characters: EntityReference[];
+    locations: EntityReference[];
+    items: EntityReference[];
   };
-  plotPoints: PlotPoint[];
+  plot_template: string; // 'heroes_journey', 'pixar', 'golden_circle'
+  plot_points: PlotPoint[];
+  location_progression: LocationTransition[];
   morals: string[];
   themes: string[];
   metadata: {
-    createdAt: string;
-    updatedAt: string;
+    created_at: string;
+    last_modified: string;
     version: number;
+  };
+}
+
+export interface StoryOutline {
+  title: string;
+  target_audience: StoryContext['target_audience'];
+  target_length: StoryContext['target_length'];
+  plot_points: DetailedPlotPoint[];
+  estimated_word_count: number;
+  metadata: {
+    context_file: string;
+    created_at: string;
+    last_modified: string;
+  };
+}
+
+export interface Story {
+  title: string;
+  content: string;
+  word_count: number;
+  metadata: {
+    outline_file: string;
+    context_file: string;
+    created_at: string;
+    last_modified: string;
+    reading_time_minutes: number;
   };
 }
 
@@ -29,54 +87,35 @@ export interface Entity {
   name: string;
   type: 'character' | 'location' | 'item';
   description: string;
-  relationships: EntityRelationship[];
-  metadata: {
-    created: string;
-    lastUsed: string;
-    usageCount: number;
-  };
+  properties: Record<string, any>;
+  relationships: string[];
+  last_used: string;
+  usage_count: number;
 }
 
-export interface EntityRelationship {
-  targetId: string;
-  relationshipType: string;
-  description: string;
+// Command system interfaces
+export interface Command {
+  name: string;
+  args: string[];
+  options: Record<string, any>;
 }
 
-export interface PlotPoint {
+export interface CommandResult {
+  success: boolean;
+  message: string;
+  data?: any;
+  error?: string;
+}
+
+export interface AgentConfig {
+  name: string;
   id: string;
   title: string;
-  description: string;
-  order: number;
-  characters: string[];
-  location: string;
-  items: string[];
-}
-
-export interface StoryOutline {
-  title: string;
-  plotPoints: PlotPoint[];
-  targetLength: number;
-  audience: {
-    age: number;
-    description: string;
-  };
-  metadata: {
-    contextFile: string;
-    createdAt: string;
-    updatedAt: string;
-  };
-}
-
-export interface Story {
-  title: string;
-  content: string;
-  wordCount: number;
-  outline: StoryOutline;
-  metadata: {
-    outlineFile: string;
-    createdAt: string;
-    updatedAt: string;
-    version: number;
+  icon: string;
+  whenToUse: string;
+  commands: string[];
+  dependencies: {
+    templates?: string[];
+    data?: string[];
   };
 }
