@@ -1,0 +1,579 @@
+# jester Product Requirements Document (PRD)
+
+## Goals and Background Context
+
+### Goals
+
+- Enable parents to create consistent, personalized bedtime stories through a structured three-stage workflow
+- Maintain character continuity and entity relationships across multiple stories using LightRAG integration
+- Provide AI-assisted story creation while preserving the collaborative human creative process
+- Create a growing library of interconnected stories that evolve with children's development
+- Establish a sustainable workflow that parents can use regularly without technical barriers
+- Demonstrate measurable improvement in story consistency compared to unstructured approaches
+
+### Background Context
+
+jester addresses a critical gap in current bedtime story creation tools. While existing solutions focus on either pre-written stories lacking personalization or simple AI generation missing the collaborative element, parents need a system that provides structure without constraining creativity. The current unstructured approach leads to character inconsistencies, repetitive content, and lost story elements over time.
+
+jester adapts proven software development methodologies (BMAD principles) to create a structured, three-stage storytelling workflow. The system uses specialized AI agents for context gathering and story generation, integrated with LightRAG knowledge graphs to ensure entity consistency and suggest meaningful connections. This approach enables parents to build rich, interconnected story universes that grow with their children while maintaining the collaborative creative process they value.
+
+### Change Log
+
+| Date | Version | Description | Author |
+|------|---------|-------------|---------|
+| 2024-12-19 | 1.0 | Initial PRD creation from project brief | John (PM) |
+
+## Requirements
+
+### Functional
+
+1. **FR1**: The system shall provide a `/muse` command that initiates interactive context gathering for story creation
+2. **FR2**: The `/muse` agent shall query LightRAG knowledge graph to discover existing entities and relationships
+3. **FR3**: The `/muse` agent shall generate structured YAML context files containing entities, plot structure, morals, and metadata
+4. **FR4**: The system shall provide a `/write outline` command that generates detailed story outlines from context files
+5. **FR5**: The `/write outline` command shall propagate metadata (target length, audience) from context to outline
+6. **FR6**: The system shall provide a `/write story` command that converts outlines into complete bedtime stories
+7. **FR7**: The `/write story` command shall generate stories at the target length specified in the outline metadata
+8. **FR8**: The system shall provide an `/edit` command for cross-stage editing of outlines and stories
+9. **FR9**: The system shall maintain a strict file pipeline: YAML context → Markdown outline → Markdown story
+10. **FR10**: The system shall support multiple plot templates (Hero's Journey, Pixar method, Golden Circle)
+11. **FR11**: The system shall integrate with LightRAG via MCP for entity discovery and relationship mapping
+12. **FR12**: The system shall prevent context bleeding between pipeline stages (each stage reads only its designated input)
+13. **FR13**: The system shall maintain local markdown files for all entities organized in subdirectories (entities/characters/, entities/locations/, entities/items/)
+14. **FR14**: The system shall create and maintain a local story universe wiki with interconnected entity files using proper wiki-style [[links]]
+15. **FR15**: The system shall use local entity files as the primary source of truth for story generation
+16. **FR16**: The system shall query LightRAG only for relationship discovery and entity connections
+17. **FR17**: The system shall support Obsidian-compatible markdown formatting and linking
+18. **FR18**: The system shall provide fine-grained control over which entity information is available to story generation
+19. **FR19**: The system shall maintain proper [[link]] syntax for bidirectional entity relationships across subdirectories
+20. **FR20**: The system shall organize local files in a structured directory hierarchy:
+    - `entities/characters/` - Character entity files
+    - `entities/locations/` - Location entity files  
+    - `entities/items/` - Item entity files
+    - `stories/` - Generated story files
+    - `outlines/` - Generated outline files
+    - `contexts/` - Generated context files
+21. **FR21**: The system shall organize framework files in a hidden `.jester/` directory structure:
+    - `.jester/agents/` - Agent definitions
+    - `.jester/templates/` - Story and context templates  
+    - `.jester/tasks/` - Reusable workflow tasks
+    - `.jester/data/` - Knowledge base and reference data
+    - `.jester/utils/` - Utility functions and helpers
+22. **FR22**: The system shall expose only user-facing directories in the root:
+    - `entities/` - Entity files (characters/, locations/, items/)
+    - `stories/` - Generated story files
+    - `outlines/` - Generated outline files
+    - `contexts/` - Generated context files
+
+### Non Functional
+
+1. **NFR1**: Token usage costs must remain under $1 per complete story generation (context → outline → story)
+2. **NFR2**: The system shall operate within IDE environments (Cursor, VS Code) with command-line interface
+3. **NFR3**: File operations shall be fast and efficient for pipeline management
+4. **NFR4**: Story generation and information extraction may be slower but must be thorough and accurate
+5. **NFR5**: The system shall maintain character consistency across stories 90% of the time
+6. **NFR6**: The system shall be cross-platform compatible (Windows, macOS, Linux)
+7. **NFR7**: The system shall use prompt-based agents with minimal Python dependencies (only for LightRAG MCP)
+8. **NFR8**: The system shall preserve user privacy by keeping all story content local
+9. **NFR9**: The system shall be maintainable and extensible for future enhancements
+10. **NFR10**: The system shall provide clear error messages and graceful handling of LightRAG query failures
+11. **NFR11**: The system shall maintain local file consistency and prevent broken [[links]] across entity subdirectories
+12. **NFR12**: The system shall provide fast local file operations for entity lookup and story generation
+13. **NFR13**: The system shall support manual LightRAG updates without automatic synchronization
+14. **NFR14**: The system shall maintain clean separation between framework files (hidden) and user content (visible)
+15. **NFR15**: The system shall provide intuitive user experience with minimal visible complexity
+
+## User Interface Design Goals
+
+### Overall UX Vision
+
+jester provides an intuitive, conversational interface that feels natural to parents creating bedtime stories. The system should feel like collaborating with a knowledgeable storytelling partner who understands your family's unique story universe. The command-line interface should be approachable and engaging, with clear prompts and helpful suggestions that guide users through the creative process without overwhelming them.
+
+### Key Interaction Paradigms
+
+- **Conversational Commands**: Simple slash commands (`/muse`, `/write`, `/edit`) that feel natural and memorable
+- **Interactive Dialogue**: The `/muse` agent engages in back-and-forth conversation to explore ideas and discover connections
+- **File-Based Workflow**: Clear visual feedback through file creation and modification in the IDE
+- **Contextual Help**: Built-in guidance and examples that appear when needed
+- **Progressive Disclosure**: Information revealed gradually as users become more comfortable with the system
+
+### Core Screens and Views
+
+- **Command Interface**: Primary interaction point for all agent commands
+- **File Explorer**: IDE file tree showing context.yaml, outline.md, and story.md files
+- **Story Library**: Directory view of generated stories organized by date or theme
+- **LightRAG Query Results**: Display of entity connections and relationships discovered
+- **Edit Interface**: In-place editing capabilities for outlines and stories
+
+### Accessibility: None
+
+jester is designed for personal use by tech-savvy parents in IDE environments, with command-line interface optimized for efficiency and developer workflows.
+
+### Branding
+
+- **Playful yet Professional**: The "jester" name reflects the playful, creative nature of storytelling while maintaining the systematic approach of the tool
+- **Clean and Minimal**: Interface design should be unobtrusive, letting the creative content shine
+- **Family-Friendly**: Visual elements should feel warm and approachable, suitable for bedtime story creation
+
+### Target Device and Platforms: Cross-Platform
+
+- **Primary**: IDE environments (Cursor, VS Code) with command-line interface
+- **Secondary**: Terminal/command-line applications on Windows, macOS, and Linux
+- **Future**: Potential web interface for easier access (post-MVP)
+
+## Technical Assumptions
+
+### Repository Structure: Monorepo
+
+jester will use a monorepo structure containing all agent definitions, templates, tasks, and generated content in a single repository. This approach simplifies development, deployment, and maintenance for a personal project while keeping all related files together.
+
+### Service Architecture
+
+**Prompt-Based Agent System**: jester uses a microservices-inspired architecture with specialized agents (`/muse`, `/write`, `/edit`) that communicate through file-based pipelines. Each agent is a self-contained markdown file with YAML configuration, following BMAD principles. The system uses minimal Python dependencies (only for LightRAG MCP integration) while maintaining pure prompt-based agent behavior.
+
+### Testing Requirements
+
+**Unit + Integration**: The system requires both unit testing for individual agent functions and integration testing for the complete file pipeline workflow. Testing should cover:
+- Agent prompt effectiveness and output quality
+- File pipeline integrity (YAML → Markdown → Markdown)
+- LightRAG integration and query handling
+- Entity file management and [[link]] consistency
+- Cross-platform compatibility
+
+### Additional Technical Assumptions and Requests
+
+- **Markdown Processing**: The system must handle markdown parsing and generation for entity files, stories, and outlines with proper [[wiki-link]] support
+- **File System Operations**: Robust file creation, reading, and modification capabilities with proper error handling
+- **LightRAG MCP Integration**: Python MCP client for querying relationships and entity connections only
+- **Cross-Platform File Paths**: Proper handling of file paths across Windows, macOS, and Linux
+- **Entity File Templates**: Standardized markdown templates for characters, locations, and items with consistent structure
+- **Link Validation**: System to detect and report broken [[links]] in the entity wiki
+- **Directory Management**: Automatic creation and organization of entity subdirectories
+- **Content Versioning**: Basic file versioning for tracking changes to entity files and stories
+
+## Epic List
+
+1. **Epic 1: Foundation & Core Infrastructure** - Establish project setup, agent framework, and basic file pipeline with a simple story generation capability
+2. **Epic 2: Entity Management System** - Create the wiki-style entity file system with subdirectories, markdown templates, and [[link]] support for characters, locations, and items
+3. **Epic 3: LightRAG Integration** - Implement MCP integration for relationship discovery and entity connections while maintaining local files as primary source
+4. **Epic 4: Advanced Story Generation** - Enhance story generation with plot templates, metadata propagation, and cross-stage editing capabilities
+5. **Epic 5: Story Universe Management** - Add story library organization, link validation, and content management for the complete storytelling ecosystem
+
+## Epic 1: Foundation & Core Infrastructure
+
+**Epic Goal**: Establish the fundamental project infrastructure, agent framework, and basic file pipeline that enables simple story generation. This epic delivers a working proof-of-concept that demonstrates the core three-stage workflow (context → outline → story) with minimal functionality, providing the foundation for all subsequent development.
+
+### Story 1.1: Project Setup and Agent Framework
+
+As a **developer**,
+I want **to establish the basic project structure and agent framework**,
+so that **I have a foundation for building the jester storytelling system**.
+
+#### Acceptance Criteria
+
+1. **Project directory structure is created** with agents/, templates/, tasks/, data/, utils/, entities/, stories/, outlines/, and contexts/ directories
+2. **Basic agent files are created** for `/muse`, `/write`, and `/edit` commands following BMAD markdown format with YAML headers
+3. **Agent command system is functional** with basic slash command recognition and routing
+4. **File pipeline structure is established** with placeholder files for context.yaml, outline.md, and story.md
+5. **Basic error handling is implemented** for invalid commands and missing files
+6. **Cross-platform compatibility is verified** on Windows, macOS, and Linux
+7. **README.md is updated** with basic usage instructions and project overview
+
+### Story 1.2: Basic Context Generation
+
+As a **parent creating bedtime stories**,
+I want **to use the `/muse` command to generate basic story context**,
+so that **I can start the story creation process with essential information**.
+
+#### Acceptance Criteria
+
+1. **`/muse` command accepts user input** for story ideas and basic requirements
+2. **Context YAML file is generated** with basic structure including entities, plot, morals, and metadata
+3. **User can specify target audience age** and story length requirements
+4. **Basic plot template selection is available** (Hero's Journey, Pixar method, Golden Circle)
+5. **Context file is saved** to contexts/ directory with timestamp
+6. **Metadata is properly formatted** and includes all required fields
+7. **User receives confirmation** of context file creation with file path
+
+### Story 1.3: Basic Outline Generation
+
+As a **parent creating bedtime stories**,
+I want **to use the `/write outline` command to generate a story outline**,
+so that **I can see the plot structure before generating the full story**.
+
+#### Acceptance Criteria
+
+1. **`/write outline` command reads context YAML file** and generates outline
+2. **Outline Markdown file is created** with plot points and character integration
+3. **Metadata is propagated** from context to outline (target length, audience)
+4. **Plot points are structured** with 2-3 sentence descriptions
+5. **Character roles are integrated** into plot points based on context
+6. **Outline file is saved** to outlines/ directory with timestamp
+7. **User receives confirmation** of outline creation with file path
+
+### Story 1.4: Basic Story Generation
+
+As a **parent creating bedtime stories**,
+I want **to use the `/write story` command to generate a complete story**,
+so that **I can create a bedtime story from the outline**.
+
+#### Acceptance Criteria
+
+1. **`/write story` command reads outline Markdown file** and generates story
+2. **Story Markdown file is created** with complete narrative at target length
+3. **Story includes title and summary** generated from outline content
+4. **Character names and details are consistent** with outline specifications
+5. **Story follows the plot structure** defined in the outline
+6. **Story file is saved** to stories/ directory with timestamp
+7. **User receives confirmation** of story creation with file path
+
+### Story 1.5: Basic Edit Functionality
+
+As a **parent creating bedtime stories**,
+I want **to use the `/edit` command to modify outlines and stories**,
+so that **I can refine the content without regenerating from scratch**.
+
+#### Acceptance Criteria
+
+1. **`/edit` command accepts file path and edit instructions** for outlines and stories
+2. **Edit operations are applied** to the specified file without regeneration
+3. **File integrity is maintained** after edit operations
+4. **User can edit character names, plot points, and story content** directly
+5. **Edit changes are saved** to the original file
+6. **User receives confirmation** of successful edit operations
+7. **Backup files are created** before major edit operations
+
+## Epic 2: Entity Management System
+
+**Epic Goal**: Create a comprehensive wiki-style entity management system with organized subdirectories, markdown templates, and bidirectional [[link]] support. This epic delivers the core entity management functionality that enables parents to build and maintain a rich, interconnected story universe with fine-grained control over entity information.
+
+### Story 2.1: Entity Directory Structure and Templates
+
+As a **parent building a story universe**,
+I want **to have organized entity directories with standardized templates**,
+so that **I can maintain consistent entity information across my story universe**.
+
+#### Acceptance Criteria
+
+1. **Entity subdirectories are created** (entities/characters/, entities/locations/, entities/items/)
+2. **Markdown templates are defined** for each entity type with consistent structure
+3. **Template fields include** name, description, relationships, story appearances, and metadata
+4. **Entity files are created** using templates with proper naming conventions
+5. **Directory structure is maintained** automatically when new entities are added
+6. **Template validation ensures** all required fields are present
+7. **Entity files are properly formatted** with markdown headers and sections
+
+### Story 2.2: Wiki-Style Linking System
+
+As a **parent building a story universe**,
+I want **to create bidirectional links between entities**,
+so that **I can easily navigate relationships and maintain consistency across stories**.
+
+#### Acceptance Criteria
+
+1. **[[wiki-link]] syntax is supported** for entity references in all files
+2. **Bidirectional linking is maintained** between related entities
+3. **Link validation detects** broken or missing entity references
+4. **Link suggestions are provided** when creating new entity relationships
+5. **Entity relationship mapping** shows connected entities and their connections
+6. **Link integrity is preserved** when entities are renamed or moved
+7. **Cross-entity references work** across different entity types (characters, locations, items)
+
+### Story 2.3: Entity Creation and Management
+
+As a **parent building a story universe**,
+I want **to easily create and manage entity files**,
+so that **I can build a rich knowledge base for my stories**.
+
+#### Acceptance Criteria
+
+1. **New entity creation** prompts for required information and generates files
+2. **Entity editing** allows modification of existing entity information
+3. **Entity deletion** removes files and updates all references
+4. **Entity search** finds entities by name, type, or content
+5. **Entity listing** shows all entities organized by type and directory
+6. **Entity validation** ensures consistency and completeness
+7. **Entity backup** creates copies before major changes
+
+### Story 2.4: Entity Integration with Story Generation
+
+As a **parent creating bedtime stories**,
+I want **the story generation to use my entity files**,
+so that **my stories maintain consistency with my established story universe**.
+
+#### Acceptance Criteria
+
+1. **Story generation reads** entity files from local directories
+2. **Entity information is integrated** into story context and generation
+3. **Character consistency** is maintained across all generated stories
+4. **Location details** are used consistently in story descriptions
+5. **Item references** are accurate and consistent with entity definitions
+6. **Entity relationships** influence story plot and character interactions
+7. **Generated stories reference** existing entities using proper [[links]]
+
+### Story 2.5: Entity Relationship Discovery
+
+As a **parent building a story universe**,
+I want **to discover new relationships between entities**,
+so that **I can create more complex and interconnected stories**.
+
+#### Acceptance Criteria
+
+1. **Relationship suggestions** are provided based on entity content and context
+2. **Entity connection mapping** shows potential relationships between entities
+3. **Relationship validation** ensures suggested connections make sense
+4. **Relationship creation** automatically updates both entity files
+5. **Relationship browsing** allows exploration of entity connections
+6. **Relationship statistics** show entity usage and connection patterns
+7. **Relationship export** provides data for external analysis
+
+## Epic 3: LightRAG Integration
+
+**Epic Goal**: Implement MCP integration with LightRAG for relationship discovery and entity connections while maintaining local entity files as the primary source of truth. This epic delivers the AI-powered relationship discovery that enhances the story universe without replacing the local file management system.
+
+### Story 3.1: LightRAG MCP Client Setup
+
+As a **developer implementing jester**,
+I want **to establish LightRAG MCP integration**,
+so that **the system can query the knowledge graph for relationship discovery**.
+
+#### Acceptance Criteria
+
+1. **MCP client is implemented** in Python for LightRAG communication
+2. **Connection configuration** allows specification of LightRAG endpoint and credentials
+3. **Query interface** provides methods for entity and relationship queries
+4. **Error handling** manages connection failures and query errors gracefully
+5. **Response parsing** converts LightRAG responses to usable data structures
+6. **Connection testing** verifies LightRAG accessibility and functionality
+7. **Configuration validation** ensures proper MCP client setup
+
+### Story 3.2: Entity Relationship Discovery
+
+As a **parent building a story universe**,
+I want **to discover new entity relationships through LightRAG**,
+so that **I can find connections I might have missed in my local files**.
+
+#### Acceptance Criteria
+
+1. **LightRAG queries** search for entities similar to local entities
+2. **Relationship suggestions** are generated based on LightRAG knowledge graph
+3. **Entity connections** are discovered between local and LightRAG entities
+4. **Relationship confidence** scores indicate the strength of suggested connections
+5. **Relationship filtering** allows filtering by entity type and connection strength
+6. **Relationship export** saves discovered connections for local use
+7. **Relationship validation** ensures suggested connections make sense
+
+### Story 3.3: LightRAG Query Integration
+
+As a **parent creating bedtime stories**,
+I want **the system to query LightRAG for relevant entities**,
+so that **my stories can include discovered characters, locations, and items**.
+
+#### Acceptance Criteria
+
+1. **Context generation** queries LightRAG for relevant entities during `/muse` command
+2. **Entity suggestions** are provided based on story context and requirements
+3. **Entity filtering** allows selection of relevant entities from LightRAG results
+4. **Entity integration** incorporates selected entities into local story context
+5. **Entity validation** ensures suggested entities fit the story requirements
+6. **Entity export** saves selected entities to local entity files
+7. **Query optimization** minimizes LightRAG queries while maximizing relevance
+
+### Story 3.4: LightRAG Data Synchronization
+
+As a **parent maintaining a story universe**,
+I want **to sync local entity changes with LightRAG**,
+so that **my knowledge graph stays updated with my story universe**.
+
+#### Acceptance Criteria
+
+1. **Manual sync trigger** allows user to initiate LightRAG updates
+2. **Entity export** sends local entity changes to LightRAG
+3. **Sync validation** ensures data integrity before and after sync
+4. **Sync logging** tracks what changes were sent to LightRAG
+5. **Sync conflict resolution** handles conflicts between local and LightRAG data
+6. **Sync rollback** allows undoing sync operations if needed
+7. **Sync status** shows current sync state and pending changes
+
+### Story 3.5: LightRAG Query Optimization
+
+As a **parent using jester regularly**,
+I want **LightRAG queries to be efficient and cost-effective**,
+so that **the system remains practical for regular use**.
+
+#### Acceptance Criteria
+
+1. **Query caching** stores frequently used LightRAG responses locally
+2. **Query batching** combines multiple queries to reduce LightRAG calls
+3. **Query optimization** uses the most efficient LightRAG query types
+4. **Cost tracking** monitors LightRAG usage and costs
+5. **Query limits** prevent excessive LightRAG usage
+6. **Offline mode** allows operation without LightRAG when needed
+7. **Performance monitoring** tracks query response times and success rates
+
+## Epic 4: Advanced Story Generation
+
+**Epic Goal**: Enhance story generation with plot templates, metadata propagation, and cross-stage editing capabilities to create sophisticated, consistent bedtime stories that leverage the full entity management system. This epic delivers the advanced storytelling features that make jester a powerful creative tool.
+
+### Story 4.1: Plot Template System
+
+As a **parent creating bedtime stories**,
+I want **to choose from different plot templates**,
+so that **I can create stories with varied structures and pacing**.
+
+#### Acceptance Criteria
+
+1. **Plot template selection** is available during context generation
+2. **Hero's Journey template** provides 12-stage story structure
+3. **Pixar method template** offers 6-stage emotional story arc
+4. **Golden Circle template** delivers 3-act story structure
+5. **Template customization** allows modification of template stages
+6. **Template validation** ensures plot points are properly structured
+7. **Template export** saves custom templates for reuse
+
+### Story 4.2: Metadata Propagation System
+
+As a **parent creating bedtime stories**,
+I want **metadata to flow correctly through the pipeline**,
+so that **my stories maintain consistent target length and audience information**.
+
+#### Acceptance Criteria
+
+1. **Context metadata** includes target length, audience age, and story requirements
+2. **Outline metadata** inherits and preserves context metadata
+3. **Story metadata** maintains target length and audience information
+4. **Metadata validation** ensures consistency across pipeline stages
+5. **Metadata editing** allows modification at any pipeline stage
+6. **Metadata export** provides metadata summary for review
+7. **Metadata templates** allow saving common metadata configurations
+
+### Story 4.3: Cross-Stage Editing System
+
+As a **parent creating bedtime stories**,
+I want **to edit content at any stage without regeneration**,
+so that **I can refine stories efficiently and maintain creative control**.
+
+#### Acceptance Criteria
+
+1. **Outline editing** allows modification of plot points and character integration
+2. **Story editing** enables direct modification of story content and structure
+3. **Character editing** updates character information across all stages
+4. **Plot editing** modifies story structure while maintaining consistency
+5. **Edit validation** ensures changes don't break story coherence
+6. **Edit history** tracks changes made to each file
+7. **Edit rollback** allows undoing changes if needed
+
+### Story 4.4: Advanced Character Integration
+
+As a **parent creating bedtime stories**,
+I want **characters to be deeply integrated into stories**,
+so that **my stories feel rich and consistent with my story universe**.
+
+#### Acceptance Criteria
+
+1. **Character consistency** is maintained across all story stages
+2. **Character relationships** influence story plot and interactions
+3. **Character development** shows growth and change over time
+4. **Character dialogue** reflects individual personality and speech patterns
+5. **Character actions** are consistent with established character traits
+6. **Character integration** uses local entity files as primary source
+7. **Character validation** ensures character information is accurate
+
+### Story 4.5: Story Quality Enhancement
+
+As a **parent creating bedtime stories**,
+I want **stories to be polished and engaging**,
+so that **my children enjoy the stories and want to hear more**.
+
+#### Acceptance Criteria
+
+1. **Story pacing** is appropriate for target audience age
+2. **Story language** is engaging and age-appropriate
+3. **Story structure** follows chosen plot template effectively
+4. **Story coherence** maintains logical flow and consistency
+5. **Story engagement** includes elements that capture attention
+6. **Story validation** checks for common issues and inconsistencies
+7. **Story enhancement** suggests improvements for better quality
+
+## Epic 5: Story Universe Management
+
+**Epic Goal**: Add comprehensive story library organization, link validation, and content management to create a complete storytelling ecosystem that enables parents to manage and maintain their growing story universe effectively. This epic delivers the management tools that make jester a sustainable long-term solution.
+
+### Story 5.1: Story Library Organization
+
+As a **parent with many stories**,
+I want **to organize and browse my story collection**,
+so that **I can easily find and manage my growing story universe**.
+
+#### Acceptance Criteria
+
+1. **Story categorization** organizes stories by theme, character, or date
+2. **Story search** finds stories by title, content, or character
+3. **Story tagging** allows custom tags for organization
+4. **Story filtering** shows stories by various criteria
+5. **Story sorting** orders stories by date, title, or custom criteria
+6. **Story grouping** groups related stories together
+7. **Story export** provides organized story collections
+
+### Story 5.2: Link Validation System
+
+As a **parent maintaining a story universe**,
+I want **to detect and fix broken links**,
+so that **my entity relationships remain consistent and navigable**.
+
+#### Acceptance Criteria
+
+1. **Link scanning** detects all [[wiki-links]] in entity and story files
+2. **Link validation** checks if linked entities exist and are accessible
+3. **Broken link reporting** shows which links are broken and where
+4. **Link fixing** suggests corrections for broken links
+5. **Link updating** automatically updates links when entities are renamed
+6. **Link statistics** shows link usage and relationship patterns
+7. **Link export** provides link relationship data for analysis
+
+### Story 5.3: Story Universe Analytics
+
+As a **parent building a story universe**,
+I want **to understand how my story universe is growing**,
+so that **I can make informed decisions about future stories**.
+
+#### Acceptance Criteria
+
+1. **Git log analysis** reads repository history to track entity and story changes
+2. **Entity usage statistics** show which entities appear most frequently based on git history
+3. **Story creation patterns** reveal when and how often stories are created from git commits
+4. **Character development tracking** shows how characters evolve over time using git diff analysis
+5. **Relationship mapping** visualizes entity connections and relationships from git history
+6. **Content analysis** provides insights into story themes and patterns using git log data
+7. **Growth metrics** track the expansion of the story universe through git commit analysis
+
+### Story 5.4: Maintenance Check System
+
+As a **parent maintaining a story universe**,
+I want **to run maintenance checks on demand**,
+so that **my story universe stays organized and consistent**.
+
+#### Acceptance Criteria
+
+1. **`/edit check` command** runs comprehensive maintenance checks
+2. **Orphaned file detection** finds files that are no longer referenced
+3. **Unused file detection** identifies files that haven't been used recently
+4. **Entity consistency validation** checks entity information accuracy
+5. **Story consistency validation** verifies story coherence and structure
+6. **Duplicate detection** finds and reports duplicate content
+7. **Maintenance reporting** shows what changes were made and what issues were found
+
+## Checklist Results Report
+
+*This section will be populated after running the PM checklist validation.*
+
+## Next Steps
+
+### UX Expert Prompt
+
+This section will contain the prompt for the UX Expert, keep it short and to the point to initiate create architecture mode using this document as input.
+
+### Architect Prompt
+
+This section will contain the prompt for the Architect, keep it short and to the point to initiate create architecture mode using this document as input.
+W
