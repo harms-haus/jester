@@ -23,13 +23,13 @@ async function main() {
       console.log('Commands:');
       console.log('  /muse [story-idea]     Start a new story brainstorming session');
       console.log('  /write <type>          Generate outline or story from context');
-      console.log('  /edit <action>         Edit existing story elements');
+      console.log('  /edit <file> <instructions>  Edit existing story files');
       console.log('');
       console.log('Examples:');
       console.log('  jester /muse "A brave little mouse goes on an adventure"');
       console.log('  jester /write outline');
       console.log('  jester /write story');
-      console.log('  jester /edit character --name="Mouse" --description="Brave and curious"');
+      console.log('  jester /edit "story.md" "replace: title -> New Title"');
       return;
     }
 

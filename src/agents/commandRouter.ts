@@ -9,17 +9,20 @@ import * as path from 'path';
 import { errorHandler } from '../utils/errorHandler.js';
 import { MuseAgent, MuseAgentOptions } from './museAgent.js';
 import { WriteAgent, WriteAgentOptions } from './writeAgent.js';
+import { EditAgent, EditAgentOptions } from './editAgent.js';
 
 export class CommandRouter {
   private agents: Map<string, AgentConfig> = new Map();
   private agentPath: string;
   private museAgent: MuseAgent;
   private writeAgent: WriteAgent;
+  private editAgent: EditAgent;
 
   constructor() {
     this.agentPath = path.join(process.cwd(), '.jester', 'agents');
     this.museAgent = new MuseAgent();
     this.writeAgent = new WriteAgent();
+    this.editAgent = new EditAgent();
     this.loadAgents();
   }
 
@@ -124,7 +127,8 @@ export class CommandRouter {
    * Parse command string into Command object
    */
   public parseCommand(commandString: string): Command {
-    const parts = commandString.trim().split(/\s+/);
+    // Parse command with proper quote handling
+    const parts = this.parseCommandWithQuotes(commandString);
     if (parts.length === 0) {
       throw new Error('Empty command string');
     }
@@ -153,6 +157,41 @@ export class CommandRouter {
       args: filteredArgs,
       options
     };
+  }
+
+  /**
+   * Parse command string with proper quote handling
+   */
+  private parseCommandWithQuotes(commandString: string): string[] {
+    const parts: string[] = [];
+    let current = '';
+    let inQuotes = false;
+    let quoteChar = '';
+
+    for (let i = 0; i < commandString.length; i++) {
+      const char = commandString[i];
+      
+      if ((char === '"' || char === "'") && !inQuotes) {
+        inQuotes = true;
+        quoteChar = char;
+      } else if (char === quoteChar && inQuotes) {
+        inQuotes = false;
+        quoteChar = '';
+      } else if (char === ' ' && !inQuotes) {
+        if (current.trim()) {
+          parts.push(current.trim());
+          current = '';
+        }
+      } else {
+        current += char;
+      }
+    }
+    
+    if (current.trim()) {
+      parts.push(current.trim());
+    }
+    
+    return parts;
   }
 
   /**
@@ -351,17 +390,44 @@ export class CommandRouter {
   }
 
   /**
-   * Handle edit command (placeholder)
+   * Handle edit command
    */
   private async handleEditCommand(command: Command): Promise<CommandResult> {
-    return {
-      success: true,
-      message: 'Edit command not yet implemented',
-      data: {
-        command: 'edit',
-        target: command.args[0] || 'unknown'
+    try {
+      const filePath = command.args[0];
+      const editInstructions = command.args.slice(1).join(' ');
+
+      if (!filePath) {
+        return {
+          success: false,
+          message: 'File path is required for edit command',
+          error: 'Usage: /edit <file_path> "edit_instructions" [options]'
+        };
       }
-    };
+
+      if (!editInstructions) {
+        return {
+          success: false,
+          message: 'Edit instructions are required',
+          error: 'Usage: /edit <file_path> "edit_instructions" [options]'
+        };
+      }
+
+      const options: EditAgentOptions = {
+        filePath,
+        editInstructions,
+        createBackup: command.options.noBackup !== true,
+        validateAfterEdit: command.options.noValidate !== true
+      };
+
+      return await this.editAgent.editFile(options);
+    } catch (error) {
+      return {
+        success: false,
+        message: 'Edit command failed',
+        error: errorHandler.formatError(error)
+      };
+    }
   }
 
   /**
@@ -439,6 +505,26 @@ export class CommandRouter {
         '/write story',
         '/write story --contextFile="my-outline.yaml"',
         '/write story --outputPath="my-story.md"'
+      ];
+    }
+
+    // Add specific help for edit command
+    if (commandName === 'edit') {
+      helpData.usage = '/edit <file_path> "edit_instructions" [options]';
+      helpData.options = {
+        '--noBackup': 'Skip creating backup file before editing',
+        '--noValidate': 'Skip file validation after editing'
+      };
+      helpData.instructions = {
+        'replace: <target> -> <new_value>': 'Replace target text with new value',
+        'add: <property> -> <value>': 'Add value to array property',
+        'remove: <property> -> <value>': 'Remove value from array property',
+        'update: <property> -> <new_value>': 'Update property value'
+      };
+      helpData.examples = [
+        '/edit "my-story.yaml" "replace: title -> A New Adventure"',
+        '/edit "outline.md" "add: characters -> New Character"',
+        '/edit "story.md" "update: plot_point.1.description -> Updated description"'
       ];
     }
 
