@@ -10,6 +10,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { AgentDefinition, AgentLoader } from './agentLoader.js';
+import { LightRAGService, createLightRAGService } from '../services/lightragService.js';
 
 export interface AgentResponse {
   success: boolean;
@@ -22,10 +23,12 @@ export interface AgentResponse {
 export class AgentExecutor {
   private agentLoader: AgentLoader;
   private projectRoot: string;
+  private lightragService: LightRAGService;
 
   constructor(projectRoot: string = process.cwd()) {
     this.projectRoot = projectRoot;
     this.agentLoader = new AgentLoader(path.join(projectRoot, '.jester/agents'));
+    this.lightragService = createLightRAGService();
   }
 
   /**
@@ -86,6 +89,8 @@ export class AgentExecutor {
           };
         }
         return await this.executeEntityCommand('/entity', args);
+      } else if (command === '/lightrag') {
+        return await this.handleLightRAGCommand(args);
       } else {
         return {
           success: false,
@@ -264,6 +269,16 @@ export class AgentExecutor {
       };
     }
 
+    // Try to enhance context with LightRAG if available
+    let lightragEnhancement = null;
+    try {
+      if (await this.lightragService.isAvailable()) {
+        lightragEnhancement = await this.lightragService.enhanceStoryContext(storyIdea, {});
+      }
+    } catch (error) {
+      console.warn('[Muse Agent] LightRAG enhancement failed, continuing without it:', error);
+    }
+
     // Return prompt-based response with file operation instructions
     return {
       success: true,
@@ -271,7 +286,11 @@ export class AgentExecutor {
       data: {
         storyIdea,
         agent: 'Muse',
-        status: 'Ready to generate context'
+        status: 'Ready to generate context',
+        lightragEnhancement: lightragEnhancement ? {
+          entities: lightragEnhancement.entities.slice(0, 3),
+          relationships: lightragEnhancement.relationships.slice(0, 3)
+        } : null
       },
       nextSteps: [
         'I will create a context YAML file with the following structure:',
@@ -281,6 +300,8 @@ export class AgentExecutor {
         'targetLength: "5-10 minutes"',
         'themes: [Adventure, Friendship, Courage]',
         'characters: [Main Character, Helper Character]',
+        lightragEnhancement ? `lightragEntities: [${lightragEnhancement.entities.map(e => e.name).join(', ')}]` : '',
+        lightragEnhancement ? `lightragRelationships: [${lightragEnhancement.relationships.map(r => `${r.source} -> ${r.target}`).join(', ')}]` : '',
         'settings: [Magical Forest, Home]',
         'plotTemplate: "Hero\'s Journey"',
         'metadata: {createdAt, createdBy, version}',
@@ -514,10 +535,46 @@ export class AgentExecutor {
   }
 
   private async handleEntitySearch(args: string[]): Promise<AgentResponse> {
+    const searchQuery = args.join(' ');
+    if (!searchQuery) {
+      return {
+        success: false,
+        message: 'Please specify what to search for',
+        nextSteps: ['Use /entity search "your search query" to find entities']
+      };
+    }
+
+    // Try to search with LightRAG if available
+    let lightragResults = null;
+    try {
+      if (await this.lightragService.isAvailable()) {
+        const entities = await this.lightragService.searchEntities(searchQuery, 5);
+        const relationships = await this.lightragService.searchRelationships(searchQuery, undefined, 3);
+        lightragResults = { entities, relationships };
+      }
+    } catch (error) {
+      console.warn('[Entity Agent] LightRAG search failed, continuing without it:', error);
+    }
+
     return {
       success: true,
-      message: '🏗️ Entity Manager: I can search for entities in your story universe.',
-      nextSteps: ['Please specify what to search for']
+      message: `🏗️ Entity Manager: Searching for entities related to "${searchQuery}"`,
+      data: {
+        searchQuery,
+        lightragResults: lightragResults ? {
+          entities: lightragResults.entities,
+          relationships: lightragResults.relationships
+        } : null
+      },
+      nextSteps: [
+        'I will search through your story universe for relevant entities:',
+        lightragResults ? `Found ${lightragResults.entities.length} entities:` : 'Searching local entity files:',
+        lightragResults ? lightragResults.entities.map(e => `- ${e.name} (${e.type}): ${e.description}`).join('\n') : '',
+        lightragResults && lightragResults.relationships.length > 0 ? `Found ${lightragResults.relationships.length} relationships:` : '',
+        lightragResults ? lightragResults.relationships.map(r => `- ${r.source} -> ${r.target}: ${r.description}`).join('\n') : '',
+        'I will also check local entity files in entities/ directory',
+        'Use /entity create to add new entities if needed'
+      ]
     };
   }
 
@@ -527,6 +584,185 @@ export class AgentExecutor {
       message: '🏗️ Entity Manager: I can create a backup of an entity.',
       nextSteps: ['Please specify which entity to backup']
     };
+  }
+
+  // LightRAG Command Handlers
+  private async handleLightRAGCommand(args: string[]): Promise<AgentResponse> {
+    if (args.length === 0) {
+      return await this.handleLightRAGStatus();
+    }
+
+    const subcommand = args[0];
+    switch (subcommand) {
+      case 'status':
+        return await this.handleLightRAGStatus();
+      case 'search':
+        return await this.handleLightRAGSearch(args.slice(1));
+      case 'entities':
+        return await this.handleLightRAGEntities();
+      case 'relationships':
+        return await this.handleLightRAGRelationships(args.slice(1));
+      case 'health':
+        return await this.handleLightRAGHealth();
+      default:
+        return {
+          success: false,
+          message: `Unknown LightRAG command: ${subcommand}`,
+          nextSteps: ['Use /lightrag status, /lightrag search, /lightrag entities, or /lightrag relationships']
+        };
+    }
+  }
+
+  private async handleLightRAGStatus(): Promise<AgentResponse> {
+    const status = this.lightragService.getStatus();
+    const isAvailable = await this.lightragService.isAvailable();
+
+    return {
+      success: true,
+      message: `🔍 LightRAG Status: ${isAvailable ? 'Connected' : 'Disconnected'}`,
+      data: {
+        enabled: status.enabled,
+        healthy: status.healthy,
+        fallbackMode: status.fallbackMode,
+        available: isAvailable
+      },
+      nextSteps: [
+        `Service enabled: ${status.enabled}`,
+        `Service healthy: ${status.healthy}`,
+        `Fallback mode: ${status.fallbackMode}`,
+        `Currently available: ${isAvailable}`,
+        'Use /lightrag search "query" to search for entities',
+        'Use /lightrag entities to list entity types',
+        'Use /lightrag relationships "entity" to find relationships'
+      ]
+    };
+  }
+
+  private async handleLightRAGSearch(args: string[]): Promise<AgentResponse> {
+    const query = args.join(' ');
+    if (!query) {
+      return {
+        success: false,
+        message: 'Please provide a search query',
+        nextSteps: ['Use /lightrag search "your search query" to search for entities']
+      };
+    }
+
+    try {
+      const entities = await this.lightragService.searchEntities(query, 10);
+      const relationships = await this.lightragService.searchRelationships(query, undefined, 5);
+
+      return {
+        success: true,
+        message: `🔍 LightRAG Search Results for "${query}"`,
+        data: {
+          query,
+          entities,
+          relationships
+        },
+        nextSteps: [
+          `Found ${entities.length} entities:`,
+          entities.map(e => `- ${e.name} (${e.type}): ${e.description}`).join('\n'),
+          relationships.length > 0 ? `Found ${relationships.length} relationships:` : '',
+          relationships.map(r => `- ${r.source} -> ${r.target}: ${r.description}`).join('\n')
+        ]
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: 'LightRAG search failed',
+        error: error instanceof Error ? error.message : String(error),
+        nextSteps: ['Check LightRAG service status with /lightrag status']
+      };
+    }
+  }
+
+  private async handleLightRAGEntities(): Promise<AgentResponse> {
+    try {
+      const entityLabels = await this.lightragService.getEntityLabels();
+
+      return {
+        success: true,
+        message: '🔍 LightRAG Entity Types',
+        data: {
+          entityLabels
+        },
+        nextSteps: [
+          'Available entity types:',
+          entityLabels.map(e => `- ${e.name} (${e.type}): ${e.count} entities - ${e.description}`).join('\n')
+        ]
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: 'Failed to get entity types',
+        error: error instanceof Error ? error.message : String(error),
+        nextSteps: ['Check LightRAG service status with /lightrag status']
+      };
+    }
+  }
+
+  private async handleLightRAGRelationships(args: string[]): Promise<AgentResponse> {
+    const entity = args.join(' ');
+    if (!entity) {
+      return {
+        success: false,
+        message: 'Please specify an entity to find relationships for',
+        nextSteps: ['Use /lightrag relationships "entity name" to find relationships']
+      };
+    }
+
+    try {
+      const relationships = await this.lightragService.searchRelationships(entity, undefined, 10);
+
+      return {
+        success: true,
+        message: `🔍 LightRAG Relationships for "${entity}"`,
+        data: {
+          entity,
+          relationships
+        },
+        nextSteps: [
+          `Found ${relationships.length} relationships:`,
+          relationships.map(r => `- ${r.source} -> ${r.target}: ${r.description} (weight: ${r.weight})`).join('\n')
+        ]
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: 'Failed to get relationships',
+        error: error instanceof Error ? error.message : String(error),
+        nextSteps: ['Check LightRAG service status with /lightrag status']
+      };
+    }
+  }
+
+  private async handleLightRAGHealth(): Promise<AgentResponse> {
+    try {
+      const isAvailable = await this.lightragService.isAvailable();
+      const status = this.lightragService.getStatus();
+
+      return {
+        success: true,
+        message: `🔍 LightRAG Health Check: ${isAvailable ? 'Healthy' : 'Unhealthy'}`,
+        data: {
+          available: isAvailable,
+          status
+        },
+        nextSteps: [
+          `Service available: ${isAvailable}`,
+          `Service enabled: ${status.enabled}`,
+          `Service healthy: ${status.healthy}`,
+          `Fallback mode: ${status.fallbackMode}`
+        ]
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: 'LightRAG health check failed',
+        error: error instanceof Error ? error.message : String(error)
+      };
+    }
   }
 
   /**
@@ -550,6 +786,10 @@ export class AgentExecutor {
     helpText += '  jester /write story\n';
     helpText += '  jester /edit "story.md" "replace: title -> New Title"\n';
     helpText += '  jester /entity create character "Brave Mouse"\n';
+    helpText += '  jester /lightrag status\n';
+    helpText += '  jester /lightrag search "magical forest"\n';
+    helpText += '  jester /lightrag entities\n';
+    helpText += '  jester /lightrag relationships "hero"\n';
     
     return {
       success: true,
