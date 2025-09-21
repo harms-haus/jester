@@ -10,6 +10,7 @@ import { errorHandler } from '../utils/errorHandler.js';
 import { MuseAgent, MuseAgentOptions } from './museAgent.js';
 import { WriteAgent, WriteAgentOptions } from './writeAgent.js';
 import { EditAgent, EditAgentOptions } from './editAgent.js';
+import { EntityAgent, EntityAgentOptions } from './entityAgent.js';
 
 export class CommandRouter {
   private agents: Map<string, AgentConfig> = new Map();
@@ -17,12 +18,14 @@ export class CommandRouter {
   private museAgent: MuseAgent;
   private writeAgent: WriteAgent;
   private editAgent: EditAgent;
+  private entityAgent: EntityAgent;
 
   constructor() {
     this.agentPath = path.join(process.cwd(), '.jester', 'agents');
     this.museAgent = new MuseAgent();
     this.writeAgent = new WriteAgent();
     this.editAgent = new EditAgent();
+    this.entityAgent = new EntityAgent();
     this.loadAgents();
   }
 
@@ -272,6 +275,8 @@ export class CommandRouter {
           return await this.handleWriteCommand(command);
         case 'edit':
           return await this.handleEditCommand(command);
+        case 'entity':
+          return await this.handleEntityCommand(command);
         default:
           return {
             success: true,
@@ -485,6 +490,155 @@ export class CommandRouter {
   }
 
   /**
+   * Handle entity command
+   */
+  private async handleEntityCommand(command: Command): Promise<CommandResult> {
+    try {
+      const subcommand = command.args[0];
+      
+      if (!subcommand) {
+        return {
+          success: false,
+          message: 'Entity command requires a subcommand',
+          error: 'Usage: /entity <create|list|get|validate> [options]'
+        };
+      }
+
+      switch (subcommand) {
+        case 'create':
+          return await this.handleEntityCreateCommand(command);
+        case 'list':
+          return await this.handleEntityListCommand(command);
+        case 'get':
+          return await this.handleEntityGetCommand(command);
+        case 'validate':
+          return await this.handleEntityValidateCommand(command);
+        default:
+          return {
+            success: false,
+            message: `Unknown entity subcommand: ${subcommand}`,
+            error: 'Available subcommands: create, list, get, validate'
+          };
+      }
+    } catch (error) {
+      return {
+        success: false,
+        message: 'Entity command failed',
+        error: errorHandler.formatError(error)
+      };
+    }
+  }
+
+  /**
+   * Handle entity create command
+   */
+  private async handleEntityCreateCommand(command: Command): Promise<CommandResult> {
+    try {
+      const entityType = command.args[1] as 'character' | 'location' | 'item';
+      const entityName = command.args[2];
+
+      if (!entityType || !entityName) {
+        return {
+          success: false,
+          message: 'Entity type and name are required',
+          error: 'Usage: /entity create <character|location|item> <name> [options]'
+        };
+      }
+
+      const options: EntityAgentOptions = {
+        entityType,
+        entityName,
+        templateData: command.options
+      };
+
+      return await this.entityAgent.createEntity(options);
+    } catch (error) {
+      return {
+        success: false,
+        message: 'Failed to create entity',
+        error: errorHandler.formatError(error)
+      };
+    }
+  }
+
+  /**
+   * Handle entity list command
+   */
+  private async handleEntityListCommand(command: Command): Promise<CommandResult> {
+    try {
+      const entityType = command.args[1] as 'character' | 'location' | 'item';
+
+      if (!entityType) {
+        return {
+          success: false,
+          message: 'Entity type is required',
+          error: 'Usage: /entity list <character|location|item>'
+        };
+      }
+
+      return await this.entityAgent.listEntities(entityType);
+    } catch (error) {
+      return {
+        success: false,
+        message: 'Failed to list entities',
+        error: errorHandler.formatError(error)
+      };
+    }
+  }
+
+  /**
+   * Handle entity get command
+   */
+  private async handleEntityGetCommand(command: Command): Promise<CommandResult> {
+    try {
+      const entityType = command.args[1] as 'character' | 'location' | 'item';
+      const entityName = command.args[2];
+
+      if (!entityType || !entityName) {
+        return {
+          success: false,
+          message: 'Entity type and name are required',
+          error: 'Usage: /entity get <character|location|item> <name>'
+        };
+      }
+
+      return await this.entityAgent.getEntity(entityType, entityName);
+    } catch (error) {
+      return {
+        success: false,
+        message: 'Failed to get entity',
+        error: errorHandler.formatError(error)
+      };
+    }
+  }
+
+  /**
+   * Handle entity validate command
+   */
+  private async handleEntityValidateCommand(command: Command): Promise<CommandResult> {
+    try {
+      const entityType = command.args[1] as 'character' | 'location' | 'item';
+      const entityName = command.args[2];
+
+      if (!entityType || !entityName) {
+        return {
+          success: false,
+          message: 'Entity type and name are required',
+          error: 'Usage: /entity validate <character|location|item> <name>'
+        };
+      }
+
+      return await this.entityAgent.validateEntity(entityType, entityName);
+    } catch (error) {
+      return {
+        success: false,
+        message: 'Failed to validate entity',
+        error: errorHandler.formatError(error)
+      };
+    }
+  }
+
+  /**
    * Get help information for all commands
    */
   public getHelp(): CommandResult {
@@ -579,6 +733,34 @@ export class CommandRouter {
         '/edit "my-story.yaml" "replace: title -> A New Adventure"',
         '/edit "outline.md" "add: characters -> New Character"',
         '/edit "story.md" "update: plot_point.1.description -> Updated description"'
+      ];
+    }
+
+    // Add specific help for entity command
+    if (commandName === 'entity') {
+      helpData.usage = '/entity <create|list|get|validate> [options]';
+      helpData.subcommands = {
+        'create <type> <name>': 'Create a new entity (character, location, or item)',
+        'list <type>': 'List all entities of a specific type',
+        'get <type> <name>': 'Get information about a specific entity',
+        'validate <type> <name>': 'Validate an entity file'
+      };
+      helpData.options = {
+        '--type': 'Entity type (character, location, item)',
+        '--name': 'Entity name',
+        '--description': 'Entity description',
+        '--age': 'Character age (for characters)',
+        '--species': 'Character species (for characters)',
+        '--climate': 'Location climate (for locations)',
+        '--rarity': 'Item rarity (for items)'
+      };
+      helpData.examples = [
+        '/entity create character "Brave Mouse" --age="5" --species="Mouse"',
+        '/entity create location "Enchanted Forest" --climate="Temperate"',
+        '/entity create item "Magic Sword" --rarity="Legendary"',
+        '/entity list characters',
+        '/entity get character "Brave Mouse"',
+        '/entity validate character "Brave Mouse"'
       ];
     }
 

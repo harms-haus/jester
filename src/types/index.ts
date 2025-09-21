@@ -93,6 +93,135 @@ export interface Entity {
   usage_count: number;
 }
 
+// Entity management interfaces
+export interface Character {
+  name: string;
+  type: string;
+  age: string;
+  species: string;
+  description: string;
+  personality_traits: string[];
+  motivations: string[];
+  fears: string[];
+  family_relationships: string[];
+  friend_relationships: string[];
+  enemy_relationships: string[];
+  first_story: string;
+  recent_story: string;
+  story_count: number;
+  physical_description: string;
+  clothing_style: string;
+  distinctive_features: string[];
+  special_powers: string[];
+  skills: string[];
+  weaknesses: string[];
+  backstory: string;
+  additional_notes: string;
+  metadata: {
+    created_at: string;
+    last_modified: string;
+    version: number;
+  };
+}
+
+export interface Location {
+  name: string;
+  type: string;
+  climate: string;
+  size: string;
+  description: string;
+  terrain_features: string[];
+  landmarks: string[];
+  natural_resources: string[];
+  atmosphere_feeling: string;
+  sounds: string[];
+  smells: string[];
+  lighting: string;
+  primary_residents: string[];
+  visitors: string[];
+  creatures: string[];
+  historical_events: string[];
+  cultural_significance: string;
+  myths_legends: string[];
+  first_story: string;
+  recent_story: string;
+  story_count: number;
+  nearby_locations: string[];
+  access_routes: string[];
+  transportation: string[];
+  magical_properties: string[];
+  technological_features: string[];
+  unique_aspects: string[];
+  additional_notes: string;
+  metadata: {
+    created_at: string;
+    last_modified: string;
+    version: number;
+  };
+}
+
+export interface Item {
+  name: string;
+  type: string;
+  rarity: string;
+  value: string;
+  description: string;
+  size: string;
+  weight: string;
+  material: string;
+  color: string;
+  shape: string;
+  primary_use: string;
+  secondary_uses: string[];
+  how_it_works: string;
+  magical_properties: string[];
+  enchantments: string[];
+  powers: string[];
+  limitations: string[];
+  creator: string;
+  creation_date: string;
+  original_purpose: string;
+  previous_owners: string[];
+  current_owner: string;
+  current_location: string;
+  condition: string;
+  availability: string;
+  first_story: string;
+  recent_story: string;
+  story_count: number;
+  associated_characters: string[];
+  associated_locations: string[];
+  related_items: string[];
+  symbolic_meaning: string;
+  cultural_importance: string;
+  traditions: string[];
+  additional_notes: string;
+  metadata: {
+    created_at: string;
+    last_modified: string;
+    version: number;
+  };
+}
+
+export interface EntityTemplate {
+  type: 'character' | 'location' | 'item';
+  template: string;
+  required_fields: string[];
+  optional_fields: string[];
+}
+
+export interface EntityFile {
+  path: string;
+  name: string;
+  type: 'character' | 'location' | 'item';
+  content: string;
+  metadata: {
+    created_at: string;
+    last_modified: string;
+    version: number;
+  };
+}
+
 // Command system interfaces
 export interface Command {
   name: string;
