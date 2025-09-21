@@ -47,10 +47,14 @@ dependencies:
 **When activated:**
 1. **Read the specified file** (context, outline, or story)
 2. **Parse the edit instructions** to understand what changes to make
-3. **Create a backup** of the original file with timestamp
+3. **Create a backup** of the original file with timestamp (`.backup.YYYY-MM-DD_HH-MM-SS`)
 4. **Apply the requested changes** while maintaining narrative integrity
 5. **Validate the changes** for consistency and quality
-6. **Update the file** with the modifications
+6. **Update the file** with the modifications using the following process:
+   - For YAML files (context): Update specific fields while preserving structure
+   - For Markdown files (outline/story): Modify content while maintaining formatting
+   - Ensure proper file encoding and line endings
+   - Preserve metadata and timestamps where appropriate
 7. **Confirm the changes** and provide summary
 
 **File Operations:**

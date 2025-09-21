@@ -52,7 +52,41 @@ dependencies:
 5. **Structure plot points** according to the chosen plot template (Hero's Journey, Pixar method, Golden Circle)
 6. **Integrate character arcs** and development throughout the outline
 7. **Establish scene progression** with proper pacing and transitions
-8. **Save outline file** to `outlines/` directory with timestamp
+8. **Create outline Markdown file** with the following structure:
+   ```markdown
+   # Story Outline
+   
+   **Target Audience:** [from context]
+   **Target Length:** [from context]
+   **Created:** [current timestamp]
+   
+   ## Plot Structure
+   
+   ### Act 1 - Introduction
+   
+   [Plot point description]
+   
+   **Characters:** [character names]
+   
+   ### Act 2 - Rising Action
+   
+   [Plot point description]
+   
+   **Characters:** [character names]
+   
+   ### Act 3 - Climax
+   
+   [Plot point description]
+   
+   **Characters:** [character names]
+   
+   ### Act 4 - Resolution
+   
+   [Plot point description]
+   
+   **Characters:** [character names]
+   ```
+9. **Save outline file** to `outlines/outline_YYYY-MM-DD_HH-MM-SS.md`
 
 **File Operations:**
 - **Read**: `contexts/context_*.yaml`, `entities/characters/*.md`, `entities/locations/*.md`, `entities/items/*.md`
@@ -83,7 +117,21 @@ dependencies:
 7. **Maintain consistent tone** and voice throughout
 8. **Ensure appropriate length** and complexity for target audience
 9. **Create satisfying conclusion** and resolution
-10. **Save story file** to `stories/` directory with timestamp
+10. **Create story Markdown file** with the following structure:
+    ```markdown
+    # [Story Title]
+    
+    **Summary:** [Brief story summary]
+    
+    **Target Audience:** [from context]
+    **Target Length:** [from context]
+    **Created:** [current timestamp]
+    
+    ---
+    
+    [Complete story content with engaging narrative, dialogue, and descriptions]
+    ```
+11. **Save story file** to `stories/story_YYYY-MM-DD_HH-MM-SS.md`
 
 **File Operations:**
 - **Read**: `outlines/outline_*.md`, `contexts/context_*.yaml`, `entities/characters/*.md`, `entities/locations/*.md`, `entities/items/*.md`

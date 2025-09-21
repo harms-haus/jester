@@ -63,7 +63,30 @@ dependencies:
 4. **Create character profiles** with motivations, relationships, and growth arcs
 5. **Establish settings** with rich, immersive descriptions
 6. **Develop plot foundation** with clear themes and morals
-7. **Save context file** to `contexts/` directory with timestamp
+7. **Create context YAML file** with the following structure:
+   ```yaml
+   ---
+   storyIdea: "[user's story idea]"
+   targetAudience: "Children (ages 4-8)"
+   targetLength: "5-10 minutes"
+   themes:
+     - "Adventure"
+     - "Friendship"
+     - "Courage"
+   characters:
+     - "Main Character"
+     - "Helper Character"
+   settings:
+     - "Magical Forest"
+     - "Home"
+   plotTemplate: "Hero's Journey"
+   metadata:
+     createdAt: "[current timestamp]"
+     createdBy: "Muse Agent"
+     version: "1.0"
+   ---
+   ```
+8. **Save context file** to `contexts/context_YYYY-MM-DD_HH-MM-SS.yaml`
 
 **File Operations:**
 - **Read**: `entities/characters/*.md`, `entities/locations/*.md`, `entities/items/*.md`
@@ -98,8 +121,29 @@ dependencies:
 1. **Analyze existing story context** or ask for story details
 2. **Suggest character archetypes** based on story needs
 3. **Create character profiles** using character template
-4. **Save new characters** to `entities/characters/` directory
-5. **Update context file** with new character references
+4. **Create character Markdown file** with the following structure:
+   ```markdown
+   # [Character Name]
+   
+   **Type:** character
+   **Created:** [current timestamp]
+   
+   ## Description
+   
+   [Character description with personality, appearance, and background]
+   
+   ## Relationships
+   
+   - [[Related Character 1]]
+   - [[Related Character 2]]
+   
+   ## Story Appearances
+   
+   - [Story 1]
+   - [Story 2]
+   ```
+5. **Save new characters** to `entities/characters/[character-name].md`
+6. **Update context file** with new character references
 
 ### Command: `/muse suggest-settings`
 
@@ -107,8 +151,29 @@ dependencies:
 1. **Analyze story context** for setting requirements
 2. **Suggest location ideas** based on story themes
 3. **Create location profiles** using location template
-4. **Save new locations** to `entities/locations/` directory
-5. **Update context file** with new location references
+4. **Create location Markdown file** with the following structure:
+   ```markdown
+   # [Location Name]
+   
+   **Type:** location
+   **Created:** [current timestamp]
+   
+   ## Description
+   
+   [Location description with atmosphere, details, and significance]
+   
+   ## Relationships
+   
+   - [[Related Location 1]]
+   - [[Related Character 1]]
+   
+   ## Story Appearances
+   
+   - [Story 1]
+   - [Story 2]
+   ```
+5. **Save new locations** to `entities/locations/[location-name].md`
+6. **Update context file** with new location references
 
 ### Command: `/muse suggest-themes`
 

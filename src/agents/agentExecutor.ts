@@ -264,7 +264,7 @@ export class AgentExecutor {
       };
     }
 
-    // For now, return a placeholder response
+    // Return prompt-based response with file operation instructions
     return {
       success: true,
       message: `🎭 Muse Agent: I'm excited to help you create a story context for "${storyIdea}"!`,
@@ -274,10 +274,19 @@ export class AgentExecutor {
         status: 'Ready to generate context'
       },
       nextSteps: [
-        'I need more information about your target audience',
-        'What age is your child?',
-        'How long should the story be?',
-        'What themes or morals should it explore?'
+        'I will create a context YAML file with the following structure:',
+        '---',
+        'storyIdea: "[your story idea]"',
+        'targetAudience: "Children (ages 4-8)"',
+        'targetLength: "5-10 minutes"',
+        'themes: [Adventure, Friendship, Courage]',
+        'characters: [Main Character, Helper Character]',
+        'settings: [Magical Forest, Home]',
+        'plotTemplate: "Hero\'s Journey"',
+        'metadata: {createdAt, createdBy, version}',
+        '---',
+        'I will save this to contexts/context_YYYY-MM-DD_HH-MM-SS.yaml',
+        'Use /write outline to generate a story outline next'
       ]
     };
   }
@@ -319,7 +328,28 @@ export class AgentExecutor {
     return {
       success: true,
       message: '✍️ Write Agent: I can generate a story outline from your context.',
-      nextSteps: ['I need to find your most recent context file first']
+      nextSteps: [
+        'I will find the most recent context file in contexts/ directory',
+        'I will create an outline Markdown file with this structure:',
+        '# Story Outline',
+        '**Target Audience:** [from context]',
+        '**Target Length:** [from context]',
+        '**Created:** [current timestamp]',
+        '## Plot Structure',
+        '### Act 1 - Introduction',
+        '[Plot point description]',
+        '**Characters:** [character names]',
+        '### Act 2 - Rising Action',
+        '[Plot point description]',
+        '**Characters:** [character names]',
+        '### Act 3 - Climax',
+        '[Plot point description]',
+        '**Characters:** [character names]',
+        '### Act 4 - Resolution',
+        '[Plot point description]',
+        '**Characters:** [character names]',
+        'I will save this to outlines/outline_YYYY-MM-DD_HH-MM-SS.md'
+      ]
     };
   }
 
@@ -327,7 +357,18 @@ export class AgentExecutor {
     return {
       success: true,
       message: '✍️ Write Agent: I can generate a complete story from your outline.',
-      nextSteps: ['I need to find your most recent outline file first']
+      nextSteps: [
+        'I will find the most recent outline file in outlines/ directory',
+        'I will create a story Markdown file with this structure:',
+        '# [Story Title]',
+        '**Summary:** [Brief story summary]',
+        '**Target Audience:** [from context]',
+        '**Target Length:** [from context]',
+        '**Created:** [current timestamp]',
+        '---',
+        '[Complete story content with engaging narrative, dialogue, and descriptions]',
+        'I will save this to stories/story_YYYY-MM-DD_HH-MM-SS.md'
+      ]
     };
   }
 
@@ -398,14 +439,36 @@ export class AgentExecutor {
       };
     }
 
-    const [type, name] = args;
+    const type = args[0];
+    const name = args.slice(1).join(' ');
+    
+    // Validate entity type
+    if (!type || !name || !['character', 'location', 'item'].includes(type.toLowerCase())) {
+      return {
+        success: false,
+        message: 'Invalid entity type',
+        error: 'Entity type must be character, location, or item',
+        nextSteps: ['Use /entity create character <name> or /entity create location <name> or /entity create item <name>']
+      };
+    }
+
     return {
       success: true,
       message: `🏗️ Entity Manager: I can create a new ${type} named "${name}".`,
       nextSteps: [
-        `I need more information about this ${type}`,
-        'What are their key characteristics?',
-        'How do they fit into your story universe?'
+        `I will create a ${type} Markdown file with this structure:`,
+        `# ${name}`,
+        `**Type:** ${type}`,
+        `**Created:** [current timestamp]`,
+        `## Description`,
+        `[${type} description with details and background]`,
+        `## Relationships`,
+        `- [[Related Entity 1]]`,
+        `- [[Related Entity 2]]`,
+        `## Story Appearances`,
+        `- [Story 1]`,
+        `- [Story 2]`,
+        `I will save this to entities/${type}s/${name.toLowerCase().replace(/\s+/g, '-')}.md`
       ]
     };
   }
