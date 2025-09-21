@@ -15,11 +15,12 @@ This document outlines the technical architecture for **jester**, a prompt-based
 
 ### Core Principles
 
-1. **Prompt-Based Agents**: All agent behavior defined through structured prompts, no custom code
-2. **File-Based Pipeline**: Agents communicate through structured files (YAML, Markdown)
+1. **Prompt-Based Agents**: All agent behavior defined through structured prompt rules that external LLM agents follow
+2. **File-Based Pipeline**: LLM agents communicate through structured files (YAML, Markdown) as instructed by prompt rules
 3. **User-in-the-Loop**: Human editing at each stage for quality control
 4. **Local-First**: All user content stored locally with optional cloud sync
-5. **Knowledge Graph Integration**: LightRAG provides entity relationships and discovery
+5. **Knowledge Graph Integration**: LightRAG provides entity relationships and discovery via MCP client
+6. **Prompt Engineering**: Development produces markdown prompt rule files, not executable code
 
 ## Platform and Infrastructure
 
@@ -41,19 +42,18 @@ This document outlines the technical architecture for **jester**, a prompt-based
 
 ### Technology Stack
 
-**Core Runtime**: Node.js with TypeScript  
-**Agent Framework**: Prompt-based (no custom agent code)  
-**Knowledge Graph**: LightRAG with OpenAPI integration  
-**File Management**: Node.js file system + Git  
+**Core Runtime**: External LLM agents following prompt rules  
+**Agent Framework**: Markdown prompt rule files (BMAD pattern)  
+**Knowledge Graph**: LightRAG with OpenAPI integration via MCP client  
+**File Management**: LLM agents performing file operations per prompt rules  
 **Configuration**: YAML files  
-**Templates**: YAML with prompt injection  
+**Templates**: YAML with prompt injection for LLM agents  
 
 **Dependencies**:
-- `@types/node` - TypeScript definitions
-- `axios` - HTTP client for LightRAG API
-- `yaml` - YAML parsing and generation
-- `fs-extra` - Enhanced file system operations
-- `git-js` - Git operations for analytics
+- **MCP Client Only**: Python MCP client for LightRAG API integration
+- **Prompt Rules**: Markdown files with YAML configuration (BMAD pattern)
+- **Templates**: YAML/Markdown templates for LLM agent use
+- **External LLM**: Any LLM capable of following prompt rules and performing file operations
 
 ## Data Models
 
@@ -373,44 +373,44 @@ class LightRAGClientImpl implements LightRAGClient {
 ### Core Components
 
 **1. Agent System**
-- **Purpose**: Orchestrates the 3-stage story generation workflow
-- **Technology**: Prompt-based agents (no custom code)
+- **Purpose**: Orchestrates the 3-stage story generation workflow through prompt rules
+- **Technology**: Markdown prompt rule files following BMAD pattern
 - **Key Agents**:
-  - `/muse` (Story Context Agent): Interactive context gathering and entity discovery
-  - `/write` (Story Generation Agent): Outline and story generation
-  - `/edit` (Cross-Stage Editor): Content modification and maintenance
-- **Communication**: File-based pipeline (YAML → Markdown → Markdown)
-- **Dependencies**: LightRAG MCP client, local file system
+  - `/muse` (Story Context Agent): Prompt rules for context gathering and entity discovery (Analyst role)
+  - `/write` (Story Generation Agent): Prompt rules for outline and story generation (Dev role)
+  - `/edit` (Cross-Stage Editor): Prompt rules for content modification and maintenance (QA role)
+- **Communication**: LLM agents follow prompt rules to use file-based pipeline (YAML → Markdown → Markdown)
+- **Dependencies**: LightRAG MCP client, external LLM capable of file operations
 
 **2. LightRAG MCP Client**
 - **Purpose**: Provides structured access to knowledge graph entities and relationships
-- **Technology**: TypeScript/Node.js with OpenAPI integration
+- **Technology**: Python MCP client with OpenAPI integration
 - **Key Features**:
   - Entity discovery and relationship queries
   - Structured data retrieval for story context
   - Graph management and entity validation
   - Local caching and offline mode support
-- **Dependencies**: LightRAG service, local file system
+- **Dependencies**: LightRAG service, Python runtime
 
-**3. File System Manager**
-- **Purpose**: Manages local markdown files and directory structure
-- **Technology**: Node.js file system operations
+**3. File System Operations**
+- **Purpose**: LLM agents perform file operations as instructed by prompt rules
+- **Technology**: External LLM agents following prompt instructions
 - **Key Features**:
-  - Entity file management (characters/, locations/, items/)
-  - Story file management (stories/, outlines/, contexts/)
-  - Wiki-style link parsing and validation
-  - Git integration for versioning and analytics
-- **Dependencies**: Git, local file system
+  - Entity file management (characters/, locations/, items/) via LLM operations
+  - Story file management (stories/, outlines/, contexts/) via LLM operations
+  - Wiki-style link parsing and validation via LLM operations
+  - Git integration for versioning and analytics via LLM operations
+- **Dependencies**: External LLM, Git, local file system
 
 **4. Template System**
-- **Purpose**: Provides structured templates for story generation
-- **Technology**: YAML templates with prompt injection
+- **Purpose**: Provides structured templates for LLM agents to use in story generation
+- **Technology**: YAML/Markdown templates referenced by prompt rules
 - **Key Features**:
   - Plot template management (Hero's Journey, Pixar method, etc.)
   - Story context templates
   - Entity relationship templates
-  - Customizable prompt structures
-- **Dependencies**: Local file system
+  - Customizable prompt structures for LLM agents
+- **Dependencies**: Local file system, prompt rules
 
 ### Supporting Components
 
@@ -448,53 +448,53 @@ class LightRAGClientImpl implements LightRAGClient {
 
 **Data Flow**:
 1. User initiates `/muse` command
-2. Story Context Agent queries LightRAG for entities
-3. Context file generated and saved to `contexts/`
+2. External LLM follows Muse prompt rules to query LightRAG for entities
+3. LLM generates context file and saves to `contexts/` per prompt instructions
 4. User edits context file
 5. User runs `/write outline`
-6. Story Generation Agent reads context, generates outline
-7. Outline saved to `outlines/`
+6. External LLM follows Write prompt rules to read context, generate outline
+7. LLM saves outline to `outlines/` per prompt instructions
 8. User runs `/write story`
-9. Story Generation Agent reads outline, generates story
-10. Story saved to `stories/`
+9. External LLM follows Write prompt rules to read outline, generate story
+10. LLM saves story to `stories/` per prompt instructions
 11. User runs `/edit` commands as needed
-12. Analytics Engine tracks changes via Git
+12. External LLM follows Edit prompt rules to track changes via Git
 
 **Error Handling**:
-- LightRAG connection failures → Offline mode with cached data
-- File system errors → Graceful degradation with user notification
-- Validation failures → Detailed error messages with suggested fixes
-- Agent failures → Fallback to manual editing mode
+- LightRAG connection failures → Prompt rules instruct LLM to use offline mode with cached data
+- File system errors → Prompt rules instruct LLM to provide graceful degradation with user notification
+- Validation failures → Prompt rules instruct LLM to provide detailed error messages with suggested fixes
+- LLM failures → Prompt rules provide fallback to manual editing mode instructions
 
 ## Architectural Patterns
 
 ### Agent-Based Architecture
 
-**Pattern**: Specialized agents with specific responsibilities  
+**Pattern**: Specialized prompt rules for different LLM agent roles  
 **Benefits**: Clear separation of concerns, easy to extend and modify  
-**Implementation**: Prompt-based agents with file-based communication  
-**Trade-offs**: Requires careful prompt engineering, limited programmatic control  
+**Implementation**: Markdown prompt rule files (BMAD pattern) with file-based communication  
+**Trade-offs**: Requires careful prompt engineering, relies on LLM compliance  
 
 ### File-Based Pipeline
 
-**Pattern**: Agents communicate through structured files  
+**Pattern**: LLM agents communicate through structured files per prompt instructions  
 **Benefits**: Human-readable intermediate results, easy debugging  
-**Implementation**: YAML for context, Markdown for outlines and stories  
-**Trade-offs**: File I/O overhead, potential race conditions  
+**Implementation**: YAML for context, Markdown for outlines and stories via LLM operations  
+**Trade-offs**: Relies on LLM file operations, potential consistency issues  
 
 ### Local-First Storage
 
 **Pattern**: All user data stored locally with optional cloud sync  
 **Benefits**: Privacy, offline operation, complete control  
-**Implementation**: Git for versioning, local file system for storage  
-**Trade-offs**: No automatic backup, requires manual sync management  
+**Implementation**: Git for versioning, local file system for storage via LLM operations  
+**Trade-offs**: No automatic backup, requires manual sync management, relies on LLM file operations  
 
 ### Knowledge Graph Integration
 
 **Pattern**: External knowledge graph for entity relationships  
 **Benefits**: Rich entity discovery, relationship mapping  
-**Implementation**: LightRAG OpenAPI integration with local caching  
-**Trade-offs**: External dependency, potential latency  
+**Implementation**: LightRAG OpenAPI integration via MCP client, prompt rules instruct LLM to use cached data  
+**Trade-offs**: External dependency, potential latency, relies on LLM to follow prompt instructions  
 
 ## Security Considerations
 
@@ -590,8 +590,8 @@ class LightRAGClientImpl implements LightRAGClient {
 
 ## Conclusion
 
-The jester architecture provides a robust, local-first solution for interactive bedtime story generation. By combining prompt-based agents with LightRAG knowledge graph integration and local file storage, the system offers flexibility, privacy, and extensibility while maintaining simplicity and user control.
+The jester architecture provides a robust, local-first solution for interactive bedtime story generation. By combining markdown prompt rule files (BMAD pattern) with LightRAG knowledge graph integration and local file storage, the system offers flexibility, privacy, and extensibility while maintaining simplicity and user control.
 
-The file-based pipeline ensures human-readable intermediate results and easy debugging, while the specialized agents provide clear separation of concerns. The LightRAG integration enables rich entity discovery and relationship mapping, while local storage ensures complete privacy and control over personal content.
+The file-based pipeline ensures human-readable intermediate results and easy debugging, while the specialized prompt rules provide clear separation of concerns for external LLM agents. The LightRAG integration enables rich entity discovery and relationship mapping, while local storage ensures complete privacy and control over personal content.
 
-This architecture supports the core requirements of interactive story generation, entity management, and long-term growth with children, while providing a foundation for future enhancements and integrations.
+This architecture supports the core requirements of interactive story generation, entity management, and long-term growth with children, while providing a foundation for future enhancements and integrations. The prompt-based approach allows for easy modification and extension without requiring code changes, making it accessible to non-programmers while maintaining the structured approach of BMAD principles.

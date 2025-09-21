@@ -1,21 +1,21 @@
 # Epic 1: Foundation & Core Infrastructure
 
-**Epic Goal**: Establish the fundamental project infrastructure, agent framework, and basic file pipeline that enables simple story generation. This epic delivers a working proof-of-concept that demonstrates the core three-stage workflow (context → outline → story) with minimal functionality, providing the foundation for all subsequent development.
+**Epic Goal**: Establish the fundamental project infrastructure, prompt rule framework, and basic file pipeline that enables simple story generation. This epic delivers a working proof-of-concept that demonstrates the core three-stage workflow (context → outline → story) with minimal functionality through markdown prompt rules that external LLM agents can follow, providing the foundation for all subsequent development.
 
 ## Story 1.1: Project Setup and Agent Framework
 
-As a **developer**,
-I want **to establish the basic project structure and agent framework**,
-so that **I have a foundation for building the jester storytelling system**.
+As a **prompt engineer**,
+I want **to establish the basic project structure and prompt rule framework**,
+so that **I have a foundation for building the jester storytelling system through markdown prompt rules**.
 
 ### Acceptance Criteria
 
-1. **Project directory structure is created** with agents/, templates/, tasks/, data/, utils/, entities/, stories/, outlines/, and contexts/ directories
-2. **Basic agent files are created** for `/muse`, `/write`, and `/edit` commands following BMAD markdown format with YAML headers
-3. **Agent command system is functional** with basic slash command recognition and routing
-4. **File pipeline structure is established** with placeholder files for context.yaml, outline.md, and story.md
-5. **Basic error handling is implemented** for invalid commands and missing files
-6. **Cross-platform compatibility is verified** on Windows, macOS, and Linux
+1. **Project directory structure is created** with .jester/agents/, .jester/templates/, .jester/tasks/, .jester/data/, .jester/utils/, entities/, stories/, outlines/, and contexts/ directories
+2. **Basic prompt rule files are created** for `/muse`, `/write`, and `/edit` commands following BMAD markdown format with YAML headers
+3. **Prompt rule system is functional** with clear instructions for external LLM agents to follow
+4. **File pipeline structure is established** with templates for context.yaml, outline.md, and story.md
+5. **Basic error handling is implemented** through prompt rules for invalid commands and missing files
+6. **Cross-platform compatibility is verified** through prompt rules for Windows, macOS, and Linux
 7. **README.md is updated** with basic usage instructions and project overview
 
 ## Story 1.2: Basic Context Generation

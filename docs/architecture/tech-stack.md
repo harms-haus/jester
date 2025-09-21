@@ -2,28 +2,28 @@
 
 ## Core Technologies
 
-- **Runtime**: Node.js with TypeScript
-- **Package Manager**: npm
+- **Runtime**: External LLM agents following prompt rules
+- **Prompt Framework**: Markdown files with YAML configuration (BMAD pattern)
 - **Version Control**: Git
-- **File System**: Node.js fs module with fs-extra
+- **File System**: LLM agents performing file operations per prompt instructions
 
 ## Dependencies
 
-- **@types/node**: TypeScript definitions for Node.js
-- **axios**: HTTP client for LightRAG API calls
-- **yaml**: YAML parsing and generation
-- **fs-extra**: Enhanced file system operations
-- **git-js**: Git operations for analytics
+- **MCP Client Only**: Python MCP client for LightRAG API integration
+- **Prompt Rules**: Markdown files with YAML configuration (BMAD pattern)
+- **Templates**: YAML/Markdown templates for LLM agent use
+- **External LLM**: Any LLM capable of following prompt rules and performing file operations
 
 ## Development Tools
 
-- **TypeScript**: Static type checking
-- **ESLint**: Code linting and formatting
-- **Prettier**: Code formatting
-- **Jest**: Unit testing framework
+- **Prompt Engineering**: Markdown editing for prompt rule development
+- **YAML Validation**: Template and configuration validation
+- **Markdown Linting**: Prompt rule formatting and structure validation
+- **LLM Testing**: Prompt rule effectiveness validation
 
 ## External Services
 
 - **LightRAG**: Knowledge graph service for entity relationships
-- **OpenAPI**: REST API integration
+- **MCP Client**: Python client for LightRAG OpenAPI integration
 - **Git**: Version control and analytics
+- **External LLM**: Any LLM service capable of following prompt rules and performing file operations

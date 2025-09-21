@@ -3,44 +3,44 @@
 ## Core Components
 
 **1. Agent System**
-- **Purpose**: Orchestrates the 3-stage story generation workflow
-- **Technology**: Prompt-based agents (no custom code)
+- **Purpose**: Orchestrates the 3-stage story generation workflow through prompt rules
+- **Technology**: Markdown prompt rule files following BMAD pattern
 - **Key Agents**:
-  - `/muse` (Story Context Agent): Interactive context gathering and entity discovery
-  - `/write` (Story Generation Agent): Outline and story generation
-  - `/edit` (Cross-Stage Editor): Content modification and maintenance
-- **Communication**: File-based pipeline (YAML → Markdown → Markdown)
-- **Dependencies**: LightRAG MCP client, local file system
+  - `/muse` (Story Context Agent): Prompt rules for context gathering and entity discovery (Analyst role)
+  - `/write` (Story Generation Agent): Prompt rules for outline and story generation (Dev role)
+  - `/edit` (Cross-Stage Editor): Prompt rules for content modification and maintenance (QA role)
+- **Communication**: LLM agents follow prompt rules to use file-based pipeline (YAML → Markdown → Markdown)
+- **Dependencies**: LightRAG MCP client, external LLM capable of file operations
 
 **2. LightRAG MCP Client**
 - **Purpose**: Provides structured access to knowledge graph entities and relationships
-- **Technology**: TypeScript/Node.js with OpenAPI integration
+- **Technology**: Python MCP client with OpenAPI integration
 - **Key Features**:
   - Entity discovery and relationship queries
   - Structured data retrieval for story context
   - Graph management and entity validation
   - Local caching and offline mode support
-- **Dependencies**: LightRAG service, local file system
+- **Dependencies**: LightRAG service, Python runtime
 
-**3. File System Manager**
-- **Purpose**: Manages local markdown files and directory structure
-- **Technology**: Node.js file system operations
+**3. File System Operations**
+- **Purpose**: LLM agents perform file operations as instructed by prompt rules
+- **Technology**: External LLM agents following prompt instructions
 - **Key Features**:
-  - Entity file management (characters/, locations/, items/)
-  - Story file management (stories/, outlines/, contexts/)
-  - Wiki-style link parsing and validation
-  - Git integration for versioning and analytics
-- **Dependencies**: Git, local file system
+  - Entity file management (characters/, locations/, items/) via LLM operations
+  - Story file management (stories/, outlines/, contexts/) via LLM operations
+  - Wiki-style link parsing and validation via LLM operations
+  - Git integration for versioning and analytics via LLM operations
+- **Dependencies**: External LLM, Git, local file system
 
 **4. Template System**
-- **Purpose**: Provides structured templates for story generation
-- **Technology**: YAML templates with prompt injection
+- **Purpose**: Provides structured templates for LLM agents to use in story generation
+- **Technology**: YAML/Markdown templates referenced by prompt rules
 - **Key Features**:
   - Plot template management (Hero's Journey, Pixar method, etc.)
   - Story context templates
   - Entity relationship templates
-  - Customizable prompt structures
-- **Dependencies**: Local file system
+  - Customizable prompt structures for LLM agents
+- **Dependencies**: Local file system, prompt rules
 
 ## Supporting Components
 
@@ -78,20 +78,20 @@
 
 **Data Flow**:
 1. User initiates `/muse` command
-2. Story Context Agent queries LightRAG for entities
-3. Context file generated and saved to `contexts/`
+2. External LLM follows Muse prompt rules to query LightRAG for entities
+3. LLM generates context file and saves to `contexts/` per prompt instructions
 4. User edits context file
 5. User runs `/write outline`
-6. Story Generation Agent reads context, generates outline
-7. Outline saved to `outlines/`
+6. External LLM follows Write prompt rules to read context, generate outline
+7. LLM saves outline to `outlines/` per prompt instructions
 8. User runs `/write story`
-9. Story Generation Agent reads outline, generates story
-10. Story saved to `stories/`
+9. External LLM follows Write prompt rules to read outline, generate story
+10. LLM saves story to `stories/` per prompt instructions
 11. User runs `/edit` commands as needed
-12. Analytics Engine tracks changes via Git
+12. External LLM follows Edit prompt rules to track changes via Git
 
 **Error Handling**:
-- LightRAG connection failures → Offline mode with cached data
-- File system errors → Graceful degradation with user notification
-- Validation failures → Detailed error messages with suggested fixes
-- Agent failures → Fallback to manual editing mode
+- LightRAG connection failures → Prompt rules instruct LLM to use offline mode with cached data
+- File system errors → Prompt rules instruct LLM to provide graceful degradation with user notification
+- Validation failures → Prompt rules instruct LLM to provide detailed error messages with suggested fixes
+- LLM failures → Prompt rules provide fallback to manual editing mode instructions

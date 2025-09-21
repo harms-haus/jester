@@ -40,7 +40,7 @@ Bedtime stories are crucial for child development, family bonding, and creating 
 ## Proposed Solution
 
 **Core Concept and Approach:**
-jester adapts proven software development methodologies (specifically BMAD principles) to create a structured, three-stage bedtime story creation workflow. The system uses specialized AI agents with distinct roles: a context-gathering agent (`/muse`) that collaborates with parents to explore ideas and discover entity connections, and a generation agent (`/write`) that creates outlines and stories from structured inputs.
+jester adapts proven software development methodologies (specifically BMAD principles) to create a structured, three-stage bedtime story creation workflow. The system uses specialized external LLM agents with distinct roles: a context-gathering agent (`/muse`) that collaborates with parents to explore ideas and discover entity connections, and a generation agent (`/write`) that creates outlines and stories from structured inputs. These agents follow markdown prompt rule files that define their behavior and responsibilities.
 
 **Key Differentiators from Existing Solutions:**
 - **Collaborative AI Partnership**: Unlike pre-written stories or pure AI generation, jester maintains the human creative process while adding AI assistance
@@ -48,6 +48,7 @@ jester adapts proven software development methodologies (specifically BMAD princ
 - **Entity Continuity**: LightRAG knowledge graph integration ensures character consistency and suggests meaningful connections
 - **Adaptive Complexity**: System grows with children through entity evolution and age-appropriate content generation
 - **File-Based Pipeline**: Clean separation of concerns with YAML context files, Markdown outlines, and final stories
+- **Prompt-Based Architecture**: External LLM agents follow markdown prompt rules rather than executing code
 
 **Why This Solution Will Succeed:**
 jester addresses the core tension between creativity and consistency by providing structure without constraining the creative process. The specialized agent approach allows for deep expertise in different aspects of storytelling, while the file-based pipeline ensures clean handoffs and prevents context bleeding between stages.
@@ -169,15 +170,15 @@ jester evolves into a comprehensive personal storytelling system that becomes an
 ### Technology Preferences
 
 - **Frontend:** Command-line interface with potential future web UI for easier access
-- **Backend:** Prompt-based agent system (like BMAD) with minimal Python dependencies
+- **Backend:** External LLM agents following markdown prompt rules with minimal Python dependencies
 - **Database:** LightRAG knowledge graph (existing system)
 - **Hosting/Infrastructure:** Local development with LightRAG MCP integration
 
 ### Architecture Considerations
 
 - **Repository Structure:** BMAD-style agent files with YAML configurations and markdown prompts
-- **Service Architecture:** Pure prompt-based agents with file-based pipeline communication
-- **Integration Requirements:** Python MCP client for LightRAG queries only, everything else prompt-based
+- **Service Architecture:** External LLM agents following prompt rules with file-based pipeline communication
+- **Integration Requirements:** Python MCP client for LightRAG queries only, everything else handled by external LLM agents following prompt rules
 - **Security/Compliance:** Local data processing with optional encryption for story files, privacy-focused design for family content
 
 ## Constraints & Assumptions
@@ -237,7 +238,7 @@ jester evolves into a comprehensive personal storytelling system that becomes an
 - Validated BMAD adaptation strategy: using agent principles without full framework complexity
 
 **Technical Architecture Decisions:**
-- Prompt-based agent system (minimal Python dependencies)
+- External LLM agents following markdown prompt rules (minimal Python dependencies)
 - File-based workflow management
 - LightRAG MCP integration for knowledge graph queries
 - IDE/command-line interface focus

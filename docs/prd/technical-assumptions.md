@@ -8,22 +8,31 @@ jester will use a monorepo structure containing all agent definitions, templates
 
 **Prompt-Based Agent System**: jester uses a microservices-inspired architecture with specialized agents (`/muse`, `/write`, `/edit`) that communicate through file-based pipelines. Each agent is a self-contained markdown file with YAML configuration, following BMAD principles. The system uses minimal Python dependencies (only for LightRAG MCP integration) while maintaining pure prompt-based agent behavior.
 
+**Development Target**: The development process produces **markdown prompt rule files** that external LLM agents can follow to perform story generation tasks. These prompt files follow the same BMAD pattern as the current analyst/qa/dev agent rules, where:
+- **Muse Agent** = Analyst role (context gathering and requirements)
+- **Edit Agent** = QA role (validation and refinement) 
+- **Write Agent** = Dev role (implementation and generation)
+
+The dev agent does NOT write TypeScript or other programming languages - only prompt engineering for LLM agents.
+
 ## Testing Requirements
 
-**Unit + Integration**: The system requires both unit testing for individual agent functions and integration testing for the complete file pipeline workflow. Testing should cover:
-- Agent prompt effectiveness and output quality
-- File pipeline integrity (YAML → Markdown → Markdown)
-- LightRAG integration and query handling
-- Entity file management and [[link]] consistency
-- Cross-platform compatibility
+**Prompt Engineering Validation**: The system requires validation of prompt rule effectiveness and LLM agent compliance. Testing should cover:
+- Prompt rule clarity and completeness for LLM agents
+- Agent behavior consistency when following prompt rules
+- File pipeline integrity (YAML → Markdown → Markdown) through LLM execution
+- LightRAG integration and query handling via prompt instructions
+- Entity file management and [[link]] consistency through LLM operations
+- Cross-platform compatibility of generated files
 
 ## Additional Technical Assumptions and Requests
 
-- **Markdown Processing**: The system must handle markdown parsing and generation for entity files, stories, and outlines with proper [[wiki-link]] support
-- **File System Operations**: Robust file creation, reading, and modification capabilities with proper error handling
-- **LightRAG MCP Integration**: Python MCP client for querying relationships and entity connections only
-- **Cross-Platform File Paths**: Proper handling of file paths across Windows, macOS, and Linux
-- **Entity File Templates**: Standardized markdown templates for characters, locations, and items with consistent structure
-- **Link Validation**: System to detect and report broken [[links]] in the entity wiki
-- **Directory Management**: Automatic creation and organization of entity subdirectories
-- **Content Versioning**: Basic file versioning for tracking changes to entity files and stories
+- **Prompt Rule Engineering**: The system must produce clear, actionable prompt rules that LLM agents can follow to perform file operations
+- **Markdown Processing**: LLM agents must handle markdown parsing and generation for entity files, stories, and outlines with proper [[wiki-link]] support
+- **File System Operations**: Prompt rules must instruct LLM agents to perform robust file creation, reading, and modification with proper error handling
+- **LightRAG MCP Integration**: Python MCP client for querying relationships and entity connections only (not part of prompt rules)
+- **Cross-Platform File Paths**: Prompt rules must instruct LLM agents to handle file paths across Windows, macOS, and Linux
+- **Entity File Templates**: Prompt rules must reference standardized markdown templates for characters, locations, and items with consistent structure
+- **Link Validation**: Prompt rules must instruct LLM agents to detect and report broken [[links]] in the entity wiki
+- **Directory Management**: Prompt rules must instruct LLM agents to create and organize entity subdirectories
+- **Content Versioning**: Prompt rules must instruct LLM agents to track changes to entity files and stories
