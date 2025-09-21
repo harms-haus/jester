@@ -248,3 +248,39 @@ export interface AgentConfig {
     data?: string[];
   };
 }
+
+// Wiki-link system interfaces
+export interface WikiLink {
+  text: string;
+  entityName: string;
+  startIndex: number;
+  endIndex: number;
+  filePath: string;
+}
+
+export interface EntityLink {
+  sourceEntity: string;
+  targetEntity: string;
+  sourceFile: string;
+  targetFile: string;
+  linkType: 'forward' | 'backward';
+  createdAt: string;
+}
+
+export interface LinkValidationResult {
+  isValid: boolean;
+  brokenLinks: WikiLink[];
+  missingEntities: string[];
+  suggestions: string[];
+}
+
+export interface EntityRelationship {
+  entity: string;
+  entityType: 'character' | 'location' | 'item';
+  relationships: {
+    linkedTo: string[];
+    linkedFrom: string[];
+  };
+  usageCount: number;
+  lastUsed: string;
+}
