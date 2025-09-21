@@ -81,3 +81,19 @@ so that **I can refine the content without regenerating from scratch**.
 5. **Edit changes are saved** to the original file
 6. **User receives confirmation** of successful edit operations
 7. **Backup files are created** before major edit operations
+
+## Story 1.6: LightRAG MCP Client Implementation
+
+As a **prompt engineer building a story universe**,
+I want **to implement a LightRAG MCP client for entity discovery and relationship querying**,
+so that **I can leverage knowledge graph capabilities for enhanced story generation and entity management**.
+
+### Acceptance Criteria
+
+1. **LightRAG MCP client is implemented** in TypeScript with proper error handling and connection management
+2. **Entity label listing functionality** is available through `/graph/label/list` endpoint integration
+3. **Knowledge graph querying** is supported through `/graphs` endpoint for relationship discovery
+4. **Structured data querying** is implemented through `/query/data` endpoint for content retrieval
+5. **Client integration** works with existing agents (Muse, Entity, Write) for enhanced functionality
+6. **Error handling and fallback** mechanisms are in place for when LightRAG is unavailable
+7. **TypeScript interfaces** are defined for all LightRAG API responses and requests

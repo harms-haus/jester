@@ -44,13 +44,13 @@ This document outlines the technical architecture for **jester**, a prompt-based
 
 **Core Runtime**: External LLM agents following prompt rules  
 **Agent Framework**: Markdown prompt rule files (BMAD pattern)  
-**Knowledge Graph**: LightRAG with OpenAPI integration via MCP client  
+**Knowledge Graph**: LightRAG with OpenAPI integration via TypeScript MCP client  
 **File Management**: LLM agents performing file operations per prompt rules  
 **Configuration**: YAML files  
 **Templates**: YAML with prompt injection for LLM agents  
 
 **Dependencies**:
-- **MCP Client Only**: Python MCP client for LightRAG API integration
+- **MCP Client Only**: TypeScript MCP client for LightRAG API integration (exception to prompt-based rule)
 - **Prompt Rules**: Markdown files with YAML configuration (BMAD pattern)
 - **Templates**: YAML/Markdown templates for LLM agent use
 - **External LLM**: Any LLM capable of following prompt rules and performing file operations
@@ -384,13 +384,14 @@ class LightRAGClientImpl implements LightRAGClient {
 
 **2. LightRAG MCP Client**
 - **Purpose**: Provides structured access to knowledge graph entities and relationships
-- **Technology**: Python MCP client with OpenAPI integration
+- **Technology**: TypeScript client with OpenAPI integration (exception to prompt-based rule)
 - **Key Features**:
   - Entity discovery and relationship queries
   - Structured data retrieval for story context
   - Graph management and entity validation
   - Local caching and offline mode support
-- **Dependencies**: LightRAG service, Python runtime
+- **Dependencies**: LightRAG service, Node.js runtime
+- **Implementation Note**: This is the only TypeScript implementation in the system, required for reliable API communication
 
 **3. File System Operations**
 - **Purpose**: LLM agents perform file operations as instructed by prompt rules
@@ -448,7 +449,7 @@ class LightRAGClientImpl implements LightRAGClient {
 
 **Data Flow**:
 1. User initiates `/muse` command
-2. External LLM follows Muse prompt rules to query LightRAG for entities
+2. External LLM follows Muse prompt rules to query LightRAG via TypeScript MCP client for entities
 3. LLM generates context file and saves to `contexts/` per prompt instructions
 4. User edits context file
 5. User runs `/write outline`
@@ -493,7 +494,7 @@ class LightRAGClientImpl implements LightRAGClient {
 
 **Pattern**: External knowledge graph for entity relationships  
 **Benefits**: Rich entity discovery, relationship mapping  
-**Implementation**: LightRAG OpenAPI integration via MCP client, prompt rules instruct LLM to use cached data  
+**Implementation**: LightRAG OpenAPI integration via TypeScript MCP client, prompt rules instruct LLM to use cached data  
 **Trade-offs**: External dependency, potential latency, relies on LLM to follow prompt instructions  
 
 ## Security Considerations

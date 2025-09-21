@@ -73,7 +73,7 @@ jester adapts proven software development methodologies (BMAD principles) to cre
 4. **NFR4**: Story generation and information extraction may be slower but must be thorough and accurate
 5. **NFR5**: The system shall maintain character consistency across stories 90% of the time
 6. **NFR6**: The system shall be cross-platform compatible (Windows, macOS, Linux)
-7. **NFR7**: The system shall use prompt-based agents with minimal Python dependencies (only for LightRAG MCP)
+7. **NFR7**: The system shall use prompt-based agents with minimal TypeScript dependencies (only for LightRAG MCP client)
 8. **NFR8**: The system shall preserve user privacy by keeping all story content local
 9. **NFR9**: The system shall be maintainable and extensible for future enhancements
 10. **NFR10**: The system shall provide clear error messages and graceful handling of LightRAG query failures
@@ -129,14 +129,16 @@ jester will use a monorepo structure containing all agent definitions, templates
 
 ### Service Architecture
 
-**Prompt-Based Agent System**: jester uses a microservices-inspired architecture with specialized agents (`/muse`, `/write`, `/edit`) that communicate through file-based pipelines. Each agent is a self-contained markdown file with YAML configuration, following BMAD principles. The system uses minimal Python dependencies (only for LightRAG MCP integration) while maintaining pure prompt-based agent behavior.
+**Prompt-Based Agent System**: jester uses a microservices-inspired architecture with specialized agents (`/muse`, `/write`, `/edit`) that communicate through file-based pipelines. Each agent is a self-contained markdown file with YAML configuration, following BMAD principles. The system uses minimal TypeScript dependencies (only for LightRAG MCP client) while maintaining pure prompt-based agent behavior.
 
 **Development Target**: The development process produces **markdown prompt rule files** that external LLM agents can follow to perform story generation tasks. These prompt files follow the same BMAD pattern as the current analyst/qa/dev agent rules, where:
 - **Muse Agent** = Analyst role (context gathering and requirements)
 - **Edit Agent** = QA role (validation and refinement) 
 - **Write Agent** = Dev role (implementation and generation)
 
-The dev agent does NOT write TypeScript or other programming languages - only prompt engineering for LLM agents.
+**TypeScript Exception**: The LightRAG MCP client is the only TypeScript implementation in the system, required for reliable API communication. All other functionality uses prompt-based agents.
+
+The dev agent does NOT write TypeScript or other programming languages - only prompt engineering for LLM agents, except for the LightRAG client implementation.
 
 ### Testing Requirements
 
@@ -153,7 +155,7 @@ The dev agent does NOT write TypeScript or other programming languages - only pr
 - **Prompt Rule Engineering**: The system must produce clear, actionable prompt rules that LLM agents can follow to perform file operations
 - **Markdown Processing**: LLM agents must handle markdown parsing and generation for entity files, stories, and outlines with proper [[wiki-link]] support
 - **File System Operations**: Prompt rules must instruct LLM agents to perform robust file creation, reading, and modification with proper error handling
-- **LightRAG MCP Integration**: Python MCP client for querying relationships and entity connections only (not part of prompt rules)
+- **LightRAG MCP Integration**: TypeScript MCP client for querying relationships and entity connections only (not part of prompt rules)
 - **Cross-Platform File Paths**: Prompt rules must instruct LLM agents to handle file paths across Windows, macOS, and Linux
 - **Entity File Templates**: Prompt rules must reference standardized markdown templates for characters, locations, and items with consistent structure
 - **Link Validation**: Prompt rules must instruct LLM agents to detect and report broken [[links]] in the entity wiki
@@ -252,6 +254,22 @@ so that **I can refine the content without regenerating from scratch**.
 6. **User receives confirmation** of successful edit operations
 7. **Backup files are created** before major edit operations
 
+### Story 1.6: LightRAG MCP Client Implementation
+
+As a **prompt engineer building a story universe**,
+I want **to implement a LightRAG MCP client for entity discovery and relationship querying**,
+so that **I can leverage knowledge graph capabilities for enhanced story generation and entity management**.
+
+#### Acceptance Criteria
+
+1. **LightRAG MCP client is implemented** in TypeScript with proper error handling and connection management
+2. **Entity label listing functionality** is available through `/graph/label/list` endpoint integration
+3. **Knowledge graph querying** is supported through `/graphs` endpoint for relationship discovery
+4. **Structured data querying** is implemented through `/query/data` endpoint for content retrieval
+5. **Client integration** works with existing agents (Muse, Entity, Write) for enhanced functionality
+6. **Error handling and fallback** mechanisms are in place for when LightRAG is unavailable
+7. **TypeScript interfaces** are defined for all LightRAG API responses and requests
+
 ## Epic 2: Entity Management System
 
 **Epic Goal**: Create a comprehensive wiki-style entity management system with organized subdirectories, markdown templates, and bidirectional [[link]] support. This epic delivers the core entity management functionality that enables parents to build and maintain a rich, interconnected story universe with fine-grained control over entity information.
@@ -340,23 +358,9 @@ so that **I can create more complex and interconnected stories**.
 
 **Epic Goal**: Implement MCP integration with LightRAG for relationship discovery and entity connections while maintaining local entity files as the primary source of truth. This epic delivers the AI-powered relationship discovery that enhances the story universe without replacing the local file management system.
 
-### Story 3.1: LightRAG MCP Client Setup
+### Story 3.1: Entity Relationship Discovery
 
-As a **developer implementing jester**,
-I want **to establish LightRAG MCP integration**,
-so that **the system can query the knowledge graph for relationship discovery**.
-
-#### Acceptance Criteria
-
-1. **MCP client is implemented** in Python for LightRAG communication
-2. **Connection configuration** allows specification of LightRAG endpoint and credentials
-3. **Query interface** provides methods for entity and relationship queries
-4. **Error handling** manages connection failures and query errors gracefully
-5. **Response parsing** converts LightRAG responses to usable data structures
-6. **Connection testing** verifies LightRAG accessibility and functionality
-7. **Configuration validation** ensures proper MCP client setup
-
-### Story 3.2: Entity Relationship Discovery
+**Note**: The foundational LightRAG MCP client implementation is covered in Story 1.6 of Epic 1. This story focuses on advanced relationship discovery features.
 
 As a **parent building a story universe**,
 I want **to discover new entity relationships through LightRAG**,
@@ -372,7 +376,7 @@ so that **I can find connections I might have missed in my local files**.
 6. **Relationship export** saves discovered connections for local use
 7. **Relationship validation** ensures suggested connections make sense
 
-### Story 3.3: LightRAG Query Integration
+### Story 3.2: LightRAG Query Integration
 
 As a **parent creating bedtime stories**,
 I want **the system to query LightRAG for relevant entities**,
@@ -388,7 +392,7 @@ so that **my stories can include discovered characters, locations, and items**.
 6. **Entity export** saves selected entities to local entity files
 7. **Query optimization** minimizes LightRAG queries while maximizing relevance
 
-### Story 3.4: LightRAG Data Synchronization
+### Story 3.3: LightRAG Data Synchronization
 
 As a **parent maintaining a story universe**,
 I want **to sync local entity changes with LightRAG**,
@@ -404,7 +408,7 @@ so that **my knowledge graph stays updated with my story universe**.
 6. **Sync rollback** allows undoing sync operations if needed
 7. **Sync status** shows current sync state and pending changes
 
-### Story 3.5: LightRAG Query Optimization
+### Story 3.4: LightRAG Query Optimization
 
 As a **parent using jester regularly**,
 I want **LightRAG queries to be efficient and cost-effective**,

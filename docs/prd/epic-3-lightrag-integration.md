@@ -1,24 +1,10 @@
 # Epic 3: LightRAG Integration
 
-**Epic Goal**: Implement MCP integration with LightRAG for relationship discovery and entity connections while maintaining local entity files as the primary source of truth. This epic delivers the AI-powered relationship discovery that enhances the story universe without replacing the local file management system.
+**Epic Goal**: Implement advanced LightRAG integration features for relationship discovery and entity connections while maintaining local entity files as the primary source of truth. This epic delivers the AI-powered relationship discovery that enhances the story universe without replacing the local file management system.
 
-## Story 3.1: LightRAG MCP Client Setup
+**Note**: The foundational LightRAG MCP client implementation is covered in Story 1.6 of Epic 1. This epic focuses on advanced integration features and optimization.
 
-As a **developer implementing jester**,
-I want **to establish LightRAG MCP integration**,
-so that **the system can query the knowledge graph for relationship discovery**.
-
-### Acceptance Criteria
-
-1. **MCP client is implemented** in Python for LightRAG communication
-2. **Connection configuration** allows specification of LightRAG endpoint and credentials
-3. **Query interface** provides methods for entity and relationship queries
-4. **Error handling** manages connection failures and query errors gracefully
-5. **Response parsing** converts LightRAG responses to usable data structures
-6. **Connection testing** verifies LightRAG accessibility and functionality
-7. **Configuration validation** ensures proper MCP client setup
-
-## Story 3.2: Entity Relationship Discovery
+## Story 3.1: Entity Relationship Discovery
 
 As a **parent building a story universe**,
 I want **to discover new entity relationships through LightRAG**,
@@ -34,7 +20,7 @@ so that **I can find connections I might have missed in my local files**.
 6. **Relationship export** saves discovered connections for local use
 7. **Relationship validation** ensures suggested connections make sense
 
-## Story 3.3: LightRAG Query Integration
+## Story 3.2: LightRAG Query Integration
 
 As a **parent creating bedtime stories**,
 I want **the system to query LightRAG for relevant entities**,
@@ -50,7 +36,7 @@ so that **my stories can include discovered characters, locations, and items**.
 6. **Entity export** saves selected entities to local entity files
 7. **Query optimization** minimizes LightRAG queries while maximizing relevance
 
-## Story 3.4: LightRAG Data Synchronization
+## Story 3.3: LightRAG Data Synchronization
 
 As a **parent maintaining a story universe**,
 I want **to sync local entity changes with LightRAG**,
@@ -66,7 +52,7 @@ so that **my knowledge graph stays updated with my story universe**.
 6. **Sync rollback** allows undoing sync operations if needed
 7. **Sync status** shows current sync state and pending changes
 
-## Story 3.5: LightRAG Query Optimization
+## Story 3.4: LightRAG Query Optimization
 
 As a **parent using jester regularly**,
 I want **LightRAG queries to be efficient and cost-effective**,
