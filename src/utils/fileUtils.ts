@@ -6,7 +6,7 @@
 import fs from 'fs-extra';
 import * as path from 'path';
 import * as yaml from 'yaml';
-import { StoryContext, StoryOutline, Story, DetailedPlotPoint } from '../types/index.js';
+import { StoryContext, StoryOutline, Story, DetailedPlotPoint, Character, Location, Item, EntityFile } from '../types/index.js';
 import { errorHandler } from './errorHandler.js';
 
 export class FileUtils {
@@ -14,12 +14,14 @@ export class FileUtils {
   private contextsPath: string;
   private outlinesPath: string;
   private storiesPath: string;
+  private entitiesPath: string;
 
   constructor() {
     this.templatesPath = path.join(process.cwd(), '.jester', 'templates');
     this.contextsPath = path.join(process.cwd(), 'contexts');
     this.outlinesPath = path.join(process.cwd(), 'outlines');
     this.storiesPath = path.join(process.cwd(), 'stories');
+    this.entitiesPath = path.join(process.cwd(), 'entities');
   }
 
   /**
@@ -546,5 +548,293 @@ export class FileUtils {
       errorHandler.logError(`Failed to get file stats: ${filePath}`, error);
       return null;
     }
+  }
+
+  /**
+   * Create a new character entity file from template
+   */
+  public async createCharacterFile(character: Character, filename?: string): Promise<string> {
+    try {
+      const templatePath = path.join(this.templatesPath, 'character.md');
+      const template = await fs.readFile(templatePath, 'utf-8');
+      
+      // Replace template variables with actual values
+      let content = template
+        .replace(/\{\{CHARACTER_NAME\}\}/g, character.name)
+        .replace(/\{\{CHARACTER_TYPE\}\}/g, character.type)
+        .replace(/\{\{CHARACTER_AGE\}\}/g, character.age)
+        .replace(/\{\{CHARACTER_SPECIES\}\}/g, character.species)
+        .replace(/\{\{CHARACTER_DESCRIPTION\}\}/g, character.description)
+        .replace(/\{\{PERSONALITY_TRAITS\}\}/g, character.personality_traits.join(', '))
+        .replace(/\{\{MOTIVATIONS\}\}/g, character.motivations.join(', '))
+        .replace(/\{\{FEARS\}\}/g, character.fears.join(', '))
+        .replace(/\{\{FAMILY_RELATIONSHIPS\}\}/g, character.family_relationships.join(', '))
+        .replace(/\{\{FRIEND_RELATIONSHIPS\}\}/g, character.friend_relationships.join(', '))
+        .replace(/\{\{ENEMY_RELATIONSHIPS\}\}/g, character.enemy_relationships.join(', '))
+        .replace(/\{\{FIRST_STORY\}\}/g, character.first_story)
+        .replace(/\{\{RECENT_STORY\}\}/g, character.recent_story)
+        .replace(/\{\{STORY_COUNT\}\}/g, character.story_count.toString())
+        .replace(/\{\{PHYSICAL_DESCRIPTION\}\}/g, character.physical_description)
+        .replace(/\{\{CLOTHING_STYLE\}\}/g, character.clothing_style)
+        .replace(/\{\{DISTINCTIVE_FEATURES\}\}/g, character.distinctive_features.join(', '))
+        .replace(/\{\{SPECIAL_POWERS\}\}/g, character.special_powers.join(', '))
+        .replace(/\{\{SKILLS\}\}/g, character.skills.join(', '))
+        .replace(/\{\{WEAKNESSES\}\}/g, character.weaknesses.join(', '))
+        .replace(/\{\{BACKSTORY\}\}/g, character.backstory)
+        .replace(/\{\{ADDITIONAL_NOTES\}\}/g, character.additional_notes)
+        .replace(/\{\{CREATED_AT\}\}/g, character.metadata.created_at)
+        .replace(/\{\{LAST_MODIFIED\}\}/g, character.metadata.last_modified)
+        .replace(/\{\{VERSION\}\}/g, character.metadata.version.toString());
+
+      // Generate filename if not provided
+      const finalFilename = filename || this.generateEntityFilename(character.name, 'character');
+      const filePath = path.join(this.entitiesPath, 'characters', finalFilename);
+
+      // Ensure directory exists
+      await this.ensureDirectory(path.dirname(filePath));
+
+      await fs.writeFile(filePath, content, 'utf-8');
+      return filePath;
+    } catch (error) {
+      errorHandler.logError('Failed to create character file', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Create a new location entity file from template
+   */
+  public async createLocationFile(location: Location, filename?: string): Promise<string> {
+    try {
+      const templatePath = path.join(this.templatesPath, 'location.md');
+      const template = await fs.readFile(templatePath, 'utf-8');
+      
+      // Replace template variables with actual values
+      let content = template
+        .replace(/\{\{LOCATION_NAME\}\}/g, location.name)
+        .replace(/\{\{LOCATION_TYPE\}\}/g, location.type)
+        .replace(/\{\{CLIMATE\}\}/g, location.climate)
+        .replace(/\{\{LOCATION_SIZE\}\}/g, location.size)
+        .replace(/\{\{LOCATION_DESCRIPTION\}\}/g, location.description)
+        .replace(/\{\{TERRAIN_FEATURES\}\}/g, location.terrain_features.join(', '))
+        .replace(/\{\{LANDMARKS\}\}/g, location.landmarks.join(', '))
+        .replace(/\{\{NATURAL_RESOURCES\}\}/g, location.natural_resources.join(', '))
+        .replace(/\{\{ATMOSPHERE_FEELING\}\}/g, location.atmosphere_feeling)
+        .replace(/\{\{SOUNDS\}\}/g, location.sounds.join(', '))
+        .replace(/\{\{SMELLS\}\}/g, location.smells.join(', '))
+        .replace(/\{\{LIGHTING\}\}/g, location.lighting)
+        .replace(/\{\{PRIMARY_RESIDENTS\}\}/g, location.primary_residents.join(', '))
+        .replace(/\{\{VISITORS\}\}/g, location.visitors.join(', '))
+        .replace(/\{\{CREATURES\}\}/g, location.creatures.join(', '))
+        .replace(/\{\{HISTORICAL_EVENTS\}\}/g, location.historical_events.join(', '))
+        .replace(/\{\{CULTURAL_SIGNIFICANCE\}\}/g, location.cultural_significance)
+        .replace(/\{\{MYTHS_LEGENDS\}\}/g, location.myths_legends.join(', '))
+        .replace(/\{\{FIRST_STORY\}\}/g, location.first_story)
+        .replace(/\{\{RECENT_STORY\}\}/g, location.recent_story)
+        .replace(/\{\{STORY_COUNT\}\}/g, location.story_count.toString())
+        .replace(/\{\{NEARBY_LOCATIONS\}\}/g, location.nearby_locations.join(', '))
+        .replace(/\{\{ACCESS_ROUTES\}\}/g, location.access_routes.join(', '))
+        .replace(/\{\{TRANSPORTATION\}\}/g, location.transportation.join(', '))
+        .replace(/\{\{MAGICAL_PROPERTIES\}\}/g, location.magical_properties.join(', '))
+        .replace(/\{\{TECHNOLOGICAL_FEATURES\}\}/g, location.technological_features.join(', '))
+        .replace(/\{\{UNIQUE_ASPECTS\}\}/g, location.unique_aspects.join(', '))
+        .replace(/\{\{ADDITIONAL_NOTES\}\}/g, location.additional_notes)
+        .replace(/\{\{CREATED_AT\}\}/g, location.metadata.created_at)
+        .replace(/\{\{LAST_MODIFIED\}\}/g, location.metadata.last_modified)
+        .replace(/\{\{VERSION\}\}/g, location.metadata.version.toString());
+
+      // Generate filename if not provided
+      const finalFilename = filename || this.generateEntityFilename(location.name, 'location');
+      const filePath = path.join(this.entitiesPath, 'locations', finalFilename);
+
+      // Ensure directory exists
+      await this.ensureDirectory(path.dirname(filePath));
+
+      await fs.writeFile(filePath, content, 'utf-8');
+      return filePath;
+    } catch (error) {
+      errorHandler.logError('Failed to create location file', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Create a new item entity file from template
+   */
+  public async createItemFile(item: Item, filename?: string): Promise<string> {
+    try {
+      const templatePath = path.join(this.templatesPath, 'item.md');
+      const template = await fs.readFile(templatePath, 'utf-8');
+      
+      // Replace template variables with actual values
+      let content = template
+        .replace(/\{\{ITEM_NAME\}\}/g, item.name)
+        .replace(/\{\{ITEM_TYPE\}\}/g, item.type)
+        .replace(/\{\{ITEM_RARITY\}\}/g, item.rarity)
+        .replace(/\{\{ITEM_VALUE\}\}/g, item.value)
+        .replace(/\{\{ITEM_DESCRIPTION\}\}/g, item.description)
+        .replace(/\{\{ITEM_SIZE\}\}/g, item.size)
+        .replace(/\{\{ITEM_WEIGHT\}\}/g, item.weight)
+        .replace(/\{\{ITEM_MATERIAL\}\}/g, item.material)
+        .replace(/\{\{ITEM_COLOR\}\}/g, item.color)
+        .replace(/\{\{ITEM_SHAPE\}\}/g, item.shape)
+        .replace(/\{\{PRIMARY_USE\}\}/g, item.primary_use)
+        .replace(/\{\{SECONDARY_USES\}\}/g, item.secondary_uses.join(', '))
+        .replace(/\{\{HOW_IT_WORKS\}\}/g, item.how_it_works)
+        .replace(/\{\{MAGICAL_PROPERTIES\}\}/g, item.magical_properties.join(', '))
+        .replace(/\{\{ENCHANTMENTS\}\}/g, item.enchantments.join(', '))
+        .replace(/\{\{ITEM_POWERS\}\}/g, item.powers.join(', '))
+        .replace(/\{\{LIMITATIONS\}\}/g, item.limitations.join(', '))
+        .replace(/\{\{CREATOR\}\}/g, item.creator)
+        .replace(/\{\{CREATION_DATE\}\}/g, item.creation_date)
+        .replace(/\{\{ORIGINAL_PURPOSE\}\}/g, item.original_purpose)
+        .replace(/\{\{PREVIOUS_OWNERS\}\}/g, item.previous_owners.join(', '))
+        .replace(/\{\{CURRENT_OWNER\}\}/g, item.current_owner)
+        .replace(/\{\{CURRENT_LOCATION\}\}/g, item.current_location)
+        .replace(/\{\{ITEM_CONDITION\}\}/g, item.condition)
+        .replace(/\{\{AVAILABILITY\}\}/g, item.availability)
+        .replace(/\{\{FIRST_STORY\}\}/g, item.first_story)
+        .replace(/\{\{RECENT_STORY\}\}/g, item.recent_story)
+        .replace(/\{\{STORY_COUNT\}\}/g, item.story_count.toString())
+        .replace(/\{\{ASSOCIATED_CHARACTERS\}\}/g, item.associated_characters.join(', '))
+        .replace(/\{\{ASSOCIATED_LOCATIONS\}\}/g, item.associated_locations.join(', '))
+        .replace(/\{\{RELATED_ITEMS\}\}/g, item.related_items.join(', '))
+        .replace(/\{\{SYMBOLIC_MEANING\}\}/g, item.symbolic_meaning)
+        .replace(/\{\{CULTURAL_IMPORTANCE\}\}/g, item.cultural_importance)
+        .replace(/\{\{TRADITIONS\}\}/g, item.traditions.join(', '))
+        .replace(/\{\{ADDITIONAL_NOTES\}\}/g, item.additional_notes)
+        .replace(/\{\{CREATED_AT\}\}/g, item.metadata.created_at)
+        .replace(/\{\{LAST_MODIFIED\}\}/g, item.metadata.last_modified)
+        .replace(/\{\{VERSION\}\}/g, item.metadata.version.toString());
+
+      // Generate filename if not provided
+      const finalFilename = filename || this.generateEntityFilename(item.name, 'item');
+      const filePath = path.join(this.entitiesPath, 'items', finalFilename);
+
+      // Ensure directory exists
+      await this.ensureDirectory(path.dirname(filePath));
+
+      await fs.writeFile(filePath, content, 'utf-8');
+      return filePath;
+    } catch (error) {
+      errorHandler.logError('Failed to create item file', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Generate entity filename with proper naming conventions
+   */
+  private generateEntityFilename(name: string, type: 'character' | 'location' | 'item'): string {
+    const sanitizedName = name.toLowerCase().replace(/[^a-z0-9]/g, '-');
+    return `${sanitizedName}.md`;
+  }
+
+  /**
+   * Validate entity file structure and required fields
+   */
+  public async validateEntityFile(filePath: string, entityType: 'character' | 'location' | 'item'): Promise<boolean> {
+    try {
+      if (!await fs.pathExists(filePath)) {
+        return false;
+      }
+
+      const content = await fs.readFile(filePath, 'utf-8');
+      
+      // Check for required markdown structure
+      if (!content.includes('#') || !content.includes('##')) {
+        return false;
+      }
+
+      // Check for required sections based on entity type
+      const requiredSections = this.getRequiredSections(entityType);
+      for (const section of requiredSections) {
+        if (!content.includes(section)) {
+          return false;
+        }
+      }
+
+      // Check for metadata section
+      if (!content.includes('*Created:') || !content.includes('*Last Modified:') || !content.includes('*Version:')) {
+        return false;
+      }
+
+      return true;
+    } catch (error) {
+      errorHandler.logError(`Failed to validate entity file: ${filePath}`, error);
+      return false;
+    }
+  }
+
+  /**
+   * Get required sections for entity type
+   */
+  private getRequiredSections(entityType: 'character' | 'location' | 'item'): string[] {
+    const commonSections = ['## Basic Information', '## Description', '## Story Appearances'];
+    
+    switch (entityType) {
+      case 'character':
+        return [...commonSections, '## Personality', '## Relationships', '## Physical Description', '## Abilities & Skills', '## Backstory'];
+      case 'location':
+        return [...commonSections, '## Physical Features', '## Atmosphere & Mood', '## Inhabitants', '## History & Significance', '## Connections', '## Special Properties'];
+      case 'item':
+        return [...commonSections, '## Physical Properties', '## Function & Purpose', '## Special Properties', '## History & Origin', '## Current Status', '## Relationships', '## Cultural Significance'];
+      default:
+        return commonSections;
+    }
+  }
+
+  /**
+   * Read and parse entity file
+   */
+  public async readEntityFile(filePath: string): Promise<EntityFile | null> {
+    try {
+      if (!await fs.pathExists(filePath)) {
+        return null;
+      }
+
+      const content = await fs.readFile(filePath, 'utf-8');
+      const fileName = path.basename(filePath, '.md');
+      const entityType = this.determineEntityType(filePath);
+      
+      // Extract metadata from content
+      const metadata = this.extractMetadataFromContent(content);
+
+      return {
+        path: filePath,
+        name: fileName,
+        type: entityType,
+        content,
+        metadata
+      };
+    } catch (error) {
+      errorHandler.logError(`Failed to read entity file: ${filePath}`, error);
+      return null;
+    }
+  }
+
+  /**
+   * Determine entity type from file path
+   */
+  private determineEntityType(filePath: string): 'character' | 'location' | 'item' {
+    if (filePath.includes('/characters/')) return 'character';
+    if (filePath.includes('/locations/')) return 'location';
+    if (filePath.includes('/items/')) return 'item';
+    throw new Error('Unable to determine entity type from file path');
+  }
+
+  /**
+   * Extract metadata from entity file content
+   */
+  private extractMetadataFromContent(content: string): { created_at: string; last_modified: string; version: number } {
+    const createdMatch = content.match(/\*Created: ([^*]+)\*/);
+    const modifiedMatch = content.match(/\*Last Modified: ([^*]+)\*/);
+    const versionMatch = content.match(/\*Version: (\d+)\*/);
+
+    return {
+      created_at: createdMatch?.[1]?.trim() || new Date().toISOString(),
+      last_modified: modifiedMatch?.[1]?.trim() || new Date().toISOString(),
+      version: versionMatch?.[1] ? parseInt(versionMatch[1]) : 1
+    };
   }
 }
