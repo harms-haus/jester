@@ -815,16 +815,129 @@ export class WriteAgent {
       }
 
       const content = await fs.readFile(filePath, 'utf-8');
-      const outline = yaml.parse(content) as StoryOutline;
       
-      // Validate outline structure
-      this.validateOutline(outline);
-      
-      return outline;
+      // Check if it's a YAML file or Markdown file
+      if (filePath.endsWith('.yaml') || filePath.endsWith('.yml')) {
+        const outline = yaml.parse(content) as StoryOutline;
+        this.validateOutline(outline);
+        return outline;
+      } else if (filePath.endsWith('.md')) {
+        const outline = this.parseMarkdownOutline(content);
+        this.validateOutline(outline);
+        return outline;
+      } else {
+        throw new Error(`Unsupported outline file format: ${filePath}`);
+      }
     } catch (error) {
       errorHandler.logError('Failed to read outline file', error, {
         operation: 'outline_reading',
         filePath: outlineFile || 'unknown'
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Parse Markdown outline file into StoryOutline format
+   */
+  private parseMarkdownOutline(content: string): StoryOutline {
+    try {
+      // Extract title (first ## heading)
+      const titleMatch = content.match(/^## (.+)$/m);
+      const title = titleMatch?.[1]?.trim() || 'Untitled Story';
+      
+      // Extract target audience
+      const audienceMatch = content.match(/\*\*Target Audience:\*\* (.+)/);
+      const audienceText = audienceMatch?.[1]?.trim() || '5-8 (beginner level)';
+      const ageMatch = audienceText.match(/(\d+)-(\d+)/);
+      const ageRange = ageMatch ? `${ageMatch[1]}-${ageMatch[2]}` : '5-8';
+      const readingLevel = audienceText.includes('beginner') ? 'beginner' : 
+                          audienceText.includes('intermediate') ? 'intermediate' : 'advanced';
+      
+      // Extract target length
+      const lengthMatch = content.match(/\*\*Target Length:\*\* (.+)/);
+      const lengthText = lengthMatch?.[1]?.trim() || '400-600 words (500 target)';
+      const wordMatch = lengthText.match(/(\d+)-(\d+)/);
+      const minWords = wordMatch ? parseInt(wordMatch[1] || '400') : 400;
+      const maxWords = wordMatch ? parseInt(wordMatch[2] || '600') : 600;
+      const finalTarget = lengthText.includes('(') ? 
+        parseInt(lengthText.match(/\((\d+)/)?.[1] || '500') : Math.floor((minWords + maxWords) / 2);
+      
+      // Extract plot points from Detailed Plot Points section
+      const plotPoints: DetailedPlotPoint[] = [];
+      const detailedPlotPointsMatch = content.match(/## Detailed Plot Points([\s\S]*)/);
+      
+      if (detailedPlotPointsMatch?.[1]) {
+        const plotPointsSection = detailedPlotPointsMatch[1];
+        
+        // Split by plot point sections (### number. title)
+        const plotPointSections = plotPointsSection.split(/### \d+\./).slice(1); // Remove first empty element
+        
+        for (let i = 0; i < plotPointSections.length; i++) {
+          const section = plotPointSections[i];
+          if (!section) continue;
+          
+          const order = i + 1;
+          
+          // Extract title (first line)
+          const titleMatch = section.match(/^(.+?)$/m);
+          const title = titleMatch?.[1]?.trim() || `Plot Point ${order}`;
+          
+          // Extract characters
+          const charactersMatch = section.match(/- \*\*Characters:\*\* (.+?)$/m);
+          const characters = charactersMatch?.[1]?.trim() || '';
+          
+          // Extract location
+          const locationMatch = section.match(/- \*\*Location:\*\* (.+?)$/m);
+          const location = locationMatch?.[1]?.trim() || '';
+          
+          // Extract description
+          const descriptionMatch = section.match(/- \*\*Description:\*\* (.+?)$/m);
+          const description = descriptionMatch?.[1]?.trim() || '';
+          
+          // Extract estimated words
+          const wordsMatch = section.match(/- \*\*Estimated Words:\*\* (\d+)/);
+          const estimatedWords = wordsMatch?.[1] ? parseInt(wordsMatch[1]) : 0;
+          
+          if (title && characters && location && description) {
+            plotPoints.push({
+              id: `plot_${order}`,
+              title,
+              description,
+              characters: characters.split(',').map(c => c.trim()),
+              location,
+              estimated_words: estimatedWords,
+              order
+            });
+          }
+        }
+      }
+      
+      // Create StoryOutline object
+      const outline: StoryOutline = {
+        title,
+        target_audience: {
+          age_range: ageRange,
+          reading_level: readingLevel
+        },
+        target_length: {
+          min_words: minWords,
+          max_words: maxWords,
+          final_target: finalTarget
+        },
+        plot_points: plotPoints,
+        estimated_word_count: plotPoints.reduce((total, point) => total + point.estimated_words, 0),
+        metadata: {
+          context_file: 'unknown',
+          created_at: new Date().toISOString(),
+          last_modified: new Date().toISOString()
+        }
+      };
+      
+      return outline;
+    } catch (error) {
+      errorHandler.logError('Failed to parse markdown outline', error, {
+        operation: 'markdown_parsing'
       });
       throw error;
     }
@@ -836,15 +949,15 @@ export class WriteAgent {
   private async findMostRecentOutlineFile(): Promise<string> {
     try {
       const files = await fs.readdir(this.outlinesPath);
-      const yamlFiles = files.filter(file => file.endsWith('.yaml') || file.endsWith('.yml'));
+      const outlineFiles = files.filter(file => file.endsWith('.yaml') || file.endsWith('.yml') || file.endsWith('.md'));
       
-      if (yamlFiles.length === 0) {
+      if (outlineFiles.length === 0) {
         throw new Error('No outline files found in outlines directory');
       }
 
       // Sort by modification time (most recent first)
       const fileStats = await Promise.all(
-        yamlFiles.map(async (file) => {
+        outlineFiles.map(async (file) => {
           const filePath = path.join(this.outlinesPath, file);
           const stats = await fs.stat(filePath);
           return { file, filePath, mtime: stats.mtime };

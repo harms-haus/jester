@@ -6,7 +6,7 @@
 import fs from 'fs-extra';
 import * as path from 'path';
 import * as yaml from 'yaml';
-import { StoryContext, StoryOutline, Story } from '../types/index.js';
+import { StoryContext, StoryOutline, Story, DetailedPlotPoint } from '../types/index.js';
 import { errorHandler } from './errorHandler.js';
 
 export class FileUtils {
@@ -63,7 +63,10 @@ export class FileUtils {
       const templatePath = path.join(this.templatesPath, 'outline.md');
       const template = await fs.readFile(templatePath, 'utf-8');
       
-      // Replace template variables with actual values
+      // Read context file to get additional data for template processing
+      const context = await this.readContextFileForOutline(outline.metadata.context_file);
+      
+      // Replace basic template variables with actual values
       let content = template
         .replace(/\{\{STORY_TITLE\}\}/g, outline.title)
         .replace(/\{\{AGE_RANGE\}\}/g, outline.target_audience.age_range)
@@ -75,6 +78,9 @@ export class FileUtils {
         .replace(/\{\{CONTEXT_FILE\}\}/g, outline.metadata.context_file)
         .replace(/\{\{ESTIMATED_WORD_COUNT\}\}/g, outline.estimated_word_count.toString());
 
+      // Process complex template sections with context data
+      content = await this.processTemplateSections(content, outline, context);
+
       // Generate filename if not provided
       const finalFilename = filename || this.generateOutlineFilename(outline.title);
       const filePath = path.join(this.outlinesPath, finalFilename);
@@ -85,6 +91,332 @@ export class FileUtils {
       errorHandler.logError('Failed to create outline file', error);
       throw error;
     }
+  }
+
+  /**
+   * Read context file for outline processing
+   */
+  private async readContextFileForOutline(contextFile: string): Promise<StoryContext | null> {
+    try {
+      const filePath = path.isAbsolute(contextFile) ? contextFile : path.join(this.contextsPath, contextFile);
+      
+      if (!await fs.pathExists(filePath)) {
+        errorHandler.logError(`Context file not found: ${filePath}`, new Error('File not found'));
+        return null;
+      }
+
+      const content = await fs.readFile(filePath, 'utf-8');
+      const context = yaml.parse(content) as StoryContext;
+      
+      return context;
+    } catch (error) {
+      errorHandler.logError('Failed to read context file for outline', error);
+      return null;
+    }
+  }
+
+  /**
+   * Process complex template sections with data
+   */
+  private async processTemplateSections(content: string, outline: StoryOutline, context?: StoryContext | null): Promise<string> {
+    try {
+      // Process plot points section
+      content = this.processPlotPointsSection(content, outline.plot_points);
+      
+      // Process character arcs section using context data
+      content = this.processCharacterArcsSection(content, outline, context);
+      
+      // Process locations section using context data
+      content = this.processLocationsSection(content, outline, context);
+      
+      // Process themes and morals section using context data
+      content = this.processThemesAndMoralsSection(content, outline, context);
+      
+      // Process act structure section
+      content = this.processActStructureSection(content, outline);
+      
+      // Process reading time calculation
+      content = this.processReadingTimeSection(content, outline);
+      
+      return content;
+    } catch (error) {
+      errorHandler.logError('Failed to process template sections', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Process plot points section
+   */
+  private processPlotPointsSection(content: string, plotPoints: DetailedPlotPoint[]): string {
+    const plotPointsSection = plotPoints.map(point => {
+      return `### ${point.order}. ${point.title}
+- **Characters:** ${point.characters.join(', ')}
+- **Location:** ${point.location}
+- **Description:** ${point.description}
+- **Estimated Words:** ${point.estimated_words}
+
+`;
+    }).join('');
+
+    return content.replace(/\{\{#PLOT_POINTS\}\}[\s\S]*?\{\{\/PLOT_POINTS\}\}/g, plotPointsSection);
+  }
+
+  /**
+   * Process character arcs section
+   */
+  private processCharacterArcsSection(content: string, outline: StoryOutline, context?: StoryContext | null): string {
+    if (!context || !context.entities.characters) {
+      // Fallback to extracting from plot points
+      const characters = this.extractCharactersFromPlotPoints(outline.plot_points);
+      const characterArcsSection = characters.map(char => {
+        return `### ${char}
+- **Role:** Main Character
+- **Motivation:** To complete the adventure
+- **Growth:** Develops courage and wisdom
+- **Key Scenes:** Throughout the story
+
+`;
+      }).join('');
+      return content.replace(/\{\{#CHARACTERS\}\}[\s\S]*?\{\{\/CHARACTERS\}\}/g, characterArcsSection);
+    }
+
+    // Use context data to create detailed character arcs
+    const characterArcsSection = context.entities.characters.map((char, index) => {
+      const role = index === 0 ? 'Protagonist' : index === 1 ? 'Supporting Character' : 'Antagonist';
+      const motivation = this.generateCharacterMotivation(char.name, role);
+      const growth = this.generateCharacterGrowth(char.name, role);
+      const keyScenes = this.generateCharacterKeyScenes(char.name, outline.plot_points);
+      
+      return `### ${char.name}
+- **Role:** ${role}
+- **Motivation:** ${motivation}
+- **Growth:** ${growth}
+- **Key Scenes:** ${keyScenes}
+
+`;
+    }).join('');
+
+    return content.replace(/\{\{#CHARACTERS\}\}[\s\S]*?\{\{\/CHARACTERS\}\}/g, characterArcsSection);
+  }
+
+  /**
+   * Process locations section
+   */
+  private processLocationsSection(content: string, outline: StoryOutline, context?: StoryContext | null): string {
+    if (!context || !context.entities.locations) {
+      // Fallback to extracting from plot points
+      const locations = this.extractLocationsFromPlotPoints(outline.plot_points);
+      const locationsSection = locations.map(loc => {
+        return `### ${loc}
+- **Description:** A key location in the story
+- **Atmosphere:** Important to the narrative
+- **Key Elements:** Central to the plot
+
+`;
+      }).join('');
+      return content.replace(/\{\{#LOCATIONS\}\}[\s\S]*?\{\{\/LOCATIONS\}\}/g, locationsSection);
+    }
+
+    // Use context data to create detailed location descriptions
+    const locationsSection = context.entities.locations.map((loc, index) => {
+      const description = this.generateLocationDescription(loc.name, index);
+      const atmosphere = this.generateLocationAtmosphere(loc.name, index);
+      const keyElements = this.generateLocationKeyElements(loc.name, index);
+      
+      return `### ${loc.name}
+- **Description:** ${description}
+- **Atmosphere:** ${atmosphere}
+- **Key Elements:** ${keyElements}
+
+`;
+    }).join('');
+
+    return content.replace(/\{\{#LOCATIONS\}\}[\s\S]*?\{\{\/LOCATIONS\}\}/g, locationsSection);
+  }
+
+  /**
+   * Process themes and morals section
+   */
+  private processThemesAndMoralsSection(content: string, outline: StoryOutline, context?: StoryContext | null): string {
+    let themes: string[];
+    let morals: string[];
+    
+    if (context && context.themes && context.morals) {
+      // Use context data
+      themes = context.themes;
+      morals = context.morals;
+    } else {
+      // Fallback to generic themes and morals
+      themes = ['Courage', 'Friendship', 'Growth'];
+      morals = ['Be brave', 'Help others', 'Never give up'];
+    }
+    
+    const themesSection = themes.map(theme => `- ${theme}`).join('\n');
+    const moralsSection = morals.map(moral => `- ${moral}`).join('\n');
+
+    let result = content.replace(/\{\{#THEMES\}\}[\s\S]*?\{\{\/THEMES\}\}/g, themesSection);
+    result = result.replace(/\{\{#MORALS\}\}[\s\S]*?\{\{\/MORALS\}\}/g, moralsSection);
+    
+    return result;
+  }
+
+  /**
+   * Process act structure section
+   */
+  private processActStructureSection(content: string, outline: StoryOutline): string {
+    const plotPoints = outline.plot_points;
+    const totalPoints = plotPoints.length;
+    
+    // Generate act structure based on plot points
+    const openingScene = plotPoints[0]?.description || 'The story begins with our hero in their ordinary world.';
+    const characterIntro = plotPoints[0]?.description || 'We meet our main character and learn about their world.';
+    const incident = plotPoints[1]?.description || 'Something happens that changes everything.';
+    
+    const risingAction = plotPoints[Math.floor(totalPoints * 0.3)]?.description || 'The hero faces increasing challenges.';
+    const characterDev = plotPoints[Math.floor(totalPoints * 0.5)]?.description || 'The hero grows and learns important lessons.';
+    const conflictEscalation = plotPoints[Math.floor(totalPoints * 0.7)]?.description || 'The stakes get higher and the challenges more difficult.';
+    
+    const climax = plotPoints[Math.floor(totalPoints * 0.8)]?.description || 'The hero faces their greatest challenge.';
+    const fallingAction = plotPoints[Math.floor(totalPoints * 0.9)]?.description || 'The hero deals with the aftermath of their victory.';
+    const resolution = plotPoints[totalPoints - 1]?.description || 'The hero returns home, changed by their experience.';
+
+    return content
+      .replace(/\{\{OPENING_SCENE_DESCRIPTION\}\}/g, openingScene)
+      .replace(/\{\{CHARACTER_INTRO_DESCRIPTION\}\}/g, characterIntro)
+      .replace(/\{\{INCIDENT_DESCRIPTION\}\}/g, incident)
+      .replace(/\{\{RISING_ACTION_DESCRIPTION\}\}/g, risingAction)
+      .replace(/\{\{CHARACTER_DEVELOPMENT_DESCRIPTION\}\}/g, characterDev)
+      .replace(/\{\{CONFLICT_ESCALATION_DESCRIPTION\}\}/g, conflictEscalation)
+      .replace(/\{\{CLIMAX_DESCRIPTION\}\}/g, climax)
+      .replace(/\{\{FALLING_ACTION_DESCRIPTION\}\}/g, fallingAction)
+      .replace(/\{\{RESOLUTION_DESCRIPTION\}\}/g, resolution);
+  }
+
+  /**
+   * Process reading time section
+   */
+  private processReadingTimeSection(content: string, outline: StoryOutline): string {
+    const readingTimeMinutes = Math.ceil(outline.estimated_word_count / 200); // Average 200 words per minute
+    return content.replace(/\{\{READING_TIME_MINUTES\}\}/g, readingTimeMinutes.toString());
+  }
+
+  /**
+   * Extract unique characters from plot points
+   */
+  private extractCharactersFromPlotPoints(plotPoints: DetailedPlotPoint[]): string[] {
+    const characters = new Set<string>();
+    plotPoints.forEach(point => {
+      point.characters.forEach((char: string) => characters.add(char));
+    });
+    return Array.from(characters);
+  }
+
+  /**
+   * Extract unique locations from plot points
+   */
+  private extractLocationsFromPlotPoints(plotPoints: DetailedPlotPoint[]): string[] {
+    const locations = new Set<string>();
+    plotPoints.forEach(point => {
+      if (point.location) {
+        locations.add(point.location);
+      }
+    });
+    return Array.from(locations);
+  }
+
+  /**
+   * Generate character motivation based on name and role
+   */
+  private generateCharacterMotivation(name: string, role: string): string {
+    const motivations: Record<string, string> = {
+      'Hero': 'To protect others and do what\'s right',
+      'Mentor': 'To guide and teach the next generation',
+      'Villain': 'To achieve their own goals at any cost',
+      'Protagonist': 'To overcome challenges and grow as a person',
+      'Supporting Character': 'To help the protagonist succeed',
+      'Antagonist': 'To oppose the protagonist\'s goals'
+    };
+    
+    return motivations[name] || motivations[role] || 'To play their part in the story';
+  }
+
+  /**
+   * Generate character growth arc based on name and role
+   */
+  private generateCharacterGrowth(name: string, role: string): string {
+    const growthArcs: Record<string, string> = {
+      'Hero': 'Learns to balance personal desires with responsibility to others',
+      'Mentor': 'Discovers the importance of letting others make their own choices',
+      'Villain': 'May experience redemption or face the consequences of their actions',
+      'Protagonist': 'Develops courage, wisdom, and understanding through their journey',
+      'Supporting Character': 'Grows in their ability to support and help others',
+      'Antagonist': 'May learn from their mistakes or face the consequences of their choices'
+    };
+    
+    return growthArcs[name] || growthArcs[role] || 'Develops and changes through their experiences';
+  }
+
+  /**
+   * Generate key scenes for a character based on plot points
+   */
+  private generateCharacterKeyScenes(name: string, plotPoints: DetailedPlotPoint[]): string {
+    const characterScenes = plotPoints
+      .filter(point => point.characters.includes(name))
+      .map(point => point.title)
+      .slice(0, 3); // Limit to first 3 scenes
+    
+    return characterScenes.length > 0 
+      ? characterScenes.join(', ')
+      : 'Throughout the story';
+  }
+
+  /**
+   * Generate location description based on name and index
+   */
+  private generateLocationDescription(name: string, index: number): string {
+    const descriptions: Record<string, string> = {
+      'Home': 'The starting point where the protagonist begins their journey',
+      'Adventure Location': 'A mysterious and exciting place where the main adventure unfolds',
+      'Final Destination': 'The climactic location where the story reaches its peak',
+      'Forest': 'A dense, mysterious woodland filled with secrets and challenges',
+      'Castle': 'A grand and imposing structure that holds great significance',
+      'Village': 'A small, close-knit community where the story begins or ends'
+    };
+    
+    return descriptions[name] || `A significant location that plays an important role in the story (${index + 1} of ${index + 1} main locations)`;
+  }
+
+  /**
+   * Generate location atmosphere based on name and index
+   */
+  private generateLocationAtmosphere(name: string, index: number): string {
+    const atmospheres: Record<string, string> = {
+      'Home': 'Warm, familiar, and safe',
+      'Adventure Location': 'Exciting, mysterious, and full of possibilities',
+      'Final Destination': 'Intense, climactic, and emotionally charged',
+      'Forest': 'Mysterious, peaceful yet potentially dangerous',
+      'Castle': 'Grand, imposing, and filled with history',
+      'Village': 'Cozy, welcoming, and community-focused'
+    };
+    
+    return atmospheres[name] || 'Important to the narrative and story progression';
+  }
+
+  /**
+   * Generate location key elements based on name and index
+   */
+  private generateLocationKeyElements(name: string, index: number): string {
+    const elements: Record<string, string> = {
+      'Home': 'Family, memories, and the starting point of change',
+      'Adventure Location': 'Challenges, discoveries, and character growth',
+      'Final Destination': 'Climax, resolution, and transformation',
+      'Forest': 'Nature, mystery, and hidden paths',
+      'Castle': 'Power, history, and important decisions',
+      'Village': 'Community, support, and everyday life'
+    };
+    
+    return elements[name] || 'Central to the plot and character development';
   }
 
   /**
