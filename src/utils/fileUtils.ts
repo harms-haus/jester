@@ -837,4 +837,116 @@ export class FileUtils {
       version: versionMatch?.[1] ? parseInt(versionMatch[1]) : 1
     };
   }
+
+  /**
+   * Update entity file with new data
+   */
+  public async updateEntityFile(filePath: string, updates: Record<string, any>, entityType: 'character' | 'location' | 'item'): Promise<boolean> {
+    try {
+      if (!await fs.pathExists(filePath)) {
+        return false;
+      }
+
+      const content = await fs.readFile(filePath, 'utf-8');
+      let updatedContent = content;
+
+      // Update metadata
+      const now = new Date().toISOString();
+      updatedContent = updatedContent.replace(/\*Last Modified: [^*]+\*/g, `*Last Modified: ${now}*`);
+      
+      // Increment version
+      const versionMatch = content.match(/\*Version: (\d+)\*/);
+      const currentVersion = versionMatch && versionMatch[1] ? parseInt(versionMatch[1]) : 1;
+      const newVersion = currentVersion + 1;
+      updatedContent = updatedContent.replace(/\*Version: \d+\*/g, `*Version: ${newVersion}*`);
+
+      // Update entity-specific fields
+      for (const [field, value] of Object.entries(updates)) {
+        const fieldKey = this.getFieldKeyForUpdate(field, entityType);
+        if (fieldKey) {
+          const regex = new RegExp(`{{${fieldKey}}}`, 'g');
+          if (Array.isArray(value)) {
+            updatedContent = updatedContent.replace(regex, value.join(', '));
+          } else {
+            updatedContent = updatedContent.replace(regex, String(value));
+          }
+        }
+      }
+
+      await fs.writeFile(filePath, updatedContent, 'utf-8');
+      return true;
+    } catch (error) {
+      errorHandler.logError(`Failed to update entity file: ${filePath}`, error);
+      return false;
+    }
+  }
+
+  /**
+   * Delete entity file
+   */
+  public async deleteEntityFile(filePath: string): Promise<boolean> {
+    try {
+      if (!await fs.pathExists(filePath)) {
+        return false;
+      }
+
+      await fs.remove(filePath);
+      return true;
+    } catch (error) {
+      errorHandler.logError(`Failed to delete entity file: ${filePath}`, error);
+      return false;
+    }
+  }
+
+  /**
+   * Backup entity file
+   */
+  public async backupEntityFile(filePath: string): Promise<string | null> {
+    try {
+      if (!await fs.pathExists(filePath)) {
+        return null;
+      }
+
+      const content = await fs.readFile(filePath, 'utf-8');
+      const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+      const backupPath = `${filePath}.backup.${timestamp}`;
+
+      await fs.writeFile(backupPath, content, 'utf-8');
+      return backupPath;
+    } catch (error) {
+      errorHandler.logError(`Failed to backup entity file: ${filePath}`, error);
+      return null;
+    }
+  }
+
+  /**
+   * Get field key for update operations
+   */
+  private getFieldKeyForUpdate(field: string, entityType: 'character' | 'location' | 'item'): string | null {
+    const fieldMap: Record<string, string> = {
+      'name': `${entityType.toUpperCase()}_NAME`,
+      'type': `${entityType.toUpperCase()}_TYPE`,
+      'description': `${entityType.toUpperCase()}_DESCRIPTION`,
+      'age': 'CHARACTER_AGE',
+      'species': 'CHARACTER_SPECIES',
+      'personality_traits': 'PERSONALITY_TRAITS',
+      'motivations': 'MOTIVATIONS',
+      'fears': 'FEARS',
+      'physical_description': 'PHYSICAL_DESCRIPTION',
+      'backstory': 'BACKSTORY',
+      'climate': 'CLIMATE',
+      'size': 'LOCATION_SIZE',
+      'terrain_features': 'TERRAIN_FEATURES',
+      'atmosphere_feeling': 'ATMOSPHERE_FEELING',
+      'cultural_significance': 'CULTURAL_SIGNIFICANCE',
+      'rarity': 'ITEM_RARITY',
+      'value': 'ITEM_VALUE',
+      'weight': 'ITEM_WEIGHT',
+      'material': 'ITEM_MATERIAL',
+      'primary_use': 'PRIMARY_USE',
+      'magical_properties': 'MAGICAL_PROPERTIES'
+    };
+    
+    return fieldMap[field] || null;
+  }
 }

@@ -513,11 +513,21 @@ export class CommandRouter {
           return await this.handleEntityGetCommand(command);
         case 'validate':
           return await this.handleEntityValidateCommand(command);
+        case 'validate-all':
+          return await this.handleEntityValidateAllCommand(command);
+        case 'edit':
+          return await this.handleEntityEditCommand(command);
+        case 'delete':
+          return await this.handleEntityDeleteCommand(command);
+        case 'search':
+          return await this.handleEntitySearchCommand(command);
+        case 'backup':
+          return await this.handleEntityBackupCommand(command);
         default:
           return {
             success: false,
             message: `Unknown entity subcommand: ${subcommand}`,
-            error: 'Available subcommands: create, list, get, validate'
+            error: 'Available subcommands: create, list, get, validate, edit, delete, search, backup'
           };
       }
     } catch (error) {
@@ -572,11 +582,26 @@ export class CommandRouter {
         return {
           success: false,
           message: 'Entity type is required',
-          error: 'Usage: /entity list <character|location|item>'
+          error: 'Usage: /entity list <character|location|item> [options]'
         };
       }
 
-      return await this.entityAgent.listEntities(entityType);
+      // Parse options
+      const options: any = {};
+      if (command.options.sortBy) {
+        options.sortBy = command.options.sortBy as 'name' | 'created' | 'modified';
+      }
+      if (command.options.sortOrder) {
+        options.sortOrder = command.options.sortOrder as 'asc' | 'desc';
+      }
+      if (command.options.limit) {
+        options.limit = parseInt(command.options.limit as string);
+      }
+      if (command.options.offset) {
+        options.offset = parseInt(command.options.offset as string);
+      }
+
+      return await this.entityAgent.listEntities(entityType, options);
     } catch (error) {
       return {
         success: false,
@@ -633,6 +658,147 @@ export class CommandRouter {
       return {
         success: false,
         message: 'Failed to validate entity',
+        error: errorHandler.formatError(error)
+      };
+    }
+  }
+
+  /**
+   * Handle entity validate-all command
+   */
+  private async handleEntityValidateAllCommand(command: Command): Promise<CommandResult> {
+    try {
+      const entityType = command.args[1] as 'character' | 'location' | 'item';
+
+      if (!entityType) {
+        return {
+          success: false,
+          message: 'Entity type is required',
+          error: 'Usage: /entity validate-all <character|location|item>'
+        };
+      }
+
+      return await this.entityAgent.validateEntities(entityType);
+    } catch (error) {
+      return {
+        success: false,
+        message: 'Failed to validate entities',
+        error: errorHandler.formatError(error)
+      };
+    }
+  }
+
+  /**
+   * Handle entity edit command
+   */
+  private async handleEntityEditCommand(command: Command): Promise<CommandResult> {
+    try {
+      const entityType = command.args[1] as 'character' | 'location' | 'item';
+      const entityName = command.args[2];
+
+      if (!entityType || !entityName) {
+        return {
+          success: false,
+          message: 'Entity type and name are required',
+          error: 'Usage: /entity edit <character|location|item> <name> [options]'
+        };
+      }
+
+      // Parse updates from options
+      const updates: Record<string, any> = {};
+      for (const [key, value] of Object.entries(command.options)) {
+        if (key !== 'entityType' && key !== 'entityName') {
+          updates[key] = value;
+        }
+      }
+
+      return await this.entityAgent.editEntity(entityType, entityName, updates);
+    } catch (error) {
+      return {
+        success: false,
+        message: 'Failed to edit entity',
+        error: errorHandler.formatError(error)
+      };
+    }
+  }
+
+  /**
+   * Handle entity delete command
+   */
+  private async handleEntityDeleteCommand(command: Command): Promise<CommandResult> {
+    try {
+      const entityType = command.args[1] as 'character' | 'location' | 'item';
+      const entityName = command.args[2];
+
+      if (!entityType || !entityName) {
+        return {
+          success: false,
+          message: 'Entity type and name are required',
+          error: 'Usage: /entity delete <character|location|item> <name> [options]'
+        };
+      }
+
+      const options = {
+        createBackup: command.options.noBackup !== true
+      };
+
+      return await this.entityAgent.deleteEntity(entityType, entityName, options);
+    } catch (error) {
+      return {
+        success: false,
+        message: 'Failed to delete entity',
+        error: errorHandler.formatError(error)
+      };
+    }
+  }
+
+  /**
+   * Handle entity search command
+   */
+  private async handleEntitySearchCommand(command: Command): Promise<CommandResult> {
+    try {
+      const query = command.args[1];
+      const entityType = command.args[2] as 'character' | 'location' | 'item' | undefined;
+
+      if (!query) {
+        return {
+          success: false,
+          message: 'Search query is required',
+          error: 'Usage: /entity search <query> [entityType]'
+        };
+      }
+
+      return await this.entityAgent.searchEntities(query, entityType);
+    } catch (error) {
+      return {
+        success: false,
+        message: 'Failed to search entities',
+        error: errorHandler.formatError(error)
+      };
+    }
+  }
+
+  /**
+   * Handle entity backup command
+   */
+  private async handleEntityBackupCommand(command: Command): Promise<CommandResult> {
+    try {
+      const entityType = command.args[1] as 'character' | 'location' | 'item';
+      const entityName = command.args[2];
+
+      if (!entityType || !entityName) {
+        return {
+          success: false,
+          message: 'Entity type and name are required',
+          error: 'Usage: /entity backup <character|location|item> <name>'
+        };
+      }
+
+      return await this.entityAgent.backupEntity(entityType, entityName);
+    } catch (error) {
+      return {
+        success: false,
+        message: 'Failed to backup entity',
         error: errorHandler.formatError(error)
       };
     }
@@ -738,12 +904,17 @@ export class CommandRouter {
 
     // Add specific help for entity command
     if (commandName === 'entity') {
-      helpData.usage = '/entity <create|list|get|validate> [options]';
+      helpData.usage = '/entity <create|list|get|validate|validate-all|edit|delete|search|backup> [options]';
       helpData.subcommands = {
         'create <type> <name>': 'Create a new entity (character, location, or item)',
-        'list <type>': 'List all entities of a specific type',
+        'list <type>': 'List all entities of a specific type with sorting and pagination',
         'get <type> <name>': 'Get information about a specific entity',
-        'validate <type> <name>': 'Validate an entity file'
+        'validate <type> <name>': 'Validate an entity file',
+        'validate-all <type>': 'Validate all entities of a specific type',
+        'edit <type> <name>': 'Edit an existing entity',
+        'delete <type> <name>': 'Delete an entity (with optional backup)',
+        'search <query> [type]': 'Search entities by name or content',
+        'backup <type> <name>': 'Create a backup of an entity'
       };
       helpData.options = {
         '--type': 'Entity type (character, location, item)',
@@ -752,15 +923,27 @@ export class CommandRouter {
         '--age': 'Character age (for characters)',
         '--species': 'Character species (for characters)',
         '--climate': 'Location climate (for locations)',
-        '--rarity': 'Item rarity (for items)'
+        '--rarity': 'Item rarity (for items)',
+        '--noBackup': 'Skip creating backup when deleting',
+        '--sortBy': 'Sort by name, created, or modified (for list)',
+        '--sortOrder': 'Sort order: asc or desc (for list)',
+        '--limit': 'Limit number of results (for list)',
+        '--offset': 'Offset for pagination (for list)'
       };
       helpData.examples = [
         '/entity create character "Brave Mouse" --age="5" --species="Mouse"',
         '/entity create location "Enchanted Forest" --climate="Temperate"',
         '/entity create item "Magic Sword" --rarity="Legendary"',
         '/entity list characters',
+        '/entity list characters --sortBy=modified --sortOrder=desc',
+        '/entity list characters --limit=10 --offset=0',
         '/entity get character "Brave Mouse"',
-        '/entity validate character "Brave Mouse"'
+        '/entity validate character "Brave Mouse"',
+        '/entity validate-all characters',
+        '/entity edit character "Brave Mouse" --age="6" --description="A brave little mouse"',
+        '/entity delete character "Brave Mouse"',
+        '/entity search "brave" character',
+        '/entity backup character "Brave Mouse"'
       ];
     }
 
