@@ -3,12 +3,12 @@
  * Handles story context generation for the jester storytelling system
  */
 
-import { StoryContext, EntityReference, PlotPoint, LocationTransition } from '../types/index';
-import * as fs from 'fs-extra';
+import { StoryContext, EntityReference, PlotPoint, LocationTransition } from '../types/index.js';
+import fs from 'fs-extra';
 import * as path from 'path';
 import * as yaml from 'yaml';
-import { errorHandler } from '../utils/errorHandler';
-import { FileUtils } from '../utils/fileUtils';
+import { errorHandler } from '../utils/errorHandler.js';
+import { FileUtils } from '../utils/fileUtils.js';
 
 export interface MuseAgentOptions {
   storyIdea?: string | undefined;

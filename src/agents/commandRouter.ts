@@ -3,12 +3,12 @@
  * Handles slash command recognition and routing to appropriate agents
  */
 
-import { Command, CommandResult, AgentConfig } from '../types/index';
-import * as fs from 'fs-extra';
+import { Command, CommandResult, AgentConfig } from '../types/index.js';
+import fs from 'fs-extra';
 import * as path from 'path';
-import { errorHandler } from '../utils/errorHandler';
-import { MuseAgent, MuseAgentOptions } from './museAgent';
-import { WriteAgent, WriteAgentOptions } from './writeAgent';
+import { errorHandler } from '../utils/errorHandler.js';
+import { MuseAgent, MuseAgentOptions } from './museAgent.js';
+import { WriteAgent, WriteAgentOptions } from './writeAgent.js';
 
 export class CommandRouter {
   private agents: Map<string, AgentConfig> = new Map();

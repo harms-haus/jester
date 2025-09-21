@@ -3,11 +3,11 @@
  * Handles file creation, validation, and pipeline management
  */
 
-import * as fs from 'fs-extra';
+import fs from 'fs-extra';
 import * as path from 'path';
 import * as yaml from 'yaml';
-import { StoryContext, StoryOutline, Story } from '../types/index';
-import { errorHandler } from './errorHandler';
+import { StoryContext, StoryOutline, Story } from '../types/index.js';
+import { errorHandler } from './errorHandler.js';
 
 export class FileUtils {
   private templatesPath: string;

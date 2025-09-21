@@ -3,7 +3,7 @@
  * Provides centralized error handling, logging, and graceful degradation
  */
 
-import * as fs from 'fs-extra';
+import fs from 'fs-extra';
 import * as path from 'path';
 
 export interface ErrorContext {

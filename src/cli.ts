@@ -7,8 +7,8 @@
  * It provides interactive commands for story creation and management.
  */
 
-import { CommandRouter } from './agents/commandRouter';
-import { errorHandler } from './utils/errorHandler';
+import { CommandRouter } from './agents/commandRouter.js';
+import { errorHandler } from './utils/errorHandler.js';
 
 async function main() {
   try {

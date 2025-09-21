@@ -3,12 +3,12 @@
  * Handles outline generation from context files
  */
 
-import * as fs from 'fs-extra';
+import fs from 'fs-extra';
 import * as path from 'path';
 import * as yaml from 'yaml';
-import { StoryContext, StoryOutline, DetailedPlotPoint, Story } from '../types/index';
-import { FileUtils } from '../utils/fileUtils';
-import { errorHandler } from '../utils/errorHandler';
+import { StoryContext, StoryOutline, DetailedPlotPoint, Story } from '../types/index.js';
+import { FileUtils } from '../utils/fileUtils.js';
+import { errorHandler } from '../utils/errorHandler.js';
 
 export interface WriteAgentOptions {
   contextFile?: string;
