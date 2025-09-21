@@ -7,7 +7,6 @@
  * It provides interactive commands for story creation and management.
  */
 
-import { errorHandler } from './utils/errorHandler';
 import { AgentExecutor } from './agents/agentExecutor';
 
 async function main() {
@@ -57,7 +56,6 @@ async function main() {
     }
     
   } catch (error) {
-    errorHandler.logError('Failed to execute command', error);
     console.error('An error occurred while executing the command.');
     process.exit(1);
   }
@@ -65,7 +63,6 @@ async function main() {
 
 // Run the main function
 main().catch((error) => {
-  errorHandler.logError('Unexpected error in main', error);
   console.error('An unexpected error occurred.');
   process.exit(1);
 });

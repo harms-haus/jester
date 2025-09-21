@@ -22,6 +22,7 @@ commands:
   - generate-story: Generate a complete story from outline
   - refine-outline: Refine an existing story outline
   - refine-story: Refine an existing story content
+  - update-outline: Update outline with character renames and context changes
   - adjust-length: Adjust story length to meet requirements
 dependencies:
   templates:
@@ -158,6 +159,51 @@ dependencies:
 3. **Apply refinements** while maintaining story integrity
 4. **Update the file** with improvements
 5. **Confirm changes** and suggest next steps
+
+### Command: `/write update-outline <file> [options]`
+
+**When activated:**
+1. **Read the specified outline file** to understand current structure
+2. **Read related context file** for story requirements
+3. **Read entity files** for current character, location, and item details
+4. **Ask what specific updates are needed**:
+   - Character name changes and context updates
+   - Plot structure modifications
+   - Character development enhancements
+   - Scene additions or removals
+   - Pacing adjustments
+5. **For character renaming**:
+   - **Update character name** in the outline content
+   - **Rename the character entity file** using FileUtils.renameCharacterEntity()
+   - **Update all references** to the character in other entity files
+6. **For context updates**:
+   - **Update character descriptions** and relationships
+   - **Modify plot points** to reflect new character context
+   - **Adjust character arcs** and development
+   - **Update scene descriptions** with new character details
+7. **Apply all updates** while maintaining story integrity
+8. **Update the outline file** with all changes
+9. **Update related entity files** if character changes were made
+10. **Confirm all changes** and provide summary
+
+**File Operations:**
+- **Read**: `outlines/outline_*.md`, `contexts/context_*.yaml`, `entities/characters/*.md`, `entities/locations/*.md`, `entities/items/*.md`
+- **Update**: Outline file with modifications
+- **Rename**: Character entity files if names changed
+- **Update**: All entity files with new character references
+
+**Error Handling:**
+- If outline file doesn't exist, suggest creating one first
+- If character file rename fails, provide specific error details
+- If entity references can't be updated, list which files need manual review
+- Always provide helpful suggestions for improvement
+
+**Response Format:**
+- Confirm outline updates with file path
+- List all character renames and file changes made
+- Summarize plot and character modifications
+- Provide updated entity file references
+- Suggest next steps (use `/write story` or further refinements)
 
 ### Command: `/write adjust-length <file> <target-length>`
 
