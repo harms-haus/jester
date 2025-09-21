@@ -14,7 +14,7 @@ describe('CommandRouter - Muse Command', () => {
   let commandRouter: CommandRouter;
   let mockMuseAgent: jest.Mocked<MuseAgent>;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     // Clear all mocks
     jest.clearAllMocks();
     
@@ -34,6 +34,9 @@ describe('CommandRouter - Muse Command', () => {
     
     commandRouter = new CommandRouter();
     
+    // Wait for agents to load
+    await new Promise(resolve => setTimeout(resolve, 10));
+    
     // Manually set the agents map to include muse
     (commandRouter as any).agents.set('muse', {
       name: 'Muse',
@@ -52,7 +55,7 @@ describe('CommandRouter - Muse Command', () => {
       const command = commandRouter.parseCommand(commandString);
       
       expect(command.name).toBe('muse');
-      expect(command.args).toEqual(['"A', 'brave', 'little', 'mouse"']);
+      expect(command.args).toEqual(['A brave little mouse']);
       expect(command.options).toEqual({});
     });
 
@@ -61,10 +64,10 @@ describe('CommandRouter - Muse Command', () => {
       const command = commandRouter.parseCommand(commandString);
       
       expect(command.name).toBe('muse');
-      expect(command.args).toEqual(['"Space', 'adventure"']);
+      expect(command.args).toEqual(['Space adventure']);
       expect(command.options).toEqual({
-        ageRange: '"8-12"',
-        plotTemplate: '"heroes_journey"'
+        ageRange: '8-12',
+        plotTemplate: 'heroes_journey'
       });
     });
 
@@ -73,11 +76,11 @@ describe('CommandRouter - Muse Command', () => {
       const command = commandRouter.parseCommand(commandString);
       
       expect(command.name).toBe('muse');
-      expect(command.args).toEqual(['"Dragon', 'story"']);
+      expect(command.args).toEqual(['Dragon story']);
       expect(command.options).toEqual({
-        ageRange: '"5-8"',
-        characters: '"Knight,Dragon,Princess"',
-        themes: '"Courage,Friendship"'
+        ageRange: '5-8',
+        characters: 'Knight,Dragon,Princess',
+        themes: 'Courage,Friendship'
       });
     });
   });
@@ -221,11 +224,11 @@ describe('CommandRouter - Muse Command', () => {
     });
 
     it('should handle empty command', () => {
-      expect(() => commandRouter.parseCommand('')).toThrow('Invalid command string');
+      expect(() => commandRouter.parseCommand('')).toThrow('Empty command string');
     });
 
     it('should handle invalid command format', () => {
-      expect(() => commandRouter.parseCommand('   ')).toThrow('Invalid command string');
+      expect(() => commandRouter.parseCommand('   ')).toThrow('Empty command string');
     });
   });
 });

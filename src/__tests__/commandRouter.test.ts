@@ -10,8 +10,10 @@ describe('CommandRouter', () => {
   let commandRouter: CommandRouter;
   const testAgentPath = path.join(process.cwd(), '.jester', 'agents');
 
-  beforeEach(() => {
+  beforeEach(async () => {
     commandRouter = new CommandRouter();
+    // Wait for agents to load
+    await new Promise(resolve => setTimeout(resolve, 10));
   });
 
   describe('parseCommand', () => {
@@ -52,7 +54,7 @@ describe('CommandRouter', () => {
       const result = await commandRouter.routeCommand(command);
       
       expect(result.success).toBe(true);
-      expect(result.message).toContain('muse');
+      expect(result.message).toContain('Story context generated successfully');
     });
 
     it('should handle unknown command', async () => {

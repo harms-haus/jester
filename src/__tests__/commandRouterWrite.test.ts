@@ -18,7 +18,8 @@ const mockedFs = {
 // Mock WriteAgent
 jest.mock('../agents/writeAgent');
 const mockWriteAgent = {
-  generateAndSaveOutline: jest.fn()
+  generateAndSaveOutline: jest.fn(),
+  generateAndSaveStory: jest.fn()
 };
 
 // Mock the WriteAgent constructor
@@ -29,7 +30,7 @@ jest.mock('../agents/writeAgent', () => ({
 describe('CommandRouter Write Command', () => {
   let commandRouter: CommandRouter;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     // Reset all mocks
     jest.clearAllMocks();
     
@@ -49,8 +50,11 @@ dependencies: {}
 ---
 Write agent configuration
     `);
-
+    
     commandRouter = new CommandRouter();
+    
+    // Wait for agents to load
+    await new Promise(resolve => setTimeout(resolve, 10));
   });
 
   describe('write command parsing', () => {
@@ -166,19 +170,35 @@ Write agent configuration
   });
 
   describe('write story command', () => {
-    it('should handle write story command (not yet implemented)', async () => {
+    it('should handle write story command', async () => {
       const command: Command = {
         name: 'write',
         args: ['story'],
         options: {}
       };
 
+      // Mock the generateAndSaveStory method
+      mockWriteAgent.generateAndSaveStory.mockResolvedValue({
+        story: {
+          title: 'Test Story',
+          content: 'Test content',
+          word_count: 100,
+          metadata: {
+            reading_time_minutes: 1,
+            created_at: '2024-12-19T00:00:00.000Z',
+            last_modified: '2024-12-19T00:00:00.000Z',
+            version: 1
+          }
+        },
+        filePath: 'stories/test-story.md'
+      });
+
       const result = await commandRouter.routeCommand(command);
 
       expect(result.success).toBe(true);
-      expect(result.message).toContain('Write story command not yet implemented');
-      expect(result.data.command).toBe('write');
-      expect(result.data.subcommand).toBe('story');
+      expect(result.message).toContain('Story generated successfully');
+      expect(result.data.story).toBeDefined();
+      expect(result.data.filePath).toBeDefined();
     });
   });
 
@@ -266,15 +286,7 @@ Write agent configuration
         options: { ageRange: '5-8' }
       };
 
-      // Mock muse agent
-      const mockMuseAgent = {
-        generateContext: jest.fn().mockResolvedValue({
-          title: 'Test Story',
-          target_audience: { age_range: '5-8', reading_level: 'beginner' }
-        })
-      };
-
-      jest.spyOn(commandRouter as any, 'museAgent', 'get').mockReturnValue(mockMuseAgent);
+      // The muse command should work without interference
 
       const result = await commandRouter.routeCommand(museCommand);
 
