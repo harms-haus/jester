@@ -7,8 +7,8 @@
  * It provides interactive commands for story creation and management.
  */
 
-import { CommandRouter } from './agents/commandRouter';
 import { errorHandler } from './utils/errorHandler';
+import { AgentExecutor } from './agents/agentExecutor';
 
 async function main() {
   try {
@@ -16,32 +16,23 @@ async function main() {
     const args = process.argv.slice(2);
     
     if (args.length === 0) {
-      console.log('jester - AI-powered bedtime story creation system');
-      console.log('');
-      console.log('Usage: jester <command> [options]');
-      console.log('');
-      console.log('Commands:');
-      console.log('  /muse [story-idea]     Start a new story brainstorming session');
-      console.log('  /write <type>          Generate outline or story from context');
-      console.log('  /edit <action>         Edit existing story elements');
-      console.log('');
-      console.log('Examples:');
-      console.log('  jester /muse "A brave little mouse goes on an adventure"');
-      console.log('  jester /write outline');
-      console.log('  jester /write story');
-      console.log('  jester /edit character --name="Mouse" --description="Brave and curious"');
+      // Initialize agent system and show help
+      const executor = new AgentExecutor();
+      await executor.initialize();
+      const help = executor.getHelp();
+      console.log(help.message);
       return;
     }
 
     // Join all arguments into a single command string
     const commandString = args.join(' ');
     
-    // Initialize command router
-    const router = new CommandRouter();
+    // Initialize agent system
+    const executor = new AgentExecutor();
+    await executor.initialize();
     
-    // Parse and route the command
-    const command = router.parseCommand(commandString);
-    const result = await router.routeCommand(command);
+    // Execute the command
+    const result = await executor.executeCommand(commandString);
     
     // Display result
     if (result.success) {
@@ -49,10 +40,18 @@ async function main() {
       if (result.data) {
         console.log(JSON.stringify(result.data, null, 2));
       }
+      if (result.nextSteps && result.nextSteps.length > 0) {
+        console.log('\nNext steps:');
+        result.nextSteps.forEach(step => console.log(`- ${step}`));
+      }
     } else {
       console.error(`Error: ${result.message}`);
       if (result.error) {
         console.error(result.error);
+      }
+      if (result.nextSteps && result.nextSteps.length > 0) {
+        console.log('\nSuggestions:');
+        result.nextSteps.forEach(step => console.log(`- ${step}`));
       }
       process.exit(1);
     }

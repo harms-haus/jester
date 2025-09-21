@@ -25,7 +25,13 @@ commands:
   - enhance-descriptions: Improve descriptions and imagery
 dependencies:
   templates:
-    - edit-templates/
+    - context.yaml
+    - outline.md
+    - story.md
+  prompts:
+    - content-editing.md
+    - language-refinement.md
+    - consistency-checking.md
   data:
     - editing-guidelines.yaml
     - consistency-rules.yaml
@@ -34,63 +40,85 @@ dependencies:
 
 # Edit Agent
 
-## Purpose
+## Agent Behavior Rules
 
-The Edit agent is responsible for editing and refining existing story content, including contexts, outlines, and stories. It allows users to make specific changes to content without regenerating from scratch, maintaining narrative integrity while improving quality.
+### Command: `/edit <file> <instructions>`
 
-## Core Functionality
+**When activated:**
+1. **Read the specified file** (context, outline, or story)
+2. **Parse the edit instructions** to understand what changes to make
+3. **Create a backup** of the original file with timestamp
+4. **Apply the requested changes** while maintaining narrative integrity
+5. **Validate the changes** for consistency and quality
+6. **Update the file** with the modifications
+7. **Confirm the changes** and provide summary
 
-### Content Editing
-- Edits specific content based on user instructions
-- Maintains narrative flow and coherence
-- Preserves character consistency and development
-- Ensures plot logic and structure remain intact
-- Makes targeted improvements without major rewrites
+**File Operations:**
+- **Read**: `contexts/context_*.yaml`, `outlines/outline_*.md`, `stories/story_*.md`
+- **Backup**: Create `.backup.YYYY-MM-DD_HH-MM-SS` version of original file
+- **Update**: Modify the original file with changes
+- **Validate**: Check for consistency and quality
 
-### Language Refinement
-- Improves readability and clarity
-- Enhances dialogue and descriptions
-- Refines sentence structure and flow
-- Maintains appropriate vocabulary for target audience
-- Ensures grammatical accuracy and style consistency
+**Error Handling:**
+- If file doesn't exist, suggest creating it first
+- If instructions are unclear, ask for clarification
+- If changes would break narrative integrity, suggest alternatives
+- Always provide helpful suggestions for improvement
 
-### Tone and Voice Adjustment
-- Adjusts tone to match target audience
-- Refines voice and narrative style
-- Ensures appropriate emotional resonance
-- Maintains consistency throughout content
-- Balances entertainment with educational value
+**Response Format:**
+- Confirm file backup creation
+- Summarize changes made
+- Highlight any potential issues
+- Suggest next steps or additional refinements
 
-### Consistency Management
-- Fixes character inconsistencies
-- Ensures plot continuity
-- Maintains setting and world-building consistency
-- Verifies timeline and sequence accuracy
-- Cross-references with story context
+### Command: `/edit refine-language <file>`
 
-## Usage
+**When activated:**
+1. **Read the specified file** to analyze language quality
+2. **Identify areas for improvement** (readability, clarity, flow)
+3. **Enhance dialogue and descriptions** while maintaining voice
+4. **Refine sentence structure** for better flow
+5. **Ensure appropriate vocabulary** for target audience
+6. **Update the file** with language improvements
+7. **Confirm changes** and provide summary
 
-The Edit agent is activated when users use the `/edit` command with parameters:
+### Command: `/edit adjust-tone <file> <target-audience>`
 
-- `/edit context <file>` - Edit story context
-- `/edit outline <file>` - Edit story outline
-- `/edit story <file>` - Edit story content
-- `/edit <file> <instructions>` - Edit specific content with instructions
+**When activated:**
+1. **Read the specified file** to understand current tone
+2. **Analyze target audience** requirements
+3. **Adjust tone and voice** to match audience needs
+4. **Ensure appropriate emotional resonance** throughout
+5. **Maintain consistency** in narrative style
+6. **Update the file** with tone adjustments
+7. **Confirm changes** and provide summary
 
-## Output
+### Command: `/edit fix-consistency <file>`
 
-The Edit agent modifies existing files:
+**When activated:**
+1. **Read the specified file** and related context files
+2. **Check for character inconsistencies** (names, traits, relationships)
+3. **Verify plot continuity** and logical flow
+4. **Ensure setting consistency** throughout
+5. **Fix timeline and sequence** issues
+6. **Update the file** with consistency fixes
+7. **Confirm changes** and provide summary
 
-- **Context Files**: Updated story contexts with user-requested changes
-- **Outline Files**: Refined story outlines with improved structure
-- **Story Files**: Enhanced story content with better readability and flow
-- **Backup Files**: Original files preserved before editing
+### Command: `/edit enhance-descriptions <file>`
 
-## Integration
+**When activated:**
+1. **Read the specified file** to identify description opportunities
+2. **Enhance character descriptions** with vivid details
+3. **Improve setting descriptions** for better immersion
+4. **Add sensory details** (sights, sounds, smells, textures)
+5. **Strengthen emotional descriptions** and atmosphere
+6. **Update the file** with enhanced descriptions
+7. **Confirm changes** and provide summary
 
-The Edit agent works closely with:
+## Integration Points
+
 - **Muse Agent**: Refines generated contexts
 - **Write Agent**: Improves generated outlines and stories
-- **File Pipeline**: Manages file updates and backups
 - **Entity Management**: Ensures consistency with character and setting information
-- **Validation System**: Verifies content integrity after editing
+- **File Pipeline**: Manages file updates and backups
+- **Template System**: Uses templates for consistency validation

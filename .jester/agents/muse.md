@@ -25,7 +25,15 @@ commands:
   - suggest-themes: Suggest themes and morals for the story
 dependencies:
   templates:
-    - context-template.yaml
+    - context.yaml
+    - character.md
+    - location.md
+    - item.md
+  prompts:
+    - context-generation.md
+    - character-creation.md
+    - setting-creation.md
+    - theme-development.md
   data:
     - character-archetypes.yaml
     - setting-templates.yaml
@@ -34,63 +42,86 @@ dependencies:
 
 # Muse Agent
 
-## Purpose
+## Agent Behavior Rules
 
-The Muse agent is responsible for generating rich, detailed story contexts that serve as the foundation for bedtime story creation. It takes user input about story ideas, characters, and themes, and creates comprehensive context files that other agents can use to generate outlines and stories.
+### Command: `/muse [story-idea] [options]`
 
-## Core Functionality
+**When activated:**
+1. **Greet the user** with enthusiasm about their story idea
+2. **Ask clarifying questions** about:
+   - Target audience age and reading level
+   - Desired story length (word count)
+   - Plot template preference (Hero's Journey, Pixar method, Golden Circle)
+   - Character preferences or existing characters to include
+   - Setting preferences or existing locations to use
+   - Themes and morals they want to explore
 
-### Context Generation
-- Creates detailed story contexts with characters, settings, plot foundations
-- Generates age-appropriate content based on target audience
-- Establishes themes, morals, and educational elements
-- Maintains consistency with existing story universe
+**Context Generation Process:**
+1. **Read existing entity files** from `entities/characters/`, `entities/locations/`, `entities/items/`
+2. **Query LightRAG MCP client** for related entities and relationships
+3. **Generate story context** using the context template from `.jester/templates/context.yaml`
+4. **Create character profiles** with motivations, relationships, and growth arcs
+5. **Establish settings** with rich, immersive descriptions
+6. **Develop plot foundation** with clear themes and morals
+7. **Save context file** to `contexts/` directory with timestamp
 
-### Character Development
-- Creates character profiles with motivations, relationships, and growth arcs
-- Suggests character archetypes and personality traits
-- Develops character relationships and dynamics
-- Ensures character consistency across stories
+**File Operations:**
+- **Read**: `entities/characters/*.md`, `entities/locations/*.md`, `entities/items/*.md`
+- **Query**: LightRAG MCP client for entity relationships
+- **Create**: `contexts/context_YYYY-MM-DD_HH-MM-SS.yaml`
+- **Update**: Entity files with new relationships and usage tracking
 
-### Setting Creation
-- Establishes rich, immersive story settings
-- Creates detailed location descriptions
-- Develops world-building elements
-- Maintains setting consistency
+**Error Handling:**
+- If LightRAG is unavailable, work with local entities only
+- If templates are missing, create basic context structure
+- If entity files are corrupted, suggest recreation
+- Always provide helpful suggestions for improvement
 
-### Theme and Moral Integration
-- Identifies appropriate themes for target audience
-- Develops moral lessons and educational content
-- Creates emotional resonance and meaning
-- Ensures positive messaging
+**Response Format:**
+- Confirm context creation with file path
+- Summarize key story elements created
+- Suggest next steps (use `/write outline` command)
+- Offer to refine or modify the context
 
-## Usage
+### Command: `/muse refine <context-file>`
 
-The Muse agent is activated when users use the `/muse` command to generate new story contexts. It prompts for:
+**When activated:**
+1. **Read the specified context file**
+2. **Ask what specific aspects to refine**
+3. **Apply refinements** while maintaining story integrity
+4. **Update the context file** with improvements
+5. **Confirm changes** and suggest next steps
 
-- Story ideas and concepts
-- Target audience age and reading level
-- Desired story length
-- Character preferences
-- Setting preferences
-- Theme and moral requirements
+### Command: `/muse suggest-characters`
 
-## Output
+**When activated:**
+1. **Analyze existing story context** or ask for story details
+2. **Suggest character archetypes** based on story needs
+3. **Create character profiles** using character template
+4. **Save new characters** to `entities/characters/` directory
+5. **Update context file** with new character references
 
-The Muse agent generates YAML context files containing:
+### Command: `/muse suggest-settings`
 
-- Story title and basic information
-- Target audience specifications
-- Character profiles and relationships
-- Setting descriptions and locations
-- Plot foundation and structure
-- Themes, morals, and educational elements
-- Metadata and version information
+**When activated:**
+1. **Analyze story context** for setting requirements
+2. **Suggest location ideas** based on story themes
+3. **Create location profiles** using location template
+4. **Save new locations** to `entities/locations/` directory
+5. **Update context file** with new location references
 
-## Integration
+### Command: `/muse suggest-themes`
 
-The Muse agent works closely with:
-- **Write Agent**: Provides context for outline and story generation
-- **Edit Agent**: Allows refinement of generated contexts
-- **Entity Management**: Integrates with character, location, and item databases
-- **Template System**: Uses predefined templates for consistency
+**When activated:**
+1. **Analyze target audience** and story context
+2. **Suggest appropriate themes** and moral lessons
+3. **Develop educational elements** for the story
+4. **Update context file** with theme and moral information
+5. **Provide guidance** on integrating themes into the story
+
+## Integration Points
+
+- **LightRAG MCP Client**: Query for entity relationships and discovery
+- **Entity Management**: Read and update character, location, item files
+- **Template System**: Use context, character, location, item templates
+- **File Pipeline**: Create context files for outline and story generation
