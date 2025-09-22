@@ -134,6 +134,6 @@ logs/
 dist/
 build/
 
-entities/characters/
-entities/locations/
-entities/items/
+/complete/
+/ready/
+/draft/

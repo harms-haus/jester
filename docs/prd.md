@@ -59,11 +59,24 @@ jester adapts proven software development methodologies (BMAD principles) to cre
     - `.jester/tasks/` - Reusable workflow tasks
     - `.jester/data/` - Knowledge base and reference data
     - `.jester/utils/` - Utility functions and helpers
-22. **FR22**: The system shall expose only user-facing directories in the root:
-    - `entities/` - Entity files (characters/, locations/, items/)
-    - `stories/` - Generated story files
-    - `outlines/` - Generated outline files
-    - `contexts/` - Generated context files
+22. **FR22**: The system shall organize files in a three-stage workflow:
+    - `draft/` - Work in progress with incrementing draft numbers (001, 002, 013, etc.)
+    - `ready/` - Approved work ready for publication
+    - `complete/` - Published work in final form
+    - `contexts/` - Context files (no staging needed)
+
+23. **FR23**: The system shall maintain draft number consistency:
+    - `context-013.md` always creates `outline-013.md`
+    - `outline-013.md` always creates `story-013.md`
+    - All draft files maintain the same draft number
+
+24. **FR24**: The system shall provide workflow commands:
+    - `/edit approve-draft {number}` - Move draft to ready/
+    - `/edit publish "{title}"` - Move ready story to complete/
+
+25. **FR25**: The system shall use descriptive entity naming in drafts:
+    - Format: `new-{type}-{descriptive-name}.md`
+    - Location: `draft/entities-{draft-number}/`
 
 ### Non Functional
 
@@ -202,7 +215,7 @@ so that **I can start the story creation process with essential information**.
 2. **Context YAML file is generated** with basic structure including entities, plot, morals, and metadata
 3. **User can specify target audience age** and story length requirements
 4. **Basic plot template selection is available** (Hero's Journey, Pixar method, Golden Circle)
-5. **Context file is saved** to contexts/ directory with timestamp
+5. **Context file is saved** to draft/ directory with incrementing draft number
 6. **Metadata is properly formatted** and includes all required fields
 7. **User receives confirmation** of context file creation with file path
 
@@ -219,7 +232,7 @@ so that **I can see the plot structure before generating the full story**.
 3. **Metadata is propagated** from context to outline (target length, audience)
 4. **Plot points are structured** with 2-3 sentence descriptions
 5. **Character roles are integrated** into plot points based on context
-6. **Outline file is saved** to outlines/ directory with timestamp
+6. **Outline file is saved** to draft/ directory with incrementing draft number
 7. **User receives confirmation** of outline creation with file path
 
 ### Story 1.4: Basic Story Generation
@@ -235,7 +248,7 @@ so that **I can create a bedtime story from the outline**.
 3. **Story includes title and summary** generated from outline content
 4. **Character names and details are consistent** with outline specifications
 5. **Story follows the plot structure** defined in the outline
-6. **Story file is saved** to stories/ directory with timestamp
+6. **Story file is saved** to draft/ directory with incrementing draft number
 7. **User receives confirmation** of story creation with file path
 
 ### Story 1.5: Basic Edit Functionality

@@ -24,6 +24,12 @@ commands:
   - fix-consistency: Fix inconsistencies in character or plot
   - enhance-descriptions: Improve descriptions and imagery
   - import-entity: Import unstructured entity file and convert to structured format
+  - approve-draft: Move draft to ready/ directory
+  - publish: Move ready story to complete/ directory
+  - create-draft: Create new draft with specified number
+  - list-drafts: List all current drafts
+  - list-ready: List all ready content
+  - list-complete: List all complete content
 dependencies:
   templates:
     - context.yaml
@@ -176,6 +182,141 @@ dependencies:
 **Response Format:**
 - **For single files**: Confirm file backup creation, show entity type detected, list template fields populated, highlight missing/inferred information, suggest next steps, provide path to generated file
 - **For directories**: Show total files found, files processed, files skipped (duplicates), batch processing progress, summary of all imported entities, list any errors encountered, provide paths to all generated files
+
+### Command: `/edit approve-draft {draft-number}`
+
+**When activated:**
+1. **Read draft files** from `draft/` directory with specified number
+2. **Validate draft completeness** (context, outline, story, entities)
+3. **Move files to ready/** directory with proper naming
+4. **Update entity references** to use final naming convention
+5. **Confirm approval** and provide next steps
+
+**File Operations:**
+- **Read**: `draft/context-{number}.md`, `draft/outline-{number}.md`, `draft/story-{number}.md`, `draft/entities-{number}/*.md`
+- **Create**: `ready/stories/{title}.md`, `ready/outlines/{title}.md`, `ready/characters/*.md`, `ready/locations/*.md`, `ready/items/*.md`
+- **Update**: Entity references and links
+
+**Error Handling:**
+- If draft files are missing, list what's needed
+- If validation fails, provide specific error details
+- If move operations fail, provide rollback instructions
+
+**Response Format:**
+- Confirm draft approval with file paths
+- List all files moved to ready/
+- Provide next steps (use `/edit publish` command)
+
+### Command: `/edit publish "{story-title}"`
+
+**When activated:**
+1. **Find ready story** by title in `ready/stories/`
+2. **Move story and related files** to `complete/` directory
+3. **Update entity references** to final locations
+4. **Confirm publication** and provide summary
+
+**File Operations:**
+- **Read**: `ready/stories/{title}.md`, `ready/outlines/{title}.md`, `ready/characters/*.md`, `ready/locations/*.md`, `ready/items/*.md`
+- **Create**: `complete/stories/{title}.md`, `complete/outlines/{title}.md`, `complete/characters/*.md`, `complete/locations/*.md`, `complete/items/*.md`
+- **Update**: Final entity references and links
+
+**Error Handling:**
+- If ready story not found, list available ready stories
+- If move operations fail, provide specific error details
+- If entity references can't be updated, list manual steps needed
+
+**Response Format:**
+- Confirm publication with file paths
+- List all files moved to complete/
+- Provide story summary and next steps
+
+### Command: `/edit create-draft {draft-number}`
+
+**When activated:**
+1. **Validate draft number** (3-digit format, not already in use)
+2. **Create draft directory structure** for the number
+3. **Initialize draft files** with basic structure
+4. **Confirm creation** and provide next steps
+
+**File Operations:**
+- **Create**: `draft/context-{number}.md`, `draft/outline-{number}.md`, `draft/story-{number}.md`, `draft/entities-{number}/`
+- **Initialize**: Basic file structure and metadata
+
+**Error Handling:**
+- If draft number already exists, suggest alternative
+- If directory creation fails, provide specific error details
+- If initialization fails, provide manual steps
+
+**Response Format:**
+- Confirm draft creation with directory structure
+- List created files and directories
+- Provide next steps (use `/muse` to start context)
+
+### Command: `/edit list-drafts`
+
+**When activated:**
+1. **Scan draft directory** for all draft numbers
+2. **Read draft metadata** for each found draft
+3. **Display organized list** with status information
+4. **Provide summary** of draft activity
+
+**File Operations:**
+- **Read**: `draft/` directory contents
+- **Parse**: Draft file metadata and status
+
+**Error Handling:**
+- If draft directory doesn't exist, create it
+- If metadata is corrupted, show available information
+- If scanning fails, provide manual directory listing
+
+**Response Format:**
+- List all drafts with numbers and status
+- Show creation dates and last modified
+- Provide summary statistics
+
+### Command: `/edit list-ready`
+
+**When activated:**
+1. **Scan ready directory** for all ready content
+2. **Read content metadata** for each item
+3. **Display organized list** by type
+4. **Provide summary** of ready content
+
+**File Operations:**
+- **Read**: `ready/` directory contents
+- **Parse**: Content metadata and status
+
+**Error Handling:**
+- If ready directory doesn't exist, create it
+- If metadata is corrupted, show available information
+- If scanning fails, provide manual directory listing
+
+**Response Format:**
+- List all ready content by type
+- Show titles and creation dates
+- Provide summary statistics
+
+### Command: `/edit list-complete`
+
+**When activated:**
+1. **Scan complete directory** for all published content
+2. **Read content metadata** for each item
+3. **Display organized list** by type
+4. **Provide summary** of published content
+
+**File Operations:**
+- **Read**: `complete/` directory contents
+- **Parse**: Content metadata and status
+
+**Error Handling:**
+- If complete directory doesn't exist, create it
+- If metadata is corrupted, show available information
+- If scanning fails, provide manual directory listing
+
+**Response Format:**
+- List all complete content by type
+- Show titles and publication dates
+- Provide summary statistics
 
 ## Integration Points
 

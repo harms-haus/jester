@@ -10,13 +10,24 @@ jester/
 │   ├── tasks/                  # Task definitions
 │   ├── data/                   # Reference data
 │   └── utils/                  # Utility scripts
-├── entities/                   # User entity files
-│   ├── characters/             # Character markdown files
-│   ├── locations/              # Location markdown files
-│   └── items/                  # Item markdown files
-├── stories/                    # Generated story files
-├── outlines/                   # Generated outline files
-├── contexts/                   # Generated context files
+├── draft/                      # Work in progress
+│   ├── context-{number}.md     # Draft context files
+│   ├── outline-{number}.md     # Draft outline files
+│   ├── story-{number}.md       # Draft story files
+│   └── entities-{number}/      # Draft entities
+├── ready/                      # Approved work
+│   ├── stories/                # Approved stories
+│   ├── outlines/               # Approved outlines
+│   ├── characters/             # Approved characters
+│   ├── locations/              # Approved locations
+│   └── items/                  # Approved items
+├── complete/                   # Published work
+│   ├── stories/                # Published stories
+│   ├── outlines/               # Published outlines
+│   ├── characters/             # Published characters
+│   ├── locations/              # Published locations
+│   └── items/                  # Published items
+├── contexts/                   # Context files
 ├── docs/                       # Documentation
 │   ├── prd/                    # Sharded PRD sections
 │   └── architecture/           # Sharded architecture sections
@@ -34,9 +45,9 @@ jester/
 ## Key Directories
 
 - **`.jester/`**: Framework files, hidden from users
-- **`entities/`**: User-created entity files with wiki-style linking
-- **`stories/`**: Generated story files
-- **`outlines/`**: Generated outline files
-- **`contexts/`**: Generated context files
+- **`draft/`**: Work in progress with incrementing draft numbers
+- **`ready/`**: Approved work ready for publication
+- **`complete/`**: Published work in final form
+- **`contexts/`**: Context files (no staging needed)
 - **`docs/`**: Project documentation (sharded)
 - **`src/`**: Source code for the jester system

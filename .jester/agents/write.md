@@ -87,11 +87,11 @@ dependencies:
    
    **Characters:** [character names]
    ```
-9. **Save outline file** to `outlines/outline_YYYY-MM-DD_HH-MM-SS.md`
+9. **Save outline file** to `draft/outline-{draft-number}.md` (first file) or `draft/outline-{draft-number}-{version}.md` (subsequent files)
 
 **File Operations:**
-- **Read**: `contexts/context_*.yaml`, `entities/characters/*.md`, `entities/locations/*.md`, `entities/items/*.md`
-- **Create**: `outlines/outline_YYYY-MM-DD_HH-MM-SS.md`
+- **Read**: `draft/context-{draft-number}.md`, `draft/entities-{draft-number}/*.md`
+- **Create**: `draft/outline-{draft-number}.md`
 - **Update**: Context file with outline reference
 
 **Error Handling:**
@@ -132,11 +132,11 @@ dependencies:
     
     [Complete story content with engaging narrative, dialogue, and descriptions]
     ```
-11. **Save story file** to `stories/story_YYYY-MM-DD_HH-MM-SS.md`
+11. **Save story file** to `draft/story-{draft-number}.md` (first file) or `draft/story-{draft-number}-{version}.md` (subsequent files)
 
 **File Operations:**
-- **Read**: `outlines/outline_*.md`, `contexts/context_*.yaml`, `entities/characters/*.md`, `entities/locations/*.md`, `entities/items/*.md`
-- **Create**: `stories/story_YYYY-MM-DD_HH-MM-SS.md`
+- **Read**: `draft/outline-{draft-number}.md`, `draft/context-{draft-number}.md`, `draft/entities-{draft-number}/*.md`
+- **Create**: `draft/story-{draft-number}.md`
 - **Update**: Outline file with story reference
 
 **Error Handling:**

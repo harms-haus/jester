@@ -86,12 +86,12 @@ dependencies:
      version: "1.0"
    ---
    ```
-8. **Save context file** to `contexts/context_YYYY-MM-DD_HH-MM-SS.yaml`
+8. **Save context file** to `draft/context-{draft-number}.md` (first file) or `draft/context-{draft-number}-{version}.md` (subsequent files)
 
 **File Operations:**
-- **Read**: `entities/characters/*.md`, `entities/locations/*.md`, `entities/items/*.md`
+- **Read**: `draft/entities-{draft-number}/*.md`, `ready/characters/*.md`, `ready/locations/*.md`, `ready/items/*.md`
 - **Query**: LightRAG MCP client for entity relationships
-- **Create**: `contexts/context_YYYY-MM-DD_HH-MM-SS.yaml`
+- **Create**: `draft/context-{draft-number}.md`
 - **Update**: Entity files with new relationships and usage tracking
 
 **Error Handling:**
