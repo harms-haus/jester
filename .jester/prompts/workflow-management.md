@@ -63,8 +63,8 @@ draft/
 9. Confirm approval
 
 **File Operations**:
-- `draft/context-{number}.md` → `ready/stories/{title}.md`
-- `draft/outline-{number}.md` → `ready/outlines/{title}.md`
+- `draft/context-{number}.md` → `ready/contexts/{title} (context).md`
+- `draft/outline-{number}.md` → `ready/outlines/{title} (outline).md`
 - `draft/story-{number}.md` → `ready/stories/{title}.md`
 
 ### `/edit publish "{story-title}"` (via @jester)
@@ -81,7 +81,8 @@ draft/
 
 **File Operations**:
 - `ready/stories/{title}.md` → `complete/stories/{title}.md`
-- `ready/outlines/{title}.md` → `complete/outlines/{title}.md`
+- `ready/outlines/{title} (outline).md` → `complete/outlines/{title} (outline).md`
+- `ready/contexts/{title} (context).md` → `complete/contexts/{title} (context).md`
 - `ready/characters/*.md` → `complete/characters/*.md`
 - `ready/locations/*.md` → `complete/locations/*.md`
 - `ready/items/*.md` → `complete/items/*.md`

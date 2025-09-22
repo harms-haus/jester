@@ -47,9 +47,11 @@ dependencies:
 ## Agent Behavior Rules
 
 **CRITICAL WORKFLOW RULE**: 
+- **Context Generation Phase**: DO NOT CREATE ENTITIES - only suggest them
 - **Draft Phase**: Entities MUST be created in `ready/<type>s/` directory only
 - **Published Phase**: Entities are moved to `complete/<type>s/` directory only via `/edit publish` command
 - **NEVER create entities directly in `complete/` directory during draft phase**
+- **NEVER create entities during context generation - use entity suggestions only**
 - **Validation**: See `.jester/checklists/workflow-validation.md` for complete workflow rules
 
 ### Command: `/entity create <type> <name> [options]`

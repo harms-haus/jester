@@ -54,6 +54,8 @@ dependencies:
 - **Context Generation**: ONLY read existing entities, NEVER create new entity files
 - **Entity Creation**: Use `/entity create` command separately, not during context generation
 - **File Operations**: Only create context files, never entity files
+- **Entity Suggestions**: Only suggest entities from LightRAG or existing files, do not create them
+- **Workflow Separation**: Context generation is separate from entity creation - entities are created later in the workflow
 - **Validation**: See `.jester/checklists/workflow-validation.md` for complete workflow rules
 
 ### Command: `/muse [story-idea] [options]`

@@ -190,36 +190,155 @@ dependencies:
 **When activated:**
 1. **Read draft files** from `draft/` directory with specified number
 2. **Validate draft completeness** (context, outline, story)
-3. **Move files to ready/** directory with proper naming
-4. **Update entity references** to use final naming convention
-5. **Confirm approval** and provide next steps
+3. **Check ready folder for conflicts** - scan for existing files that match the story title
+4. **Request user approval** if conflicts found, allowing override option
+5. **Move files to ready/** directory with proper naming (no copies left behind)
+6. **Generate entity files** for new entities OR create patch files for existing entities
+7. **Summarize changes** and provide next steps
+
+**STEP-BY-STEP EXECUTION INSTRUCTIONS:**
+
+**Step 1: Read and Validate Draft Files**
+- Read `draft/context-{number}.md`, `draft/outline-{number}.md`, `draft/story-{number}.md`
+- Verify all three files exist and contain valid content
+- Extract the story title from the story file (first heading after #)
+- Convert story title to hyphenated format (e.g., "Stella's Honest Mistake" → "Stellas-Honest-Mistake")
+
+**Step 2: Check for Conflicts**
+- Scan `ready/stories/`, `ready/outlines/`, `ready/contexts/` for files with matching titles
+- Look for files like `{hyphenated-title}.md` in each directory
+- If conflicts found, report them to user and ask for approval to overwrite
+
+**Step 3: Move Files with Proper Renaming**
+- **MOVE** (don't copy) `draft/context-{number}.md` → `ready/contexts/{hyphenated-title} (context).md`
+- **MOVE** (don't copy) `draft/outline-{number}.md` → `ready/outlines/{hyphenated-title} (outline).md`
+- **MOVE** (don't copy) `draft/story-{number}.md` → `ready/stories/{hyphenated-title}.md`
+- **DELETE** original files from draft/ directory after successful move
+
+**Step 4: Extract and Process Entities**
+- Parse the story content to identify all [[entity-name]] references
+- Categorize entities by type: characters, locations, items
+- For each entity, check if it already exists in `complete/` directory
+- Create list of new entities vs existing entities
+
+**Step 5: Generate Entity Files**
+- **For NEW entities**: Create complete entity files in `ready/` directory:
+  - `ready/characters/{entity-name}.md` for character entities
+  - `ready/locations/{entity-name}.md` for location entities  
+  - `ready/items/{entity-name}.md` for item entities
+  - Use standard entity templates with proper markdown formatting
+  - Include name, description, relationships, and story appearances
+- **For EXISTING entities**: Create patch files showing changes:
+  - `ready/patches/{entity-name}-patch.md` with git-patch format
+  - Include before/after content showing what changed
+  - Example patch format:
+    ```
+    ---
+    Entity: {entity-name}
+    Type: character/location/item
+    Changes: Added story appearance, updated description, etc.
+    
+    BEFORE:
+    [original content]
+    
+    AFTER:
+    [updated content]
+    ---
+    ```
+
+**Step 6: Update Entity References**
+- Update all [[entity-name]] references in moved files to point to correct locations
+- Ensure all entity links are properly formatted
+
+**Step 7: Generate Change Summary**
+- List all files moved with old and new names
+- List all new entity files created
+- List all patch files created for existing entities
+- Provide clear summary of what was accomplished
+
+**EXAMPLE OUTPUT FORMAT:**
+```
+APPROVAL COMPLETE: Draft 003 → Ready
+
+FILES MOVED:
+- draft/context-003.md → ready/contexts/Stellas-Honest-Mistake (context).md
+- draft/outline-003.md → ready/outlines/Stellas-Honest-Mistake (outline).md
+- draft/story-003.md → ready/stories/Stellas-Honest-Mistake.md
+
+NEW ENTITIES CREATED:
+- ready/characters/Lily.md
+- ready/characters/Rascal.md
+- ready/characters/Stella-Stoat.md
+- ready/locations/Dandelion-Plains.md
+- ready/locations/Old-Oak-Tree.md
+- ready/locations/Bees-Hive.md
+
+EXISTING ENTITIES PATCHED:
+- ready/patches/Bees-patch.md (added story appearance)
+
+CHANGE SUMMARY:
+- 3 files moved and renamed to "Stellas-Honest-Mistake"
+- 6 new entity files created
+- 1 existing entity patched
+- All entity references updated in moved files
+
+NEXT STEPS:
+- Use `/edit publish "Stellas-Honest-Mistake"` to move to complete/
+```
 
 **File Operations:**
 - **Read**: `draft/context-{number}.md`, `draft/outline-{number}.md`, `draft/story-{number}.md`
-- **Create**: `ready/stories/{title}.md`, `ready/outlines/{title}.md`
-- **Update**: Entity references and links
+- **Check**: `ready/stories/`, `ready/outlines/`, `ready/contexts/` for existing files with matching titles
+- **Move**: `draft/context-{number}.md` → `ready/contexts/{hyphenated-title} (context).md`
+- **Move**: `draft/outline-{number}.md` → `ready/outlines/{hyphenated-title} (outline).md`  
+- **Move**: `draft/story-{number}.md` → `ready/stories/{hyphenated-title}.md`
+- **Generate**: New entity files in `ready/characters/`, `ready/locations/`, `ready/items/`
+- **Create**: Patch files for existing entities in `ready/patches/`
+- **Update**: Entity references and links in all moved files
+
+**Conflict Detection:**
+- **Check for existing files** with same title in ready/ directory
+- **Warn user** about potential overwrites
+- **Provide override option** to proceed despite conflicts
+- **List specific files** that would be overwritten
+
+**Entity Management:**
+- **For new entities**: Generate complete entity files using templates
+- **For existing entities**: Create patch files showing changes (git-patch format)
+- **Entity types**: characters, locations, items referenced in the story
+- **File naming**: Use hyphenated story title for consistency
 
 **Error Handling:**
 - If draft files are missing, list what's needed
 - If validation fails, provide specific error details
+- If conflicts found, request user approval before proceeding
 - If move operations fail, provide rollback instructions
+- If entity generation fails, report specific issues
 
 **Response Format:**
-- Confirm draft approval with file paths
-- List all files moved to ready/
-- Provide next steps (use `/edit publish` command)
+- **Conflict Summary**: List any existing files that would be overwritten
+- **User Approval**: Request confirmation to proceed with conflicts
+- **File Operations**: Confirm all files moved from draft/ to ready/ with new names
+- **Entity Summary**: List new entities created or existing entities patched
+- **Change Summary**: Provide overview of all changes made
+- **Next Steps**: Suggest using `/edit publish` command
 
 ### Command: `/edit publish "{story-title}"`
 
 **When activated:**
 1. **Find ready story** by title in `ready/stories/`
-2. **Move story and related files** to `complete/` directory
-3. **Update entity references** to final locations
-4. **Confirm publication** and provide summary
+2. **Update file names with final story title**:
+   - **RENAME** `ready/contexts/{current-name} (context).md` → `ready/contexts/{final-story-title} (context).md`
+   - **RENAME** `ready/outlines/{current-name} (outline).md` → `ready/outlines/{final-story-title} (outline).md`
+   - **UPDATE** content in context and outline files to use final story title in headers
+3. **Move story and related files** to `complete/` directory
+4. **Update entity references** to final locations
+5. **Confirm publication** and provide summary
 
 **File Operations:**
-- **Read**: `ready/stories/{title}.md`, `ready/outlines/{title}.md`, `ready/characters/*.md`, `ready/locations/*.md`, `ready/items/*.md`
-- **Create**: `complete/stories/{title}.md`, `complete/outlines/{title}.md`, `complete/characters/*.md`, `complete/locations/*.md`, `complete/items/*.md`
+- **Read**: `ready/stories/{title}.md`, `ready/outlines/{title} (outline).md`, `ready/contexts/{title} (context).md`, `ready/characters/*.md`, `ready/locations/*.md`, `ready/items/*.md`
+- **Rename**: Update context and outline files with final story title before moving
+- **Create**: `complete/stories/{title}.md`, `complete/outlines/{title} (outline).md`, `complete/contexts/{title} (context).md`, `complete/characters/*.md`, `complete/locations/*.md`, `complete/items/*.md`
 - **Update**: Final entity references and links
 
 **Error Handling:**

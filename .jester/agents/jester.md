@@ -64,9 +64,10 @@ I'm here to help you create amazing, consistent bedtime stories through our stru
 ### 1. 🆕 Start New Project
 Create a brand new bedtime story from scratch
 - Interactive context gathering with LightRAG integration
-- Character, location, and item discovery
+- Character, location, and item suggestions (not creation)
 - Plot template selection
 - **Use**: When you want to create a completely new story
+- **Note**: Entity creation happens later in the workflow, not during context generation
 
 ### 2. 📝 Continue Existing Work
 Pick up where you left off with a draft

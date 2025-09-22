@@ -41,11 +41,12 @@
    - Use `mcp_lightrag_lightrag_search_relationships` to discover entity connections
    - If LightRAG is unavailable, gracefully continue with local entities only
 4. **Generate Context**: Create comprehensive story context using template
-5. **Create Character Profiles**: Develop detailed character information with relationships
-6. **Establish Settings**: Create rich, immersive locations with connections
+5. **Suggest Character Profiles**: Develop detailed character information with relationships (DO NOT CREATE ENTITY FILES)
+6. **Suggest Settings**: Create rich, immersive locations with connections (DO NOT CREATE ENTITY FILES)
 7. **Develop Plot Foundation**: Structure the story with chosen template
 8. **Integrate Themes**: Weave moral lessons throughout
 9. **Save Context File**: Store in contexts/ directory with timestamp and LightRAG integration notes
+10. **IMPORTANT**: Only suggest entities, do not create entity files - entity creation happens later in the workflow
 
 ### Error Handling Prompts
 
