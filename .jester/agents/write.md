@@ -91,8 +91,8 @@ dependencies:
 
 **File Operations:**
 - **Read**: `draft/context-{draft-number}.md`, `ready/characters/*.md`, `ready/locations/*.md`, `ready/items/*.md`
-- **Create**: `draft/outline-{draft-number}.md`
-- **Update**: Context file with outline reference
+- **Create**: `draft/outline-{draft-number}.md` with proper draft number consistency
+- **Update**: Context file with outline reference and draft number validation
 
 **Error Handling:**
 - If no context file found, ask user to create one with `/muse` command
@@ -136,8 +136,8 @@ dependencies:
 
 **File Operations:**
 - **Read**: `draft/outline-{draft-number}.md`, `draft/context-{draft-number}.md`, `ready/characters/*.md`, `ready/locations/*.md`, `ready/items/*.md`
-- **Create**: `draft/story-{draft-number}.md`
-- **Update**: Outline file with story reference
+- **Create**: `draft/story-{draft-number}.md` with proper draft number consistency
+- **Update**: Outline file with story reference and draft number validation
 
 **Error Handling:**
 - If no outline file found, ask user to create one with `/write outline` command

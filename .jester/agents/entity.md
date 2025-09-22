@@ -57,12 +57,12 @@ dependencies:
 3. **Read appropriate template** from `.jester/templates/<type>.md`
 4. **Generate entity file** using template with user-provided information
 5. **Create bidirectional links** with related entities
-6. **Save entity file** to `entities/<type>s/<name>.md`
+6. **Save entity file** to `ready/<type>s/<name>.md` (entities created directly in ready/ when approved)
 7. **Update related entity files** with new relationships
 
 **File Operations:**
 - **Read**: `.jester/templates/character.md`, `.jester/templates/location.md`, `.jester/templates/item.md`
-- **Create**: `entities/characters/<name>.md`, `entities/locations/<name>.md`, `entities/items/<name>.md`
+- **Create**: `ready/characters/<name>.md`, `ready/locations/<name>.md`, `ready/items/<name>.md`
 - **Update**: Related entity files with new relationships
 - **Query**: LightRAG MCP client for relationship suggestions
 
@@ -88,7 +88,7 @@ dependencies:
 5. **Provide filtering options** if requested
 
 **File Operations:**
-- **Read**: `entities/characters/*.md`, `entities/locations/*.md`, `entities/items/*.md`
+- **Read**: `ready/characters/*.md`, `ready/locations/*.md`, `ready/items/*.md`
 - **Parse**: Entity metadata and key information
 - **Display**: Organized list with entity details
 
@@ -105,14 +105,14 @@ dependencies:
 ### Command: `/entity get <type> <name>`
 
 **When activated:**
-1. **Read the specified entity file** from `entities/<type>s/<name>.md`
+1. **Read the specified entity file** from `ready/<type>s/<name>.md`
 2. **Parse entity information** and relationships
 3. **Display detailed entity information** in organized format
 4. **Show related entities** and relationships
 5. **Provide editing suggestions** if needed
 
 **File Operations:**
-- **Read**: `entities/<type>s/<name>.md`
+- **Read**: `ready/<type>s/<name>.md`
 - **Parse**: Entity content and relationships
 - **Display**: Detailed entity information
 
@@ -129,7 +129,7 @@ dependencies:
 ### Command: `/entity validate <type> <name>`
 
 **When activated:**
-1. **Read the specified entity file** from `entities/<type>s/<name>.md`
+1. **Read the specified entity file** from `ready/<type>s/<name>.md`
 2. **Check template compliance** against appropriate template
 3. **Validate required fields** are present and complete
 4. **Check wiki-link integrity** and relationships
@@ -137,7 +137,7 @@ dependencies:
 6. **Suggest fixes** for any problems found
 
 **File Operations:**
-- **Read**: `entities/<type>s/<name>.md`
+- **Read**: `ready/<type>s/<name>.md`
 - **Validate**: Template compliance and field completeness
 - **Check**: Wiki-link integrity and relationships
 
@@ -155,7 +155,7 @@ dependencies:
 ### Command: `/entity edit <type> <name> [updates]`
 
 **When activated:**
-1. **Read the specified entity file** from `entities/<type>s/<name>.md`
+1. **Read the specified entity file** from `ready/<type>s/<name>.md`
 2. **Validate** original file structure
 3. **Apply requested updates** while maintaining structure
 4. **Validate changes** for consistency and completeness
@@ -163,7 +163,7 @@ dependencies:
 6. **Save updated entity file**
 
 **File Operations:**
-- **Read**: `entities/<type>s/<name>.md`
+- **Read**: `ready/<type>s/<name>.md`
 - **Validate**: Check file structure before changes
 - **Update**: Modify entity file with changes
 - **Update**: Related entity files with relationship changes
@@ -185,11 +185,11 @@ dependencies:
 1. **Read the specified entity file** to understand relationships
 2. **Validate** entity file structure
 3. **Update all related entity files** to remove references
-4. **Delete the entity file** from `entities/<type>s/`
+4. **Delete the entity file** from `ready/<type>s/`
 5. **Confirm deletion** and cleanup completion
 
 **File Operations:**
-- **Read**: `entities/<type>s/<name>.md` and related files
+- **Read**: `ready/<type>s/<name>.md` and related files
 - **Validate**: Check file structure before deletion
 - **Update**: Remove references from related entity files
 - **Delete**: Remove entity file
@@ -215,7 +215,7 @@ dependencies:
 5. **Suggest actions** for found entities
 
 **File Operations:**
-- **Search**: `entities/characters/*.md`, `entities/locations/*.md`, `entities/items/*.md`
+- **Search**: `ready/characters/*.md`, `ready/locations/*.md`, `ready/items/*.md`
 - **Filter**: By entity type if specified
 - **Rank**: Results by relevance
 
@@ -232,13 +232,13 @@ dependencies:
 ### Command: `/entity validate <type> <name>`
 
 **When activated:**
-1. **Read the specified entity file** from `entities/<type>s/<name>.md`
+1. **Read the specified entity file** from `ready/<type>s/<name>.md`
 2. **Validate file structure** against template requirements
 3. **Check content completeness** and consistency
 4. **Report validation results** with specific issues if found
 
 **File Operations:**
-- **Read**: `entities/<type>s/<name>.md`
+- **Read**: `ready/<type>s/<name>.md`
 - **Validate**: Check against template structure
 - **Report**: Validation results and recommendations
 

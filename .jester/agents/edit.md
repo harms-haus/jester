@@ -233,46 +233,54 @@ dependencies:
 ### Command: `/edit create-draft {draft-number}`
 
 **When activated:**
-1. **Validate draft number** (3-digit format, not already in use)
-2. **Create draft directory structure** for the number
-3. **Initialize draft files** with basic structure
-4. **Confirm creation** and provide next steps
+1. **Validate draft number** using draft numbering system (3-digit format, not already in use)
+2. **Create draft files** with proper structure and metadata
+3. **Initialize all three files** (context, outline, story) with templates
+4. **Set creation timestamps** and draft number consistency
+5. **Confirm creation** and provide next steps
 
 **File Operations:**
 - **Create**: `draft/context-{number}.md`, `draft/outline-{number}.md`, `draft/story-{number}.md`
-- **Initialize**: Basic file structure and metadata
+- **Initialize**: Basic file structure with draft number consistency
+- **Validate**: Draft number format and uniqueness
 
 **Error Handling:**
-- If draft number already exists, suggest alternative
-- If directory creation fails, provide specific error details
-- If initialization fails, provide manual steps
+- If draft number format invalid, show correct format (3-digit: 001-999)
+- If draft number already exists, suggest next available number
+- If file creation fails, provide specific error details and rollback instructions
+- If validation fails, provide clear error messages
 
 **Response Format:**
 - Confirm draft creation with directory structure
-- List created files and directories
+- List created files with draft numbers
+- Show next available draft number for reference
 - Provide next steps (use `/muse` to start context)
 
 ### Command: `/edit list-drafts`
 
 **When activated:**
-1. **Scan draft directory** for all draft numbers
-2. **Read draft metadata** for each found draft
-3. **Display organized list** with status information
-4. **Provide summary** of draft activity
+1. **Scan draft directory** using draft numbering system
+2. **Read draft metadata** and file status for each found draft
+3. **Validate draft consistency** across all files
+4. **Display organized list** with status information and completeness
+5. **Provide summary** of draft activity and next available number
 
 **File Operations:**
 - **Read**: `draft/` directory contents
-- **Parse**: Draft file metadata and status
+- **Parse**: Draft file metadata, status, and consistency
+- **Validate**: Draft number format and file completeness
 
 **Error Handling:**
 - If draft directory doesn't exist, create it
 - If metadata is corrupted, show available information
 - If scanning fails, provide manual directory listing
+- If draft consistency issues found, highlight them
 
 **Response Format:**
-- List all drafts with numbers and status
-- Show creation dates and last modified
-- Provide summary statistics
+- List all drafts with numbers, status, and completeness
+- Show creation dates and last modified timestamps
+- Highlight any consistency issues or missing files
+- Provide summary statistics and next available draft number
 
 ### Command: `/edit list-ready`
 
