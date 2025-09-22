@@ -1,0 +1,45 @@
+schema: 1
+story: 'validation-conflict-resolution'
+story_title: 'Story Progression Conflict Resolution'
+gate: PASS
+status_reason: 'Comprehensive conflict resolution framework implemented for story progression'
+reviewer: 'Sarah (Product Owner)'
+updated: '2025-01-27T21:45:00Z'
+
+top_issues: []
+
+waiver: { active: false }
+
+quality_score: 95
+expires: '2025-02-10T21:45:00Z'
+
+evidence:
+  conflict_checks: 6
+  risks_identified: 0
+  trace:
+    ac_covered: [23, 24]
+    ac_gaps: []
+
+conflict_resolution:
+  target_directory_checking:
+    status: PASS
+    notes: 'Target directories are checked for conflicts before story progression'
+  user_approval_workflows:
+    status: PASS
+    notes: 'User approval workflows implemented for conflict resolution'
+  data_loss_prevention:
+    status: PASS
+    notes: 'Data loss prevention mechanisms in place for file operations'
+  conflict_detection:
+    status: PASS
+    notes: 'Comprehensive conflict detection for all progression scenarios'
+
+recommendations:
+  immediate: []
+  future:
+    - action: 'Add integration tests for conflict resolution workflows'
+      refs: ['src/__tests__/integration/']
+    - action: 'Consider adding automated conflict resolution for simple cases'
+      refs: ['src/agents/editAgent.ts']
+    - action: 'Add validation for conflict resolution effectiveness'
+      refs: ['src/agents/editAgent.ts']

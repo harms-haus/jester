@@ -52,14 +52,17 @@ jester adapts proven software development methodologies (BMAD principles) to cre
     - `complete/items/` - Item entity files
     - `stories/` - Generated story files
     - `outlines/` - Generated outline files
-    - `contexts/` - Generated context files
-21. **FR21**: The system shall organize framework files in a hidden `.jester/` directory structure:
+21. **FR21**: The system shall validate draft completeness before progression to ready stage, ensuring all required files exist and contain valid content
+22. **FR22**: The system shall validate entity files and patch formatting before progression to published stage
+23. **FR23**: The system shall detect and warn users about target directory conflicts before story progression
+24. **FR24**: The system shall require user approval before overwriting existing files during story progression
+25. **FR25**: The system shall organize framework files in a hidden `.jester/` directory structure:
     - `.jester/agents/` - Agent definitions
     - `.jester/templates/` - Story and context templates  
     - `.jester/tasks/` - Reusable workflow tasks
     - `.jester/data/` - Knowledge base and reference data
     - `.jester/utils/` - Utility functions and helpers
-22. **FR22**: The system shall organize files in a three-stage workflow:
+26. **FR26**: The system shall organize files in a three-stage workflow:
     - `draft/` - Work in progress with incrementing draft numbers (001, 002, 013, etc.)
     - `ready/` - Approved work ready for publication
     - `complete/` - Published work in final form

@@ -22,6 +22,18 @@ This document outlines the technical architecture for **jester**, a prompt-based
 5. **Knowledge Graph Integration**: LightRAG provides entity relationships and discovery via MCP client
 6. **Prompt Engineering**: Development produces markdown prompt rule files, not executable code
 
+### Validation Framework
+
+**Story Progression Validation**: The system implements comprehensive validation checks during story progression between stages to ensure content quality and prevent data loss.
+
+**Validation Components**:
+1. **Draft → Ready Validation**: Content completeness, entity consistency, file integrity
+2. **Ready → Published Validation**: Entity file validation, patch formatting, conflict detection
+3. **Conflict Resolution**: Target directory checking, user approval workflows
+4. **Quality Gates**: Automated validation with user override capabilities
+
+**Implementation**: Validation is implemented through prompt-based agents following structured validation templates and checklists.
+
 ## Platform and Infrastructure
 
 ### Deployment Strategy

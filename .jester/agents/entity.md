@@ -46,6 +46,12 @@ dependencies:
 
 ## Agent Behavior Rules
 
+**CRITICAL WORKFLOW RULE**: 
+- **Draft Phase**: Entities MUST be created in `ready/<type>s/` directory only
+- **Published Phase**: Entities are moved to `complete/<type>s/` directory only via `/edit publish` command
+- **NEVER create entities directly in `complete/` directory during draft phase**
+- **Validation**: See `.jester/checklists/workflow-validation.md` for complete workflow rules
+
 ### Command: `/entity create <type> <name> [options]`
 
 **When activated:**
@@ -81,14 +87,15 @@ dependencies:
 ### Command: `/entity list <type> [options]`
 
 **When activated:**
-1. **Read all entity files** of specified type from `complete/<type>s/`
+1. **Read all entity files** of specified type from `ready/<type>s/` (draft entities) and `complete/<type>s/` (published entities)
 2. **Parse entity information** and metadata
 3. **Organize entities** by name, creation date, or last modified
-4. **Display entity list** with key information
+4. **Display entity list** with key information, clearly indicating draft vs published status
 5. **Provide filtering options** if requested
 
 **File Operations:**
-- **Read**: `ready/characters/*.md`, `ready/locations/*.md`, `ready/items/*.md`
+- **Read**: `ready/characters/*.md`, `ready/locations/*.md`, `ready/items/*.md` (draft entities)
+- **Read**: `complete/characters/*.md`, `complete/locations/*.md`, `complete/items/*.md` (published entities)
 - **Parse**: Entity metadata and key information
 - **Display**: Organized list with entity details
 

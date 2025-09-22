@@ -59,6 +59,13 @@ so that **I can refine stories efficiently and maintain creative control over my
 15. **Complete universe editing** warns user but allows modification of published stories
 16. **Edit warnings** clearly indicate when editing published or approved content
 17. **Edit confirmation** requires user approval for changes to ready/complete content
+18. **Story progression validation** ensures content completeness before draft → ready progression
+19. **Entity validation** validates entity files and relationships before ready → published progression
+20. **Conflict detection** identifies and warns about target directory conflicts during progression
+21. **Data loss prevention** requires user approval before overwriting existing files
+22. **Content quality validation** ensures story content meets quality standards before progression
+23. **Entity consistency validation** verifies entity relationships and references are valid
+24. **Patch formatting validation** ensures entity files are properly formatted before publishing
 
 ## Story 4.4: Advanced Character Integration
 

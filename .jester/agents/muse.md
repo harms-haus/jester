@@ -46,6 +46,12 @@ dependencies:
 
 ## Agent Behavior Rules
 
+**CRITICAL WORKFLOW RULE**: 
+- **Context Generation**: ONLY read existing entities, NEVER create new entity files
+- **Entity Creation**: Use `/entity create` command separately, not during context generation
+- **File Operations**: Only create context files, never entity files
+- **Validation**: See `.jester/checklists/workflow-validation.md` for complete workflow rules
+
 ### Command: `/muse [story-idea] [options]`
 
 **When activated:**
@@ -59,11 +65,11 @@ dependencies:
    - Themes and morals they want to explore
 
 **Context Generation Process:**
-1. **Read existing entity files** from `complete/characters/`, `complete/locations/`, `complete/items/`
+1. **Read existing entity files** from `ready/characters/`, `ready/locations/`, `ready/items/` (draft entities) and `complete/characters/`, `complete/locations/`, `complete/items/` (published entities)
 2. **Query LightRAG MCP client** for related entities and relationships
 3. **Generate story context** using the context template from `.jester/templates/context.yaml`
-4. **Create character profiles** with motivations, relationships, and growth arcs
-5. **Establish settings** with rich, immersive descriptions
+4. **Reference character profiles** with motivations, relationships, and growth arcs (DO NOT create new entity files)
+5. **Reference settings** with rich, immersive descriptions (DO NOT create new entity files)
 6. **Develop plot foundation** with clear themes and morals
 7. **Create context YAML file** with the following structure:
    ```yaml
@@ -122,60 +128,18 @@ dependencies:
 **When activated:**
 1. **Analyze existing story context** or ask for story details
 2. **Suggest character archetypes** based on story needs
-3. **Create character profiles** using character template
-4. **Create character Markdown file** with the following structure:
-   ```markdown
-   # [Character Name]
-   
-   **Type:** character
-   **Created:** [current timestamp]
-   
-   ## Description
-   
-   [Character description with personality, appearance, and background]
-   
-   ## Relationships
-   
-   - [[Related Character 1]]
-   - [[Related Character 2]]
-   
-   ## Story Appearances
-   
-   - [Story 1]
-   - [Story 2]
-   ```
-5. **Save new characters** to `complete/characters/[character-name].md`
-6. **Update context file** with new character references
+3. **Provide character suggestions** with detailed descriptions
+4. **DO NOT create entity files** - suggest using `/entity create character <name>` command instead
+5. **Update context file** with suggested character references (as text only)
 
 ### Command: `/muse suggest-settings`
 
 **When activated:**
 1. **Analyze story context** for setting requirements
 2. **Suggest location ideas** based on story themes
-3. **Create location profiles** using location template
-4. **Create location Markdown file** with the following structure:
-   ```markdown
-   # [Location Name]
-   
-   **Type:** location
-   **Created:** [current timestamp]
-   
-   ## Description
-   
-   [Location description with atmosphere, details, and significance]
-   
-   ## Relationships
-   
-   - [[Related Location 1]]
-   - [[Related Character 1]]
-   
-   ## Story Appearances
-   
-   - [Story 1]
-   - [Story 2]
-   ```
-5. **Save new locations** to `complete/locations/[location-name].md`
-6. **Update context file** with new location references
+3. **Provide location suggestions** with detailed descriptions
+4. **DO NOT create entity files** - suggest using `/entity create location <name>` command instead
+5. **Update context file** with suggested location references (as text only)
 
 ### Command: `/muse suggest-themes`
 

@@ -1,0 +1,121 @@
+# Draft to Ready Validation Checklist Template
+
+## Purpose
+Comprehensive checklist template for validating draft content before progression to ready stage.
+
+## Validation Checklist Structure
+
+```yaml
+validation_checklist:
+  draft_number: "{draft-number}"
+  validation_date: "{timestamp}"
+  validator: "{agent-name}"
+  
+  content_completeness:
+    file_existence:
+      context_file: 
+        exists: false
+        readable: false
+        has_content: false
+        notes: ""
+      outline_file:
+        exists: false
+        readable: false
+        has_content: false
+        notes: ""
+      story_file:
+        exists: false
+        readable: false
+        has_content: false
+        notes: ""
+    
+    content_quality:
+      context_yaml_valid: false
+      context_required_fields: false
+      outline_structured: false
+      story_complete: false
+      no_placeholders: false
+      notes: ""
+    
+    metadata_validation:
+      target_length_specified: false
+      target_length_reasonable: false
+      audience_age_appropriate: false
+      story_title_descriptive: false
+      all_metadata_present: false
+      notes: ""
+  
+  entity_consistency:
+    entity_references:
+      all_links_valid: false
+      correct_syntax: false
+      no_broken_links: false
+      consistent_names: false
+      notes: ""
+    
+    entity_consistency:
+      character_names_match: false
+      location_names_consistent: false
+      item_references_accurate: false
+      relationships_logical: false
+      notes: ""
+    
+    entity_files:
+      referenced_entities_exist: false
+      files_properly_formatted: false
+      metadata_complete: false
+      notes: ""
+  
+  story_quality:
+    narrative_quality:
+      clear_structure: false
+      logical_plot: false
+      consistent_characters: false
+      appropriate_dialogue: false
+      target_length_match: false
+      notes: ""
+    
+    content_appropriateness:
+      age_appropriate_language: false
+      suitable_themes: false
+      no_inappropriate_content: false
+      positive_tone: false
+      notes: ""
+    
+    technical_quality:
+      no_spelling_errors: false
+      consistent_formatting: false
+      proper_paragraphs: false
+      clear_sentences: false
+      notes: ""
+  
+  validation_summary:
+    overall_status: "PENDING" # PASS, FAIL, WARN
+    total_checks: 0
+    passed_checks: 0
+    failed_checks: 0
+    warning_checks: 0
+    
+    critical_issues: []
+    warning_issues: []
+    recommendations: []
+    
+    user_approval_required: false
+    ready_for_progression: false
+```
+
+## Usage Instructions
+
+1. **Initialize Checklist**: Copy template and fill in draft number and date
+2. **Run Validations**: Execute each validation section systematically
+3. **Update Status**: Mark each check as true/false with notes
+4. **Calculate Summary**: Count passed/failed checks and determine overall status
+5. **Generate Report**: Create user-friendly report from checklist data
+6. **Request Approval**: Present results to user for approval or fixes
+
+## Integration Points
+
+- Used by draft-to-ready-validation.md prompts
+- Integrates with workflow-management.md commands
+- Follows existing YAML template structure
+- Provides structured validation tracking

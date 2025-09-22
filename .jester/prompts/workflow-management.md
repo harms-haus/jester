@@ -40,13 +40,17 @@ draft/
 ```
 
 ### `/edit approve-draft {draft-number}`
-**Purpose**: Move draft to ready/ directory
+**Purpose**: Move draft to ready/ directory with comprehensive validation
 **Process**:
 1. Validate draft completeness (all three files exist)
-2. Read draft files and extract story title
-3. Move files to ready/ with clean naming
-4. Update entity references
-5. Confirm approval
+2. **NEW**: Validate content quality and completeness
+3. **NEW**: Check for entity consistency and references
+4. **NEW**: Validate target directory for conflicts
+5. **NEW**: Request user approval for any conflicts
+6. Read draft files and extract story title
+7. Move files to ready/ with clean naming
+8. Update entity references
+9. Confirm approval
 
 **File Operations**:
 - `draft/context-{number}.md` → `ready/stories/{title}.md`
@@ -54,12 +58,16 @@ draft/
 - `draft/story-{number}.md` → `ready/stories/{title}.md`
 
 ### `/edit publish "{story-title}"`
-**Purpose**: Move ready story to complete/ directory
+**Purpose**: Move ready story to complete/ directory with comprehensive validation
 **Process**:
 1. Find ready story by title
-2. Move story and related files to complete/
-3. Update entity references to final locations
-4. Confirm publication
+2. **NEW**: Validate all entity files are properly formatted
+3. **NEW**: Check for patch formatting consistency
+4. **NEW**: Validate target directory for conflicts
+5. **NEW**: Request user approval for any conflicts
+6. Move story and related files to complete/
+7. Update entity references to final locations
+8. Confirm publication
 
 **File Operations**:
 - `ready/stories/{title}.md` → `complete/stories/{title}.md`

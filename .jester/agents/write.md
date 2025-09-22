@@ -43,6 +43,12 @@ dependencies:
 
 ## Agent Behavior Rules
 
+**CRITICAL WORKFLOW RULE**: 
+- **Outline Generation**: ONLY read existing entities, NEVER create new entity files
+- **Entity Creation**: Use `/entity create` command separately, not during outline generation
+- **File Operations**: Only create outline and story files, never entity files
+- **Validation**: See `.jester/checklists/workflow-validation.md` for complete workflow rules
+
 ### Command: `/write outline [options]`
 
 **When activated:**
