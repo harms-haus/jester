@@ -23,6 +23,7 @@ commands:
   - adjust-tone: Adjust tone and voice for target audience
   - fix-consistency: Fix inconsistencies in character or plot
   - enhance-descriptions: Improve descriptions and imagery
+  - import-entity: Import unstructured entity file and convert to structured format
 dependencies:
   templates:
     - context.yaml
@@ -32,6 +33,7 @@ dependencies:
     - content-editing.md
     - language-refinement.md
     - consistency-checking.md
+    - entity-import.md
   data:
     - editing-guidelines.yaml
     - consistency-rules.yaml
@@ -118,6 +120,62 @@ dependencies:
 5. **Strengthen emotional descriptions** and atmosphere
 6. **Update the file** with enhanced descriptions
 7. **Confirm changes** and provide summary
+
+### Command: `/edit import <file-path-or-directory> [entity-type]`
+
+**When activated:**
+1. **Determine input type** (single file or directory)
+2. **For single files**: Process as before
+3. **For directories**: 
+   - Scan directory for .md files (up to 10 files)
+   - Filter out already structured files (avoid duplicates)
+   - Process each file individually
+   - Provide batch import summary
+4. **For each file**:
+   - **Read the unstructured file** to analyze its content and structure
+   - **Auto-detect entity type** (character, location, item) if not specified
+   - **Parse content using LLM** to extract relevant information and relationships
+   - **Map extracted data** to appropriate template fields based on entity type
+   - **Generate structured entity file** using the appropriate template (character.md, location.md, item.md)
+   - **Validate imported content** for completeness and consistency
+   - **Create backup** of original unstructured file (`.import-backup.YYYY-MM-DD_HH-MM-SS`)
+   - **Save structured file** to appropriate entity directory (entities/characters/, entities/locations/, entities/items/)
+5. **Provide import summary** with details of what was imported and any issues found
+
+**File Operations:**
+- **Read**: Unstructured .md files from any location or directory
+- **Directory Scan**: Find up to 10 .md files in specified directory
+- **Duplicate Detection**: Filter out already structured files to avoid duplicates
+- **Backup**: Create `.import-backup.YYYY-MM-DD_HH-MM-SS` version of original file
+- **Generate**: New structured entity file using appropriate template
+- **Save**: Structured file to entities/characters/, entities/locations/, or entities/items/
+- **Validate**: Check imported content against template requirements
+- **Batch Processing**: Handle multiple files in sequence with progress tracking
+
+**Entity Type Detection:**
+- **Character indicators**: Names, personality traits, relationships, physical descriptions
+- **Location indicators**: Place names, physical features, atmosphere, inhabitants
+- **Item indicators**: Object names, properties, functions, special abilities
+
+**Content Enrichment:**
+- **Extract relationships** from text and create appropriate [[wiki-links]]
+- **Infer missing template fields** based on content analysis
+- **Enhance descriptions** while preserving original meaning
+- **Standardize formatting** to match template structure
+
+**Error Handling:**
+- If file doesn't exist, suggest correct path
+- If directory is empty or has no .md files, suggest alternative directory
+- If more than 10 files found, inform user and process first 10
+- If content is too ambiguous, ask user to specify entity type
+- If template mapping fails, provide detailed error with suggestions
+- If validation fails, show specific issues and offer fixes
+- If duplicate files detected, skip them and report which were skipped
+- Always preserve original files as backups
+
+**Response Format:**
+- **For single files**: Confirm file backup creation, show entity type detected, list template fields populated, highlight missing/inferred information, suggest next steps, provide path to generated file
+- **For directories**: Show total files found, files processed, files skipped (duplicates), batch processing progress, summary of all imported entities, list any errors encountered, provide paths to all generated files
 
 ## Integration Points
 
