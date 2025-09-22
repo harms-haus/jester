@@ -179,9 +179,9 @@ The dev agent does NOT write TypeScript or other programming languages - only pr
 
 1. **Epic 1: Foundation & Core Infrastructure** - Establish project setup, agent framework, and basic file pipeline with a simple story generation capability
 2. **Epic 2: Entity Management System** - Create the wiki-style entity file system with subdirectories, markdown templates, and [[link]] support for characters, locations, and items
-3. **Epic 3: LightRAG Integration** - Implement MCP integration for relationship discovery and entity connections while maintaining local files as primary source
-4. **Epic 4: Advanced Story Generation** - Enhance story generation with plot templates, metadata propagation, and cross-stage editing capabilities
-5. **Epic 5: Story Universe Management** - Add story library organization, link validation, and content management for the complete storytelling ecosystem
+3. **Epic 3: LightRAG Integration** - Implement basic MCP integration for relationship discovery and entity connections while maintaining local files as primary source
+4. **Epic 4: Advanced Story Generation** - Enhance story generation with plot templates, metadata propagation, cross-stage editing capabilities, story library management, and story consistency checking
+5. **Epic 5: Story Universe Management** - Add link validation and content management for the complete storytelling ecosystem
 
 ## Epic 1: Foundation & Core Infrastructure
 
@@ -405,37 +405,6 @@ so that **my stories can include discovered characters, locations, and items**.
 6. **Entity export** saves selected entities to local entity files
 7. **Query optimization** minimizes LightRAG queries while maximizing relevance
 
-### Story 3.3: LightRAG Data Synchronization
-
-As a **parent maintaining a story universe**,
-I want **to sync local entity changes with LightRAG**,
-so that **my knowledge graph stays updated with my story universe**.
-
-#### Acceptance Criteria
-
-1. **Manual sync trigger** allows user to initiate LightRAG updates
-2. **Entity export** sends local entity changes to LightRAG
-3. **Sync validation** ensures data integrity before and after sync
-4. **Sync logging** tracks what changes were sent to LightRAG
-5. **Sync conflict resolution** handles conflicts between local and LightRAG data
-6. **Sync rollback** allows undoing sync operations if needed
-7. **Sync status** shows current sync state and pending changes
-
-### Story 3.4: LightRAG Query Optimization
-
-As a **parent using jester regularly**,
-I want **LightRAG queries to be efficient and cost-effective**,
-so that **the system remains practical for regular use**.
-
-#### Acceptance Criteria
-
-1. **Query caching** stores frequently used LightRAG responses locally
-2. **Query batching** combines multiple queries to reduce LightRAG calls
-3. **Query optimization** uses the most efficient LightRAG query types
-4. **Cost tracking** monitors LightRAG usage and costs
-5. **Query limits** prevent excessive LightRAG usage
-6. **Offline mode** allows operation without LightRAG when needed
-7. **Performance monitoring** tracks query response times and success rates
 
 ## Epic 4: Advanced Story Generation
 
@@ -523,25 +492,9 @@ so that **my children enjoy the stories and want to hear more**.
 
 ## Epic 5: Story Universe Management
 
-**Epic Goal**: Add comprehensive story library organization, link validation, and content management to create a complete storytelling ecosystem that enables parents to manage and maintain their growing story universe effectively. This epic delivers the management tools that make jester a sustainable long-term solution.
+**Epic Goal**: Add link validation to create a complete storytelling ecosystem that enables parents to maintain their story universe effectively. This epic delivers the essential link management tools that make jester a sustainable long-term solution.
 
-### Story 5.1: Story Library Organization
-
-As a **parent with many stories**,
-I want **to organize and browse my story collection**,
-so that **I can easily find and manage my growing story universe**.
-
-#### Acceptance Criteria
-
-1. **Story categorization** organizes stories by theme, character, or date
-2. **Story search** finds stories by title, content, or character
-3. **Story tagging** allows custom tags for organization
-4. **Story filtering** shows stories by various criteria
-5. **Story sorting** orders stories by date, title, or custom criteria
-6. **Story grouping** groups related stories together
-7. **Story export** provides organized story collections
-
-### Story 5.2: Link Validation System
+### Story 5.1: Link Validation System
 
 As a **parent maintaining a story universe**,
 I want **to detect and fix broken links**,

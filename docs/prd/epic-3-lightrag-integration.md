@@ -1,8 +1,8 @@
 # Epic 3: LightRAG Integration
 
-**Epic Goal**: Implement advanced LightRAG integration features for relationship discovery and entity connections while maintaining local entity files as the primary source of truth. This epic delivers the AI-powered relationship discovery that enhances the story universe without replacing the local file management system.
+**Epic Goal**: Implement basic LightRAG integration for relationship discovery and entity connections while maintaining local entity files as the primary source of truth. This epic delivers essential AI-powered relationship discovery that enhances the story universe without replacing the local file management system.
 
-**Note**: The foundational LightRAG MCP client implementation is covered in Story 1.6 of Epic 1. This epic focuses on advanced integration features and optimization.
+**Note**: The foundational LightRAG MCP client implementation is covered in Story 1.6 of Epic 1. This epic focuses on essential integration features for relationship discovery and entity connections.
 
 ## Story 3.1: Entity Relationship Discovery
 
@@ -36,34 +36,3 @@ so that **my stories can include discovered characters, locations, and items**.
 6. **Entity export** saves selected entities to local entity files
 7. **Query optimization** minimizes LightRAG queries while maximizing relevance
 
-## Story 3.3: LightRAG Data Synchronization
-
-As a **parent maintaining a story universe**,
-I want **to sync local entity changes with LightRAG**,
-so that **my knowledge graph stays updated with my story universe**.
-
-### Acceptance Criteria
-
-1. **Manual sync trigger** allows user to initiate LightRAG updates
-2. **Entity export** sends local entity changes to LightRAG
-3. **Sync validation** ensures data integrity before and after sync
-4. **Sync logging** tracks what changes were sent to LightRAG
-5. **Sync conflict resolution** handles conflicts between local and LightRAG data
-6. **Sync rollback** allows undoing sync operations if needed
-7. **Sync status** shows current sync state and pending changes
-
-## Story 3.4: LightRAG Query Optimization
-
-As a **parent using jester regularly**,
-I want **LightRAG queries to be efficient and cost-effective**,
-so that **the system remains practical for regular use**.
-
-### Acceptance Criteria
-
-1. **Query caching** stores frequently used LightRAG responses locally
-2. **Query batching** combines multiple queries to reduce LightRAG calls
-3. **Query optimization** uses the most efficient LightRAG query types
-4. **Cost tracking** monitors LightRAG usage and costs
-5. **Query limits** prevent excessive LightRAG usage
-6. **Offline mode** allows operation without LightRAG when needed
-7. **Performance monitoring** tracks query response times and success rates

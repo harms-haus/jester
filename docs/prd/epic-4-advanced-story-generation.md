@@ -1,6 +1,6 @@
 # Epic 4: Advanced Story Generation
 
-**Epic Goal**: Enhance story generation with plot templates, metadata propagation, and cross-stage editing capabilities to create sophisticated, consistent bedtime stories that leverage the full entity management system. This epic delivers the advanced storytelling features that make jester a powerful creative tool.
+**Epic Goal**: Enhance story generation with plot templates, metadata propagation, cross-stage editing capabilities, story library management, and story consistency checking to create sophisticated, consistent bedtime stories that leverage the full entity management system. This epic delivers the advanced storytelling features that make jester a powerful creative tool.
 
 ## Story 4.1: Plot Template System
 
@@ -34,11 +34,11 @@ so that **my stories maintain consistent target length and audience information*
 6. **Metadata export** provides metadata summary for review
 7. **Metadata templates** allow saving common metadata configurations
 
-## Story 4.3: Cross-Stage Editing System
+## Story 4.3: Cross-Stage Editing and Story Library Management
 
-As a **parent creating bedtime stories**,
-I want **to edit content at any stage without regeneration**,
-so that **I can refine stories efficiently and maintain creative control**.
+As a **parent creating and managing bedtime stories**,
+I want **to edit content at any stage and organize my story collection**,
+so that **I can refine stories efficiently and maintain creative control over my growing story universe**.
 
 ### Acceptance Criteria
 
@@ -49,6 +49,16 @@ so that **I can refine stories efficiently and maintain creative control**.
 5. **Edit validation** ensures changes don't break story coherence
 6. **Edit history** tracks changes made to each file
 7. **Edit rollback** allows undoing changes if needed
+8. **Story categorization** organizes stories by theme, character, or date
+9. **Story search** finds stories by title, content, or character
+10. **Story tagging** allows custom tags for organization
+11. **Story filtering** shows stories by various criteria
+12. **Story sorting** orders stories by date, title, or custom criteria
+13. **Story grouping** groups related stories together
+14. **Ready universe editing** allows modification of approved stories with confirmation
+15. **Complete universe editing** warns user but allows modification of published stories
+16. **Edit warnings** clearly indicate when editing published or approved content
+17. **Edit confirmation** requires user approval for changes to ready/complete content
 
 ## Story 4.4: Advanced Character Integration
 
@@ -81,3 +91,19 @@ so that **my children enjoy the stories and want to hear more**.
 5. **Story engagement** includes elements that capture attention
 6. **Story validation** checks for common issues and inconsistencies
 7. **Story enhancement** suggests improvements for better quality
+
+## Story 4.6: Story Consistency Check System
+
+As a **parent creating bedtime stories**,
+I want **the system to check story consistency and report issues**,
+so that **my stories maintain coherence with my story universe**.
+
+### Acceptance Criteria
+
+1. **Internal consistency check** validates story coherence and structure
+2. **External consistency check** compares story against existing story universe
+3. **Entity consistency validation** ensures character/location/item details match entity files
+4. **Relationship consistency check** verifies entity relationships are accurate
+5. **Inconsistency reporting** shows specific issues found in the story
+6. **User approval workflow** requests permission to correct inconsistencies
+7. **Adaptive correction** updates entity files and other stories when approved
