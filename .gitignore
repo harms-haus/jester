@@ -1,9 +1,3 @@
-# Generated content by jester (temporary exclusion for test files)
-contexts/
-outlines/
-stories/
-# But keep docs/stories/ (project documentation)
-!docs/stories/
 
 # Node.js
 node_modules/
