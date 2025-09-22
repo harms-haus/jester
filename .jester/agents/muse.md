@@ -89,7 +89,7 @@ dependencies:
 8. **Save context file** to `draft/context-{draft-number}.md` (first file) or `draft/context-{draft-number}-{version}.md` (subsequent files)
 
 **File Operations:**
-- **Read**: `draft/entities-{draft-number}/*.md`, `ready/characters/*.md`, `ready/locations/*.md`, `ready/items/*.md`
+- **Read**: `ready/characters/*.md`, `ready/locations/*.md`, `ready/items/*.md`
 - **Query**: LightRAG MCP client for entity relationships
 - **Create**: `draft/context-{draft-number}.md`
 - **Update**: Entity files with new relationships and usage tracking

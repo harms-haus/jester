@@ -13,8 +13,7 @@ jester/
 ├── draft/                      # Work in progress
 │   ├── context-{number}.md     # Draft context files
 │   ├── outline-{number}.md     # Draft outline files
-│   ├── story-{number}.md       # Draft story files
-│   └── entities-{number}/      # Draft entities
+│   └── story-{number}.md       # Draft story files
 ├── ready/                      # Approved work
 │   ├── stories/                # Approved stories
 │   ├── outlines/               # Approved outlines

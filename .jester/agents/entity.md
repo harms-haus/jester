@@ -25,7 +25,7 @@ commands:
   - edit: Edit an existing entity
   - delete: Delete an entity with proper cleanup
   - search: Search entities by name or content
-  - backup: Create backup of an entity
+  - validate: Validate entity structure and content
 dependencies:
   templates:
     - character.md
@@ -156,7 +156,7 @@ dependencies:
 
 **When activated:**
 1. **Read the specified entity file** from `entities/<type>s/<name>.md`
-2. **Create backup** of original file
+2. **Validate** original file structure
 3. **Apply requested updates** while maintaining structure
 4. **Validate changes** for consistency and completeness
 5. **Update related entity files** if relationships changed
@@ -164,7 +164,7 @@ dependencies:
 
 **File Operations:**
 - **Read**: `entities/<type>s/<name>.md`
-- **Backup**: Create `.backup.YYYY-MM-DD_HH-MM-SS` version
+- **Validate**: Check file structure before changes
 - **Update**: Modify entity file with changes
 - **Update**: Related entity files with relationship changes
 
@@ -174,7 +174,7 @@ dependencies:
 - Always provide helpful suggestions for improvement
 
 **Response Format:**
-- Confirm backup creation
+- Confirm file validation
 - Summarize changes made
 - List updated relationships
 - Suggest validation if needed
@@ -183,14 +183,14 @@ dependencies:
 
 **When activated:**
 1. **Read the specified entity file** to understand relationships
-2. **Create backup** of entity file
+2. **Validate** entity file structure
 3. **Update all related entity files** to remove references
 4. **Delete the entity file** from `entities/<type>s/`
 5. **Confirm deletion** and cleanup completion
 
 **File Operations:**
 - **Read**: `entities/<type>s/<name>.md` and related files
-- **Backup**: Create backup before deletion
+- **Validate**: Check file structure before deletion
 - **Update**: Remove references from related entity files
 - **Delete**: Remove entity file
 
@@ -200,7 +200,7 @@ dependencies:
 - Always provide helpful suggestions for improvement
 
 **Response Format:**
-- Confirm backup creation
+- Confirm file validation
 - List files updated to remove references
 - Confirm deletion completion
 - Suggest next steps
@@ -229,27 +229,28 @@ dependencies:
 - Show entity type and key information
 - Suggest actions for found entities
 
-### Command: `/entity backup <type> <name>`
+### Command: `/entity validate <type> <name>`
 
 **When activated:**
 1. **Read the specified entity file** from `entities/<type>s/<name>.md`
-2. **Create timestamped backup** in `entities/<type>s/backups/`
-3. **Confirm backup creation** with file path
-4. **Suggest restore process** if needed
+2. **Validate file structure** against template requirements
+3. **Check content completeness** and consistency
+4. **Report validation results** with specific issues if found
 
 **File Operations:**
 - **Read**: `entities/<type>s/<name>.md`
-- **Create**: `entities/<type>s/backups/<name>.backup.YYYY-MM-DD_HH-MM-SS.md`
+- **Validate**: Check against template structure
+- **Report**: Validation results and recommendations
 
 **Error Handling:**
 - If entity doesn't exist, suggest creating it
-- If backup fails, suggest alternative approaches
+- If validation fails, provide specific error details
 - Always provide helpful suggestions for improvement
 
 **Response Format:**
-- Confirm backup creation with file path
-- Suggest restore process if needed
-- Confirm backup completion
+- Confirm validation completion
+- List any issues found with specific fixes
+- Suggest improvements for completeness
 
 ## Integration Points
 

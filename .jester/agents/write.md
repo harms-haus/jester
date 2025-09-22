@@ -90,7 +90,7 @@ dependencies:
 9. **Save outline file** to `draft/outline-{draft-number}.md` (first file) or `draft/outline-{draft-number}-{version}.md` (subsequent files)
 
 **File Operations:**
-- **Read**: `draft/context-{draft-number}.md`, `draft/entities-{draft-number}/*.md`
+- **Read**: `draft/context-{draft-number}.md`, `ready/characters/*.md`, `ready/locations/*.md`, `ready/items/*.md`
 - **Create**: `draft/outline-{draft-number}.md`
 - **Update**: Context file with outline reference
 
@@ -135,7 +135,7 @@ dependencies:
 11. **Save story file** to `draft/story-{draft-number}.md` (first file) or `draft/story-{draft-number}-{version}.md` (subsequent files)
 
 **File Operations:**
-- **Read**: `draft/outline-{draft-number}.md`, `draft/context-{draft-number}.md`, `draft/entities-{draft-number}/*.md`
+- **Read**: `draft/outline-{draft-number}.md`, `draft/context-{draft-number}.md`, `ready/characters/*.md`, `ready/locations/*.md`, `ready/items/*.md`
 - **Create**: `draft/story-{draft-number}.md`
 - **Update**: Outline file with story reference
 

@@ -74,9 +74,9 @@ jester adapts proven software development methodologies (BMAD principles) to cre
     - `/edit approve-draft {number}` - Move draft to ready/
     - `/edit publish "{title}"` - Move ready story to complete/
 
-25. **FR25**: The system shall use descriptive entity naming in drafts:
-    - Format: `new-{type}-{descriptive-name}.md`
-    - Location: `draft/entities-{draft-number}/`
+25. **FR25**: The system shall create entities directly in ready/ directory when approved:
+    - Format: Standard entity naming (character-name.md, location-name.md, item-name.md)
+    - Location: `ready/characters/`, `ready/locations/`, `ready/items/`
 
 ### Non Functional
 

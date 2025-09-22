@@ -55,7 +55,7 @@ dependencies:
 **When activated:**
 1. **Read the specified file** (context, outline, or story)
 2. **Parse the edit instructions** to understand what changes to make
-3. **Create a backup** of the original file with timestamp (`.backup.YYYY-MM-DD_HH-MM-SS`)
+3. **Validate file** before making changes
 4. **Apply the requested changes** while maintaining narrative integrity
 5. **Validate the changes** for consistency and quality
 6. **Update the file** with the modifications using the following process:
@@ -67,7 +67,7 @@ dependencies:
 
 **File Operations:**
 - **Read**: `contexts/context_*.yaml`, `outlines/outline_*.md`, `stories/story_*.md`
-- **Backup**: Create `.backup.YYYY-MM-DD_HH-MM-SS` version of original file
+- **Validate**: Check file integrity before changes
 - **Update**: Modify the original file with changes
 - **Validate**: Check for consistency and quality
 
@@ -78,7 +78,7 @@ dependencies:
 - Always provide helpful suggestions for improvement
 
 **Response Format:**
-- Confirm file backup creation
+- Confirm file validation
 - Summarize changes made
 - Highlight any potential issues
 - Suggest next steps or additional refinements
@@ -144,7 +144,7 @@ dependencies:
    - **Map extracted data** to appropriate template fields based on entity type
    - **Generate structured entity file** using the appropriate template (character.md, location.md, item.md)
    - **Validate imported content** for completeness and consistency
-   - **Create backup** of original unstructured file (`.import-backup.YYYY-MM-DD_HH-MM-SS`)
+   - **Validate** original unstructured file before processing
    - **Save structured file** to appropriate entity directory (entities/characters/, entities/locations/, entities/items/)
 5. **Provide import summary** with details of what was imported and any issues found
 
@@ -152,7 +152,7 @@ dependencies:
 - **Read**: Unstructured .md files from any location or directory
 - **Directory Scan**: Find up to 10 .md files in specified directory
 - **Duplicate Detection**: Filter out already structured files to avoid duplicates
-- **Backup**: Create `.import-backup.YYYY-MM-DD_HH-MM-SS` version of original file
+- **Validate**: Check original file before processing
 - **Generate**: New structured entity file using appropriate template
 - **Save**: Structured file to entities/characters/, entities/locations/, or entities/items/
 - **Validate**: Check imported content against template requirements
@@ -177,24 +177,24 @@ dependencies:
 - If template mapping fails, provide detailed error with suggestions
 - If validation fails, show specific issues and offer fixes
 - If duplicate files detected, skip them and report which were skipped
-- Always preserve original files as backups
+- Always validate original files before processing
 
 **Response Format:**
-- **For single files**: Confirm file backup creation, show entity type detected, list template fields populated, highlight missing/inferred information, suggest next steps, provide path to generated file
+- **For single files**: Confirm file validation, show entity type detected, list template fields populated, highlight missing/inferred information, suggest next steps, provide path to generated file
 - **For directories**: Show total files found, files processed, files skipped (duplicates), batch processing progress, summary of all imported entities, list any errors encountered, provide paths to all generated files
 
 ### Command: `/edit approve-draft {draft-number}`
 
 **When activated:**
 1. **Read draft files** from `draft/` directory with specified number
-2. **Validate draft completeness** (context, outline, story, entities)
+2. **Validate draft completeness** (context, outline, story)
 3. **Move files to ready/** directory with proper naming
 4. **Update entity references** to use final naming convention
 5. **Confirm approval** and provide next steps
 
 **File Operations:**
-- **Read**: `draft/context-{number}.md`, `draft/outline-{number}.md`, `draft/story-{number}.md`, `draft/entities-{number}/*.md`
-- **Create**: `ready/stories/{title}.md`, `ready/outlines/{title}.md`, `ready/characters/*.md`, `ready/locations/*.md`, `ready/items/*.md`
+- **Read**: `draft/context-{number}.md`, `draft/outline-{number}.md`, `draft/story-{number}.md`
+- **Create**: `ready/stories/{title}.md`, `ready/outlines/{title}.md`
 - **Update**: Entity references and links
 
 **Error Handling:**
@@ -239,7 +239,7 @@ dependencies:
 4. **Confirm creation** and provide next steps
 
 **File Operations:**
-- **Create**: `draft/context-{number}.md`, `draft/outline-{number}.md`, `draft/story-{number}.md`, `draft/entities-{number}/`
+- **Create**: `draft/context-{number}.md`, `draft/outline-{number}.md`, `draft/story-{number}.md`
 - **Initialize**: Basic file structure and metadata
 
 **Error Handling:**
@@ -323,5 +323,5 @@ dependencies:
 - **Muse Agent**: Refines generated contexts
 - **Write Agent**: Improves generated outlines and stories
 - **Entity Management**: Ensures consistency with character and setting information
-- **File Pipeline**: Manages file updates and backups
+- **File Pipeline**: Manages file updates and validation
 - **Template System**: Uses templates for consistency validation
