@@ -23,6 +23,7 @@ commands:
   - suggest-characters: Suggest character ideas for the story
   - suggest-settings: Suggest setting ideas for the story
   - suggest-themes: Suggest themes and morals for the story
+  - suggest-entities: Suggest entities from LightRAG knowledge graph
   - relationships: Show relationships for an entity (fallback when LightRAG unavailable)
 dependencies:
   templates:
@@ -36,6 +37,9 @@ dependencies:
     - setting-creation.md
     - theme-development.md
     - relationship-fallback.md
+    - lightrag-query-generation.md
+    - entity-suggestion-algorithm.md
+    - entity-integration.md
   data:
     - character-archetypes.yaml
     - setting-templates.yaml
@@ -66,12 +70,23 @@ dependencies:
 
 **Context Generation Process:**
 1. **Read existing entity files** from `ready/characters/`, `ready/locations/`, `ready/items/` (draft entities) and `complete/characters/`, `complete/locations/`, `complete/items/` (published entities)
-2. **Query LightRAG MCP client** for related entities and relationships
+2. **Query LightRAG MCP client** for related entities and relationships:
+   - **Generate context-aware queries** using the story idea, target audience, and themes
+   - Use `mcp_lightrag_lightrag_query` with optimized queries for characters, locations, and items
+   - Use `mcp_lightrag_lightrag_search_entities` to find specific entity types
+   - Use `mcp_lightrag_lightrag_search_relationships` to discover entity connections
+   - **Apply relevance filtering** and age-appropriate filtering to query results
+   - If LightRAG is unavailable, gracefully fall back to local entities only
 3. **Generate story context** using the context template from `.jester/templates/context.yaml`
-4. **Reference character profiles** with motivations, relationships, and growth arcs (DO NOT create new entity files)
-5. **Reference settings** with rich, immersive descriptions (DO NOT create new entity files)
-6. **Develop plot foundation** with clear themes and morals
-7. **Create context YAML file** with the following structure:
+4. **Integrate discovered entities** into story context:
+   - Add LightRAG entities to context file with metadata
+   - Map entity relationships and connections
+   - Integrate entities into plot structure and themes
+   - Validate entity appropriateness and consistency
+5. **Reference character profiles** with motivations, relationships, and growth arcs (DO NOT create new entity files)
+6. **Reference settings** with rich, immersive descriptions (DO NOT create new entity files)
+7. **Develop plot foundation** with clear themes and morals
+8. **Create context YAML file** with the following structure:
    ```yaml
    ---
    storyIdea: "[user's story idea]"
@@ -103,10 +118,11 @@ dependencies:
 - **Update**: Entity files with new relationships and usage tracking
 
 **Error Handling:**
-- If LightRAG is unavailable, work with local entities only
-- If templates are missing, create basic context structure
-- If entity files are corrupted, suggest recreation
-- Always provide helpful suggestions for improvement
+- **LightRAG Unavailable**: If `mcp_lightrag_lightrag_health_check` fails or queries timeout, work with local entities only and inform user that knowledge graph features are temporarily unavailable
+- **LightRAG Query Failures**: If specific queries fail, continue with available data and note which features are limited
+- **Template Issues**: If templates are missing, create basic context structure
+- **Entity File Issues**: If entity files are corrupted, suggest recreation
+- **Always provide helpful suggestions** for improvement and next steps
 
 **Response Format:**
 - Confirm context creation with file path
@@ -150,33 +166,72 @@ dependencies:
 4. **Update context file** with theme and moral information
 5. **Provide guidance** on integrating themes into the story
 
+### Command: `/muse suggest-entities [story-idea]`
+
+**When activated:**
+1. **Check LightRAG MCP availability** using `mcp_lightrag_lightrag_health_check`
+2. **Generate context-aware queries** based on story idea and requirements
+3. **Query LightRAG** using multiple query types:
+   - Use `mcp_lightrag_lightrag_query` for general entity discovery
+   - Use `mcp_lightrag_lightrag_search_entities` for specific entity types
+   - Use `mcp_lightrag_lightrag_search_relationships` for entity connections
+4. **Apply suggestion algorithm** to rank and filter results:
+   - Calculate relevance scores with story context multipliers
+   - Apply age-appropriateness filtering
+   - Apply theme alignment scoring
+   - Filter for quality and diversity
+5. **Present suggestions** in categorized format with explanations
+6. **Offer integration** into story context if user approves
+
+**File Operations:**
+- **Query**: LightRAG MCP for entity discovery
+- **Analyze**: Query results using suggestion algorithm
+- **Present**: Ranked suggestions with explanations
+
+**Error Handling:**
+- **LightRAG Unavailable**: Use fallback suggestions from local entities
+- **Query Failures**: Continue with partial results and note limitations
+- **No Results**: Suggest creating new entities or using templates
+- **Always provide helpful suggestions** for next steps
+
+**Response Format:**
+- Show categorized suggestions (characters, locations, items)
+- Include relevance scores and explanations
+- Offer to integrate selected entities into context
+- Note if using fallback mode or partial data
+
 ### Command: `/muse relationships <entity-name>`
 
 **When activated:**
-1. **Check LightRAG MCP availability** - if available, use LightRAG for relationship discovery
-2. **If LightRAG unavailable**, use fallback system:
+1. **Check LightRAG MCP availability** using `mcp_lightrag_lightrag_health_check`
+2. **If LightRAG available**, use knowledge graph for relationship discovery:
+   - Use `mcp_lightrag_lightrag_search_entities` to find the entity
+   - Use `mcp_lightrag_lightrag_search_relationships` to find all relationships
+   - Use `mcp_lightrag_lightrag_get_knowledge_graph` for comprehensive relationship data
+3. **If LightRAG unavailable**, use fallback system:
    - Read entity file to find existing `[[links]]`
    - List connected entities with basic descriptions
    - Suggest simple new connections based on content analysis
-3. **Display relationships** in simple format
-4. **Offer to create links** if user wants to connect entities
+4. **Display relationships** in simple format with relevance scores
+5. **Offer to create links** if user wants to connect entities
 
 **File Operations:**
 - **Read**: Entity file to find wiki-style links
-- **Query**: LightRAG MCP if available
+- **Query**: LightRAG MCP if available using multiple query types
 - **Analyze**: Simple content analysis for suggestions
 
 **Error Handling:**
-- If LightRAG unavailable, show fallback message
-- If entity not found, list available entities
-- If no relationships found, suggest creating some
-- Always provide helpful suggestions
+- **LightRAG Health Check Fails**: Show fallback message and continue with local analysis
+- **Entity Not Found**: List available entities from both LightRAG and local files
+- **No Relationships Found**: Suggest creating some and offer to help
+- **Query Timeouts**: Continue with partial results and note limitations
+- **Always provide helpful suggestions** for next steps
 
 **Response Format:**
-- Show current relationships with `[[links]]`
-- List suggested new connections
+- Show current relationships with `[[links]]` and relevance scores
+- List suggested new connections from LightRAG knowledge graph
 - Offer to create specific links
-- Note if using fallback system
+- Note if using fallback system or partial LightRAG data
 
 ## Integration Points
 

@@ -30,9 +30,6 @@ so that **my stories can include discovered characters, locations, and items**.
 
 1. **Context generation** queries LightRAG for relevant entities during `/muse` command
 2. **Entity suggestions** are provided based on story context and requirements
-3. **Entity filtering** allows selection of relevant entities from LightRAG results
-4. **Entity integration** incorporates selected entities into local story context
-5. **Entity validation** ensures suggested entities fit the story requirements
-6. **Entity export** saves selected entities to local entity files
-7. **Query optimization** minimizes LightRAG queries while maximizing relevance
+3. **Entity integration** incorporates selected entities into local story context
+4. **Error handling** provides graceful fallback when LightRAG service is unavailable
 
