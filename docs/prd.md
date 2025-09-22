@@ -27,57 +27,59 @@ jester adapts proven software development methodologies (BMAD principles) to cre
 
 ### Functional
 
-1. **FR1**: The system shall provide a `/muse` command that initiates interactive context gathering for story creation
-2. **FR2**: The `/muse` agent shall query LightRAG knowledge graph to discover existing entities and relationships
-3. **FR3**: The `/muse` agent shall generate structured YAML context files containing entities, plot structure, morals, and metadata
-4. **FR4**: The system shall provide a `/write outline` command that generates detailed story outlines from context files
-5. **FR5**: The `/write outline` command shall propagate metadata (target length, audience) from context to outline
-6. **FR6**: The system shall provide a `/write story` command that converts outlines into complete bedtime stories
-7. **FR7**: The `/write story` command shall generate stories at the target length specified in the outline metadata
-8. **FR8**: The system shall provide an `/edit` command for cross-stage editing of outlines and stories
-9. **FR9**: The system shall maintain a strict file pipeline: YAML context → Markdown outline → Markdown story
-10. **FR10**: The system shall support multiple plot templates (Hero's Journey, Pixar method, Golden Circle)
-11. **FR11**: The system shall integrate with LightRAG via MCP for entity discovery and relationship mapping
-12. **FR12**: The system shall prevent context bleeding between pipeline stages (each stage reads only its designated input)
-13. **FR13**: The system shall maintain local markdown files for all entities organized in subdirectories (entities/characters/, entities/locations/, entities/items/)
-14. **FR14**: The system shall create and maintain a local story universe wiki with interconnected entity files using proper wiki-style [[links]]
-15. **FR15**: The system shall use local entity files as the primary source of truth for story generation
-16. **FR16**: The system shall query LightRAG only for relationship discovery and entity connections
-17. **FR17**: The system shall support Obsidian-compatible markdown formatting and linking
-18. **FR18**: The system shall provide fine-grained control over which entity information is available to story generation
-19. **FR19**: The system shall maintain proper [[link]] syntax for bidirectional entity relationships across subdirectories
-20. **FR20**: The system shall organize local files in a structured directory hierarchy:
+1. **FR1**: The system shall provide a `@jester` entry point that guides users through available workflows including new project creation, draft continuation, and universe management
+2. **FR2**: The `@jester` entry point shall provide workflow selection for new project creation, draft continuation, universe management, and help
+3. **FR3**: The system shall provide a `/muse` command (via @jester) that initiates interactive context gathering for story creation
+4. **FR4**: The `/muse` agent shall query LightRAG knowledge graph to discover existing entities and relationships
+5. **FR5**: The `/muse` agent shall generate structured YAML context files containing entities, plot structure, morals, and metadata
+6. **FR6**: The system shall provide a `/write outline` command (via @jester) that generates detailed story outlines from context files
+7. **FR7**: The `/write outline` command shall propagate metadata (target length, audience) from context to outline
+8. **FR8**: The system shall provide a `/write story` command (via @jester) that converts outlines into complete bedtime stories
+9. **FR9**: The `/write story` command shall generate stories at the target length specified in the outline metadata
+10. **FR10**: The system shall provide an `/edit` command (via @jester) for cross-stage editing of outlines and stories
+11. **FR11**: The system shall maintain a strict file pipeline: YAML context → Markdown outline → Markdown story
+12. **FR12**: The system shall support multiple plot templates (Hero's Journey, Pixar method, Golden Circle)
+13. **FR13**: The system shall integrate with LightRAG via MCP for entity discovery and relationship mapping
+14. **FR14**: The system shall prevent context bleeding between pipeline stages (each stage reads only its designated input)
+15. **FR15**: The system shall maintain local markdown files for all entities organized in subdirectories (entities/characters/, entities/locations/, entities/items/)
+16. **FR16**: The system shall create and maintain a local story universe wiki with interconnected entity files using proper wiki-style [[links]]
+17. **FR17**: The system shall use local entity files as the primary source of truth for story generation
+18. **FR18**: The system shall query LightRAG only for relationship discovery and entity connections
+19. **FR19**: The system shall support Obsidian-compatible markdown formatting and linking
+20. **FR20**: The system shall provide fine-grained control over which entity information is available to story generation
+21. **FR21**: The system shall maintain proper [[link]] syntax for bidirectional entity relationships across subdirectories
+22. **FR22**: The system shall organize local files in a structured directory hierarchy:
     - `complete/characters/` - Character entity files
     - `complete/locations/` - Location entity files  
     - `complete/items/` - Item entity files
     - `stories/` - Generated story files
     - `outlines/` - Generated outline files
-21. **FR21**: The system shall validate draft completeness before progression to ready stage, ensuring all required files exist and contain valid content
-22. **FR22**: The system shall validate entity files and patch formatting before progression to published stage
-23. **FR23**: The system shall detect and warn users about target directory conflicts before story progression
-24. **FR24**: The system shall require user approval before overwriting existing files during story progression
-25. **FR25**: The system shall organize framework files in a hidden `.jester/` directory structure:
+23. **FR23**: The system shall validate draft completeness before progression to ready stage, ensuring all required files exist and contain valid content
+24. **FR24**: The system shall validate entity files and patch formatting before progression to published stage
+25. **FR25**: The system shall detect and warn users about target directory conflicts before story progression
+26. **FR26**: The system shall require user approval before overwriting existing files during story progression
+27. **FR27**: The system shall organize framework files in a hidden `.jester/` directory structure:
     - `.jester/agents/` - Agent definitions
     - `.jester/templates/` - Story and context templates  
     - `.jester/tasks/` - Reusable workflow tasks
     - `.jester/data/` - Knowledge base and reference data
     - `.jester/utils/` - Utility functions and helpers
-26. **FR26**: The system shall organize files in a three-stage workflow:
+28. **FR28**: The system shall organize files in a three-stage workflow:
     - `draft/` - Work in progress with incrementing draft numbers (001, 002, 013, etc.)
     - `ready/` - Approved work ready for publication
     - `complete/` - Published work in final form
     - `contexts/` - Context files (no staging needed)
 
-23. **FR23**: The system shall maintain draft number consistency:
+29. **FR29**: The system shall maintain draft number consistency:
     - `context-013.md` always creates `outline-013.md`
     - `outline-013.md` always creates `story-013.md`
     - All draft files maintain the same draft number
 
-24. **FR24**: The system shall provide workflow commands:
+30. **FR30**: The system shall provide workflow commands (via @jester):
     - `/edit approve-draft {number}` - Move draft to ready/
     - `/edit publish "{title}"` - Move ready story to complete/
 
-25. **FR25**: The system shall create entities directly in complete/ directory when approved:
+31. **FR31**: The system shall create entities directly in complete/ directory when approved:
     - Format: Standard entity naming (character-name.md, location-name.md, item-name.md)
     - Location: `complete/characters/`, `complete/locations/`, `complete/items/`
 

@@ -50,8 +50,6 @@ dependencies:
 
 # Edit Agent
 
-> **⚠️ DEPRECATION NOTICE**: This agent has been moved to the editing domain. Please use `@jester` entry point instead of calling this agent directly. The agent is now located at `.jester/agents/domains/editing/edit.md` and should be accessed through the unified workflow system.
-
 ## Agent Behavior Rules
 
 ### Command: `/edit <file> <instructions>`

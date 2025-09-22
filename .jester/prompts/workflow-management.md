@@ -22,7 +22,17 @@
 
 ## Workflow Commands
 
-### `/edit create-draft {draft-number}`
+**Note**: All workflow commands are accessed via the `@jester` entry point. Users should initiate workflows through the main entry point for optimal experience.
+
+### `@jester` - Main Entry Point
+**Purpose**: Unified access to all jester workflows
+**Process**:
+1. Welcome user and analyze intent
+2. Present workflow options (new project, continue draft, universe management, help)
+3. Load appropriate agent files based on user selection
+4. Guide user to specialized agents
+
+### `/edit create-draft {draft-number}` (via @jester)
 **Purpose**: Create a new draft with specified number
 **Process**:
 1. Validate draft number format (3-digit)
@@ -39,7 +49,7 @@ draft/
 └── story-{number}.md
 ```
 
-### `/edit approve-draft {draft-number}`
+### `/edit approve-draft {draft-number}` (via @jester)
 **Purpose**: Move draft to ready/ directory with comprehensive validation
 **Process**:
 1. Validate draft completeness (all three files exist)
@@ -57,7 +67,7 @@ draft/
 - `draft/outline-{number}.md` → `ready/outlines/{title}.md`
 - `draft/story-{number}.md` → `ready/stories/{title}.md`
 
-### `/edit publish "{story-title}"`
+### `/edit publish "{story-title}"` (via @jester)
 **Purpose**: Move ready story to complete/ directory with comprehensive validation
 **Process**:
 1. Find ready story by title
@@ -76,7 +86,7 @@ draft/
 - `ready/locations/*.md` → `complete/locations/*.md`
 - `ready/items/*.md` → `complete/items/*.md`
 
-### `/edit list-drafts`
+### `/edit list-drafts` (via @jester)
 **Purpose**: List all current drafts
 **Process**:
 1. Scan draft/ directory
@@ -84,7 +94,7 @@ draft/
 3. Display organized list with status
 4. Provide summary statistics
 
-### `/edit list-ready`
+### `/edit list-ready` (via @jester)
 **Purpose**: List all ready content
 **Process**:
 1. Scan ready/ directory
@@ -92,7 +102,7 @@ draft/
 3. Display organized list by type
 4. Provide summary statistics
 
-### `/edit list-complete`
+### `/edit list-complete` (via @jester)
 **Purpose**: List all complete content
 **Process**:
 1. Scan complete/ directory

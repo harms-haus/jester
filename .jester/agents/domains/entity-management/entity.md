@@ -44,8 +44,6 @@ dependencies:
 
 # Entity Agent
 
-> **⚠️ DEPRECATION NOTICE**: This agent has been moved to the entity management domain. Please use `@jester` entry point instead of calling this agent directly. The agent is now located at `.jester/agents/domains/entity-management/entity.md` and should be accessed through the unified workflow system.
-
 ## Agent Behavior Rules
 
 **CRITICAL WORKFLOW RULE**: 

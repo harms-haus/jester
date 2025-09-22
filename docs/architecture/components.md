@@ -5,12 +5,24 @@
 **1. Agent System**
 - **Purpose**: Orchestrates the 3-stage story generation workflow through prompt rules
 - **Technology**: Markdown prompt rule files following BMAD pattern
-- **Key Agents**:
-  - `/muse` (Story Context Agent): Prompt rules for context gathering and entity discovery (Analyst role)
-  - `/write` (Story Generation Agent): Prompt rules for outline and story generation (Dev role)
-  - `/edit` (Cross-Stage Editor): Prompt rules for content modification and maintenance (QA role)
+- **Key Components**:
+  - `@jester` (Main Entry Point): Unified workflow selection and user guidance
+  - **Publishing Domain**: `/muse` (Story Context Agent) and `/write` (Story Generation Agent)
+  - **Editing Domain**: `/edit` (Cross-Stage Editor) for content modification
+  - **Entity Management Domain**: Entity creation and relationship management
+  - **Validation Domain**: Content validation and quality assurance
 - **Communication**: LLM agents follow prompt rules to use file-based pipeline (YAML → Markdown → Markdown)
 - **Dependencies**: LightRAG MCP client, external LLM capable of file operations
+
+**1a. Entry Point Management**
+- **Purpose**: Provides unified workflow selection and user guidance
+- **Technology**: Markdown prompt rule file with workflow selection logic
+- **Key Features**:
+  - User greeting and intent analysis
+  - Workflow selection (new project, continue draft, universe management, help)
+  - Dynamic agent file loading based on user selection
+  - Seamless transitions to specialized agents
+- **Dependencies**: All agent files, workflow selection prompts
 
 **2. LightRAG MCP Client**
 - **Purpose**: Provides structured access to knowledge graph entities and relationships
@@ -77,18 +89,24 @@
 ## Component Interactions
 
 **Data Flow**:
-1. User initiates `/muse` command
-2. External LLM follows Muse prompt rules to query LightRAG for entities
-3. LLM generates context file and saves to `contexts/` per prompt instructions
-4. User edits context file
-5. User runs `/write outline`
-6. External LLM follows Write prompt rules to read context, generate outline
-7. LLM saves outline to `outlines/` per prompt instructions
-8. User runs `/write story`
-9. External LLM follows Write prompt rules to read outline, generate story
-10. LLM saves story to `stories/` per prompt instructions
-11. User runs `/edit` commands as needed
-12. External LLM follows Edit prompt rules to track changes via Git
+1. User initiates `@jester` command
+2. Entry Point Management analyzes user intent and presents workflow options
+3. User selects workflow (new project, continue draft, universe management, help)
+4. Entry Point Management loads appropriate agent files based on selection
+5. **For New Project**:
+   - User initiates `/muse` command via @jester
+   - External LLM follows Muse prompt rules to query LightRAG for entities
+   - LLM generates context file and saves to `contexts/` per prompt instructions
+   - User edits context file
+   - User runs `/write outline` via @jester
+   - External LLM follows Write prompt rules to read context, generate outline
+   - LLM saves outline to `outlines/` per prompt instructions
+   - User runs `/write story` via @jester
+   - External LLM follows Write prompt rules to read outline, generate story
+   - LLM saves story to `stories/` per prompt instructions
+6. **For Continue Draft**: User runs `/edit` commands via @jester as needed
+7. **For Universe Management**: User accesses entity management and validation tools via @jester
+8. External LLM follows appropriate prompt rules to track changes via Git
 
 **Error Handling**:
 - LightRAG connection failures → Prompt rules instruct LLM to use offline mode with cached data

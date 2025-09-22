@@ -1,0 +1,188 @@
+# Workflow Menu Template
+
+# Main workflow options for @jester entry point
+workflows:
+  new_project:
+    id: "1"
+    title: "🆕 Start New Project"
+    description: "Create a brand new bedtime story from scratch"
+    features:
+      - "Interactive context gathering with LightRAG integration"
+      - "Character, location, and item discovery"
+      - "Plot template selection"
+    use_case: "When you want to create a completely new story"
+    command: "new-project"
+    agent: "muse"
+    prompts:
+      - "context-generation.md"
+      - "lightrag-query-generation.md"
+      - "entity-suggestion-algorithm.md"
+
+  continue_draft:
+    id: "2"
+    title: "📝 Continue Existing Work"
+    description: "Pick up where you left off with a draft"
+    features:
+      - "Resume context, outline, or story development"
+      - "Cross-stage editing capabilities"
+      - "Progress tracking and validation"
+    use_case: "When you have existing draft files to work on"
+    command: "continue-draft"
+    agent: "edit"
+    prompts:
+      - "cross-stage-editing.md"
+      - "content-modification.md"
+      - "workflow-management.md"
+
+  universe_management:
+    id: "3"
+    title: "🌟 Manage Story Universe"
+    description: "Organize and maintain your growing story collection"
+    features:
+      - "Edit published stories and entities"
+      - "Validate links and relationships"
+      - "Organize story library"
+    use_case: "When you want to maintain or organize existing content"
+    command: "universe-management"
+    agent: "entity"
+    prompts:
+      - "entity-creation.md"
+      - "entity-integration.md"
+      - "validation-workflow.md"
+      - "conflict-detection.md"
+
+  help:
+    id: "4"
+    title: "❓ Get Help"
+    description: "Learn about jester's capabilities and workflows"
+    features:
+      - "Understand the three-stage process"
+      - "Learn about LightRAG integration"
+      - "Explore advanced features"
+    use_case: "When you're new to jester or need guidance"
+    command: "help"
+    agent: "jester"
+    prompts:
+      - "user-greeting.md"
+      - "workflow-selection.md"
+
+# User intent indicators for workflow selection
+intent_indicators:
+  new_project:
+    keywords:
+      - "start new story"
+      - "create new project"
+      - "begin new bedtime story"
+      - "new story about"
+      - "I want to create"
+      - "let's make a story"
+    context:
+      - "no existing draft files"
+      - "first-time user"
+    confidence: "high"
+
+  continue_draft:
+    keywords:
+      - "continue draft"
+      - "resume work"
+      - "pick up where I left off"
+      - "work on draft"
+      - "finish my story"
+      - "complete my outline"
+    context:
+      - "existing draft files"
+      - "references specific draft numbers"
+    confidence: "high"
+
+  universe_management:
+    keywords:
+      - "manage stories"
+      - "organize library"
+      - "edit published content"
+      - "validate links"
+      - "universe management"
+      - "maintain my stories"
+      - "organize my collection"
+    context:
+      - "published content exists"
+    confidence: "medium"
+
+  help:
+    keywords:
+      - "help"
+      - "how does this work"
+      - "what can I do"
+      - "tutorial"
+      - "guide"
+      - "show me options"
+      - "explain jester"
+    context:
+      - "user is confused or asking for guidance"
+    confidence: "high"
+
+# Transition messages for each workflow
+transitions:
+  new_project:
+    message: "Great! I'll connect you with our story creation specialists. They'll help you with:\n- Interactive context gathering with LightRAG integration\n- Character, location, and item discovery\n- Plot template selection\n- Story outline and final story generation\n\nLet me load the appropriate tools for you..."
+    next_steps:
+      - "Load muse.md agent"
+      - "Load context-generation.md prompts"
+      - "Initialize new project workflow"
+
+  continue_draft:
+    message: "Perfect! I'll connect you with our editing specialists. They'll help you with:\n- Resuming your existing draft work\n- Cross-stage editing capabilities\n- Progress tracking and validation\n- Content modification and refinement\n\nLet me load the appropriate tools for you..."
+    next_steps:
+      - "Load edit.md agent"
+      - "Load cross-stage-editing.md prompts"
+      - "Initialize draft continuation workflow"
+
+  universe_management:
+    message: "Excellent! I'll connect you with our entity management specialists. They'll help you with:\n- Editing published stories and entities\n- Validating links and relationships\n- Organizing your story library\n- Maintaining story universe consistency\n\nLet me load the appropriate tools for you..."
+    next_steps:
+      - "Load entity.md agent"
+      - "Load validation prompts"
+      - "Initialize universe management workflow"
+
+  help:
+    message: "Of course! Let me explain how jester works and show you all available options:\n\n**Jester's Three-Stage Workflow:**\n1. **Context** (YAML) - Gather story ideas, characters, settings\n2. **Outline** (Markdown) - Structure the plot and story flow\n3. **Story** (Markdown) - Generate the final bedtime story\n\n**Available Workflows:**\n1. Start New Project - Create from scratch\n2. Continue Existing Work - Resume drafts\n3. Manage Story Universe - Organize content\n4. Get Help - Learn more\n\nWhich workflow interests you most?"
+    next_steps:
+      - "Present help content"
+      - "Show workflow explanations"
+      - "Guide user to appropriate workflow"
+
+# Error handling scenarios
+error_handling:
+  unclear_intent:
+    message: "I want to help you, but I'm not sure exactly what you'd like to do. Could you tell me:\n- Are you looking to create a new story?\n- Do you have existing work to continue?\n- Do you want to organize your story collection?\n- Or would you like to learn more about jester?"
+    action: "present_all_options"
+
+  conflicting_intent:
+    message: "I see you mentioned both starting new work and continuing existing work. Could you clarify:\n- Do you want to start a completely new story?\n- Or continue with an existing draft?\n- Or perhaps work on both?"
+    action: "request_clarification"
+
+  no_draft_files:
+    message: "I don't see any existing draft files in your project. Would you like to:\n- Start a new story project?\n- Learn how to create your first story?\n- Or were you looking for something else?"
+    action: "suggest_new_project"
+
+# Success criteria
+success_criteria:
+  intent_recognition:
+    target: "90%+ accuracy"
+    metrics:
+      - "Correctly identify user intent"
+      - "Present appropriate options for unclear cases"
+      - "Provide helpful guidance for new users"
+
+  smooth_transitions:
+    target: "Seamless workflow switching"
+    metrics:
+      - "Load appropriate agent files based on selection"
+      - "Provide context about what to expect next"
+      - "Maintain user momentum and engagement"
+
+  user_satisfaction:
+    target: "High user satisfaction"
+    metrics:
+      - "Users can easily find the workflow they need"
+      - "New users feel guided and supported"
+      - "Returning users can quickly resume work"
