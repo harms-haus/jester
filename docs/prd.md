@@ -47,9 +47,9 @@ jester adapts proven software development methodologies (BMAD principles) to cre
 18. **FR18**: The system shall provide fine-grained control over which entity information is available to story generation
 19. **FR19**: The system shall maintain proper [[link]] syntax for bidirectional entity relationships across subdirectories
 20. **FR20**: The system shall organize local files in a structured directory hierarchy:
-    - `entities/characters/` - Character entity files
-    - `entities/locations/` - Location entity files  
-    - `entities/items/` - Item entity files
+    - `complete/characters/` - Character entity files
+    - `complete/locations/` - Location entity files  
+    - `complete/items/` - Item entity files
     - `stories/` - Generated story files
     - `outlines/` - Generated outline files
     - `contexts/` - Generated context files
@@ -74,9 +74,9 @@ jester adapts proven software development methodologies (BMAD principles) to cre
     - `/edit approve-draft {number}` - Move draft to ready/
     - `/edit publish "{title}"` - Move ready story to complete/
 
-25. **FR25**: The system shall create entities directly in ready/ directory when approved:
+25. **FR25**: The system shall create entities directly in complete/ directory when approved:
     - Format: Standard entity naming (character-name.md, location-name.md, item-name.md)
-    - Location: `ready/characters/`, `ready/locations/`, `ready/items/`
+    - Location: `complete/characters/`, `complete/locations/`, `complete/items/`
 
 ### Non Functional
 

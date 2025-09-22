@@ -187,7 +187,7 @@ dependencies:
 10. **Confirm all changes** and provide summary
 
 **File Operations:**
-- **Read**: `outlines/outline_*.md`, `contexts/context_*.yaml`, `entities/characters/*.md`, `entities/locations/*.md`, `entities/items/*.md`
+- **Read**: `outlines/outline_*.md`, `contexts/context_*.yaml`, `complete/characters/*.md`, `complete/locations/*.md`, `complete/items/*.md`
 - **Update**: Outline file with modifications
 - **Rename**: Character entity files if names changed
 - **Update**: All entity files with new character references

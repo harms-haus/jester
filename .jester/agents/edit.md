@@ -147,7 +147,7 @@ dependencies:
    - **Generate structured entity file** using the appropriate template (character.md, location.md, item.md)
    - **Validate imported content** for completeness and consistency
    - **Validate** original unstructured file before processing
-   - **Save structured file** to appropriate entity directory (entities/characters/, entities/locations/, entities/items/)
+   - **Save structured file** to appropriate entity directory (complete/characters/, complete/locations/, complete/items/)
 5. **Provide import summary** with details of what was imported and any issues found
 
 **File Operations:**
@@ -156,7 +156,7 @@ dependencies:
 - **Duplicate Detection**: Filter out already structured files to avoid duplicates
 - **Validate**: Check original file before processing
 - **Generate**: New structured entity file using appropriate template
-- **Save**: Structured file to entities/characters/, entities/locations/, or entities/items/
+- **Save**: Structured file to complete/characters/, complete/locations/, or complete/items/
 - **Validate**: Check imported content against template requirements
 - **Batch Processing**: Handle multiple files in sequence with progress tracking
 

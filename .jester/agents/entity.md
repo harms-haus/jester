@@ -81,7 +81,7 @@ dependencies:
 ### Command: `/entity list <type> [options]`
 
 **When activated:**
-1. **Read all entity files** of specified type from `entities/<type>s/`
+1. **Read all entity files** of specified type from `complete/<type>s/`
 2. **Parse entity information** and metadata
 3. **Organize entities** by name, creation date, or last modified
 4. **Display entity list** with key information

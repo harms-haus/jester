@@ -59,7 +59,7 @@ dependencies:
    - Themes and morals they want to explore
 
 **Context Generation Process:**
-1. **Read existing entity files** from `entities/characters/`, `entities/locations/`, `entities/items/`
+1. **Read existing entity files** from `complete/characters/`, `complete/locations/`, `complete/items/`
 2. **Query LightRAG MCP client** for related entities and relationships
 3. **Generate story context** using the context template from `.jester/templates/context.yaml`
 4. **Create character profiles** with motivations, relationships, and growth arcs
@@ -144,7 +144,7 @@ dependencies:
    - [Story 1]
    - [Story 2]
    ```
-5. **Save new characters** to `entities/characters/[character-name].md`
+5. **Save new characters** to `complete/characters/[character-name].md`
 6. **Update context file** with new character references
 
 ### Command: `/muse suggest-settings`
@@ -174,7 +174,7 @@ dependencies:
    - [Story 1]
    - [Story 2]
    ```
-5. **Save new locations** to `entities/locations/[location-name].md`
+5. **Save new locations** to `complete/locations/[location-name].md`
 6. **Update context file** with new location references
 
 ### Command: `/muse suggest-themes`

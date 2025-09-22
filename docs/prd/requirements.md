@@ -22,9 +22,9 @@
 18. **FR18**: The system shall provide fine-grained control over which entity information is available to story generation
 19. **FR19**: The system shall maintain proper [[link]] syntax for bidirectional entity relationships across subdirectories
 20. **FR20**: The system shall organize local files in a structured directory hierarchy:
-    - `entities/characters/` - Character entity files
-    - `entities/locations/` - Location entity files  
-    - `entities/items/` - Item entity files
+    - `complete/characters/` - Character entity files
+    - `complete/locations/` - Location entity files  
+    - `complete/items/` - Item entity files
     - `stories/` - Generated story files
     - `outlines/` - Generated outline files
     - `contexts/` - Generated context files
@@ -35,7 +35,7 @@
     - `.jester/data/` - Knowledge base and reference data
     - `.jester/utils/` - Utility functions and helpers
 22. **FR22**: The system shall expose only user-facing directories in the root:
-    - `entities/` - Entity files (characters/, locations/, items/)
+    - `complete/` - Entity files (characters/, locations/, items/)
     - `stories/` - Generated story files
     - `outlines/` - Generated outline files
     - `contexts/` - Generated context files

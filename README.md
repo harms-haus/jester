@@ -20,7 +20,8 @@ Context (YAML) → Outline (Markdown) → Story (Markdown)
 
 - **File-based pipeline** with strict one-way flow
 - **LightRAG integration** for entity discovery and consistency
-- **Prompt-based agents** following BMAD principles
+- **Pure prompt-based agents** - external LLM agents follow markdown prompt rules
+- **No TypeScript agent execution** - only MCP client for LightRAG integration
 
 ## Project Structure
 
@@ -32,7 +33,7 @@ jester/
 │   ├── types/             # TypeScript type definitions
 │   ├── utils/             # Utility functions
 │   └── index.ts           # Main entry point
-├── entities/              # Local entity files
+├── complete/              # Published work
 │   ├── characters/        # Character definitions
 │   ├── locations/         # Location definitions
 │   └── items/             # Item definitions
@@ -46,6 +47,35 @@ jester/
 │   └── data/              # Reference data
 └── docs/                  # Project documentation
 ```
+
+## Usage
+
+### Pure Prompt-Based System
+
+jester uses a **pure prompt-based architecture** where external LLM agents follow markdown prompt rules. No TypeScript agent execution is needed.
+
+### How to Use
+
+1. **Access Agent Instructions**: Read the prompt files in `.jester/agents/`
+   - `/muse` - `.jester/agents/muse.md`
+   - `/write` - `.jester/agents/write.md`
+   - `/edit` - `.jester/agents/edit.md`
+   - `/entity` - `.jester/agents/entity.md`
+
+2. **Provide to External LLM**: Copy the agent instructions and provide them to any LLM capable of following prompt rules and performing file operations
+
+3. **Follow the Workflow**: 
+   - Use `/muse` to generate story context
+   - Use `/write outline` to create story outlines
+   - Use `/write story` to generate final stories
+   - Use `/edit` to modify content as needed
+
+### LightRAG Integration
+
+The system includes a TypeScript MCP client for LightRAG integration:
+- **Location**: `src/clients/lightragClient.ts`
+- **Service**: `src/services/lightragService.ts`
+- **Purpose**: Entity discovery and relationship mapping
 
 ## Status
 
