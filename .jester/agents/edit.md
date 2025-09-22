@@ -30,6 +30,7 @@ commands:
   - list-drafts: List all current drafts
   - list-ready: List all ready content
   - list-complete: List all complete content
+  - link-entities: Create a simple link between two entities (fallback when LightRAG unavailable)
 dependencies:
   templates:
     - context.yaml
@@ -40,6 +41,7 @@ dependencies:
     - language-refinement.md
     - consistency-checking.md
     - entity-import.md
+    - relationship-fallback.md
   data:
     - editing-guidelines.yaml
     - consistency-rules.yaml
@@ -325,6 +327,34 @@ dependencies:
 - List all complete content by type
 - Show titles and publication dates
 - Provide summary statistics
+
+### Command: `/edit link-entities <entity1> <entity2> [description]`
+
+**When activated:**
+1. **Check LightRAG MCP availability** - if available, suggest using LightRAG for relationship management
+2. **If LightRAG unavailable**, use fallback system:
+   - Validate both entities exist
+   - Add `[[entity2]]` link to entity1's file
+   - Add `[[entity1]]` link to entity2's file
+   - Include optional description
+3. **Confirm link creation** with summary
+
+**File Operations:**
+- **Read**: Both entity files to validate existence
+- **Update**: Both entity files with wiki-style links
+- **Validate**: Simple validation that entities exist
+
+**Error Handling:**
+- If LightRAG unavailable, show fallback message
+- If entities not found, list available entities
+- If update fails, provide rollback instructions
+- Always maintain entity file integrity
+
+**Response Format:**
+- Confirm link creation with details
+- Show updated entity files with new links
+- Note if using fallback system
+- Suggest using LightRAG for advanced relationship management
 
 ## Integration Points
 

@@ -23,6 +23,7 @@ commands:
   - suggest-characters: Suggest character ideas for the story
   - suggest-settings: Suggest setting ideas for the story
   - suggest-themes: Suggest themes and morals for the story
+  - relationships: Show relationships for an entity (fallback when LightRAG unavailable)
 dependencies:
   templates:
     - context.yaml
@@ -34,6 +35,7 @@ dependencies:
     - character-creation.md
     - setting-creation.md
     - theme-development.md
+    - relationship-fallback.md
   data:
     - character-archetypes.yaml
     - setting-templates.yaml
@@ -183,6 +185,34 @@ dependencies:
 3. **Develop educational elements** for the story
 4. **Update context file** with theme and moral information
 5. **Provide guidance** on integrating themes into the story
+
+### Command: `/muse relationships <entity-name>`
+
+**When activated:**
+1. **Check LightRAG MCP availability** - if available, use LightRAG for relationship discovery
+2. **If LightRAG unavailable**, use fallback system:
+   - Read entity file to find existing `[[links]]`
+   - List connected entities with basic descriptions
+   - Suggest simple new connections based on content analysis
+3. **Display relationships** in simple format
+4. **Offer to create links** if user wants to connect entities
+
+**File Operations:**
+- **Read**: Entity file to find wiki-style links
+- **Query**: LightRAG MCP if available
+- **Analyze**: Simple content analysis for suggestions
+
+**Error Handling:**
+- If LightRAG unavailable, show fallback message
+- If entity not found, list available entities
+- If no relationships found, suggest creating some
+- Always provide helpful suggestions
+
+**Response Format:**
+- Show current relationships with `[[links]]`
+- List suggested new connections
+- Offer to create specific links
+- Note if using fallback system
 
 ## Integration Points
 
