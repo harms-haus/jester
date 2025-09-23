@@ -164,6 +164,15 @@ jester/
 ├── contexts/                   # Generated context files
 ├── .gitignore                  # Git ignore rules
 └── README.md                   # Project overview
+
+**Initialization Process:**
+1. User runs `npx jester-story-framework` in target directory
+2. CLI tool creates `.jester/` directory structure
+3. CLI tool scans directory for existing content (markdown files, story-like content)
+4. CLI tool suggests discovered content for import
+5. User confirms import suggestions
+6. CLI tool moves suggested content to `import-staging/` directory
+7. User can then use `@jester` agent for normal workflow
 ```
 
 ## API Specification
@@ -464,6 +473,17 @@ class LightRAGClientImpl implements LightRAGClient {
   - File format validation
   - Relationship consistency verification
 - **Dependencies**: LightRAG MCP client, local file system
+
+**8. CLI Initialization Tool**
+- **Purpose**: Provides user-friendly project setup and content discovery
+- **Technology**: Node.js CLI tool with file system scanning
+- **Key Features**:
+  - Project structure initialization with `.jester/` directory
+  - Content discovery scanning for stories, outlines, contexts, and entities
+  - Import suggestion workflow with user confirmation
+  - Setup validation and guidance messaging
+- **Dependencies**: Node.js runtime, file system access
+- **Implementation Note**: Standalone CLI tool that prepares environment for prompt-based agents
 
 ### Component Interactions
 

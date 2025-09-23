@@ -27,7 +27,7 @@ jester adapts proven software development methodologies (BMAD principles) to cre
 
 ### Functional
 
-1. **FR1**: The system shall provide a `@jester` entry point that guides users through available workflows including new project creation, draft continuation, and universe management
+1. **FR1**: The system shall provide a `@jester` entry point that guides users through available workflows including new project creation, draft continuation, and universe management. The `@jester` entry point shall detect if the project is properly initialized and suggest CLI initialization if needed
 2. **FR2**: The `@jester` entry point shall provide workflow selection for new project creation, draft continuation, universe management, and help
 3. **FR3**: The system shall provide a `/muse` command (via @jester) that initiates interactive context gathering for story creation
 4. **FR4**: The `/muse` agent shall query LightRAG knowledge graph to discover existing entities and relationships
@@ -77,6 +77,7 @@ jester adapts proven software development methodologies (BMAD principles) to cre
     - All draft files maintain the same draft number
 
 30. **FR30**: The system shall provide workflow commands (via @jester):
+    - `/init` - Initialize new Jester project (if CLI tool not used)
     - `/edit approve-draft {number}` - Move draft to ready/
     - `/edit publish "{title}"` - Move ready story to complete/
     - `/import <file-path>` - Import content to import-staging/ for validation
@@ -115,6 +116,13 @@ jester adapts proven software development methodologies (BMAD principles) to cre
     - Validate entity name and type consistency
     - Check for malformed patch content
     - Provide clear error messages for invalid patches
+
+39. **FR39**: The system shall provide a CLI initialization tool accessible via `npx jester-story-framework` that:
+    - Initializes a new Jester project with complete `.jester/` directory structure
+    - Scans the current working directory for existing story documents
+    - Suggests discovered content for import into the import-staging/ directory
+    - Provides user-friendly setup guidance and next steps
+    - Detects if `.jester/` structure already exists and provides appropriate messaging
 
 ### Non Functional
 
@@ -228,8 +236,8 @@ The dev agent does NOT write TypeScript or other programming languages - only pr
 ### Story 1.1: Project Setup and Agent Framework
 
 As a **developer**,
-I want **to establish the basic project structure and agent framework**,
-so that **I have a foundation for building the jester storytelling system**.
+I want **to establish the basic project structure and agent framework with optional CLI initialization**,
+so that **I have a foundation for building the jester storytelling system with user-friendly setup options**.
 
 #### Acceptance Criteria
 
@@ -240,6 +248,9 @@ so that **I have a foundation for building the jester storytelling system**.
 5. **Basic error handling is implemented** for invalid commands and missing files
 6. **Cross-platform compatibility is verified** on Windows, macOS, and Linux
 7. **README.md is updated** with basic usage instructions and project overview
+8. **CLI initialization tool is available** via `npx jester-story-framework` command
+9. **CLI tool creates complete `.jester/` structure** in target directory
+10. **CLI tool provides setup guidance** and next steps for users
 
 ### Story 1.2: Basic Context Generation
 
@@ -320,6 +331,25 @@ so that **I can leverage knowledge graph capabilities for enhanced story generat
 5. **Client integration** works with existing agents (Muse, Entity, Write) for enhanced functionality
 6. **Error handling and fallback** mechanisms are in place for when LightRAG is unavailable
 7. **TypeScript interfaces** are defined for all LightRAG API responses and requests
+
+### Story 1.7: CLI Content Discovery and Import Suggestion
+
+As a **parent migrating existing stories to Jester**,
+I want **the CLI tool to scan my directory and suggest content for import**,
+so that **I can easily migrate my existing story collection without manual file management**.
+
+#### Acceptance Criteria
+
+1. **CLI tool scans current directory** for markdown files that could be stories, outlines, or contexts
+2. **Content detection identifies** potential story files based on content patterns and structure
+3. **Entity detection identifies** potential character, location, and item files
+4. **Import suggestions are presented** to user with clear descriptions of discovered content
+5. **User confirmation workflow** allows selective import of suggested content
+6. **Suggested content is moved** to appropriate `import-staging/` subdirectories
+7. **Import summary is provided** showing what was imported and next steps
+8. **Content validation** ensures imported files are properly formatted
+9. **Error handling** gracefully handles invalid or corrupted files
+10. **User guidance** explains how to use `@jester` agent after initialization
 
 ## Epic 2: Entity Management System
 

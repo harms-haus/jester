@@ -1,0 +1,44 @@
+{
+  "name": "jester-story-framework",
+  "version": "1.0.0",
+  "description": "CLI tool to initialize Jester story framework in your project",
+  "main": "bin/jester-init.js",
+  "bin": {
+    "jester-init": "./bin/jester-init.js"
+  },
+  "scripts": {
+    "build": "node scripts/build.js",
+    "cleanup": "node scripts/build.js --cleanup",
+    "test": "node bin/jester-init.js --test",
+    "prepublishOnly": "npm run build && npm test",
+    "postpublish": "npm run cleanup"
+  },
+  "keywords": [
+    "jester",
+    "story",
+    "framework",
+    "cli",
+    "initialization",
+    "bedtime-stories",
+    "ai",
+    "storytelling"
+  ],
+  "author": "Jester Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "files": [
+    "bin/",
+    ".jester/",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jester-story-framework/jester-story-framework.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jester-story-framework/jester-story-framework/issues"
+  },
+  "homepage": "https://github.com/jester-story-framework/jester-story-framework#readme"
+}
