@@ -63,6 +63,7 @@ Generates a structured YAML context file containing:
 - Only creates the context file
 - Entity files are created only after /approve command
 - Context contains entity information as structured data only
+- Use `/edit rename` task if entity names need to be changed after creation
 
 ## `/write outline`
 Reads a context file and generates a detailed story outline including:

@@ -21,6 +21,7 @@ commands:
   - character: Edit a character by name, ask user to describe change if not provided
   - location: Edit a location by name, ask user to describe change if not provided
   - item: Edit an item by name, ask user to describe change if not provided
+  - rename: Rename an entity or story title with comprehensive reference updates
 dependencies:
   agents:
     - write.md
@@ -30,6 +31,8 @@ dependencies:
     - explanations/entity-editing.md
     - explanations/cross-stage-editing.md
     - tasks/patch-creation.md
+    - tasks/rename-task.md
+    - elicitations/rename-task.md
     - checklists/validation-workflow.md
   templates:
     - edit-template.yaml
@@ -74,6 +77,20 @@ Edits an item by name:
 - Creates patch file if editing "universe" and item not in "reading"
 - Updates all references to the item across stories and contexts
 - Maintains item consistency across the story universe
+
+### `/edit rename {old_name} {new_name}`
+Renames an entity or story title with comprehensive reference updates:
+- Renames entity files in reading/ and universe/ directories
+- Updates all internal references within entity files
+- Updates all back-references to the entity
+- Updates all [[wiki-links]] in stories that reference the entity
+- Updates unlinked references and nickname references
+- Updates related entity references (habitations, containers, neighbors)
+- For story titles: renames context, outline, and story files
+- Updates all references to the story in entity files
+- Checks and improves natural language flow in stories and outlines
+- Avoids awkward phrasing and redundant references
+- Maintains system consistency across all references
 
 ## Universe Management
 

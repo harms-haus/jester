@@ -31,10 +31,10 @@
 ### Act 1: Setup (200-250 words)
 
 #### Scene 1: The Tide Pool Discovery
-**Location:** Oscar's tide pool  
+**Location:** Oscar's Tide Pool  
 **Purpose:** Introduce Oscar and establish the problem  
 
-Lily and Rascal are exploring the beach when they hear frustrated muttering coming from a tide pool. They discover Oscar the Octopus surrounded by half-finished contraptions, shiny rocks, and tools scattered everywhere. Oscar is trying to build something but keeps losing pieces and forgetting what he was doing. His color changes from blue to purple as he gets more frustrated.
+Lily and Rascal are exploring the beach when they hear frustrated muttering coming from Oscar's Tide Pool. They discover Oscar the Octopus surrounded by half-finished contraptions, shiny rocks, and tools scattered everywhere. Oscar is trying to build something but keeps losing pieces and forgetting what he was doing. His color changes from blue to purple as he gets more frustrated.
 
 **Key Elements:**
 - Introduction of Oscar's memory problem
@@ -43,7 +43,7 @@ Lily and Rascal are exploring the beach when they hear frustrated muttering comi
 - First glimpse of his creative but disorganized nature
 
 #### Scene 2: The Treasure Organizer Project
-**Location:** Oscar's tide pool  
+**Location:** Oscar's Tide Pool  
 **Purpose:** Explain Oscar's goal and the specific problem  
 
 Oscar explains to Lily and Rascal that he's building a "Treasure Organizer" - a special contraption with eight compartments (one for each arm) to help him remember where he puts all his shiny treasures. He shows them the design and some of the pieces, but every time he gets close to finishing it, he loses the parts he needs. He's been working on it for weeks but can never complete it.
@@ -120,7 +120,7 @@ With everyone working together, Oscar successfully builds his Treasure Organizer
 
 ## Scene Transitions
 
-- **Tide Pool → Beach:** Natural exploration leading to discovery
+- **Oscar's Tide Pool → Beach:** Natural exploration leading to discovery
 - **Problem → Solution:** Gradual understanding and collaboration
 - **Conflict → Resolution:** Communication and empathy
 

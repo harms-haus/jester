@@ -72,7 +72,7 @@ themes:
   - "Communication and empathy"
 
 settings:
-  primary_location: "tide pool"
+  primary_location: "Oscar's Tide Pool"
   secondary_locations: ["ocean", "beach"]
   atmosphere: "playful but slightly chaotic due to Oscar's scattered state"
 

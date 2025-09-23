@@ -10,13 +10,13 @@
 
 ---
 
-Lily and Rascal were exploring the beach one sunny morning when they heard frustrated muttering coming from a nearby tide pool. The sounds were so curious that they had to investigate.
+Lily and Rascal were exploring the beach one sunny morning when they heard frustrated muttering coming from Oscar's Tide Pool. The sounds were so curious that they had to investigate.
 
 "Rascal, do you hear that?" Lily asked, her green eyes sparkling with curiosity.
 
 "I sure do!" Rascal replied, his raccoon ears perking up. "It sounds like someone's having a really hard time with something."
 
-They crept closer to the tide pool and peeked over the edge. What they saw made them both gasp in surprise.
+They crept closer to Oscar's Tide Pool and peeked over the edge. What they saw made them both gasp in surprise.
 
 There, in the shallow water, was an octopus unlike any they had ever seen. He had eight long, flexible arms that were moving in every direction at once, and his skin kept changing from a deep blue to a bright purple as he worked. All around him were scattered shiny rocks, colorful shells, and strange contraptions that looked half-finished.
 
@@ -36,11 +36,11 @@ He showed them a drawing of what the organizer should look like - a beautiful wo
 
 "I've been working on this for weeks," Oscar continued, his voice getting more frustrated. "I know I have all the pieces somewhere, but I can't remember where I put them. And every time I find them, something happens and they disappear again!"
 
-Just as Oscar was about to explain more, a sudden gust of wind swept through the tide pool, scattering his shiny pieces everywhere. The wind seemed to be carrying the pieces away in a swirling funnel of leaves and debris.
+Just as Oscar was about to explain more, a sudden gust of wind swept through Oscar's Tide Pool, scattering his shiny pieces everywhere. The wind seemed to be carrying the pieces away in a swirling funnel of leaves and debris.
 
 "Oh no!" Oscar cried, his skin turning a deep purple with frustration. "Not again! Where did my pieces go this time?"
 
-Lily and Rascal watched in amazement as the wind seemed to dance around the tide pool, carrying Oscar's treasures away. They could almost hear giggling in the wind.
+Lily and Rascal watched in amazement as the wind seemed to dance around Oscar's Tide Pool, carrying Oscar's treasures away. They could almost hear giggling in the wind.
 
 "Did you hear that?" Rascal asked, his ears twitching.
 
@@ -68,7 +68,7 @@ Lily smiled warmly. "That's okay, Wendy. Sometimes we don't realize how our fun 
 
 Wendy nodded eagerly. "Yes! I want to help! Let me use my wind powers to gather all of Oscar's scattered pieces and bring them back."
 
-With a gentle whoosh, Wendy began to gather all of Oscar's shiny treasures and bring them back to the tide pool. Lily and Rascal helped organize the pieces by type and size, making neat little piles for Oscar to work with.
+With a gentle whoosh, Wendy began to gather all of Oscar's shiny treasures and bring them back to Oscar's Tide Pool. Lily and Rascal helped organize the pieces by type and size, making neat little piles for Oscar to work with.
 
 "Wow!" Oscar exclaimed, his skin changing to a happy bright blue. "I finally have all my pieces back! And they're all organized too!"
 

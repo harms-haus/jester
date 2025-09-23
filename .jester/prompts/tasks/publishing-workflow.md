@@ -15,7 +15,7 @@
 - Ensure proper file organization
 
 **Step 2: Patch Application**
-- Apply any pending patches to universe universe
+- Apply any pending patches to universe
 - Update entity files with patch changes
 - Verify patch application success
 - Handle any patch conflicts
@@ -27,7 +27,7 @@
 - Verify story accessibility
 
 **Step 4: Entity Integration**
-- Integrate story entities into universe universe
+- Integrate story entities into universe
 - Update entity relationships and references
 - Ensure entity consistency across universe
 - Verify entity accessibility
@@ -74,11 +74,11 @@
 **Summary:**
 - Story successfully published to universe stage
 - All patches applied successfully
-- Entities integrated into universe universe
+- Entities integrated into universe
 - Cleanup completed and status updated
 
 **Next Steps:**
-- Story is now live in universe universe
+- Story is now live in universe
 - All entities accessible and consistent
 - Ready for final review and use
 - Workflow process complete"

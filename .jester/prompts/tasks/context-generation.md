@@ -21,6 +21,7 @@
 - Do NOT create files in universe/ or reading/ directories
 - Entity files are created only after /approve command
 - Context file should contain entity information as structured data only
+- Use `/edit rename` task if entity names need to be changed after creation
 
 ## Character Profile Creation
 "Creating detailed character profiles:

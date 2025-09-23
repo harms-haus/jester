@@ -29,14 +29,16 @@
 - Extract *changed* entity information from context file
 - Create patch (like git-patch) character, location, and item files
 - Store entity files in reading/{NNN} - Story Title/ directories
+- Use `/edit rename` task if entity names need to be changed during creation
 
 **Step 5: File Movement**
-- Move approved files to reading stage
+- Move approved story, outline, context files to reading stage
 - Update file metadata and status
 - Maintain proper file organization
 
 **Step 6: Cleanup and Notification**
 - Clean up any temporary files
+- Clean up draft stage files
 - Update draft status tracking
 - Notify user of approval completion"
 

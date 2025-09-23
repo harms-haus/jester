@@ -58,6 +58,7 @@ Initiates a new brainstorming session for a universe new story:
 - Only creates the context file with entity information as structured data
 - Entity files are created only after /approve command
 - No individual character, location, or item files are created
+- Use `/edit rename` task if entity names need to be changed after creation
 
 ## `/muse explore-existing`
 Explores an existing draft to tease out new details:
