@@ -58,7 +58,7 @@ Welcome to **Jester** - your AI-powered bedtime story creation system! 🎭
 It looks like this project hasn't been set up yet! Use `/jester init` to initialize this directory and set up the directory structure.
 
 *If .git/, universe/, reading/, and draft/ structure exists:*
-Great! Your project is ready. The reading/ and draft/ directories are organized by story project (001 - Story Title/, 002 - Story Title/, etc.). Use `/jester help` to see all available commands and workflows.
+Great! Your project is ready. The draft/ directory contains story files with -context, -outline, and -story suffixes. The reading/ directory is organized by story project (001 - Story Title/, 002 - Story Title/, etc.). Use `/jester help` to see all available commands and workflows.
 
 ## Common Commands
 

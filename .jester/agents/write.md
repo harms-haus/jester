@@ -54,11 +54,17 @@ When used without a sub-command, takes the remaining text as a prompt to either:
 Generates a structured YAML context file containing:
 - Story title and basic information
 - Target audience and length requirements
-- Character, location, and item entities
+- Character, location, and item entities (as structured data only)
 - Plot structure and moral themes
 - Metadata for pipeline propagation
 
-### `/write outline`
+**IMPORTANT: Does NOT create entity files**
+
+- Only creates the context file
+- Entity files are created only after /approve command
+- Context contains entity information as structured data only
+
+## `/write outline`
 Reads a context file and generates a detailed story outline including:
 - Plot points with 2-3 sentence descriptions
 - Character integration and development
@@ -66,7 +72,7 @@ Reads a context file and generates a detailed story outline including:
 - Estimated word count and pacing
 - Metadata inheritance from context
 
-### `/write story`
+## `/write story`
 Reads an outline file and generates a universe bedtime story including:
 - Full narrative at target length
 - Character dialogue and interactions

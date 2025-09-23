@@ -11,31 +11,39 @@
 5. **Define Plot Points**: Structure the story according to chosen template
 6. **Integrate Themes**: Weave moral lessons and educational elements throughout
 7. **Validate Content**: Ensure age-appropriateness and story coherence
-8. **Save Context File**: Store in contexts/ directory with timestamp
+8. **Save Context File**: Store in draft/ directory with story title-based filename
 9. **Metadata Propagation**: Use `metadata-propagation.md` to ensure all relevant metadata is carried through
 
-### Character Profile Creation
+## CRITICAL: DO NOT CREATE ENTITY FILES
+
+- Only create the context file (YAML format)
+- Do NOT create individual character, location, or item files
+- Do NOT create files in universe/ or reading/ directories
+- Entity files are created only after /approve command
+- Context file should contain entity information as structured data only
+
+## Character Profile Creation
 "Creating detailed character profiles:
 - **Main Character**: {character_name} - {character_description}
 - **Supporting Characters**: {supporting_character_list}
 - **Character Relationships**: {relationship_dynamics}
 - **Character Motivations**: {motivation_analysis}"
 
-### Setting Development
+## Setting Development
 "Establishing rich story settings:
 - **Primary Location**: {main_location} - {location_description}
 - **Secondary Locations**: {other_locations}
 - **Atmosphere**: {mood_and_tone}
 - **Sensory Details**: {sensory_elements}"
 
-### Plot Structure Integration
+## Plot Structure Integration
 "Integrating plot structure with story elements:
 - **Template**: {chosen_template}
 - **Plot Points**: {plot_point_list}
 - **Character Arcs**: {character_development}
 - **Theme Integration**: {moral_lesson_weaving}"
 
-### Context Validation
+## Context Validation
 "Performing context quality checks:
 - **Completeness**: {required_fields_check}
 - **Age Appropriateness**: {age_verification}
@@ -43,7 +51,7 @@
 - **Character Consistency**: {character_verification}
 - **Setting Consistency**: {location_verification}"
 
-### Context Completion
+## Context Completion
 "🎭 Your story context is complete!
 
 **Context Details:**
@@ -52,6 +60,12 @@
 - **Characters**: {character_count}
 - **Locations**: {location_count}
 - **File Location**: {context_file_path}
+
+**IMPORTANT: Only context file created**
+
+- No entity files were created (characters, locations, items)
+- Entity files will be created only after /approve command
+- Context contains all entity information as structured data
 
 **Next Steps:**
 - Review your context using `/read {context_file_path}`

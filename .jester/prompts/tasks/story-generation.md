@@ -14,16 +14,16 @@
 - **Theme**: {moral_lesson}"
 
 ### Story Generation Instructions
-1. **Read Outline File**: Load the outline markdown file
+1. **Read Outline File**: Load the outline markdown file from draft/ directory
 2. **Extract Metadata**: Get target length, audience, and theme information
-3. **Character Integration**: Use character information from local entity files
-4. **Location Details**: Incorporate location descriptions from entity files
+3. **Character Integration**: Use character information from context file
+4. **Location Details**: Incorporate location descriptions from context file
 5. **Plot Development**: Transform outline points into engaging narrative
 6. **Dialogue Creation**: Add age-appropriate character dialogue
 7. **Theme Integration**: Weave moral lessons throughout the story
 8. **Length Validation**: Ensure story meets target word count
 9. **Quality Check**: Verify age-appropriateness and engagement
-10. **Save Story**: Store in stories/ directory with proper metadata
+10. **Save Story**: Store in draft/ directory with story title-based filename
 
 ### Character Integration
 "Now I'll bring your characters to life using their detailed profiles:

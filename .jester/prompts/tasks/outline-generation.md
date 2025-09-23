@@ -4,14 +4,14 @@
 
 ### Outline Creation Process
 
-1. **Read Context File**: Load the most recent context file from contexts/ directory
+1. **Read Context File**: Load the context file from draft/ directory
 2. **Parse Story Requirements**: Extract target audience, length, plot template, and themes
-3. **Read Entity Files**: Load character, location, and item information
+3. **Read Entity Information**: Load character, location, and item information from context
 4. **Structure Plot Points**: Organize story according to chosen template
 5. **Integrate Character Arcs**: Weave character development throughout
 6. **Establish Scene Progression**: Create smooth transitions between scenes
 7. **Ensure Pacing**: Balance action, dialogue, and description
-8. **Save Outline File**: Store in outlines/ directory with timestamp
+8. **Save Outline File**: Store in draft/ directory with story title-based filename
 
 ### Plot Template Processing
 

@@ -37,7 +37,7 @@
 5. **Define Plot Points**: Structure the story according to the chosen template.
 6. **Integrate Themes**: Weave moral lessons and educational elements throughout the context.
 7. **Quality Assurance**: Ensure the context is age-appropriate, coherent, and engaging.
-8. **Save Context File**: Store the generated context in the `contexts/` directory with appropriate metadata.
+8. **Save Context File**: Store the generated context in the `draft/` directory with story title-based filename.
 9. **Metadata Propagation**: Use `metadata-propagation.md` to ensure all relevant metadata is carried through.
 
 ### Error Handling Prompts

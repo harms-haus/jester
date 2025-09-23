@@ -51,9 +51,15 @@ Initiates a new brainstorming session for a universe new story:
 - Discovers connections to existing story universe
 - Queries LightRAG for relevant entities and relationships
 - Generates a structured context file at the end of the session
-- Saves context to `draft/{NNN}/` directory with story project number
+- Saves context to `draft/` directory with story title-based filename
 
-### `/muse explore-existing`
+**IMPORTANT: Does NOT create entity files**
+
+- Only creates the context file with entity information as structured data
+- Entity files are created only after /approve command
+- No individual character, location, or item files are created
+
+## `/muse explore-existing`
 Explores an existing draft to tease out new details:
 - Analyzes current context, outline, or story files
 - Identifies areas for expansion or clarification
@@ -61,7 +67,7 @@ Explores an existing draft to tease out new details:
 - Discovers additional entity connections
 - Updates existing files with new insights
 
-### `/muse list-elicitations`
+## `/muse list-elicitations`
 Lists various ways jester elicits details from users:
 - Presents different brainstorming techniques
 - Allows user to choose specific elicitation method

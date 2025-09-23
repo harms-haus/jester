@@ -25,7 +25,7 @@
 5. **Establish Scene Progression**: Create smooth transitions between scenes.
 6. **Ensure Pacing**: Balance action, dialogue, and description.
 7. **Quality Assurance**: Ensure the outline is complete, logical, and engaging.
-8. **Save Outline File**: Store the generated outline in the `outlines/` directory with appropriate metadata.
+8. **Save Outline File**: Store the generated outline in the `draft/` directory with story title-based filename.
 9. **Metadata Propagation**: Use `metadata-propagation.md` to ensure all relevant metadata is carried through.
 
 ### Error Handling Prompts
