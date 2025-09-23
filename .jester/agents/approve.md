@@ -105,8 +105,9 @@ The Approve agent performs comprehensive validation:
 4. **File Organization**: Ensure proper directory structure
 5. **Metadata Check**: Validate metadata formatting and completeness
 6. **Approval Decision**: Approve if all checks pass, reject with feedback if not
-7. **File Movement**: Move approved files to reading directory
-8. **Status Update**: Update draft status and metadata
+7. **Entity File Creation**: Create individual entity files from context data at destination
+8. **File Movement**: Move approved files to reading directory
+9. **Status Update**: Update draft status and metadata
 
 ## Quality Standards
 

@@ -11,7 +11,7 @@
 5. **Define Plot Points**: Structure the story according to chosen template
 6. **Integrate Themes**: Weave moral lessons and educational elements throughout
 7. **Validate Content**: Ensure age-appropriateness and story coherence
-8. **Save Context File**: Store in draft/ directory with story title-based filename
+8. **Save Context File**: Store in draft/{NNN}/ directory with story title-based filename
 9. **Metadata Propagation**: Use `metadata-propagation.md` to ensure all relevant metadata is carried through
 
 ## CRITICAL: DO NOT CREATE ENTITY FILES

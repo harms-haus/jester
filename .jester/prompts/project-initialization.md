@@ -46,9 +46,9 @@
 
 **Project ID**: {draft_number}
 **Files Created**:
-- `draft/{story-title}-context.yaml` - Your story context and requirements
-- `draft/{story-title}-outline.md` - Will be created when you're ready
-- `draft/{story-title}-story.md` - Will be created when you're ready
+- `draft/{draft_number}/{story-title}-context.yaml` - Your story context and requirements
+- `draft/{draft_number}/{story-title}-outline.md` - Will be created when you're ready
+- `draft/{draft_number}/{story-title}-story.md` - Will be created when you're ready
 
 **Next Steps:**
 1. Review and edit your context file

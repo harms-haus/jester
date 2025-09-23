@@ -26,7 +26,7 @@
 6. **Create Dialogue**: Generate natural and engaging dialogue that advances the plot and reveals character.
 7. **Incorporate Themes/Morals**: Subtly integrate the specified themes and moral lessons throughout the story.
 8. **Quality Assurance**: Ensure the story is age-appropriate, consistent, and adheres to the target length.
-9. **Save Story File**: Store the generated story in the `draft/` directory with story title-based filename.
+9. **Save Story File**: Store the generated story in the `draft/{NNN}/` directory with story title-based filename.
 10. **Metadata Propagation**: Use `metadata-propagation.md` to ensure all relevant metadata is carried through.
 
 ### Error Handling Prompts

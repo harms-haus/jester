@@ -10,7 +10,7 @@
 
 **Directory Structure:**
 - Files in correct directories (draft/, reading/, universe/)
-- Draft files use flat structure with -context, -outline, -story suffixes
+- Draft files use numbered subdirectories (001/, 002/, etc.) with -context, -outline, -story suffixes
 - Reading files use subdirectory organization by story project
 - No orphaned or misplaced files
 - Consistent naming conventions

@@ -23,12 +23,19 @@
 - Make approval decision based on criteria
 - Provide feedback on approval status
 
-**Step 4: File Movement**
+**Step 4: Entity File Creation**
+- Extract *new* entity information from context file
+- Create new individual character, location, and item files
+- Extract *changed* entity information from context file
+- Create patch (like git-patch) character, location, and item files
+- Store entity files in reading/{NNN} - Story Title/ directories
+
+**Step 5: File Movement**
 - Move approved files to reading stage
 - Update file metadata and status
 - Maintain proper file organization
 
-**Step 5: Cleanup and Notification**
+**Step 6: Cleanup and Notification**
 - Clean up any temporary files
 - Update draft status tracking
 - Notify user of approval completion"
@@ -74,5 +81,46 @@
 
 **Next Steps:**
 - Draft is now reading for final review
+- Entity files created from context data
 - Can proceed to publish when reading
 - All files accessible in reading/ directory"
+
+### Entity File Creation Process
+"Creating entity files from context data:
+
+**Step 1: Context Analysis**
+- Read context file from draft directory
+- Extract newly-created entity information (characters, locations, items)
+- Extract existing entities' new information (characters, locations, items)
+- Parse entity metadata and relationships
+
+**Step 2: Character File Creation**
+- Create individual character files for each newly-created character in context
+- Use character template format
+- Store in reading/{NNN} - Story Title/characters/ directory
+- Include character descriptions, relationships, and metadata
+- Create individual character patch files for each existing character in context with any new information, otherwise skip this step
+- Use git-patch-like format
+
+**Step 3: Location File Creation**
+- Create individual location files for each newly-created location in context
+- Use location template format
+- Store in reading/{NNN} - Story Title/locations/ directory
+- Include location descriptions, atmosphere, and metadata
+- Create individual location patch files for each existing location in context with any new information, otherwise skip this step
+- Use git-patch-like format
+
+**Step 4: Item File Creation**
+- Create individual item files for each newly-created item in context
+- Use item template format
+- Store in reading/{NNN} - Story Title/items/ directory
+- Include item descriptions, purpose, and metadata
+- Create individual item patch files for each existing item in context with any new information, otherwise skip this step
+- Use git-patch-like format
+
+**Step 5: Entity Validation**
+- Verify all newly-created entities' files were created successfully
+- Verify all existing entities' patch files were created with changed information
+- Check entity and patch file formatting and completeness
+- Validate entity relationships and references
+- Ensure proper file naming conventions"

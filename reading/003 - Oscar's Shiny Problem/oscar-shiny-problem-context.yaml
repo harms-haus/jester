@@ -1,0 +1,96 @@
+---
+story:
+  title: "Oscar's Shiny Problem"
+  project_number: "003"
+  created: "2025-01-27T21:00:00.000Z"
+  status: "approved"
+  version: "1.0"
+
+target_audience:
+  age_range: "4-7"
+  reading_level: "beginner"
+  word_count_target: "800-1000"
+  themes: ["friendship", "consideration", "problem-solving", "communication"]
+
+characters:
+  main_character:
+    name: "Oscar the Octopus"
+    type: "octopus"
+    personality:
+      traits: ["creative", "intelligent", "forgetful", "friendly", "scattered", "determined"]
+      motivations: ["to build a Treasure Organizer to help remember where he puts things"]
+      fears: ["never being able to finish projects", "losing treasures forever"]
+      strengths: ["incredibly creative", "can work on multiple things at once", "very friendly"]
+      weaknesses: ["terrible memory", "easily distracted", "gets overwhelmed"]
+    physical_description:
+      appearance: "medium-sized octopus with eight long, flexible arms and intelligent eyes"
+      distinctive_features: ["eight arms always moving", "color changes from blue to purple when thinking", "bright eyes that sparkle with creativity"]
+    abilities:
+      special_powers: ["can change skin color", "excellent at multitasking with eight arms"]
+      skills: ["building contraptions", "collecting shiny objects", "problem-solving"]
+    backstory: "Oscar has always been creative and loved building things, but his memory problem has made it impossible to complete any of his projects. He's been working on a 'Treasure Organizer' - a special contraption with eight compartments to help him remember where he puts all his shiny rocks, tools, and treasures."
+
+  antagonist:
+    name: "Wendy Whisk"
+    type: "wind spirit"
+    personality:
+      traits: ["jealous", "invisible", "capricious", "envious", "mischievous"]
+      motivations: ["to steal shiny things for fun"]
+      fears: ["being seen", "losing the shiny things"]
+      strengths: ["invisibility", "wind control", "stealth"]
+      weaknesses: ["jealousy", "unconcerned with moral implications"]
+    role: "mischievous troublemaker who doesn't realize she's causing real problems"
+    conflict_type: "unintentional harm through playfulness"
+
+  heroes:
+    - name: "Lily"
+      type: "human"
+      role: "brave, compassionate protagonist who helps solve problems"
+      relationship_to_main: "new friend who helps organize and solve problems"
+    
+    - name: "Rascal"
+      type: "raccoon"
+      role: "clever sidekick who helps find lost pieces"
+      relationship_to_main: "new friend who helps find lost pieces"
+
+plot_structure:
+  setup: "Oscar is in his tide pool, surrounded by half-finished contraptions and shiny treasures, trying to build his 'Treasure Organizer'"
+  problem: "Wendy Whisk keeps blowing away Oscar's shiny parts or snatching them up for fun, not realizing how much trouble it's causing him"
+  conflict: "Oscar can't finish his organizer because Wendy keeps taking the pieces, making his memory problem even worse"
+  resolution: "Lily and Rascal help Oscar organize his treasures, talk to Wendy about her behavior, and everyone works together to solve the problem"
+  ending: "Wendy learns to be more considerate, Oscar finishes his organizer, and everyone becomes friends"
+
+moral_lessons:
+  primary: "Sometimes our fun can hurt others without us realizing it"
+  secondary: ["It's important to think about how our actions affect others", "Working together and communicating can solve problems", "It's okay to ask for help when you need it"]
+
+themes:
+  - "Consideration for others"
+  - "Friendship and helping others"
+  - "Understanding different perspectives"
+  - "Problem-solving through cooperation"
+  - "Communication and empathy"
+
+settings:
+  primary_location: "tide pool"
+  secondary_locations: ["ocean", "beach"]
+  atmosphere: "playful but slightly chaotic due to Oscar's scattered state"
+
+story_elements:
+  key_objects: ["Treasure Organizer contraption", "shiny rocks and treasures", "wind gusts"]
+  conflict_type: "misunderstanding and unintentional harm"
+  resolution_type: "communication and cooperation"
+  tone: "gentle, educational, heartwarming"
+
+next_steps:
+  - "Create character files for Oscar the Octopus"
+  - "Develop detailed outline"
+  - "Write full story"
+  - "Review and refine"
+
+brainstorming_notes:
+  - "Oscar represents the challenges of being creative but disorganized"
+  - "Wendy's mischief is playful rather than malicious, making it a gentler conflict"
+  - "The story teaches about consideration and communication"
+  - "Perfect for ages 4-7 with relatable themes"
+  - "Uses existing universe characters (Lily, Rascal, Wendy Whisk) plus new character (Oscar)"
