@@ -26,10 +26,10 @@ dependencies:
     - edit.md
     - approve.md
   prompts:
-    - publishing-workflow.md
-    - patch-application.md
-    - conflict-detection.md
-    - cleanup-operations.md
+    - tasks/publishing-workflow.md
+    - tasks/patch-application.md
+    - tasks/conflict-detection.md
+    - tasks/cleanup-operations.md
   templates:
     - publish-template.yaml
     - patch-template.yaml

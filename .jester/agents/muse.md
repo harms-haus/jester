@@ -26,11 +26,11 @@ dependencies:
     - write.md
     - search.md
   prompts:
-    - brainstorming-techniques.md
-    - entity-discovery.md
-    - creative-exploration.md
-    - context-gathering.md
-    - lightrag-query-generation.md
+    - elicitations/brainstorming-techniques.md
+    - elicitations/entity-discovery.md
+    - elicitations/creative-exploration.md
+    - elicitations/context-gathering.md
+    - elicitations/lightrag-query-generation.md
   templates:
     - brainstorming-session.yaml
     - context-template.yaml

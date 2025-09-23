@@ -34,11 +34,11 @@ dependencies:
     - workflow-selection.md
     - user-greeting.md
     - project-initialization.md
-    - context-generation.md
-    - outline-generation.md
-    - story-generation.md
-    - brainstorming-techniques.md
-    - search-queries.md
+    - tasks/context-generation.md
+    - tasks/outline-generation.md
+    - tasks/story-generation.md
+    - elicitations/brainstorming-techniques.md
+    - elicitations/search-queries.md
   templates:
     - workflow-menu.yaml
 ---

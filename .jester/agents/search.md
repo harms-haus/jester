@@ -27,10 +27,10 @@ dependencies:
     - muse.md
     - edit.md
   prompts:
-    - search-queries.md
-    - lightrag-integration.md
-    - result-presentation.md
-    - content-discovery.md
+    - elicitations/search-queries.md
+    - explanations/lightrag-integration.md
+    - explanations/result-presentation.md
+    - explanations/content-discovery.md
   templates:
     - search-template.yaml
     - result-template.yaml

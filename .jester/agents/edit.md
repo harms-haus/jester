@@ -26,11 +26,11 @@ dependencies:
     - write.md
     - delete.md
   prompts:
-    - content-editing.md
-    - entity-editing.md
-    - cross-stage-editing.md
-    - patch-creation.md
-    - validation-workflow.md
+    - explanations/content-editing.md
+    - explanations/entity-editing.md
+    - explanations/cross-stage-editing.md
+    - tasks/patch-creation.md
+    - checklists/validation-workflow.md
   templates:
     - edit-template.yaml
     - patch-template.yaml

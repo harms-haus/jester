@@ -26,10 +26,10 @@ dependencies:
     - edit.md
     - search.md
   prompts:
-    - draft-validation.md
-    - approval-workflow.md
-    - content-completeness.md
-    - file-organization.md
+    - checklists/draft-validation.md
+    - tasks/approval-workflow.md
+    - checklists/content-completeness.md
+    - checklists/file-organization.md
   templates:
     - approval-template.yaml
     - validation-checklist.yaml

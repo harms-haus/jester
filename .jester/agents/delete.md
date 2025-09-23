@@ -27,10 +27,10 @@ dependencies:
     - edit.md
     - search.md
   prompts:
-    - entity-deletion.md
-    - story-deletion.md
-    - reference-cleanup.md
-    - confirmation-workflow.md
+    - tasks/entity-deletion.md
+    - tasks/story-deletion.md
+    - tasks/reference-cleanup.md
+    - tasks/confirmation-workflow.md
   templates:
     - deletion-confirmation.yaml
 ---

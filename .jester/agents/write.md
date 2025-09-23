@@ -26,11 +26,11 @@ dependencies:
     - muse.md
     - edit.md
   prompts:
-    - context-generation.md
-    - outline-generation.md
-    - story-generation.md
-    - metadata-propagation.md
-    - plot-templates.md
+    - tasks/context-generation.md
+    - tasks/outline-generation.md
+    - tasks/story-generation.md
+    - explanations/metadata-propagation.md
+    - elicitations/plot-templates.md
   templates:
     - context-template.yaml
     - outline-template.yaml

@@ -27,10 +27,10 @@ dependencies:
     - edit.md
     - search.md
   prompts:
-    - content-import.md
-    - entity-import.md
-    - validation-workflow.md
-    - conflict-resolution.md
+    - tasks/content-import.md
+    - tasks/entity-import.md
+    - checklists/validation-workflow.md
+    - tasks/conflict-resolution.md
   templates:
     - import-template.yaml
     - validation-template.yaml
