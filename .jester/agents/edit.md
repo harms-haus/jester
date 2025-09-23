@@ -54,7 +54,7 @@ When used without a sub-command, takes the remaining text as a prompt to:
 ### `/edit character {name}`
 Edits a character by name:
 - Asks user to describe the change if not provided in the prompt
-- Updates character file in appropriate universe (reading/universe)
+- Updates character file in appropriate universe (reading/{NNN} - Story Title/ or universe/)
 - Creates patch file if editing "universe" and entity not in "reading"
 - Updates all references to the character across stories and contexts
 - Maintains character consistency across the story universe
@@ -62,7 +62,7 @@ Edits a character by name:
 ### `/edit location {name}`
 Edits a location by name:
 - Asks user to describe the change if not provided in the prompt
-- Updates location file in appropriate universe (reading/universe)
+- Updates location file in appropriate universe (reading/{NNN} - Story Title/ or universe/)
 - Creates patch file if editing "universe" and entity not in "reading"
 - Updates all references to the location across stories and contexts
 - Maintains location consistency across the story universe
@@ -70,7 +70,7 @@ Edits a location by name:
 ### `/edit item {name}`
 Edits an item by name:
 - Asks user to describe the change if not provided in the prompt
-- Updates item file in appropriate universe (reading/universe)
+- Updates item file in appropriate universe (reading/{NNN} - Story Title/ or universe/)
 - Creates patch file if editing "universe" and item not in "reading"
 - Updates all references to the item across stories and contexts
 - Maintains item consistency across the story universe
@@ -84,7 +84,7 @@ The Edit agent handles two universes:
 ## Patch System
 
 When editing entities in the "universe" universe:
-- Creates patch files in `reading/{type}s/{entity-name}.patch.md`
+- Creates patch files in `reading/{NNN} - Story Title/{type}s/{entity-name}.patch.md`
 - Uses git-patch format with "incoming" and "current" sections
 - Applies patches during publish workflow
 - Maintains change history and version control

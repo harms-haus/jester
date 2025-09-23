@@ -11,16 +11,27 @@ jester/
 │   ├── data/                   # Reference data
 │   └── utils/                  # Utility scripts
 ├── draft/                      # Work in progress
-│   ├── context-{number}.md     # Draft context files
-│   ├── outline-{number}.md     # Draft outline files
-│   └── story-{number}.md       # Draft story files
+│   ├── 001/                    # Draft project 001
+│   │   ├── characters/         # Draft characters
+│   │   ├── contexts/           # Draft contexts
+│   │   ├── items/              # Draft items
+│   │   ├── locations/          # Draft locations
+│   │   ├── outlines/           # Draft outlines
+│   │   └── stories/            # Draft stories
+│   ├── 002/                    # Draft project 002
+│   │   └── [same structure]    # Same subdirectory structure
+│   └── {NNN}/                  # Additional draft projects
 ├── reading/                    # Approved work
-│   ├── stories/                # Approved stories
-│   ├── outlines/               # Approved outlines
-│   ├── contexts/               # Approved contexts
-│   ├── characters/             # Approved characters + .patch.md files
-│   ├── locations/              # Approved locations + .patch.md files
-│   └── items/                  # Approved items + .patch.md files
+│   ├── 001 - Story Title/      # Story project 001
+│   │   ├── characters/         # Approved characters + .patch.md files
+│   │   ├── contexts/           # Approved contexts
+│   │   ├── items/              # Approved items
+│   │   ├── locations/          # Approved locations + .patch.md files
+│   │   ├── outlines/           # Approved outlines
+│   │   └── stories/            # Approved stories
+│   ├── 002 - Story Title/      # Story project 002
+│   │   └── [same structure]    # Same subdirectory structure
+│   └── {NNN} - Story Title/    # Additional story projects
 ├── universe/                   # Published work
 │   ├── stories/                # Published stories
 │   ├── outlines/               # Published outlines
@@ -56,7 +67,7 @@ jester/
 - **New entities**: `{entity-name-hyphen-case}.md`
   - Examples: `stella-stoat.md`, `dandelion-plains.md`, `magic-snorkel.md`
 - **Entity patches**: `{entity-name-hyphen-case}.patch.md` (in entity directories)
-  - Examples: `reading/characters/stella-stoat.patch.md`, `reading/locations/dandelion-plains.patch.md`
+  - Examples: `reading/001 - Story Title/characters/stella-stoat.patch.md`, `reading/002 - Story Title/locations/dandelion-plains.patch.md`
 
 ### Patch File Format
 - **Format**: Git-patch format with proper headers
@@ -78,10 +89,25 @@ jester/
 ## Key Directories
 
 - **`.jester/`**: Framework files, hidden from users
-- **`draft/`**: Work in progress with incrementing draft numbers
-- **`reading/`**: Approved work ready for review and reading
+- **`draft/`**: Work in progress organized by story project (001/, 002/, etc.)
+- **`reading/`**: Approved work organized by story project (001 - Story Title/, 002 - Story Title/, etc.)
 - **`universe/`**: Published work in the story universe
 - **`import-staging/`**: Imported content awaiting user validation
 - **`contexts/`**: Context files (no staging needed)
 - **`docs/`**: Project documentation (sharded)
 - **`src/`**: Source code for the jester system
+
+## Story Project Organization
+
+Each story project is organized with a consistent structure:
+
+### Draft Projects (`draft/{NNN}/`)
+- **Numbering**: 3-digit numbers (001, 002, 013, etc.)
+- **Structure**: Each project has subdirectories for characters/, contexts/, items/, locations/, outlines/, stories/
+- **Purpose**: Work in progress for a specific story
+
+### Reading Projects (`reading/{NNN} - Story Title/`)
+- **Numbering**: 3-digit numbers matching draft projects
+- **Naming**: Includes descriptive story title for easy identification
+- **Structure**: Same subdirectory structure as draft projects
+- **Purpose**: Approved work ready for review and reading

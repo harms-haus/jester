@@ -22,31 +22,31 @@
 
 ### Expected Results
 
-✅ **PASS**: No entities created in `/complete` during draft phase
-✅ **PASS**: Entities only created in `/ready` during draft phase  
-✅ **PASS**: Entities moved to `/complete` only via publish command
-✅ **PASS**: Three-stage workflow maintained: `draft/` → `ready/` → `complete/`
+✅ **PASS**: No entities created in `/universe` during draft phase
+✅ **PASS**: Entities only created in `/reading/{NNN} - Story Title/` during draft phase  
+✅ **PASS**: Entities moved to `/universe` only via publish command
+✅ **PASS**: Three-stage workflow maintained: `draft/` → `reading/` → `universe/`
 
 ### Test Commands
 
 ```bash
-# Test 1: Create context (should NOT create entities in complete/)
+# Test 1: Create context (should NOT create entities in universe/)
 /muse "A test story about a brave mouse"
 
-# Test 2: Create outline (should NOT create entities in complete/)  
+# Test 2: Create outline (should NOT create entities in universe/)  
 /write outline
 
-# Test 3: Create entities (should create in ready/ only)
+# Test 3: Create entities (should create in reading/{NNN} - Story Title/ only)
 /entity create character "TestMouse"
 /entity create location "TestForest"
 
-# Test 4: Publish (should move entities to complete/)
+# Test 4: Publish (should move entities to universe/)
 /edit publish "Test Story"
 ```
 
 ### Validation
 
 After each step, check:
-- [ ] No new files in `/complete/characters/` during steps 1-2
-- [ ] New files created in `/ready/characters/` during step 3
-- [ ] Files moved from `/ready/` to `/complete/` during step 4
+- [ ] No new files in `/universe/characters/` during steps 1-2
+- [ ] New files created in `/reading/{NNN} - Story Title/characters/` during step 3
+- [ ] Files moved from `/reading/{NNN} - Story Title/` to `/universe/` during step 4

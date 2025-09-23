@@ -93,8 +93,8 @@ And Stella never forgot the lesson she learned that day: that asking for help wh
 ## About This Story
 
 **Created:** 2025-01-27T21:25:00.000Z  
-**Outline:** ready/outlines/Stellas-Honest-Mistake (outline).md  
-**Context:** ready/contexts/Stellas-Honest-Mistake (context).md  
+**Outline:** reading/002 - Stella's Honest Mistake/outlines/Stellas-Honest-Mistake (outline).md  
+**Context:** reading/002 - Stella's Honest Mistake/contexts/Stellas-Honest-Mistake (context).md  
 **Version:** 1.0  
 **Status:** Ready to Read
 

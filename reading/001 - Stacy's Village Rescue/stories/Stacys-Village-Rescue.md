@@ -121,8 +121,8 @@ And from that day forward, whenever anyone needed help, they knew they could cou
 ## About This Story
 
 **Created:** 2025-01-27T21:55:00.000Z  
-**Outline:** ready/outlines/Stacys-Village-Rescue (outline).md  
-**Context:** ready/contexts/Stacys-Village-Rescue (context).md  
+**Outline:** reading/001 - Stacy's Village Rescue/outlines/Stacys-Village-Rescue (outline).md  
+**Context:** reading/001 - Stacy's Village Rescue/contexts/Stacys-Village-Rescue (context).md  
 **Version:** 1.0
 
 ### Themes

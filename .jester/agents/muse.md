@@ -51,7 +51,7 @@ Initiates a new brainstorming session for a universe new story:
 - Discovers connections to existing story universe
 - Queries LightRAG for relevant entities and relationships
 - Generates a structured context file at the end of the session
-- Saves context to `draft/` directory with incrementing draft number
+- Saves context to `draft/{NNN}/` directory with story project number
 
 ### `/muse explore-existing`
 Explores an existing draft to tease out new details:

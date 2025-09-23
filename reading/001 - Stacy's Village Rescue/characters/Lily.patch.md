@@ -4,7 +4,7 @@ Type: character
 Changes: Added story appearance in "Stella's Honest Mistake"
 
 BEFORE:
-[Original content from complete/characters/lily.md]
+[Original content from universe/characters/lily.md]
 
 AFTER:
 [Updated content with new story appearance]

@@ -1,6 +1,6 @@
 # Import Staging Directory
 
-This directory contains imported content that is awaiting user validation before being published to the main `complete/` directory.
+This directory contains imported content that is awaiting user validation before being published to the main `universe/` directory.
 
 ## Directory Structure
 
@@ -15,8 +15,8 @@ This directory contains imported content that is awaiting user validation before
 
 1. Use `/import` commands to import content to this directory
 2. Review and validate the imported content
-3. Use `/approve` to move validated content to `ready/`
-4. Use `/publish` to move approved content to `complete/`
+3. Use `/approve` to move validated content to `reading/{NNN} - Story Title/`
+4. Use `/publish` to move approved content to `universe/`
 
 ## Purpose
 

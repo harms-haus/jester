@@ -4,7 +4,7 @@ Type: character
 Changes: Added story appearance in "Stella's Honest Mistake"
 
 BEFORE:
-[Original content from complete/characters/rascal.md]
+[Original content from universe/characters/rascal.md]
 
 AFTER:
 [Updated content with new story appearance]

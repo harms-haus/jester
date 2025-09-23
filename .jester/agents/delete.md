@@ -47,7 +47,7 @@ The Delete agent handles the removal of entities and stories from the story univ
 When used without a sub-command, takes the remaining text as a prompt to:
 - Remove an entity from the universe
 - If prompt is clear which universe to remove from, use that universe
-- Otherwise, ask user to specify the universe (reading/universe)
+- Otherwise, ask user to specify the universe (reading/{NNN} - Story Title/ or universe/)
 - Provide clear confirmation before proceeding
 
 ### `/delete character {name}`

@@ -4,7 +4,7 @@ Type: location
 Changes: Added story appearance in "Stella's Honest Mistake"
 
 BEFORE:
-[Original content from complete/locations/dandelion-plains.md]
+[Original content from universe/locations/dandelion-plains.md]
 
 AFTER:
 [Updated content with new story appearance]

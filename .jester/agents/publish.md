@@ -116,11 +116,11 @@ The Publish agent handles conflicts by:
 ## Cleanup Operations
 
 After successful publishing:
-- Remove published story files from reading/stories/
-- Remove published outline files from reading/outlines/
-- Remove published context files from reading/contexts/
-- Remove published entity files from reading/characters/, reading/locations/, reading/items/
-- Apply and delete patch files from reading/{type}s/{entity-name}.patch.md
+- Remove published story files from reading/{NNN} - Story Title/stories/
+- Remove published outline files from reading/{NNN} - Story Title/outlines/
+- Remove published context files from reading/{NNN} - Story Title/contexts/
+- Remove published entity files from reading/{NNN} - Story Title/characters/, reading/{NNN} - Story Title/locations/, reading/{NNN} - Story Title/items/
+- Apply and delete patch files from reading/{NNN} - Story Title/{type}s/{entity-name}.patch.md
 
 ## Quality Assurance
 

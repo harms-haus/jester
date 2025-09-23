@@ -3,7 +3,7 @@
 **Target Audience:** Children (ages 4-8) (Early reader level)  
 **Target Length:** 800-1200 words (1000 target)  
 **Created:** 2025-01-27T21:50:00.000Z  
-**Context File:** ready/contexts/Stacys-Village-Rescue (context).md
+**Context File:** reading/001 - Stacy's Village Rescue/contexts/Stacys-Village-Rescue (context).md
 
 ---
 

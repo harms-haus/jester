@@ -68,8 +68,8 @@ so that **I can refine stories efficiently and maintain creative control over my
 24. **Patch formatting validation** ensures entity files are properly formatted before publishing
 25. **Entity file naming validation** ensures consistent naming conventions are followed
 26. **Patch application validation** verifies patches are applied correctly to existing entities
-27. **Cleanup validation** ensures ready/ directory is properly cleaned after publish
-28. **Audit trail validation** verifies patch files are preserved in complete/patches/
+27. **Cleanup validation** ensures reading/{NNN} - Story Title/ directory is properly cleaned after publish
+28. **Audit trail validation** verifies patch files are preserved in universe/patches/
 
 ## Story 4.4: Advanced Character Integration
 

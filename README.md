@@ -55,9 +55,19 @@ jester/
 │   ├── characters/        # Character definitions
 │   ├── locations/         # Location definitions
 │   └── items/             # Item definitions
-├── stories/               # Generated stories
-├── outlines/              # Story outlines
-├── contexts/              # Story context files
+├── reading/               # Approved work organized by story project
+│   ├── 001 - Story Title/ # Story project 001
+│   │   ├── characters/    # Project characters
+│   │   ├── contexts/      # Project contexts
+│   │   ├── items/         # Project items
+│   │   ├── locations/     # Project locations
+│   │   ├── outlines/      # Project outlines
+│   │   └── stories/       # Project stories
+│   └── {NNN} - Story Title/ # Additional story projects
+├── draft/                 # Work in progress organized by story project
+│   ├── 001/               # Draft project 001
+│   │   └── [same structure] # Same subdirectory structure
+│   └── {NNN}/             # Additional draft projects
 ├── .jester/               # Framework configuration
 │   ├── agents/            # Agent rule files
 │   ├── templates/         # Document templates

@@ -3,7 +3,7 @@
 **Target Audience:** Children (ages 4-8)  
 **Target Length:** 5-10 minutes (800-1200 words)  
 **Created:** 2025-01-27T21:20:00.000Z  
-**Context File:** ready/contexts/Stellas-Honest-Mistake (context).md
+**Context File:** reading/002 - Stella's Honest Mistake/contexts/Stellas-Honest-Mistake (context).md
 
 ---
 

@@ -4,7 +4,7 @@ Type: character
 Changes: Added story appearance in "Stella's Honest Mistake"
 
 BEFORE:
-[Original content from complete/characters/stella-stoat.md]
+[Original content from universe/characters/stella-stoat.md]
 
 AFTER:
 [Updated content with new story appearance]

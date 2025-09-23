@@ -33,23 +33,24 @@
 12. **FR12**: The system shall support multiple plot templates (Hero's Journey, Pixar method, Golden Circle)
 13. **FR13**: The system shall integrate with LightRAG via MCP for entity discovery and relationship mapping
 14. **FR14**: The system shall prevent context bleeding between pipeline stages (each stage reads only its designated input)
-15. **FR15**: The system shall maintain local markdown files for all entities organized in subdirectories (complete/characters/, complete/locations/, complete/items/)
+15. **FR15**: The system shall maintain local markdown files for all entities organized in subdirectories (universe/characters/, universe/locations/, universe/items/)
 16. **FR16**: The system shall create and maintain a local story universe wiki with interconnected entity files using proper wiki-style [[links]]
 17. **FR17**: The system shall use local entity files as the primary source of truth for story generation
 18. **FR18**: The system shall query LightRAG only for relationship discovery and entity connections
 19. **FR19**: The system shall support Obsidian-compatible markdown formatting and linking
 20. **FR20**: The system shall provide fine-grained control over which entity information is available to story generation
 21. **FR21**: The system shall maintain proper [[link]] syntax for bidirectional entity relationships across subdirectories
-22. **FR22**: The system shall organize files in a three-stage workflow:
-    - `draft/` - Work in progress with incrementing draft numbers (001, 002, 013, etc.)
-    - `ready/` - Approved work ready for publication
-    - `complete/` - Published work in final form
+22. **FR22**: The system shall organize files in a three-stage workflow with story-project-based organization:
+    - `draft/{NNN}/` - Work in progress organized by story project number (001/, 002/, 013/, etc.)
+    - `reading/{NNN} - Story Title/` - Approved work ready for review and reading
+    - `universe/` - Published work in the story universe
     - `import-staging/` - Imported content awaiting user validation
     - `contexts/` - Context files (no staging needed)
-23. **FR23**: The system shall maintain draft number consistency:
-    - `context-013.md` always creates `outline-013.md`
-    - `outline-013.md` always creates `story-013.md`
-    - All draft files maintain the same draft number
+23. **FR23**: The system shall maintain story project organization:
+    - Each story project has a unique 3-digit number (001, 002, 013, etc.)
+    - Draft projects use format: `draft/{NNN}/` with subdirectories for characters/, contexts/, items/, locations/, outlines/, stories/
+    - Reading projects use format: `reading/{NNN} - Story Title/` with same subdirectory structure
+    - All files within a project maintain the same project number
 24. **FR24**: The system shall organize framework files in a hidden `.jester/` directory structure:
     - `.jester/agents/` - Agent definitions
     - `.jester/templates/` - Story and context templates  
