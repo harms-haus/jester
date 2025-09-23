@@ -1,0 +1,63 @@
+# Validation Report Template
+# This template defines the structure for a validation report
+
+validation_id: "{{VALIDATION_ID}}"
+created_at: "{{CREATED_AT}}"
+agent: "validate"
+target_file: "{{TARGET_FILE_PATH}}" # The file that was validated
+content_type: "{{CONTENT_TYPE}}" # "context", "outline", "story"
+validation_type: "{{VALIDATION_TYPE}}" # "comprehensive", "quick", "focused"
+
+validation_status: "{{OVERALL_STATUS}}" # "passed", "failed", "warnings"
+summary: "{{VALIDATION_SUMMARY}}" # A brief summary of the validation outcome
+
+validation_categories:
+  - name: "{{CATEGORY_NAME_1}}" # e.g., "Entity Consistency", "Length Validation"
+    status: "{{CATEGORY_STATUS_1}}" # "passed", "failed", "warnings"
+    checks:
+      - name: "{{CHECK_NAME_1}}"
+        status: "{{CHECK_STATUS_1}}" # "passed", "failed", "warning"
+        severity: "{{SEVERITY_1}}" # "critical", "high", "medium", "low"
+        description: "{{CHECK_DESCRIPTION_1}}"
+        issues_found:
+          - message: "{{ISSUE_MESSAGE_1}}"
+            location: "{{ISSUE_LOCATION_1}}" # e.g., "line 15", "character: fish"
+            suggestion: "{{ISSUE_SUGGESTION_1}}"
+          - message: "{{ISSUE_MESSAGE_2}}"
+            location: "{{ISSUE_LOCATION_2}}"
+            suggestion: "{{ISSUE_SUGGESTION_2}}"
+      - name: "{{CHECK_NAME_2}}"
+        status: "{{CHECK_STATUS_2}}"
+        severity: "{{SEVERITY_2}}"
+        description: "{{CHECK_DESCRIPTION_2}}"
+        issues_found: [] # Empty if no issues
+
+validation_metrics:
+  total_checks: {{TOTAL_CHECKS}}
+  passed_checks: {{PASSED_CHECKS}}
+  failed_checks: {{FAILED_CHECKS}}
+  warning_checks: {{WARNING_CHECKS}}
+  success_rate: "{{SUCCESS_RATE}}%" # Percentage of checks that passed
+
+critical_issues:
+  - issue: "{{CRITICAL_ISSUE_1}}"
+    description: "{{ISSUE_DESCRIPTION_1}}"
+    impact: "{{ISSUE_IMPACT_1}}"
+    resolution: "{{RESOLUTION_SUGGESTION_1}}"
+  - issue: "{{CRITICAL_ISSUE_2}}"
+    description: "{{ISSUE_DESCRIPTION_2}}"
+    impact: "{{ISSUE_IMPACT_2}}"
+    resolution: "{{RESOLUTION_SUGGESTION_2}}"
+
+recommendations:
+  - "{{RECOMMENDATION_1}}" # e.g., "Add more character development for the main character"
+  - "{{RECOMMENDATION_2}}" # e.g., "Consider adding a transitional scene between locations"
+
+next_steps:
+  - "{{NEXT_STEP_1}}" # e.g., "Fix critical issues before proceeding"
+  - "{{NEXT_STEP_2}}" # e.g., "Review and address minor issues for better quality"
+
+metadata:
+  validation_duration_ms: {{VALIDATION_DURATION_MS}}
+  content_size: {{CONTENT_SIZE}} # File size or word count
+  validation_version: "{{VALIDATION_VERSION}}"

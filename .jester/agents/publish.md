@@ -25,27 +25,35 @@ dependencies:
   agents:
     - edit.md
     - approve.md
+    - validate.md
   prompts:
     - tasks/publishing-workflow.md
     - tasks/patch-application.md
     - tasks/conflict-detection.md
     - tasks/cleanup-operations.md
+    - checklists/context-validation.md
+    - checklists/outline-validation.md
+    - checklists/story-validation.md
+    - tasks/comprehensive-validation.md
   templates:
     - publish-template.yaml
     - patch-template.yaml
+    - validation-report.yaml
 ---
 
 # Publish Agent - Story Publishing
 
 ## Purpose
 
-The Publish agent handles the final publishing of ready stories to the complete stage. It applies entity patches, copies files, and performs complete cleanup while maintaining change history.
+The Publish agent handles the final publishing of ready stories to the complete stage. It performs comprehensive validation, applies entity patches, copies files, and performs complete cleanup while maintaining change history.
 
 ## Commands
 
 ### No Sub-command
 When used without a sub-command, publishes the most recent ready story:
 - Identifies the latest ready story
+- Performs comprehensive validation (context, outline, story)
+- Validates consistency between all files
 - Applies entity patches
 - Copies files to complete directory
 - Performs cleanup operations
@@ -53,6 +61,8 @@ When used without a sub-command, publishes the most recent ready story:
 ### `/publish story {title}`
 Publishes a specific story by title:
 - Locates the story in the ready directory
+- Performs comprehensive validation (context, outline, story)
+- Validates consistency between all files
 - Applies all related entity patches
 - Copies story and entity files to complete directory
 - Performs cleanup of ready directory
@@ -60,6 +70,7 @@ Publishes a specific story by title:
 ### `/publish all`
 Publishes all ready stories:
 - Scans ready directory for all stories
+- Performs comprehensive validation for each story
 - Publishes each story individually
 - Applies patches and copies files
 - Performs complete cleanup
@@ -67,6 +78,7 @@ Publishes all ready stories:
 ### `/publish check`
 Checks publish status without publishing:
 - Analyzes ready directory contents
+- Performs comprehensive validation checks
 - Identifies stories ready for publishing
 - Checks for conflicts and issues
 - Provides recommendations
@@ -74,13 +86,15 @@ Checks publish status without publishing:
 ## Publishing Workflow
 
 1. **Story Identification**: Locate the story to be published
-2. **Conflict Detection**: Check for existing files in complete directory
-3. **User Approval**: Request approval for any conflicts
-4. **Patch Application**: Apply entity patches before copying
-5. **File Copying**: Copy story and entity files to complete directory
-6. **Cleanup Operations**: Remove published files from ready directory
-7. **Change History**: Update complete entity files with patch information
-8. **Patch Cleanup**: Delete applied patch files
+2. **Comprehensive Validation**: Validate context, outline, and story files
+3. **Cross-File Consistency Check**: Ensure all files are consistent with each other
+4. **Conflict Detection**: Check for existing files in complete directory
+5. **User Approval**: Request approval for any conflicts
+6. **Patch Application**: Apply entity patches before copying
+7. **File Copying**: Copy story and entity files to complete directory
+8. **Cleanup Operations**: Remove published files from ready directory
+9. **Change History**: Update complete entity files with patch information
+10. **Patch Cleanup**: Delete applied patch files
 
 ## Entity Patch System
 

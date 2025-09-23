@@ -25,34 +25,44 @@ dependencies:
   agents:
     - edit.md
     - search.md
+    - validate.md
   prompts:
     - checklists/draft-validation.md
     - tasks/approval-workflow.md
     - checklists/content-completeness.md
     - checklists/file-organization.md
+    - checklists/context-validation.md
+    - checklists/outline-validation.md
+    - checklists/story-validation.md
+    - tasks/comprehensive-validation.md
   templates:
     - approval-template.yaml
     - validation-checklist.yaml
+    - validation-report.yaml
 ---
 
 # Approve Agent - Draft Approval
 
 ## Purpose
 
-The Approve agent handles the progression of drafts from the draft stage to the ready stage. It validates content completeness, ensures file integrity, and manages the approval workflow.
+The Approve agent handles the progression of drafts from the draft stage to the ready stage. It performs comprehensive validation including context, outline, and story consistency checks, ensures file integrity, and manages the approval workflow.
 
 ## Commands
 
 ### No Sub-command
 When used without a sub-command, approves the most recent draft:
 - Identifies the latest draft number
-- Validates content completeness
+- Performs comprehensive validation (context, outline, story)
+- Validates consistency between all files
+- Checks destination readiness
 - Moves files to ready stage if validation passes
 - Provides feedback on approval status
 
 ### `/approve draft {number}`
 Approves a specific draft by number:
 - Validates the specified draft exists
+- Performs comprehensive validation (context, outline, story)
+- Validates consistency between all files
 - Checks content completeness and quality
 - Moves files to ready stage if validation passes
 - Updates draft status and metadata
@@ -60,14 +70,16 @@ Approves a specific draft by number:
 ### `/approve all`
 Approves all pending drafts:
 - Scans for all draft files in the draft directory
-- Validates each draft individually
+- Validates each draft individually with comprehensive checks
+- Validates consistency between context, outline, and story
 - Approves all valid drafts
 - Reports on any drafts that failed validation
 
 ### `/approve check`
 Checks draft status without approving:
 - Analyzes all draft files
-- Reports on validation status
+- Performs comprehensive validation checks
+- Reports on validation status and consistency
 - Identifies issues that need to be resolved
 - Provides recommendations for improvement
 
@@ -75,11 +87,15 @@ Checks draft status without approving:
 
 The Approve agent performs comprehensive validation:
 - **File Existence**: Ensures all required files exist
-- **Content Completeness**: Validates content is complete and meaningful
-- **Entity Consistency**: Checks entity references and relationships
+- **Context Validation**: Validates context file for consistency and completeness
+- **Outline Validation**: Validates outline file for structure and consistency
+- **Story Validation**: Validates story file for quality and adherence to requirements
+- **Cross-File Consistency**: Ensures context, outline, and story are consistent with each other
+- **Entity Consistency**: Checks entity references and relationships across all files
 - **File Format**: Validates proper YAML and Markdown formatting
 - **Metadata Integrity**: Ensures metadata is properly formatted
 - **Naming Conventions**: Verifies proper file naming and organization
+- **Destination Readiness**: Checks that ready directory is prepared for content
 
 ## Approval Workflow
 

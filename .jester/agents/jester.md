@@ -30,6 +30,7 @@ dependencies:
     - publish.md
     - import.md
     - search.md
+    - validate.md
   prompts:
     - workflow-selection.md
     - user-greeting.md

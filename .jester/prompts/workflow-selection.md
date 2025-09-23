@@ -28,6 +28,14 @@
 - "edit published content"
 - "validate links"
 - "universe management"
+
+### Validation Indicators
+- "validate content"
+- "check consistency"
+- "quality check"
+- "validate story"
+- "check outline"
+- "validate context"
 - "maintain my stories"
 - "organize my collection"
 - User has published content
@@ -97,6 +105,15 @@ Let me load the appropriate tools for you..."
 
 Let me load the appropriate tools for you..."
 
+### To Content Validation (Validation)
+"Perfect! I'll connect you with our validation specialists. They'll help you with:
+- `/validate context` - Validate context files for consistency and completeness
+- `/validate outline` - Validate outline files for structure and consistency
+- `/validate story` - Validate story files for quality and adherence to requirements
+- Quality assurance and consistency checking
+
+Let me load the appropriate tools for you..."
+
 ### To Help/Guide
 "Of course! Let me explain how jester works and show you all available options:
 
@@ -110,6 +127,7 @@ Let me load the appropriate tools for you..."
 - `/publish` - Story publishing with entities and patches
 - `/import` - Content import from files or directories
 - `/search` - Search local files and LightRAG database
+- `/validate` - Content validation (context, outline, story)
 
 **Three-Stage Workflow:**
 1. **Context** (YAML) - Gather story ideas, characters, settings

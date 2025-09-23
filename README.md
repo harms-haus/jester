@@ -18,6 +18,7 @@ jester adapts BMAD principles to create personalized bedtime stories through a h
 - **`/publish`** - Story publishing with entities and patches
 - **`/import`** - Content import from files or directories
 - **`/search`** - Search local files and LightRAG database
+- **`/validate`** - Content validation (context, outline, story)
 
 ### Three-Stage Workflow
 1. **Context** (YAML) - Gather story ideas, characters, settings
