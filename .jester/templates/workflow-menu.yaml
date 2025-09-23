@@ -1,113 +1,135 @@
-# Workflow Menu Template
+# Command Menu Template
 
-# Main workflow options for @jester entry point
-workflows:
-  new_project:
-    id: "1"
-    title: "🆕 Start New Project"
-    description: "Create a brand new bedtime story from scratch"
-    features:
-      - "Interactive context gathering with LightRAG integration"
-      - "Character, location, and item discovery"
-      - "Plot template selection"
-    use_case: "When you want to create a completely new story"
-    command: "new-project"
-    agent: "muse"
-    prompts:
-      - "context-generation.md"
-      - "lightrag-query-generation.md"
-      - "entity-suggestion-algorithm.md"
-
-  continue_draft:
-    id: "2"
-    title: "📝 Continue Existing Work"
-    description: "Pick up where you left off with a draft"
-    features:
-      - "Resume context, outline, or story development"
-      - "Cross-stage editing capabilities"
-      - "Progress tracking and validation"
-    use_case: "When you have existing draft files to work on"
-    command: "continue-draft"
-    agent: "edit"
-    prompts:
-      - "cross-stage-editing.md"
-      - "content-modification.md"
-      - "workflow-management.md"
-
-  universe_management:
-    id: "3"
-    title: "🌟 Manage Story Universe"
-    description: "Organize and maintain your growing story collection"
-    features:
-      - "Edit published stories and entities"
-      - "Validate links and relationships"
-      - "Organize story library"
-    use_case: "When you want to maintain or organize existing content"
-    command: "universe-management"
-    agent: "entity"
-    prompts:
-      - "entity-creation.md"
-      - "entity-integration.md"
-      - "validation-workflow.md"
-      - "conflict-detection.md"
-
-  help:
-    id: "4"
-    title: "❓ Get Help"
-    description: "Learn about jester's capabilities and workflows"
-    features:
-      - "Understand the three-stage process"
-      - "Learn about LightRAG integration"
-      - "Explore advanced features"
-    use_case: "When you're new to jester or need guidance"
-    command: "help"
+# Main command options for @jester entry point
+commands:
+  jester:
+    id: "main"
+    title: "🎭 Jester - Main Entry Point"
+    description: "Core functionalities and project management"
+    subcommands:
+      - "init - Initialize git repo if installed"
+      - "help - Describe how jester works, answer questions"
+    use_case: "When you need general guidance or project setup"
     agent: "jester"
     prompts:
       - "user-greeting.md"
       - "workflow-selection.md"
 
-# User intent indicators for workflow selection
+  write:
+    id: "write"
+    title: "✍️ Write - Story Generation"
+    description: "Core generation functionalities for stories"
+    subcommands:
+      - "context - Write out the context"
+      - "outline - Write out the outline"
+      - "story - Write out the story"
+    use_case: "When you want to generate story content"
+    agent: "write"
+    prompts:
+      - "context-generation.md"
+      - "outline-generation.md"
+      - "story-generation.md"
+
+  muse:
+    id: "muse"
+    title: "💡 Muse - Brainstorming"
+    description: "Core brainstorming functionalities and creative exploration"
+    subcommands:
+      - "create-new - Start new brainstorming session"
+      - "explore-existing - Explore existing draft for details"
+      - "list-elicitations - List brainstorming techniques"
+    use_case: "When you want to brainstorm and explore ideas"
+    agent: "muse"
+    prompts:
+      - "context-generation.md"
+      - "brainstorming-techniques.md"
+      - "lightrag-query-generation.md"
+
+  edit:
+    id: "edit"
+    title: "✏️ Edit - Content Editing"
+    description: "Cross-stage editing across stories, outlines, contexts, and entities"
+    subcommands:
+      - "character [name] - Edit a character by name"
+      - "location [name] - Edit a location by name"
+      - "item [name] - Edit an item by name"
+    use_case: "When you want to edit existing content"
+    agent: "edit"
+    prompts:
+      - "content-editing.md"
+      - "entity-editing.md"
+      - "validation-workflow.md"
+
+  delete:
+    id: "delete"
+    title: "🗑️ Delete - Entity Removal"
+    description: "Remove entities from the story universe"
+    subcommands:
+      - "character [name] - Delete a character by name"
+      - "location [name] - Delete a location by name"
+      - "item [name] - Delete an item by name"
+      - "story [name] - Delete a story by name"
+    use_case: "When you want to remove content"
+    agent: "delete"
+    prompts:
+      - "entity-deletion.md"
+      - "link-integrity-check.md"
+
+  approve:
+    id: "approve"
+    title: "✅ Approve - Draft Approval"
+    description: "Approve a draft to move to the ready universe"
+    subcommands:
+      - "approve [draft] - Approve a draft to ready stage"
+    use_case: "When you want to approve content for publication"
+    agent: "approve"
+    prompts:
+      - "draft-to-ready-validation.md"
+      - "workflow-management.md"
+
+  publish:
+    id: "publish"
+    title: "🚀 Publish - Story Publishing"
+    description: "Publish a ready story with entities and patches"
+    subcommands:
+      - "publish [story] - Publish a ready story"
+    use_case: "When you want to publish content to complete universe"
+    agent: "publish"
+    prompts:
+      - "ready-to-complete-validation.md"
+      - "apply-patches.md"
+      - "move-to-complete.md"
+
+  import:
+    id: "import"
+    title: "📥 Import - Content Import"
+    description: "Import entities or stories from files or directories"
+    subcommands:
+      - "import [file] - Import from specific file"
+      - "import directory [path] - Import from directory"
+    use_case: "When you want to import existing content"
+    agent: "import"
+    prompts:
+      - "content-import.md"
+      - "entity-import.md"
+      - "import-staging-validation.md"
+
+  search:
+    id: "search"
+    title: "🔍 Search - Knowledge Search"
+    description: "Search local files and LightRAG database with natural-language queries"
+    subcommands:
+      - "search [query] - Search with natural language"
+    use_case: "When you want to find information"
+    agent: "search"
+    prompts:
+      - "search-queries.md"
+      - "local-file-search.md"
+      - "lightrag-database-query.md"
+
+# User intent indicators for command selection
 intent_indicators:
-  new_project:
-    keywords:
-      - "start new story"
-      - "create new project"
-      - "begin new bedtime story"
-      - "new story about"
-      - "I want to create"
-      - "let's make a story"
-    context:
-      - "no existing draft files"
-      - "first-time user"
-    confidence: "high"
-
-  continue_draft:
-    keywords:
-      - "continue draft"
-      - "resume work"
-      - "pick up where I left off"
-      - "work on draft"
-      - "finish my story"
-      - "complete my outline"
-    context:
-      - "existing draft files"
-      - "references specific draft numbers"
-    confidence: "high"
-
-  universe_management:
-    keywords:
-      - "manage stories"
-      - "organize library"
-      - "edit published content"
-      - "validate links"
-      - "universe management"
-      - "maintain my stories"
-      - "organize my collection"
-    context:
-      - "published content exists"
-    confidence: "medium"
-
-  help:
+  jester:
     keywords:
       - "help"
       - "how does this work"
@@ -116,73 +138,215 @@ intent_indicators:
       - "guide"
       - "show me options"
       - "explain jester"
+      - "init"
+      - "initialize"
     context:
       - "user is confused or asking for guidance"
+      - "first-time user"
+      - "project setup needed"
     confidence: "high"
 
-# Transition messages for each workflow
+  write:
+    keywords:
+      - "write"
+      - "generate"
+      - "create story"
+      - "write context"
+      - "write outline"
+      - "write story"
+      - "story generation"
+    context:
+      - "user wants to generate content"
+      - "has context or outline ready"
+    confidence: "high"
+
+  muse:
+    keywords:
+      - "brainstorm"
+      - "explore ideas"
+      - "creative session"
+      - "muse"
+      - "inspiration"
+      - "new story ideas"
+      - "creative exploration"
+    context:
+      - "user wants to brainstorm"
+      - "needs creative inspiration"
+    confidence: "high"
+
+  edit:
+    keywords:
+      - "edit"
+      - "modify"
+      - "change"
+      - "update"
+      - "revise"
+      - "edit character"
+      - "edit location"
+      - "edit item"
+    context:
+      - "user wants to modify existing content"
+      - "has existing files to edit"
+    confidence: "high"
+
+  delete:
+    keywords:
+      - "delete"
+      - "remove"
+      - "delete character"
+      - "delete location"
+      - "delete item"
+      - "delete story"
+    context:
+      - "user wants to remove content"
+      - "cleanup or reorganization"
+    confidence: "high"
+
+  approve:
+    keywords:
+      - "approve"
+      - "ready"
+      - "approve draft"
+      - "move to ready"
+    context:
+      - "user has completed draft"
+      - "ready for next stage"
+    confidence: "high"
+
+  publish:
+    keywords:
+      - "publish"
+      - "publish story"
+      - "finalize"
+      - "complete"
+    context:
+      - "user has ready content"
+      - "ready for publication"
+    confidence: "high"
+
+  import:
+    keywords:
+      - "import"
+      - "import file"
+      - "import directory"
+      - "bring in"
+      - "add existing"
+    context:
+      - "user has external content"
+      - "wants to add existing files"
+    confidence: "high"
+
+  search:
+    keywords:
+      - "search"
+      - "find"
+      - "look for"
+      - "where is"
+      - "show me"
+    context:
+      - "user wants to find information"
+      - "needs to locate content"
+    confidence: "high"
+
+# Transition messages for each command
 transitions:
-  new_project:
-    message: "Great! I'll connect you with our story creation specialists. They'll help you with:\n- Interactive context gathering with LightRAG integration\n- Character, location, and item discovery\n- Plot template selection\n- Story outline and final story generation\n\nLet me load the appropriate tools for you..."
+  jester:
+    message: "Welcome to Jester! I'm here to help you with:\n- Project initialization and setup\n- General guidance and help\n- Understanding how jester works\n\nLet me show you all available commands..."
+    next_steps:
+      - "Present command menu"
+      - "Show help content"
+      - "Guide user to appropriate command"
+
+  write:
+    message: "Perfect! I'll help you generate story content:\n- Create context files from your ideas\n- Generate story outlines\n- Write complete bedtime stories\n\nLet me load the story generation tools..."
+    next_steps:
+      - "Load write.md agent"
+      - "Load story generation prompts"
+      - "Initialize content generation workflow"
+
+  muse:
+    message: "Great! Let's explore your creative ideas:\n- Interactive brainstorming sessions\n- Creative exploration techniques\n- Idea development and refinement\n\nLet me start our creative session..."
     next_steps:
       - "Load muse.md agent"
-      - "Load context-generation.md prompts"
-      - "Initialize new project workflow"
+      - "Load brainstorming prompts"
+      - "Initialize creative exploration workflow"
 
-  continue_draft:
-    message: "Perfect! I'll connect you with our editing specialists. They'll help you with:\n- Resuming your existing draft work\n- Cross-stage editing capabilities\n- Progress tracking and validation\n- Content modification and refinement\n\nLet me load the appropriate tools for you..."
+  edit:
+    message: "Excellent! I'll help you edit your content:\n- Cross-stage editing capabilities\n- Character, location, and item editing\n- Content modification and refinement\n\nLet me load the editing tools..."
     next_steps:
       - "Load edit.md agent"
-      - "Load cross-stage-editing.md prompts"
-      - "Initialize draft continuation workflow"
+      - "Load editing prompts"
+      - "Initialize content editing workflow"
 
-  universe_management:
-    message: "Excellent! I'll connect you with our entity management specialists. They'll help you with:\n- Editing published stories and entities\n- Validating links and relationships\n- Organizing your story library\n- Maintaining story universe consistency\n\nLet me load the appropriate tools for you..."
+  delete:
+    message: "I'll help you remove content safely:\n- Entity deletion with proper confirmation\n- Link integrity checking\n- System cleanup and validation\n\nLet me load the deletion tools..."
     next_steps:
-      - "Load entity.md agent"
+      - "Load delete.md agent"
+      - "Load deletion prompts"
+      - "Initialize content removal workflow"
+
+  approve:
+    message: "Perfect! I'll help you approve your draft:\n- Draft validation and quality checking\n- Move content to ready stage\n- Workflow progression management\n\nLet me load the approval tools..."
+    next_steps:
+      - "Load approve.md agent"
       - "Load validation prompts"
-      - "Initialize universe management workflow"
+      - "Initialize draft approval workflow"
 
-  help:
-    message: "Of course! Let me explain how jester works and show you all available options:\n\n**Jester's Three-Stage Workflow:**\n1. **Context** (YAML) - Gather story ideas, characters, settings\n2. **Outline** (Markdown) - Structure the plot and story flow\n3. **Story** (Markdown) - Generate the final bedtime story\n\n**Available Workflows:**\n1. Start New Project - Create from scratch\n2. Continue Existing Work - Resume drafts\n3. Manage Story Universe - Organize content\n4. Get Help - Learn more\n\nWhich workflow interests you most?"
+  publish:
+    message: "Excellent! I'll help you publish your story:\n- Final validation and quality assurance\n- Entity patch application\n- Complete universe integration\n\nLet me load the publishing tools..."
     next_steps:
-      - "Present help content"
-      - "Show workflow explanations"
-      - "Guide user to appropriate workflow"
+      - "Load publish.md agent"
+      - "Load publishing prompts"
+      - "Initialize story publishing workflow"
+
+  import:
+    message: "Great! I'll help you import content:\n- File and directory processing\n- Content validation and formatting\n- Integration with your story universe\n\nLet me load the import tools..."
+    next_steps:
+      - "Load import.md agent"
+      - "Load import prompts"
+      - "Initialize content import workflow"
+
+  search:
+    message: "Perfect! I'll help you find information:\n- Local file system search\n- LightRAG database queries\n- Natural language search capabilities\n\nLet me load the search tools..."
+    next_steps:
+      - "Load search.md agent"
+      - "Load search prompts"
+      - "Initialize information retrieval workflow"
 
 # Error handling scenarios
 error_handling:
   unclear_intent:
-    message: "I want to help you, but I'm not sure exactly what you'd like to do. Could you tell me:\n- Are you looking to create a new story?\n- Do you have existing work to continue?\n- Do you want to organize your story collection?\n- Or would you like to learn more about jester?"
-    action: "present_all_options"
+    message: "I want to help you, but I'm not sure exactly what you'd like to do. Here are the available commands:\n- `/jester` - Main entry point and help\n- `/write` - Generate story content\n- `/muse` - Brainstorming and creative exploration\n- `/edit` - Edit existing content\n- `/delete` - Remove content\n- `/approve` - Approve drafts\n- `/publish` - Publish stories\n- `/import` - Import content\n- `/search` - Find information\n\nWhich command interests you most?"
+    action: "present_command_menu"
 
   conflicting_intent:
-    message: "I see you mentioned both starting new work and continuing existing work. Could you clarify:\n- Do you want to start a completely new story?\n- Or continue with an existing draft?\n- Or perhaps work on both?"
+    message: "I see you mentioned multiple commands. Could you clarify which one you'd like to use:\n- `/write` for generating content\n- `/edit` for modifying content\n- `/muse` for brainstorming\n- Or another specific command?"
     action: "request_clarification"
 
-  no_draft_files:
-    message: "I don't see any existing draft files in your project. Would you like to:\n- Start a new story project?\n- Learn how to create your first story?\n- Or were you looking for something else?"
-    action: "suggest_new_project"
+  invalid_command:
+    message: "I don't recognize that command. Here are the available commands:\n- `/jester` - Main entry point\n- `/write` - Story generation\n- `/muse` - Brainstorming\n- `/edit` - Content editing\n- `/delete` - Content removal\n- `/approve` - Draft approval\n- `/publish` - Story publishing\n- `/import` - Content import\n- `/search` - Information search\n\nWhich would you like to try?"
+    action: "suggest_valid_commands"
 
 # Success criteria
 success_criteria:
-  intent_recognition:
-    target: "90%+ accuracy"
+  command_recognition:
+    target: "95%+ accuracy"
     metrics:
-      - "Correctly identify user intent"
-      - "Present appropriate options for unclear cases"
-      - "Provide helpful guidance for new users"
+      - "Correctly identify user command intent"
+      - "Present appropriate command options for unclear cases"
+      - "Provide helpful guidance for command usage"
 
   smooth_transitions:
-    target: "Seamless workflow switching"
+    target: "Seamless command switching"
     metrics:
-      - "Load appropriate agent files based on selection"
+      - "Load appropriate agent files based on command"
       - "Provide context about what to expect next"
       - "Maintain user momentum and engagement"
 
   user_satisfaction:
     target: "High user satisfaction"
     metrics:
-      - "Users can easily find the workflow they need"
+      - "Users can easily find the command they need"
       - "New users feel guided and supported"
-      - "Returning users can quickly resume work"
+      - "Returning users can quickly access functionality"
+      - "Command structure is intuitive and logical"

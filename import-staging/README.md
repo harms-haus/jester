@@ -15,7 +15,8 @@ This directory contains imported content that is awaiting user validation before
 
 1. Use `/import` commands to import content to this directory
 2. Review and validate the imported content
-3. Use `/publish import-staging` to move validated content to `complete/`
+3. Use `/approve` to move validated content to `ready/`
+4. Use `/publish` to move approved content to `complete/`
 
 ## Purpose
 

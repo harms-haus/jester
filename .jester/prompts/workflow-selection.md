@@ -63,55 +63,60 @@
 4. **No indicators**: Present help and all workflow options
 
 ### Step 4: Load Appropriate Files
-1. **New Project**: Load muse.md and context-generation.md
-2. **Continue Draft**: Load edit.md and cross-stage-editing.md
-3. **Universe Management**: Load entity.md and validation prompts
-4. **Help**: Load help content and workflow explanations
+1. **New Project**: Load muse.md and write.md agents
+2. **Continue Draft**: Load edit.md and write.md agents
+3. **Universe Management**: Load edit.md, delete.md, and search.md agents
+4. **Help**: Load help content and command explanations
 
 ## Transition Prompts
 
-### To Publishing Domain (New Project)
+### To Story Creation (New Project)
 "Great! I'll connect you with our story creation specialists. They'll help you with:
-- Interactive context gathering with LightRAG integration
+- `/muse create-new` - Interactive context gathering with LightRAG integration
+- `/write` commands - Story outline and final story generation
 - Character, location, and item discovery
 - Plot template selection
-- Story outline and final story generation
 
 Let me load the appropriate tools for you..."
 
-### To Editing Domain (Continue Draft)
+### To Content Editing (Continue Draft)
 "Perfect! I'll connect you with our editing specialists. They'll help you with:
-- Resuming your existing draft work
-- Cross-stage editing capabilities
+- `/edit` commands - Cross-stage editing capabilities
+- `/write` commands - Continue story generation
 - Progress tracking and validation
 - Content modification and refinement
 
 Let me load the appropriate tools for you..."
 
-### To Entity Management Domain (Universe Management)
-"Excellent! I'll connect you with our entity management specialists. They'll help you with:
-- Editing published stories and entities
-- Validating links and relationships
-- Organizing your story library
-- Maintaining story universe consistency
+### To Universe Management (Universe Management)
+"Excellent! I'll connect you with our universe management specialists. They'll help you with:
+- `/edit` commands - Editing published stories and entities
+- `/delete` commands - Removing content with proper confirmation
+- `/search` commands - Finding and organizing content
+- `/approve` and `/publish` commands - Workflow management
 
 Let me load the appropriate tools for you..."
 
 ### To Help/Guide
 "Of course! Let me explain how jester works and show you all available options:
 
-**Jester's Three-Stage Workflow:**
+**Jester's Command Structure:**
+- `/jester` - Main entry point (init, help)
+- `/write` - Story generation (context, outline, story)
+- `/muse` - Brainstorming (create-new, explore-existing, list-elicitations)
+- `/edit` - Content editing (character/location/item editing, general editing)
+- `/delete` - Entity removal (character/location/item/story deletion)
+- `/approve` - Draft approval to ready stage
+- `/publish` - Story publishing with entities and patches
+- `/import` - Content import from files or directories
+- `/search` - Search local files and LightRAG database
+
+**Three-Stage Workflow:**
 1. **Context** (YAML) - Gather story ideas, characters, settings
 2. **Outline** (Markdown) - Structure the plot and story flow
 3. **Story** (Markdown) - Generate the final bedtime story
 
-**Available Workflows:**
-1. Start New Project - Create from scratch
-2. Continue Existing Work - Resume drafts
-3. Manage Story Universe - Organize content
-4. Get Help - Learn more
-
-Which workflow interests you most?"
+Which command interests you most?"
 
 ## Error Handling
 

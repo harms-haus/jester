@@ -3,14 +3,18 @@
 ## Core Components
 
 **1. Agent System**
-- **Purpose**: Orchestrates the 3-stage story generation workflow through prompt rules
+- **Purpose**: Orchestrates the hierarchical command workflow through prompt rules
 - **Technology**: Markdown prompt rule files following BMAD pattern
-- **Key Components**:
-  - `@jester` (Main Entry Point): Unified workflow selection and user guidance
-  - **Publishing Domain**: `/muse` (Story Context Agent) and `/write` (Story Generation Agent)
-  - **Editing Domain**: `/edit` (Cross-Stage Editor) for content modification
-  - **Entity Management Domain**: Entity creation and relationship management
-  - **Validation Domain**: Content validation and quality assurance
+- **Key Agents**:
+  - `/jester` (Main Entry Point): Core functionalities, initialization, help, and project management
+  - `/write` (Story Generation Agent): Context, outline, and story generation (Dev role)
+  - `/muse` (Brainstorming Agent): Context gathering, entity discovery, and creative exploration (Analyst role)
+  - `/edit` (Cross-Stage Editor): Content modification, entity editing, and maintenance (QA role)
+  - `/delete` (Entity Management Agent): Entity and story removal with confirmation workflows
+  - `/approve` (Workflow Management Agent): Draft approval and progression to ready stage
+  - `/publish` (Publishing Agent): Story publishing with entity patches and cleanup
+  - `/import` (Content Import Agent): Entity and story import from files or directories
+  - `/search` (Search Agent): Local file and LightRAG database search capabilities
 - **Communication**: LLM agents follow prompt rules to use file-based pipeline (YAML → Markdown → Markdown)
 - **Dependencies**: LightRAG MCP client, external LLM capable of file operations
 
@@ -92,29 +96,22 @@
 ## Component Interactions
 
 **Data Flow**:
-1. User initiates `@jester` command
-2. Entry Point Management analyzes user intent and presents workflow options
-3. User selects workflow (new project, continue draft, universe management, help)
-4. Entry Point Management loads appropriate agent files based on selection
-5. **For New Project**:
-   - User initiates `/muse` command via @jester
-   - External LLM follows Muse prompt rules to query LightRAG for entities
-   - LLM generates context file and saves to `contexts/` per prompt instructions
-   - User edits context file
-   - User runs `/write outline` via @jester
-   - External LLM follows Write prompt rules to read context, generate outline
-   - LLM saves outline to `outlines/` per prompt instructions
-   - User runs `/write story` via @jester
-   - External LLM follows Write prompt rules to read outline, generate story
-   - LLM saves story to `stories/` per prompt instructions
-   - User runs `/edit approve-draft {number}` via @jester
-   - External LLM follows Edit prompt rules to move files to ready/ directory
-   - **LLM creates entity files in ready/ directory and patch files for existing entities**
-   - User runs `/edit publish "{title}"` via @jester
-   - **External LLM follows Edit prompt rules to apply patches, copy files, and cleanup**
-6. **For Continue Draft**: User runs `/edit` commands via @jester as needed
-7. **For Universe Management**: User accesses entity management and validation tools via @jester
-8. External LLM follows appropriate prompt rules to track changes via Git
+1. User initiates `/jester` command for project management or `/muse create-new` for story creation
+2. External LLM follows appropriate prompt rules to query LightRAG via TypeScript MCP client for entities
+3. LLM generates context file and saves to `contexts/` per prompt instructions
+4. User edits context file
+5. User runs `/write outline`
+6. External LLM follows Write prompt rules to read context, generate outline
+7. LLM saves outline to `outlines/` per prompt instructions
+8. User runs `/write story`
+9. External LLM follows Write prompt rules to read outline, generate story
+10. LLM saves story to `stories/` per prompt instructions
+11. User runs `/edit` commands for content modification or `/delete` commands for entity removal
+12. User runs `/approve` to move draft to ready stage
+13. User runs `/publish` to publish ready story with entities and patches
+14. **For Import Management**: User runs `/import` commands to import content to import-staging/
+15. **For Search**: User runs `/search` commands to query local files and LightRAG database
+16. External LLM follows appropriate prompt rules to track changes via Git
 
 **Error Handling**:
 - LightRAG connection failures → Prompt rules instruct LLM to use offline mode with cached data

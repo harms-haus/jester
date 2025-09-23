@@ -6,7 +6,7 @@ jester provides an intuitive, conversational interface that feels natural to par
 
 ## Key Interaction Paradigms
 
-- **Conversational Commands**: Simple slash commands (`/muse`, `/write`, `/edit`) that feel natural and memorable
+- **Hierarchical Commands**: Clear, organized slash commands (`/jester`, `/write`, `/muse`, `/edit`, `/delete`, `/approve`, `/publish`, `/import`, `/search`) that provide contextual guidance
 - **Interactive Dialogue**: The `/muse` agent engages in back-and-forth conversation to explore ideas and discover connections
 - **File-Based Workflow**: Clear visual feedback through file creation and modification in the IDE
 - **Contextual Help**: Built-in guidance and examples that appear when needed

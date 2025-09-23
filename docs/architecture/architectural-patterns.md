@@ -2,10 +2,10 @@
 
 ## Agent-Based Architecture
 
-**Pattern**: Specialized agents with specific responsibilities  
-**Benefits**: Clear separation of concerns, easy to extend and modify  
-**Implementation**: Prompt-based agents with file-based communication  
-**Trade-offs**: Requires careful prompt engineering, limited programmatic control  
+**Pattern**: Hierarchical command structure with specialized agents for different functions  
+**Benefits**: Clear separation of concerns, contextual guidance, easy to extend and modify  
+**Implementation**: Prompt-based agents with file-based communication and command routing  
+**Trade-offs**: Requires careful prompt engineering, command hierarchy complexity, limited programmatic control  
 
 ## File-Based Pipeline
 

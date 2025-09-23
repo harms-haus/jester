@@ -27,97 +27,79 @@ jester adapts proven software development methodologies (BMAD principles) to cre
 
 ### Functional
 
-1. **FR1**: The system shall provide a `@jester` entry point that guides users through available workflows including new project creation, draft continuation, and universe management. The `@jester` entry point shall detect if the project is properly initialized and suggest CLI initialization if needed
-2. **FR2**: The `@jester` entry point shall provide workflow selection for new project creation, draft continuation, universe management, and help
-3. **FR3**: The system shall provide a `/muse` command (via @jester) that initiates interactive context gathering for story creation
-4. **FR4**: The `/muse` agent shall query LightRAG knowledge graph to discover existing entities and relationships
-5. **FR5**: The `/muse` agent shall generate structured YAML context files containing entities, plot structure, morals, and metadata
-6. **FR6**: The system shall provide a `/write outline` command (via @jester) that generates detailed story outlines from context files
-7. **FR7**: The `/write outline` command shall propagate metadata (target length, audience) from context to outline
-8. **FR8**: The system shall provide a `/write story` command (via @jester) that converts outlines into complete bedtime stories
-9. **FR9**: The `/write story` command shall generate stories at the target length specified in the outline metadata
-10. **FR10**: The system shall provide an `/edit` command (via @jester) for cross-stage editing of outlines and stories
+1. **FR1**: The system shall provide a `/jester` command that serves as the main entry point for core functionalities including initialization, help, and project management
+2. **FR2**: The `/jester` command shall provide sub-commands:
+   - `init` - Initialize git repo if installed (help user install otherwise)
+   - `help` - Describe how jester works, answer questions, load necessary prompts/agents
+3. **FR3**: The system shall provide a `/write` command for core generation functionalities:
+   - No sub-command: Take remaining text as prompt to generate new story project or update current story context
+   - `context` - Write out the context
+   - `outline` - Write out the outline  
+   - `story` - Write out the story
+4. **FR4**: The system shall provide a `/muse` command for core brainstorming functionalities:
+   - `create-new` - Start new brainstorming session about new story, create context file at end
+   - `explore-existing` - Explore existing draft to tease out new details
+   - `list-elicitations` - List various ways jester elicits details, allow choosing one for brainstorming
+5. **FR5**: The system shall provide an `/edit` command for core editing functionalities:
+   - No sub-command: Take remaining text as prompt to generate new entity or change entity/story across stories, outlines, contexts
+   - `character`/`location`/`item` - Edit entity by name, ask user to describe change if not provided
+   - Assume "ready" universe unless prompt specifies "complete"
+   - Use "patch" system for changes to "complete" universe when entity not in "ready"
+6. **FR6**: The system shall provide a `/delete` command to remove entities from universe:
+   - No sub-command: Take remaining text as prompt to remove entity from universe
+   - `character`/`location`/`item`/`story` - Delete entity by name
+   - Double-confirm story deletion in any context
+   - Double-confirm entity deletion in "complete" universe
+7. **FR7**: The system shall provide an `/approve` command to approve draft to move to "ready" universe
+8. **FR8**: The system shall provide a `/publish` command to publish "ready" story with all included entities and patches
+9. **FR9**: The system shall provide an `/import` command to import entity or story from file, or many entities/stories from directory
+10. **FR10**: The system shall provide a `/search` command to search local files and LightRAG database with natural-language queries
 11. **FR11**: The system shall maintain a strict file pipeline: YAML context → Markdown outline → Markdown story
 12. **FR12**: The system shall support multiple plot templates (Hero's Journey, Pixar method, Golden Circle)
 13. **FR13**: The system shall integrate with LightRAG via MCP for entity discovery and relationship mapping
 14. **FR14**: The system shall prevent context bleeding between pipeline stages (each stage reads only its designated input)
-15. **FR15**: The system shall maintain local markdown files for all entities organized in subdirectories (entities/characters/, entities/locations/, entities/items/)
+15. **FR15**: The system shall maintain local markdown files for all entities organized in subdirectories (complete/characters/, complete/locations/, complete/items/)
 16. **FR16**: The system shall create and maintain a local story universe wiki with interconnected entity files using proper wiki-style [[links]]
 17. **FR17**: The system shall use local entity files as the primary source of truth for story generation
 18. **FR18**: The system shall query LightRAG only for relationship discovery and entity connections
 19. **FR19**: The system shall support Obsidian-compatible markdown formatting and linking
 20. **FR20**: The system shall provide fine-grained control over which entity information is available to story generation
 21. **FR21**: The system shall maintain proper [[link]] syntax for bidirectional entity relationships across subdirectories
-22. **FR22**: The system shall organize local files in a structured directory hierarchy:
-    - `complete/characters/` - Character entity files
-    - `complete/locations/` - Location entity files  
-    - `complete/items/` - Item entity files
-    - `stories/` - Generated story files
-    - `outlines/` - Generated outline files
-23. **FR23**: The system shall validate draft completeness before progression to ready stage, ensuring all required files exist and contain valid content
-24. **FR24**: The system shall validate entity files and patch formatting before progression to published stage
-25. **FR25**: The system shall detect and warn users about target directory conflicts before story progression
-26. **FR26**: The system shall require user approval before overwriting existing files during story progression
-27. **FR27**: The system shall organize framework files in a hidden `.jester/` directory structure:
-    - `.jester/agents/` - Agent definitions
-    - `.jester/templates/` - Story and context templates  
-    - `.jester/tasks/` - Reusable workflow tasks
-    - `.jester/data/` - Knowledge base and reference data
-    - `.jester/utils/` - Utility functions and helpers
-28. **FR28**: The system shall organize files in a three-stage workflow:
+22. **FR22**: The system shall organize files in a three-stage workflow:
     - `draft/` - Work in progress with incrementing draft numbers (001, 002, 013, etc.)
     - `ready/` - Approved work ready for publication
     - `complete/` - Published work in final form
     - `import-staging/` - Imported content awaiting user validation
     - `contexts/` - Context files (no staging needed)
-
-29. **FR29**: The system shall maintain draft number consistency:
+23. **FR23**: The system shall maintain draft number consistency:
     - `context-013.md` always creates `outline-013.md`
     - `outline-013.md` always creates `story-013.md`
     - All draft files maintain the same draft number
-
-30. **FR30**: The system shall provide workflow commands (via @jester):
-    - `/init` - Initialize new Jester project (if CLI tool not used)
-    - `/edit approve-draft {number}` - Move draft to ready/
-    - `/edit publish "{title}"` - Move ready story to complete/
-    - `/import <file-path>` - Import content to import-staging/ for validation
-    - `/import story <file-path>` - Import story to import-staging/ for validation
-    - `/publish import-staging` - Move validated import-staging content to complete/
-
-31. **FR31**: The system shall create entities directly in complete/ directory when approved:
-    - Format: Standard entity naming (character-name.md, location-name.md, item-name.md)
-    - Location: `complete/characters/`, `complete/locations/`, `complete/items/`
-
-32. **FR32**: The system shall use consistent entity file naming conventions:
+24. **FR24**: The system shall organize framework files in a hidden `.jester/` directory structure:
+    - `.jester/agents/` - Agent definitions
+    - `.jester/templates/` - Story and context templates  
+    - `.jester/tasks/` - Reusable workflow tasks
+    - `.jester/data/` - Knowledge base and reference data
+    - `.jester/utils/` - Utility functions and helpers
+25. **FR25**: The system shall validate draft completeness before progression to ready stage, ensuring all required files exist and contain valid content
+26. **FR26**: The system shall validate entity files and patch formatting before progression to published stage
+27. **FR27**: The system shall detect and warn users about target directory conflicts before story progression
+28. **FR28**: The system shall require user approval before overwriting existing files during story progression
+29. **FR29**: The system shall provide the standardized command structure as defined in FR1-FR10, replacing all previous command patterns with the new hierarchical structure
+30. **FR30**: The system shall use consistent entity file naming conventions:
     - New entities: `{entity-name-hyphen-case}.md` (e.g., `stella-stoat.md`)
     - Entity patches: `{entity-name-hyphen-case}.patch.md` (e.g., `stella-stoat.patch.md`)
-
-33. **FR33**: The system shall use git-patch format for entity patch files with proper "incoming" and "current" sections and expected line start/end markers
-
-34. **FR34**: The system shall implement comprehensive conflict detection before story progression:
+31. **FR31**: The system shall use git-patch format for entity patch files with proper "incoming" and "current" sections and expected line start/end markers
+32. **FR32**: The system shall implement comprehensive conflict detection before story progression:
     - Scan target directories for existing files with matching names
     - Warn users about potential overwrites
     - Require explicit user approval for conflicts
     - Provide detailed conflict summary before proceeding
-
-35. **FR35**: The system shall apply entity patches before copying files during ready → complete progression
-
-36. **FR36**: The system shall perform complete cleanup of ready/ directory after successful publish:
-    - Remove published story files from ready/stories/
-    - Remove published outline files from ready/outlines/
-    - Remove published context files from ready/contexts/
-    - Remove published entity files from ready/characters/, ready/locations/, ready/items/
-    - Apply and delete patch files from ready/{type}s/{entity-name}.patch.md
-
-37. **FR37**: The system shall maintain change history by updating complete/ entity files with patch information and deleting patch files after successful application
-
-38. **FR38**: The system shall validate patch file format before applying patches:
-    - Verify git-patch format compliance
-    - Validate entity name and type consistency
-    - Check for malformed patch content
-    - Provide clear error messages for invalid patches
-
-39. **FR39**: The system shall provide a CLI initialization tool accessible via `npx jester-story-framework` that:
+33. **FR33**: The system shall apply entity patches before copying files during ready → complete progression
+34. **FR34**: The system shall perform complete cleanup of ready/ directory after successful publish
+35. **FR35**: The system shall maintain change history by updating complete/ entity files with patch information and deleting patch files after successful application
+36. **FR36**: The system shall validate patch file format before applying patches
+37. **FR37**: The system shall provide a CLI initialization tool accessible via `npx jester-story-framework` that:
     - Initializes a new Jester project with complete `.jester/` directory structure
     - Scans the current working directory for existing story documents
     - Suggests discovered content for import into the import-staging/ directory
@@ -150,7 +132,7 @@ jester provides an intuitive, conversational interface that feels natural to par
 
 ### Key Interaction Paradigms
 
-- **Conversational Commands**: Simple slash commands (`/muse`, `/write`, `/edit`) that feel natural and memorable
+- **Hierarchical Commands**: Clear, organized slash commands (`/jester`, `/write`, `/muse`, `/edit`, `/delete`, `/approve`, `/publish`, `/import`, `/search`) that provide contextual guidance
 - **Interactive Dialogue**: The `/muse` agent engages in back-and-forth conversation to explore ideas and discover connections
 - **File-Based Workflow**: Clear visual feedback through file creation and modification in the IDE
 - **Contextual Help**: Built-in guidance and examples that appear when needed
@@ -236,18 +218,18 @@ The dev agent does NOT write TypeScript or other programming languages - only pr
 ### Story 1.1: Project Setup and Agent Framework
 
 As a **developer**,
-I want **to establish the basic project structure and agent framework with optional CLI initialization**,
-so that **I have a foundation for building the jester storytelling system with user-friendly setup options**.
+I want **to establish the basic project structure and agent framework with the new standardized command structure**,
+so that **I have a foundation for building the jester storytelling system with clear, hierarchical commands**.
 
 #### Acceptance Criteria
 
 1. **Project directory structure is created** with agents/, templates/, tasks/, data/, utils/, entities/, stories/, outlines/, and contexts/ directories
-2. **Basic agent files are created** for `/muse`, `/write`, and `/edit` commands following BMAD markdown format with YAML headers
-3. **Agent command system is functional** with basic slash command recognition and routing
+2. **New command structure is implemented** with `/jester`, `/write`, `/muse`, `/edit`, `/delete`, `/approve`, `/publish`, `/import`, `/search` commands
+3. **Agent command system is functional** with hierarchical command recognition and routing
 4. **File pipeline structure is established** with placeholder files for context.yaml, outline.md, and story.md
 5. **Basic error handling is implemented** for invalid commands and missing files
 6. **Cross-platform compatibility is verified** on Windows, macOS, and Linux
-7. **README.md is updated** with basic usage instructions and project overview
+7. **README.md is updated** with new command structure and usage instructions
 8. **CLI initialization tool is available** via `npx jester-story-framework` command
 9. **CLI tool creates complete `.jester/` structure** in target directory
 10. **CLI tool provides setup guidance** and next steps for users
@@ -255,12 +237,12 @@ so that **I have a foundation for building the jester storytelling system with u
 ### Story 1.2: Basic Context Generation
 
 As a **parent creating bedtime stories**,
-I want **to use the `/muse` command to generate basic story context**,
+I want **to use the `/muse create-new` command to generate basic story context**,
 so that **I can start the story creation process with essential information**.
 
 #### Acceptance Criteria
 
-1. **`/muse` command accepts user input** for story ideas and basic requirements
+1. **`/muse create-new` command accepts user input** for story ideas and basic requirements
 2. **Context YAML file is generated** with basic structure including entities, plot, morals, and metadata
 3. **User can specify target audience age** and story length requirements
 4. **Basic plot template selection is available** (Hero's Journey, Pixar method, Golden Circle)
@@ -390,15 +372,15 @@ so that **I can easily navigate relationships and maintain consistency across st
 ### Story 2.3: Entity Creation and Management
 
 As a **parent building a story universe**,
-I want **to easily create and manage entity files**,
+I want **to easily create and manage entity files using the new command structure**,
 so that **I can build a rich knowledge base for my stories**.
 
 #### Acceptance Criteria
 
-1. **New entity creation** prompts for required information and generates files
-2. **Entity editing** allows modification of existing entity information
-3. **Entity deletion** removes files and updates all references
-4. **Entity search** finds entities by name, type, or content
+1. **New entity creation** via `/edit` command prompts for required information and generates files
+2. **Entity editing** via `/edit character|location|item` allows modification of existing entity information
+3. **Entity deletion** via `/delete character|location|item` removes files and updates all references
+4. **Entity search** via `/search` finds entities by name, type, or content
 5. **Entity listing** shows all entities organized by type and directory
 6. **Entity validation** ensures consistency and completeness
 7. **Entity backup** creates copies before major changes
@@ -465,7 +447,7 @@ so that **my stories can include discovered characters, locations, and items**.
 
 #### Acceptance Criteria
 
-1. **Context generation** queries LightRAG for relevant entities during `/muse` command
+1. **Context generation** queries LightRAG for relevant entities during `/muse create-new` command
 2. **Entity suggestions** are provided based on story context and requirements
 3. **Entity filtering** allows selection of relevant entities from LightRAG results
 4. **Entity integration** incorporates selected entities into local story context
@@ -602,7 +584,7 @@ so that **my story universe stays organized and consistent**.
 
 #### Acceptance Criteria
 
-1. **`/edit check` command** runs comprehensive maintenance checks
+1. **`/edit` command with maintenance prompt** runs comprehensive maintenance checks
 2. **Orphaned file detection** finds files that are no longer referenced
 3. **Unused file detection** identifies files that haven't been used recently
 4. **Entity consistency validation** checks entity information accuracy

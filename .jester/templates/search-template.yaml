@@ -1,0 +1,92 @@
+# Search Template for Search Agent
+# This template is used by the Search agent for query processing and result management
+
+search_id: "{{SEARCH_ID}}"
+search_type: "{{SEARCH_TYPE}}"  # "local", "lightrag", "combined"
+created_at: "{{CREATED_AT}}"
+last_modified: "{{LAST_MODIFIED}}"
+
+# Search query information
+query:
+  original_query: "{{ORIGINAL_QUERY}}"
+  processed_query: "{{PROCESSED_QUERY}}"
+  query_intent: "{{QUERY_INTENT}}"  # "find", "discover", "explore", "locate"
+  query_scope: "{{QUERY_SCOPE}}"  # "characters", "locations", "items", "stories", "all"
+  query_complexity: "{{QUERY_COMPLEXITY}}"  # "simple", "moderate", "complex"
+
+# Search parameters
+parameters:
+  search_methods: ["{{METHOD_1}}", "{{METHOD_2}}"]
+  confidence_threshold: {{CONFIDENCE_THRESHOLD}}  # 0.0-1.0
+  max_results: {{MAX_RESULTS}}
+  include_metadata: {{INCLUDE_METADATA}}  # true/false
+  sort_by: "{{SORT_BY}}"  # "relevance", "date", "name", "type"
+
+# Search execution
+execution:
+  start_time: "{{START_TIME}}"
+  end_time: "{{END_TIME}}"
+  duration: "{{DURATION}}"
+  status: "{{EXECUTION_STATUS}}"  # "running", "completed", "failed", "cancelled"
+  progress: {{PROGRESS_PERCENTAGE}}  # 0-100
+
+# Search sources
+sources:
+  local_files:
+    enabled: {{LOCAL_FILES_ENABLED}}  # true/false
+    directories_searched: ["{{DIR_1}}", "{{DIR_2}}"]
+    file_types: ["{{FILE_TYPE_1}}", "{{FILE_TYPE_2}}"]
+    files_scanned: {{FILES_SCANNED}}
+  lightrag_database:
+    enabled: {{LIGHTRAG_ENABLED}}  # true/false
+    queries_executed: ["{{QUERY_1}}", "{{QUERY_2}}"]
+    entities_found: {{ENTITIES_FOUND}}
+    relationships_found: {{RELATIONSHIPS_FOUND}}
+
+# Search results
+results:
+  total_found: {{TOTAL_FOUND}}
+  exact_matches: {{EXACT_MATCHES}}
+  high_confidence: {{HIGH_CONFIDENCE}}
+  medium_confidence: {{MEDIUM_CONFIDENCE}}
+  low_confidence: {{LOW_CONFIDENCE}}
+  results_by_type:
+    characters: {{CHARACTER_RESULTS}}
+    locations: {{LOCATION_RESULTS}}
+    items: {{ITEM_RESULTS}}
+    stories: {{STORY_RESULTS}}
+
+# Result processing
+processing:
+  relevance_scoring: {{RELEVANCE_SCORING_ENABLED}}  # true/false
+  duplicate_detection: {{DUPLICATE_DETECTION_ENABLED}}  # true/false
+  result_clustering: {{RESULT_CLUSTERING_ENABLED}}  # true/false
+  metadata_extraction: {{METADATA_EXTRACTION_ENABLED}}  # true/false
+
+# Search performance
+performance:
+  query_processing_time: "{{QUERY_PROCESSING_TIME}}"
+  file_scanning_time: "{{FILE_SCANNING_TIME}}"
+  lightrag_query_time: "{{LIGHTRAG_QUERY_TIME}}"
+  result_processing_time: "{{RESULT_PROCESSING_TIME}}"
+  total_time: "{{TOTAL_TIME}}"
+
+# Search metadata
+metadata:
+  search_engine_version: "{{SEARCH_ENGINE_VERSION}}"
+  index_version: "{{INDEX_VERSION}}"
+  cache_hit_rate: {{CACHE_HIT_RATE}}
+  memory_usage: "{{MEMORY_USAGE}}"
+
+# Error handling
+error_handling:
+  errors_encountered: ["{{ERROR_1}}", "{{ERROR_2}}"]
+  warnings: ["{{WARNING_1}}", "{{WARNING_2}}"]
+  fallback_actions: ["{{FALLBACK_1}}", "{{FALLBACK_2}}"]
+
+# Search completion
+completion:
+  success_criteria_met: {{SUCCESS_CRITERIA_MET}}  # true/false
+  user_satisfaction: "{{USER_SATISFACTION}}"  # "high", "medium", "low"
+  follow_up_suggestions: ["{{SUGGESTION_1}}", "{{SUGGESTION_2}}"]
+  next_steps: ["{{STEP_1}}", "{{STEP_2}}"]

@@ -1,75 +1,78 @@
-# Workflow Fix Summary
+# Command Structure Standardization Summary
 
 ## Issue Resolved
-**Bug**: During outline creation (even during draft phase), characters were being incorrectly created in the `/complete` directory, violating the documented three-stage workflow (`draft/` → `ready/` → `complete/`).
+**Problem**: The Jester system had a verbose and non-contextual command structure that didn't provide clear guidance to users. The system was "very wordy but doesn't actually help" and lacked proper context for users.
 
 ## Root Cause
-The **Muse Agent** (`.jester/agents/muse.md`) had contradictory instructions:
-- Line 62: Read from `complete/characters/`, `complete/locations/`, `complete/items/`
-- Line 94: Read from `ready/characters/*.md`, `ready/locations/*.md`, `ready/items/*.md`
-- Line 147: Save new characters to `complete/characters/[character-name].md`
-- Line 177: Save new locations to `complete/locations/[location-name].md`
+The original system used a workflow-based approach with multiple agents that didn't provide clear, hierarchical command structure. Users found it difficult to navigate and understand what commands were available and when to use them.
 
-This caused entities to be created directly in `/complete` during the draft phase, bypassing the proper workflow.
+## Solution Implemented
+**New Hierarchical Command Structure**: Implemented a clean, intuitive command system with 9 main commands and clear sub-commands that provide contextual guidance to users.
 
 ## Changes Made
 
-### 1. Fixed Muse Agent (`.jester/agents/muse.md`)
-- ✅ **Added Critical Workflow Rule**: Only read entities, never create them during context generation
-- ✅ **Fixed Context Generation Process**: Read from both `ready/` and `complete/` directories
-- ✅ **Fixed suggest-characters Command**: Only suggest characters, don't create entity files
-- ✅ **Fixed suggest-settings Command**: Only suggest locations, don't create entity files
-- ✅ **Added Validation Reference**: Links to workflow validation checklist
+### 1. Updated Documentation
+- ✅ **PRD (Product Requirements Document)**: Updated to reflect new command structure
+- ✅ **Architecture Document**: Updated to align with new command hierarchy
+- ✅ **README Files**: Updated main README and framework README
+- ✅ **Import Staging README**: Updated workflow references
 
-### 2. Fixed Entity Agent (`.jester/agents/entity.md`)
-- ✅ **Added Critical Workflow Rule**: Entities MUST be created in `ready/` only during draft phase
-- ✅ **Fixed Entity List Command**: Read from both `ready/` and `complete/` directories
-- ✅ **Added Validation Reference**: Links to workflow validation checklist
+### 2. Created New Agent Files
+- ✅ **jester.md**: Main entry point with init and help commands
+- ✅ **write.md**: Story generation (context, outline, story)
+- ✅ **muse.md**: Brainstorming (create-new, explore-existing, list-elicitations)
+- ✅ **edit.md**: Content editing (character/location/item editing, general editing)
+- ✅ **delete.md**: Entity removal (character/location/item/story deletion)
+- ✅ **approve.md**: Draft approval to ready stage
+- ✅ **publish.md**: Story publishing with entities and patches
+- ✅ **import.md**: Content import from files or directories
+- ✅ **search.md**: Search local files and LightRAG database
 
-### 3. Fixed Write Agent (`.jester/agents/write.md`)
-- ✅ **Added Critical Workflow Rule**: Only read entities, never create them during outline generation
-- ✅ **Added Validation Reference**: Links to workflow validation checklist
+### 3. Updated Prompt Files
+- ✅ **workflow-selection.md**: Updated to reference new command structure
+- ✅ **user-greeting.md**: Updated to use new commands
+- ✅ **project-initialization.md**: Updated workflow guidance
+- ✅ **Created new prompt files**: story-generation.md, metadata-propagation.md, plot-templates.md, brainstorming-techniques.md, search-queries.md
 
-### 4. Created Workflow Validation Checklist (`.jester/checklists/workflow-validation.md`)
-- ✅ **Complete Workflow Rules**: Clear guidelines for all agents
-- ✅ **Validation Checklist**: Step-by-step verification process
-- ✅ **Error Prevention**: Common mistakes and recovery actions
-- ✅ **Success Criteria**: Clear pass/fail conditions
+### 4. Updated Template Files
+- ✅ **workflow-menu.yaml**: Completely restructured to command-based system
+- ✅ **Created new template files**: context-template.yaml, outline-template.md, story-template.md, brainstorming-session.yaml, edit-template.yaml, patch-template.yaml, search-template.yaml, result-template.yaml, import-template.yaml, validation-template.yaml, approval-template.yaml, validation-checklist.yaml, publish-template.yaml, deletion-confirmation.yaml
 
-## Workflow Now Correct
+## New Command Structure
 
-### ✅ CORRECT Workflow
-1. **Draft Phase**: 
-   - `/muse` creates context files in `draft/` (reads entities from `ready/` and `complete/`)
-   - `/write outline` creates outline files in `draft/` (reads entities from `ready/`)
-   - `/entity create` creates entity files in `ready/` only
+### ✅ NEW Command Structure
+1. **Main Entry Point**: 
+   - `/jester` - Main entry point with init and help commands
 
-2. **Ready Phase**: 
-   - `/edit approve-draft` moves files from `draft/` to `ready/`
+2. **Content Generation**: 
+   - `/write` - Story generation (context, outline, story)
+   - `/muse` - Brainstorming (create-new, explore-existing, list-elicitations)
 
-3. **Complete Phase**: 
-   - `/edit publish` moves files from `ready/` to `complete/`
+3. **Content Management**: 
+   - `/edit` - Content editing (character/location/item editing, general editing)
+   - `/delete` - Entity removal (character/location/item/story deletion)
+   - `/search` - Search local files and LightRAG database
 
-### ❌ INCORRECT Workflow (Now Prevented)
-1. **NEVER create entities directly in `complete/` during draft phase**
-2. **NEVER create entities during outline generation**
-3. **NEVER create entities during context generation**
+4. **Workflow Management**: 
+   - `/approve` - Draft approval to ready stage
+   - `/publish` - Story publishing with entities and patches
+   - `/import` - Content import from files or directories
 
-## Testing
-- ✅ Created test workflow script (`test-workflow-fix.md`)
-- ✅ All agent files updated with validation references
-- ✅ Workflow validation checklist created
+### ✅ Benefits of New Structure
+1. **Clear Hierarchy**: Commands are organized logically with clear purposes
+2. **Contextual Guidance**: Each command provides specific, actionable guidance
+3. **Reduced Verbosity**: System is concise and focused on user needs
+4. **Better Navigation**: Users can easily find and use the right commands
 
 ## Files Modified
-- `.jester/agents/muse.md` - Fixed entity creation during context generation
-- `.jester/agents/entity.md` - Fixed entity list command and added workflow rules
-- `.jester/agents/write.md` - Added workflow rules for outline generation
-- `.jester/checklists/workflow-validation.md` - Created validation checklist
-- `test-workflow-fix.md` - Created test script
-- `WORKFLOW-FIX-SUMMARY.md` - This summary document
+- **Documentation**: `docs/prd.md`, `docs/architecture.md`, `README.md`, `jester-story-framework/README.md`, `import-staging/README.md`
+- **Agent Files**: All 9 new agent files in `.jester/agents/`
+- **Prompt Files**: Updated existing prompts and created new ones
+- **Template Files**: Updated workflow-menu.yaml and created 15 new template files
+- **System Files**: Updated various README and summary files
 
 ## Next Steps
-1. Test the corrected workflow with a new story creation cycle
-2. Verify no entities are created in `/complete` during draft phase
-3. Confirm proper three-stage workflow is maintained
-4. Document any additional issues found during testing
+1. Test the new command structure with users
+2. Verify all commands work as expected
+3. Gather feedback on the new hierarchical structure
+4. Make any necessary refinements based on user experience

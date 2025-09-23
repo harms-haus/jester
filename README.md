@@ -6,11 +6,23 @@ An AI-powered bedtime story creation system that transforms unstructured storyte
 
 ## Overview
 
-jester adapts BMAD principles to create personalized bedtime stories through a three-stage process:
+jester adapts BMAD principles to create personalized bedtime stories through a hierarchical command structure:
 
-1. **Context Gathering** (`/muse`) - Interactive agent for story ideation and entity discovery
-2. **Outline Development** (`/write outline`) - Structured plot development
-3. **Story Generation** (`/write story`) - Final story creation
+### Core Commands
+- **`/jester`** - Main entry point (init, help)
+- **`/write`** - Story generation (context, outline, story)
+- **`/muse`** - Brainstorming (create-new, explore-existing, list-elicitations)
+- **`/edit`** - Content editing (character/location/item editing, general editing)
+- **`/delete`** - Entity removal (character/location/item/story deletion)
+- **`/approve`** - Draft approval to ready stage
+- **`/publish`** - Story publishing with entities and patches
+- **`/import`** - Content import from files or directories
+- **`/search`** - Search local files and LightRAG database
+
+### Three-Stage Workflow
+1. **Context** (YAML) - Gather story ideas, characters, settings
+2. **Outline** (Markdown) - Structure the plot and story flow
+3. **Story** (Markdown) - Generate the final bedtime story
 
 ## Architecture
 
@@ -57,18 +69,25 @@ jester uses a **pure prompt-based architecture** where external LLM agents follo
 ### How to Use
 
 1. **Access Agent Instructions**: Read the prompt files in `.jester/agents/`
-   - `/muse` - `.jester/agents/muse.md`
-   - `/write` - `.jester/agents/write.md`
-   - `/edit` - `.jester/agents/edit.md`
-   - `/entity` - `.jester/agents/entity.md`
+   - `/jester` - `.jester/agents/jester.md` (main entry point)
+   - `/write` - `.jester/agents/write.md` (story generation)
+   - `/muse` - `.jester/agents/muse.md` (brainstorming)
+   - `/edit` - `.jester/agents/edit.md` (content editing)
+   - `/delete` - `.jester/agents/delete.md` (entity removal)
+   - `/approve` - `.jester/agents/approve.md` (draft approval)
+   - `/publish` - `.jester/agents/publish.md` (story publishing)
+   - `/import` - `.jester/agents/import.md` (content import)
+   - `/search` - `.jester/agents/search.md` (knowledge search)
 
 2. **Provide to External LLM**: Copy the agent instructions and provide them to any LLM capable of following prompt rules and performing file operations
 
-3. **Follow the Workflow**: 
-   - Use `/muse` to generate story context
+3. **Follow the Command Structure**: 
+   - Use `/jester help` for guidance and project setup
+   - Use `/muse create-new` to generate story context
    - Use `/write outline` to create story outlines
    - Use `/write story` to generate final stories
    - Use `/edit` to modify content as needed
+   - Use `/approve` and `/publish` for workflow management
 
 ### LightRAG Integration
 
@@ -120,36 +139,72 @@ See `docs/` for complete project documentation:
 
 ### Basic Commands
 
-- **`/muse`** - Start context gathering and story ideation
-  - Interactive prompts for story ideas, characters, and themes
-  - Generates YAML context files in `contexts/` directory
+- **`/jester`** - Main entry point and project management
+  - `init` - Initialize git repo if installed
+  - `help` - Describe how jester works, answer questions
 
-- **`/write outline`** - Generate story outline from context
-  - Reads context files and creates structured outlines
-  - Generates Markdown outline files in `outlines/` directory
+- **`/write`** - Story generation and content creation
+  - `context` - Write out the context
+  - `outline` - Write out the outline
+  - `story` - Write out the story
 
-- **`/write story`** - Create final story from outline
-  - Transforms outlines into complete bedtime stories
-  - Generates Markdown story files in `stories/` directory
+- **`/muse`** - Brainstorming and creative exploration
+  - `create-new` - Start new brainstorming session
+  - `explore-existing` - Explore existing draft for details
+  - `list-elicitations` - List brainstorming techniques
 
 - **`/edit`** - Cross-stage editing capabilities
-  - Edit contexts, outlines, or stories directly
-  - Maintains file integrity and consistency
+  - `character [name]` - Edit a character by name
+  - `location [name]` - Edit a location by name
+  - `item [name]` - Edit an item by name
+  - General editing for stories, outlines, contexts
+
+- **`/delete`** - Entity removal from universe
+  - `character [name]` - Delete a character by name
+  - `location [name]` - Delete a location by name
+  - `item [name]` - Delete an item by name
+  - `story [name]` - Delete a story by name
+
+- **`/approve`** - Draft approval to ready stage
+  - `approve [draft]` - Approve a draft to ready stage
+
+- **`/publish`** - Story publishing with entities and patches
+  - `publish [story]` - Publish a ready story
+
+- **`/import`** - Content import from files or directories
+  - `import [file]` - Import from specific file
+  - `import directory [path]` - Import from directory
+
+- **`/search`** - Search local files and LightRAG database
+  - `search [query]` - Search with natural language
 
 ### Command Examples
 
 ```bash
+# Get help and project setup
+/jester help
+/jester init
+
 # Generate a new story context
-/muse
+/muse create-new
 
 # Create outline from existing context
-/write outline my-story-context.yaml
+/write outline
 
 # Generate story from outline
-/write story my-story-outline.md
+/write story
 
 # Edit existing content
-/edit contexts/my-story-context.yaml
+/edit character Stella Stoat
+/edit location Whispering Woods
+/edit story-001.md
+
+# Search for information
+/search "characters in the forest"
+
+# Approve and publish
+/approve story-001
+/publish story-001
 ```
 
 ## Development

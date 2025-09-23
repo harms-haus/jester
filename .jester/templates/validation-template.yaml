@@ -1,0 +1,99 @@
+# Validation Template for Import Agent
+# This template is used by the Import agent for content validation
+
+validation_id: "{{VALIDATION_ID}}"
+validation_type: "{{VALIDATION_TYPE}}"  # "pre_import", "post_import", "content", "entity"
+created_at: "{{CREATED_AT}}"
+last_modified: "{{LAST_MODIFIED}}"
+completed_at: "{{COMPLETED_AT}}"
+
+# Validation target
+target:
+  content_type: "{{CONTENT_TYPE}}"  # "character", "location", "item", "story"
+  content_name: "{{CONTENT_NAME}}"
+  file_path: "{{FILE_PATH}}"
+  universe: "{{UNIVERSE}}"  # "draft", "ready", "complete"
+  version: "{{VERSION}}"
+
+# Validation configuration
+configuration:
+  validation_rules: ["{{RULE_1}}", "{{RULE_2}}", "{{RULE_3}}"]
+  strict_mode: {{STRICT_MODE}}  # true/false
+  auto_fix: {{AUTO_FIX}}  # true/false
+  validation_level: "{{VALIDATION_LEVEL}}"  # "basic", "standard", "comprehensive"
+
+# Validation checks
+checks:
+  structure_validation:
+    - check: "{{CHECK_NAME}}"
+      status: "{{CHECK_STATUS}}"  # "pass", "fail", "warning", "info"
+      message: "{{CHECK_MESSAGE}}"
+      severity: "{{SEVERITY}}"  # "critical", "high", "medium", "low"
+      auto_fixable: {{AUTO_FIXABLE}}  # true/false
+  content_validation:
+    - check: "{{CHECK_NAME}}"
+      status: "{{CHECK_STATUS}}"
+      message: "{{CHECK_MESSAGE}}"
+      severity: "{{SEVERITY}}"
+      auto_fixable: {{AUTO_FIXABLE}}
+  format_validation:
+    - check: "{{CHECK_NAME}}"
+      status: "{{CHECK_STATUS}}"
+      message: "{{CHECK_MESSAGE}}"
+      severity: "{{SEVERITY}}"
+      auto_fixable: {{AUTO_FIXABLE}}
+  relationship_validation:
+    - check: "{{CHECK_NAME}}"
+      status: "{{CHECK_STATUS}}"
+      message: "{{CHECK_MESSAGE}}"
+      severity: "{{SEVERITY}}"
+      auto_fixable: {{AUTO_FIXABLE}}
+
+# Validation results
+results:
+  overall_status: "{{OVERALL_STATUS}}"  # "pass", "fail", "warning", "info"
+  total_checks: {{TOTAL_CHECKS}}
+  passed_checks: {{PASSED_CHECKS}}
+  failed_checks: {{FAILED_CHECKS}}
+  warning_checks: {{WARNING_CHECKS}}
+  info_checks: {{INFO_CHECKS}}
+  pass_rate: {{PASS_RATE}}  # 0.0-1.0
+
+# Validation issues
+issues:
+  critical_issues: ["{{ISSUE_1}}", "{{ISSUE_2}}"]
+  high_priority_issues: ["{{ISSUE_1}}", "{{ISSUE_2}}"]
+  medium_priority_issues: ["{{ISSUE_1}}", "{{ISSUE_2}}"]
+  low_priority_issues: ["{{ISSUE_1}}", "{{ISSUE_2}}"]
+  auto_fixable_issues: ["{{ISSUE_1}}", "{{ISSUE_2}}"]
+  manual_fix_required: ["{{ISSUE_1}}", "{{ISSUE_2}}"]
+
+# Validation recommendations
+recommendations:
+  immediate_actions: ["{{ACTION_1}}", "{{ACTION_2}}"]
+  improvements: ["{{IMPROVEMENT_1}}", "{{IMPROVEMENT_2}}"]
+  best_practices: ["{{PRACTICE_1}}", "{{PRACTICE_2}}"]
+  follow_up_checks: ["{{CHECK_1}}", "{{CHECK_2}}"]
+
+# Validation performance
+performance:
+  start_time: "{{START_TIME}}"
+  end_time: "{{END_TIME}}"
+  duration: "{{DURATION}}"
+  checks_per_second: {{CHECKS_PER_SECOND}}
+  memory_usage: "{{MEMORY_USAGE}}"
+  cpu_usage: "{{CPU_USAGE}}"
+
+# Validation metadata
+metadata:
+  validation_engine_version: "{{VALIDATION_ENGINE_VERSION}}"
+  rules_version: "{{RULES_VERSION}}"
+  template_version: "{{TEMPLATE_VERSION}}"
+  validation_mode: "{{VALIDATION_MODE}}"
+
+# Validation completion
+completion:
+  validation_successful: {{VALIDATION_SUCCESSFUL}}  # true/false
+  content_ready: {{CONTENT_READY}}  # true/false
+  requires_manual_review: {{REQUIRES_MANUAL_REVIEW}}  # true/false
+  next_steps: ["{{STEP_1}}", "{{STEP_2}}"]

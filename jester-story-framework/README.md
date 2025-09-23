@@ -2,7 +2,7 @@
 
 🎭 **CLI tool to initialize Jester story framework in your project**
 
-Jester is an AI-powered bedtime story creation system that helps parents create consistent, personalized stories through a structured three-stage workflow. This CLI tool sets up the Jester framework in your project directory.
+Jester is an AI-powered bedtime story creation system that helps parents create consistent, personalized stories through a hierarchical command structure. This CLI tool sets up the Jester framework in your project directory.
 
 ## Installation
 
@@ -47,10 +47,12 @@ The tool creates the following structure in your project:
 
 1. **Use @jester in your IDE** (Cursor, VS Code) to access the story creation workflow
 2. **The @jester agent will detect** if you have existing content and suggest importing it
-3. **Start creating stories** using the three-stage workflow:
-   - Context gathering (`/muse`)
-   - Outline generation (`/write outline`)
-   - Story creation (`/write story`)
+3. **Start creating stories** using the command structure:
+   - Use `/jester help` for guidance and project setup
+   - Use `/muse create-new` for context gathering
+   - Use `/write outline` for outline generation
+   - Use `/write story` for story creation
+   - Use `/edit`, `/delete`, `/approve`, `/publish` for content management
 
 ## Requirements
 

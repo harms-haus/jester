@@ -52,8 +52,8 @@
 
 **Next Steps:**
 1. Review and edit your context file
-2. Run `/write outline` when ready to create the story structure
-3. Run `/write story` when ready to generate the final story"
+2. Use `/write outline` when ready to create the story structure
+3. Use `/write story` when ready to generate the final story"
 
 ## Draft Continuation
 
@@ -86,17 +86,17 @@
 "Based on your current progress, here are your next steps:
 
 **If you have context but no outline:**
-- Run `/write outline` to create the story structure
-- Edit the context file if you want to make changes first
+- Use `/write outline` to create the story structure
+- Use `/edit` to edit the context file if you want to make changes first
 
 **If you have outline but no story:**
-- Run `/write story` to generate the final bedtime story
-- Edit the outline if you want to adjust the plot first
+- Use `/write story` to generate the final bedtime story
+- Use `/edit` to edit the outline if you want to adjust the plot first
 
 **If you have a complete story:**
 - Review the story for any final edits
-- Run `/edit approve-draft {draft_number}` to move to ready stage
-- Or continue editing if you want to make changes"
+- Use `/approve` to move to ready stage
+- Use `/edit` to continue editing if you want to make changes"
 
 ## Universe Management
 
@@ -108,32 +108,32 @@
 **Drafts in Progress**: {draft_count}
 
 **What would you like to manage?**
-- **Stories**: Edit, organize, or publish stories
-- **Characters**: Manage character files and relationships
-- **Locations**: Update location descriptions and connections
-- **Items**: Organize item files and properties
-- **Links**: Check and fix broken links between entities"
+- **Stories**: Use `/edit` to edit, `/publish` to publish stories
+- **Characters**: Use `/edit character` to manage character files and relationships
+- **Locations**: Use `/edit location` to update location descriptions and connections
+- **Items**: Use `/edit item` to organize item files and properties
+- **Search**: Use `/search` to find and organize content"
 
 ### Universe Maintenance
 "Here are some maintenance tasks I can help you with:
 
 **Content Management:**
-- Edit published stories and entities
-- Update character relationships
-- Fix broken links between files
-- Organize your story library
+- Use `/edit` to edit published stories and entities
+- Use `/edit character|location|item` to update relationships
+- Use `/search` to find and organize content
+- Use `/delete` to remove unwanted content
 
 **Quality Assurance:**
-- Validate story consistency
-- Check entity file integrity
-- Review link relationships
-- Ensure proper formatting
+- Use `/search` to validate story consistency
+- Use `/edit` to check entity file integrity
+- Use `/approve` and `/publish` for workflow management
+- Use `/search` to review relationships
 
 **Organization:**
-- Categorize stories by theme or character
-- Create story collections
-- Tag content for easy searching
-- Archive old or unused content"
+- Use `/search` to categorize stories by theme or character
+- Use `/import` to add new content
+- Use `/search` to find content easily
+- Use `/delete` to archive old or unused content"
 
 ## Error Handling
 

@@ -2,25 +2,26 @@
 
 ## Executive Summary
 
-This document outlines the technical architecture for **jester**, a prompt-based bedtime story generation system that adapts BMAD principles for interactive storytelling. The system uses a 3-stage workflow (context → outline → story) with specialized agents, LightRAG integration for entity management, and local file-based storage with wiki-style linking.
+This document outlines the technical architecture for **jester**, a prompt-based bedtime story generation system that adapts BMAD principles for interactive storytelling. The system uses a hierarchical command structure with a 3-stage workflow (context → outline → story), specialized agents for different functions, LightRAG integration for entity management, and local file-based storage with wiki-style linking.
 
 ## High-Level Architecture
 
 ### System Overview
 
-**Architecture Pattern**: Agent-based file pipeline with external knowledge graph integration  
-**Primary Interface**: Command-line interface with slash commands  
-**Data Flow**: Unidirectional pipeline (context → outline → story) with cross-stage editing  
+**Architecture Pattern**: Hierarchical agent-based file pipeline with external knowledge graph integration  
+**Primary Interface**: Command-line interface with organized slash commands  
+**Data Flow**: Unidirectional pipeline (context → outline → story) with cross-stage editing and workflow management  
 **Storage Strategy**: Local-first with LightRAG knowledge graph integration  
 
 ### Core Principles
 
-1. **Prompt-Based Agents**: All agent behavior defined through structured prompt rules that external LLM agents follow
-2. **File-Based Pipeline**: LLM agents communicate through structured files (YAML, Markdown) as instructed by prompt rules
-3. **User-in-the-Loop**: Human editing at each stage for quality control
-4. **Local-First**: All user content stored locally with optional cloud sync
-5. **Knowledge Graph Integration**: LightRAG provides entity relationships and discovery via MCP client
-6. **Prompt Engineering**: Development produces markdown prompt rule files, not executable code
+1. **Hierarchical Command Structure**: Clear, organized command hierarchy that provides contextual guidance and reduces cognitive load
+2. **Prompt-Based Agents**: All agent behavior defined through structured prompt rules that external LLM agents follow
+3. **File-Based Pipeline**: LLM agents communicate through structured files (YAML, Markdown) as instructed by prompt rules
+4. **User-in-the-Loop**: Human editing at each stage for quality control
+5. **Local-First**: All user content stored locally with optional cloud sync
+6. **Knowledge Graph Integration**: LightRAG provides entity relationships and discovery via MCP client
+7. **Prompt Engineering**: Development produces markdown prompt rule files, not executable code
 
 ### Validation Framework
 
@@ -401,13 +402,18 @@ class LightRAGClientImpl implements LightRAGClient {
 ### Core Components
 
 **1. Agent System**
-- **Purpose**: Orchestrates the 3-stage story generation workflow through prompt rules
+- **Purpose**: Orchestrates the hierarchical command workflow through prompt rules
 - **Technology**: Markdown prompt rule files following BMAD pattern
 - **Key Agents**:
-  - `/muse` (Story Context Agent): Prompt rules for context gathering and entity discovery (Analyst role)
-  - `/write` (Story Generation Agent): Prompt rules for outline and story generation (Dev role)
-  - `/edit` (Cross-Stage Editor): Prompt rules for content modification and maintenance (QA role)
-  - `/import` (Content Import Agent): Prompt rules for importing and staging content
+  - `/jester` (Main Entry Point): Core functionalities, initialization, help, and project management
+  - `/write` (Story Generation Agent): Context, outline, and story generation (Dev role)
+  - `/muse` (Brainstorming Agent): Context gathering, entity discovery, and creative exploration (Analyst role)
+  - `/edit` (Cross-Stage Editor): Content modification, entity editing, and maintenance (QA role)
+  - `/delete` (Entity Management Agent): Entity and story removal with confirmation workflows
+  - `/approve` (Workflow Management Agent): Draft approval and progression to ready stage
+  - `/publish` (Publishing Agent): Story publishing with entity patches and cleanup
+  - `/import` (Content Import Agent): Entity and story import from files or directories
+  - `/search` (Search Agent): Local file and LightRAG database search capabilities
 - **Communication**: LLM agents follow prompt rules to use file-based pipeline (YAML → Markdown → Markdown)
 - **Dependencies**: LightRAG MCP client, external LLM capable of file operations
 
@@ -488,8 +494,8 @@ class LightRAGClientImpl implements LightRAGClient {
 ### Component Interactions
 
 **Data Flow**:
-1. User initiates `/muse` command
-2. External LLM follows Muse prompt rules to query LightRAG via TypeScript MCP client for entities
+1. User initiates `/jester` command for project management or `/muse create-new` for story creation
+2. External LLM follows appropriate prompt rules to query LightRAG via TypeScript MCP client for entities
 3. LLM generates context file and saves to `contexts/` per prompt instructions
 4. User edits context file
 5. User runs `/write outline`
@@ -498,10 +504,12 @@ class LightRAGClientImpl implements LightRAGClient {
 8. User runs `/write story`
 9. External LLM follows Write prompt rules to read outline, generate story
 10. LLM saves story to `stories/` per prompt instructions
-11. User runs `/edit` commands as needed
-12. **For Import Management**: User runs `/import` commands via @jester to import content to import-staging/
-13. **For Import Publishing**: User runs `/publish import-staging` via @jester to move validated content to complete/
-14. External LLM follows appropriate prompt rules to track changes via Git
+11. User runs `/edit` commands for content modification or `/delete` commands for entity removal
+12. User runs `/approve` to move draft to ready stage
+13. User runs `/publish` to publish ready story with entities and patches
+14. **For Import Management**: User runs `/import` commands to import content to import-staging/
+15. **For Search**: User runs `/search` commands to query local files and LightRAG database
+16. External LLM follows appropriate prompt rules to track changes via Git
 
 **Error Handling**:
 - LightRAG connection failures → Prompt rules instruct LLM to use offline mode with cached data
@@ -513,10 +521,10 @@ class LightRAGClientImpl implements LightRAGClient {
 
 ### Agent-Based Architecture
 
-**Pattern**: Specialized prompt rules for different LLM agent roles  
-**Benefits**: Clear separation of concerns, easy to extend and modify  
-**Implementation**: Markdown prompt rule files (BMAD pattern) with file-based communication  
-**Trade-offs**: Requires careful prompt engineering, relies on LLM compliance  
+**Pattern**: Hierarchical command structure with specialized prompt rules for different LLM agent roles  
+**Benefits**: Clear separation of concerns, contextual guidance, easy to extend and modify  
+**Implementation**: Markdown prompt rule files (BMAD pattern) with file-based communication and command routing  
+**Trade-offs**: Requires careful prompt engineering, relies on LLM compliance, command hierarchy complexity  
 
 ### File-Based Pipeline
 
@@ -633,8 +641,8 @@ class LightRAGClientImpl implements LightRAGClient {
 
 ## Conclusion
 
-The jester architecture provides a robust, local-first solution for interactive bedtime story generation. By combining markdown prompt rule files (BMAD pattern) with LightRAG knowledge graph integration and local file storage, the system offers flexibility, privacy, and extensibility while maintaining simplicity and user control.
+The jester architecture provides a robust, local-first solution for interactive bedtime story generation. By combining a hierarchical command structure with markdown prompt rule files (BMAD pattern), LightRAG knowledge graph integration, and local file storage, the system offers flexibility, privacy, and extensibility while maintaining simplicity and user control.
 
-The file-based pipeline ensures human-readable intermediate results and easy debugging, while the specialized prompt rules provide clear separation of concerns for external LLM agents. The LightRAG integration enables rich entity discovery and relationship mapping, while local storage ensures complete privacy and control over personal content.
+The hierarchical command structure provides clear, contextual guidance that reduces cognitive load and improves user experience. The file-based pipeline ensures human-readable intermediate results and easy debugging, while the specialized prompt rules provide clear separation of concerns for external LLM agents. The LightRAG integration enables rich entity discovery and relationship mapping, while local storage ensures complete privacy and control over personal content.
 
-This architecture supports the core requirements of interactive story generation, entity management, and long-term growth with children, while providing a foundation for future enhancements and integrations. The prompt-based approach allows for easy modification and extension without requiring code changes, making it accessible to non-programmers while maintaining the structured approach of BMAD principles.
+This architecture supports the core requirements of interactive story generation, entity management, and long-term growth with children, while providing a foundation for future enhancements and integrations. The prompt-based approach with hierarchical commands allows for easy modification and extension without requiring code changes, making it accessible to non-programmers while maintaining the structured approach of BMAD principles.

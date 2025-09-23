@@ -1,0 +1,105 @@
+# Deletion Confirmation Template for Delete Agent
+# This template is used by the Delete agent for deletion confirmation operations
+
+deletion_id: "{{DELETION_ID}}"
+deletion_type: "{{DELETION_TYPE}}"  # "entity", "story", "batch"
+created_at: "{{CREATED_AT}}"
+last_modified: "{{LAST_MODIFIED}}"
+deleted_at: "{{DELETED_AT}}"
+
+# Deletion target
+target:
+  entity_type: "{{ENTITY_TYPE}}"  # "character", "location", "item", "story"
+  entity_name: "{{ENTITY_NAME}}"
+  file_path: "{{FILE_PATH}}"
+  universe: "{{UNIVERSE}}"  # "draft", "ready", "complete"
+  version: "{{VERSION}}"
+
+# Deletion configuration
+configuration:
+  require_confirmation: {{REQUIRE_CONFIRMATION}}  # true/false
+  double_confirm: {{DOUBLE_CONFIRM}}  # true/false
+  backup_before_delete: {{BACKUP_BEFORE_DELETE}}  # true/false
+  cleanup_references: {{CLEANUP_REFERENCES}}  # true/false
+  validate_deletion: {{VALIDATE_DELETION}}  # true/false
+
+# Deletion confirmation
+confirmation:
+  confirmation_required: {{CONFIRMATION_REQUIRED}}  # true/false
+  confirmation_status: "{{CONFIRMATION_STATUS}}"  # "pending", "confirmed", "rejected", "cancelled"
+  confirmation_message: "{{CONFIRMATION_MESSAGE}}"
+  confirmation_timestamp: "{{CONFIRMATION_TIMESTAMP}}"
+  confirmed_by: "{{CONFIRMED_BY}}"
+
+# Deletion impact analysis
+impact_analysis:
+  affected_files: ["{{FILE_1}}", "{{FILE_2}}"]
+  affected_entities: ["{{ENTITY_1}}", "{{ENTITY_2}}"]
+  affected_stories: ["{{STORY_1}}", "{{STORY_2}}"]
+  broken_links: ["{{LINK_1}}", "{{LINK_2}}"]
+  impact_severity: "{{IMPACT_SEVERITY}}"  # "low", "medium", "high", "critical"
+
+# Deletion validation
+validation:
+  pre_deletion_checks:
+    - check: "{{CHECK_NAME}}"
+      status: "{{CHECK_STATUS}}"  # "pass", "fail", "warning", "info"
+      message: "{{CHECK_MESSAGE}}"
+      severity: "{{SEVERITY}}"  # "critical", "high", "medium", "low"
+      auto_fixable: {{AUTO_FIXABLE}}  # true/false
+  reference_checks:
+    - check: "{{CHECK_NAME}}"
+      status: "{{CHECK_STATUS}}"
+      message: "{{CHECK_MESSAGE}}"
+      severity: "{{SEVERITY}}"
+      auto_fixable: {{AUTO_FIXABLE}}
+  safety_checks:
+    - check: "{{CHECK_NAME}}"
+      status: "{{CHECK_STATUS}}"
+      message: "{{CHECK_MESSAGE}}"
+      severity: "{{SEVERITY}}"
+      auto_fixable: {{AUTO_FIXABLE}}
+
+# Deletion results
+results:
+  overall_status: "{{OVERALL_STATUS}}"  # "deleted", "failed", "partial", "cancelled"
+  total_files: {{TOTAL_FILES}}
+  deleted_files: {{DELETED_FILES}}
+  failed_deletions: {{FAILED_DELETIONS}}
+  references_cleaned: {{REFERENCES_CLEANED}}
+  success_rate: {{SUCCESS_RATE}}  # 0.0-1.0
+
+# Deletion issues
+issues:
+  critical_issues: ["{{ISSUE_1}}", "{{ISSUE_2}}"]
+  high_priority_issues: ["{{ISSUE_1}}", "{{ISSUE_2}}"
+  medium_priority_issues: ["{{ISSUE_1}}", "{{ISSUE_2}}"]
+  low_priority_issues: ["{{ISSUE_1}}", "{{ISSUE_2}}"]
+  auto_fixable_issues: ["{{ISSUE_1}}", "{{ISSUE_2}}"]
+  manual_fix_required: ["{{ISSUE_1}}", "{{ISSUE_2}}"]
+
+# Deletion performance
+performance:
+  start_time: "{{START_TIME}}"
+  end_time: "{{END_TIME}}"
+  duration: "{{DURATION}}"
+  validation_time: "{{VALIDATION_TIME}}"
+  deletion_time: "{{DELETION_TIME}}"
+  cleanup_time: "{{CLEANUP_TIME}}"
+
+# Deletion metadata
+metadata:
+  deleter: "{{DELETER}}"
+  deletion_reason: "{{DELETION_REASON}}"
+  deletion_notes: "{{DELETION_NOTES}}"
+  backup_created: {{BACKUP_CREATED}}  # true/false
+  backup_path: "{{BACKUP_PATH}}"
+
+# Deletion completion
+completion:
+  deletion_successful: {{DELETION_SUCCESSFUL}}  # true/false
+  content_deleted: {{CONTENT_DELETED}}  # true/false
+  references_cleaned: {{REFERENCES_CLEANED}}  # true/false
+  system_consistent: {{SYSTEM_CONSISTENT}}  # true/false
+  follow_up_required: {{FOLLOW_UP_REQUIRED}}  # true/false
+  next_steps: ["{{STEP_1}}", "{{STEP_2}}"]

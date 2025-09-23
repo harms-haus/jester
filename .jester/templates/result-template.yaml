@@ -1,0 +1,101 @@
+# Result Template for Search Agent
+# This template is used by the Search agent for presenting search results
+
+result_id: "{{RESULT_ID}}"
+search_id: "{{SEARCH_ID}}"
+result_type: "{{RESULT_TYPE}}"  # "character", "location", "item", "story", "mixed"
+created_at: "{{CREATED_AT}}"
+last_modified: "{{LAST_MODIFIED}}"
+
+# Result metadata
+metadata:
+  confidence_score: {{CONFIDENCE_SCORE}}  # 0.0-1.0
+  relevance_score: {{RELEVANCE_SCORE}}  # 0.0-1.0
+  match_type: "{{MATCH_TYPE}}"  # "exact", "fuzzy", "semantic", "contextual"
+  source: "{{SOURCE}}"  # "local", "lightrag", "combined"
+  ranking_position: {{RANKING_POSITION}}
+
+# Result content
+content:
+  name: "{{RESULT_NAME}}"
+  title: "{{RESULT_TITLE}}"
+  description: "{{RESULT_DESCRIPTION}}"
+  summary: "{{RESULT_SUMMARY}}"
+  key_points: ["{{POINT_1}}", "{{POINT_2}}", "{{POINT_3}}"]
+  tags: ["{{TAG_1}}", "{{TAG_2}}", "{{TAG_3}}"]
+
+# Result location and access
+location:
+  file_path: "{{FILE_PATH}}"
+  directory: "{{DIRECTORY}}"
+  universe: "{{UNIVERSE}}"  # "draft", "ready", "complete"
+  file_type: "{{FILE_TYPE}}"
+  file_size: "{{FILE_SIZE}}"
+  last_modified: "{{FILE_LAST_MODIFIED}}"
+
+# Result relationships
+relationships:
+  related_entities: ["{{ENTITY_1}}", "{{ENTITY_2}}"]
+  related_stories: ["{{STORY_1}}", "{{STORY_2}}"]
+  related_locations: ["{{LOCATION_1}}", "{{LOCATION_2}}"]
+  related_items: ["{{ITEM_1}}", "{{ITEM_2}}"]
+
+# Result context
+context:
+  story_appearances: ["{{STORY_1}}", "{{STORY_2}}"]
+  creation_date: "{{CREATION_DATE}}"
+  last_modified: "{{LAST_MODIFIED}}"
+  version: "{{VERSION}}"
+  author: "{{AUTHOR}}"
+
+# Result presentation
+presentation:
+  display_title: "{{DISPLAY_TITLE}}"
+  display_description: "{{DISPLAY_DESCRIPTION}}"
+  thumbnail: "{{THUMBNAIL_PATH}}"
+  preview_text: "{{PREVIEW_TEXT}}"
+  action_buttons: ["{{BUTTON_1}}", "{{BUTTON_2}}"]
+
+# Result actions
+actions:
+  view: "{{VIEW_ACTION}}"
+  edit: "{{EDIT_ACTION}}"
+  delete: "{{DELETE_ACTION}}"
+  share: "{{SHARE_ACTION}}"
+  export: "{{EXPORT_ACTION}}"
+
+# Result quality
+quality:
+  completeness_score: {{COMPLETENESS_SCORE}}  # 0.0-1.0
+  accuracy_score: {{ACCURACY_SCORE}}  # 0.0-1.0
+  consistency_score: {{CONSISTENCY_SCORE}}  # 0.0-1.0
+  freshness_score: {{FRESHNESS_SCORE}}  # 0.0-1.0
+
+# Result validation
+validation:
+  is_valid: {{IS_VALID}}  # true/false
+  validation_errors: ["{{ERROR_1}}", "{{ERROR_2}}"]
+  validation_warnings: ["{{WARNING_1}}", "{{WARNING_2}}"]
+  last_validated: "{{LAST_VALIDATED}}"
+
+# Result usage
+usage:
+  view_count: {{VIEW_COUNT}}
+  last_viewed: "{{LAST_VIEWED}}"
+  edit_count: {{EDIT_COUNT}}
+  last_edited: "{{LAST_EDITED}}"
+  share_count: {{SHARE_COUNT}}
+
+# Result feedback
+feedback:
+  user_rating: {{USER_RATING}}  # 1-5
+  user_comments: ["{{COMMENT_1}}", "{{COMMENT_2}}"]
+  helpful_votes: {{HELPFUL_VOTES}}
+  not_helpful_votes: {{NOT_HELPFUL_VOTES}}
+
+# Result metadata
+metadata:
+  result_engine: "{{RESULT_ENGINE}}"
+  processing_time: "{{PROCESSING_TIME}}"
+  cache_status: "{{CACHE_STATUS}}"
+  index_version: "{{INDEX_VERSION}}"

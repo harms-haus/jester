@@ -1,0 +1,116 @@
+# Import Template for Import Agent
+# This template is used by the Import agent for content import operations
+
+import_id: "{{IMPORT_ID}}"
+import_type: "{{IMPORT_TYPE}}"  # "file", "directory", "batch"
+created_at: "{{CREATED_AT}}"
+last_modified: "{{LAST_MODIFIED}}"
+completed_at: "{{COMPLETED_AT}}"
+
+# Import source information
+source:
+  path: "{{SOURCE_PATH}}"
+  type: "{{SOURCE_TYPE}}"  # "file", "directory"
+  size: "{{SOURCE_SIZE}}"
+  file_count: {{FILE_COUNT}}
+  last_modified: "{{SOURCE_LAST_MODIFIED}}"
+
+# Import target information
+target:
+  staging_directory: "{{STAGING_DIRECTORY}}"
+  final_directory: "{{FINAL_DIRECTORY}}"
+  universe: "{{TARGET_UNIVERSE}}"  # "draft", "ready", "complete"
+  backup_created: {{BACKUP_CREATED}}  # true/false
+
+# Import configuration
+configuration:
+  content_types: ["{{TYPE_1}}", "{{TYPE_2}}"]
+  entity_types: ["{{ENTITY_TYPE_1}}", "{{ENTITY_TYPE_2}}"]
+  validation_enabled: {{VALIDATION_ENABLED}}  # true/false
+  conflict_resolution: "{{CONFLICT_RESOLUTION}}"  # "skip", "overwrite", "rename", "merge"
+  auto_format: {{AUTO_FORMAT}}  # true/false
+
+# Import processing
+processing:
+  status: "{{PROCESSING_STATUS}}"  # "pending", "running", "completed", "failed"
+  progress: {{PROGRESS_PERCENTAGE}}  # 0-100
+  files_processed: {{FILES_PROCESSED}}
+  files_remaining: {{FILES_REMAINING}}
+  current_file: "{{CURRENT_FILE}}"
+
+# Import results
+results:
+  total_files: {{TOTAL_FILES}}
+  successful_imports: {{SUCCESSFUL_IMPORTS}}
+  failed_imports: {{FAILED_IMPORTS}}
+  skipped_files: {{SKIPPED_FILES}}
+  success_rate: {{SUCCESS_RATE}}  # 0.0-1.0
+
+# Imported content
+imported_content:
+  characters:
+    - name: "{{CHARACTER_NAME}}"
+      file_path: "{{CHARACTER_FILE_PATH}}"
+      status: "{{CHARACTER_STATUS}}"
+      validation_notes: "{{CHARACTER_VALIDATION_NOTES}}"
+  locations:
+    - name: "{{LOCATION_NAME}}"
+      file_path: "{{LOCATION_FILE_PATH}}"
+      status: "{{LOCATION_STATUS}}"
+      validation_notes: "{{LOCATION_VALIDATION_NOTES}}"
+  items:
+    - name: "{{ITEM_NAME}}"
+      file_path: "{{ITEM_FILE_PATH}}"
+      status: "{{ITEM_STATUS}}"
+      validation_notes: "{{ITEM_VALIDATION_NOTES}}"
+  stories:
+    - name: "{{STORY_NAME}}"
+      file_path: "{{STORY_FILE_PATH}}"
+      status: "{{STORY_STATUS}}"
+      validation_notes: "{{STORY_VALIDATION_NOTES}}"
+
+# Import validation
+validation:
+  pre_import_checks:
+    - check: "{{CHECK_NAME}}"
+      status: "{{CHECK_STATUS}}"
+      notes: "{{CHECK_NOTES}}"
+  post_import_checks:
+    - check: "{{CHECK_NAME}}"
+      status: "{{CHECK_STATUS}}"
+      notes: "{{CHECK_NOTES}}"
+  content_validation:
+    - content_type: "{{CONTENT_TYPE}}"
+      validation_status: "{{VALIDATION_STATUS}}"
+      issues_found: ["{{ISSUE_1}}", "{{ISSUE_2}}"]
+      recommendations: ["{{RECOMMENDATION_1}}", "{{RECOMMENDATION_2}}"]
+
+# Import errors
+errors:
+  critical_errors: ["{{ERROR_1}}", "{{ERROR_2}}"]
+  warnings: ["{{WARNING_1}}", "{{WARNING_2}}"]
+  info_messages: ["{{INFO_1}}", "{{INFO_2}}"]
+  resolution_notes: "{{RESOLUTION_NOTES}}"
+
+# Import performance
+performance:
+  start_time: "{{START_TIME}}"
+  end_time: "{{END_TIME}}"
+  total_duration: "{{TOTAL_DURATION}}"
+  average_file_time: "{{AVERAGE_FILE_TIME}}"
+  memory_usage: "{{MEMORY_USAGE}}"
+  cpu_usage: "{{CPU_USAGE}}"
+
+# Import metadata
+metadata:
+  import_engine_version: "{{IMPORT_ENGINE_VERSION}}"
+  template_version: "{{TEMPLATE_VERSION}}"
+  validation_rules_version: "{{VALIDATION_RULES_VERSION}}"
+  user_preferences: "{{USER_PREFERENCES}}"
+
+# Import completion
+completion:
+  success_criteria_met: {{SUCCESS_CRITERIA_MET}}  # true/false
+  user_satisfaction: "{{USER_SATISFACTION}}"  # "high", "medium", "low"
+  follow_up_required: {{FOLLOW_UP_REQUIRED}}  # true/false
+  next_steps: ["{{STEP_1}}", "{{STEP_2}}"]

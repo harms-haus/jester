@@ -1,0 +1,91 @@
+# Patch Template for Edit Agent
+# This template is used by the Edit agent for creating patches to the complete universe
+
+patch_id: "{{PATCH_ID}}"
+patch_type: "{{PATCH_TYPE}}"  # "entity", "story", "relationship", "metadata"
+created_at: "{{CREATED_AT}}"
+last_modified: "{{LAST_MODIFIED}}"
+applied_at: "{{APPLIED_AT}}"
+
+# Patch source information
+source:
+  edit_id: "{{EDIT_ID}}"
+  edit_description: "{{EDIT_DESCRIPTION}}"
+  source_universe: "{{SOURCE_UNIVERSE}}"  # "ready"
+  target_universe: "{{TARGET_UNIVERSE}}"  # "complete"
+  created_by: "{{CREATED_BY}}"
+
+# Patch target information
+target:
+  entity_type: "{{ENTITY_TYPE}}"  # "character", "location", "item", "story"
+  entity_name: "{{ENTITY_NAME}}"
+  entity_file_path: "{{ENTITY_FILE_PATH}}"
+  entity_version: "{{ENTITY_VERSION}}"
+
+# Patch operations
+operations:
+  - operation_type: "{{OPERATION_TYPE}}"  # "add", "modify", "remove"
+    field_path: "{{FIELD_PATH}}"
+    old_value: "{{OLD_VALUE}}"
+    new_value: "{{NEW_VALUE}}"
+    description: "{{OPERATION_DESCRIPTION}}"
+    validation_required: {{VALIDATION_REQUIRED}}  # true/false
+
+# Patch validation
+validation:
+  pre_apply_checks:
+    - check: "{{CHECK_NAME}}"
+      status: "{{CHECK_STATUS}}"
+      notes: "{{CHECK_NOTES}}"
+  post_apply_checks:
+    - check: "{{CHECK_NAME}}"
+      status: "{{CHECK_STATUS}}"
+      notes: "{{CHECK_NOTES}}"
+  integrity_checks:
+    - check: "{{CHECK_NAME}}"
+      status: "{{CHECK_STATUS}}"
+      notes: "{{CHECK_NOTES}}"
+
+# Patch dependencies
+dependencies:
+  required_patches: ["{{PATCH_ID_1}}", "{{PATCH_ID_2}}"]
+  conflicting_patches: ["{{CONFLICTING_PATCH_1}}", "{{CONFLICTING_PATCH_2}}"]
+  affected_entities: ["{{ENTITY_1}}", "{{ENTITY_2}}"]
+
+# Patch application
+application:
+  status: "{{APPLICATION_STATUS}}"  # "pending", "applied", "failed", "rolled_back"
+  applied_by: "{{APPLIED_BY}}"
+  applied_at: "{{APPLIED_AT}}"
+  rollback_available: {{ROLLBACK_AVAILABLE}}  # true/false
+  rollback_file_path: "{{ROLLBACK_FILE_PATH}}"
+
+# Patch metadata
+metadata:
+  patch_priority: "{{PATCH_PRIORITY}}"  # "low", "medium", "high", "critical"
+  patch_complexity: "{{PATCH_COMPLEXITY}}"  # "simple", "moderate", "complex"
+  estimated_apply_time: "{{ESTIMATED_APPLY_TIME}}"
+  actual_apply_time: "{{ACTUAL_APPLY_TIME}}"
+  success_metrics: ["{{METRIC_1}}", "{{METRIC_2}}"]
+
+# Patch history
+history:
+  - timestamp: "{{TIMESTAMP}}"
+    action: "{{ACTION}}"
+    description: "{{DESCRIPTION}}"
+    user: "{{USER}}"
+    status: "{{STATUS}}"
+
+# Error handling
+error_handling:
+  known_issues: ["{{ISSUE_1}}", "{{ISSUE_2}}"]
+  resolution_notes: "{{RESOLUTION_NOTES}}"
+  fallback_actions: ["{{FALLBACK_1}}", "{{FALLBACK_2}}"]
+
+# Patch completion
+completion:
+  success_criteria: ["{{CRITERIA_1}}", "{{CRITERIA_2}}"]
+  completion_status: "{{COMPLETION_STATUS}}"
+  completion_notes: "{{COMPLETION_NOTES}}"
+  follow_up_required: {{FOLLOW_UP_REQUIRED}}  # true/false
+  follow_up_actions: ["{{ACTION_1}}", "{{ACTION_2}}"]

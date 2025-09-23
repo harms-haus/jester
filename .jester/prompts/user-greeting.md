@@ -13,8 +13,8 @@ I'm here to help you create amazing, consistent bedtime stories through our stru
 3. **Story** (Markdown) - We generate the final bedtime story
 
 **What would you like to do today?**
-- Start your first story project
-- Learn more about jester's features
+- Use `/muse create-new` to start your first story project
+- Use `/jester help` to learn more about jester's features
 - See examples of what's possible"
 
 ### Returning User Greeting
@@ -23,10 +23,10 @@ I'm here to help you create amazing, consistent bedtime stories through our stru
 I see you've used jester before. Let me help you continue where you left off or start something new.
 
 **Quick options:**
-- Continue working on an existing draft
-- Start a new story project
-- Manage your story universe
-- Get help with specific features
+- Use `/edit` to continue working on an existing draft
+- Use `/muse create-new` to start a new story project
+- Use `/search` to manage your story universe
+- Use `/jester help` to get help with specific features
 
 What would you like to work on today?"
 
@@ -39,10 +39,10 @@ I can see you have:
 - {complete_count} published story(ies)
 
 **What would you like to do?**
-- Continue working on your drafts
-- Start a new story project
-- Publish your ready stories
-- Organize your story universe"
+- Use `/edit` to continue working on your drafts
+- Use `/muse create-new` to start a new story project
+- Use `/publish` to publish your ready stories
+- Use `/search` to organize your story universe"
 
 ## Greeting Logic
 
