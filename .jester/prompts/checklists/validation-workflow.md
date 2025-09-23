@@ -20,14 +20,14 @@ You are setting up validation for draft story progression.
    - Initialize error tracking
 
 2. **Environment Check:**
-   - Verify ready/ directory exists
-   - Check entity files in ready/ directory
+   - Verify reading/ directory exists
+   - Check entity files in reading/ directory
    - Confirm target directory structure
    - Validate file permissions
 
 3. **Validation Context:**
    - Draft number: {draft-number}
-   - Target progression: draft → ready
+   - Target progression: draft → reading
    - Validation scope: content, entities, quality
    - User approval required: {yes/no}
 
@@ -81,7 +81,7 @@ You are executing entity validation for draft progression.
 
 1. **Entity Reference Validation:**
    - Check all [[entity-name]] links are valid
-   - Verify entity files exist in ready/ directory
+   - Verify entity files exist in reading/ directory
    - Validate wiki-link syntax is correct
    - Check entity names are consistent
    - Update checklist with results
@@ -210,7 +210,7 @@ You are requesting user approval for draft progression.
 - [ ] Request additional validation
 
 **Next Steps:**
-- If approved: Proceed with draft → ready progression
+- If approved: Proceed with draft → reading progression
 - If fixes requested: Return to draft for corrections
 - If cancelled: Stop progression workflow
 - If additional validation: Run specific validations
@@ -224,7 +224,7 @@ You are requesting user approval for draft progression.
 - Follows existing prompt-based agent architecture
 
 ### Template Integration
-- Uses draft-to-ready-validation-checklist.yaml
+- Uses draft-to-reading-validation-checklist.yaml
 - Integrates with entity-consistency-validation.md
 - Follows existing YAML template structure
 

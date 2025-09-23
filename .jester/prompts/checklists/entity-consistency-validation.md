@@ -195,7 +195,7 @@ NEXT STEPS:
 
 ## Integration Points
 
-- Integrates with draft → ready progression workflow
-- Uses existing entity files in ready/ directory
+- Integrates with draft → reading progression workflow
+- Uses existing entity files in reading/ directory
 - Follows existing prompt-based agent architecture
 - Provides detailed entity consistency feedback

@@ -107,8 +107,8 @@
 9. External LLM follows Write prompt rules to read outline, generate story
 10. LLM saves story to `stories/` per prompt instructions
 11. User runs `/edit` commands for content modification or `/delete` commands for entity removal
-12. User runs `/approve` to move draft to ready stage
-13. User runs `/publish` to publish ready story with entities and patches
+12. User runs `/approve` to move draft to reading stage
+13. User runs `/publish` to publish reading story with entities and patches
 14. **For Import Management**: User runs `/import` commands to import content to import-staging/
 15. **For Search**: User runs `/search` commands to query local files and LightRAG database
 16. External LLM follows appropriate prompt rules to track changes via Git

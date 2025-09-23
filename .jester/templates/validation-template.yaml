@@ -12,7 +12,7 @@ target:
   content_type: "{{CONTENT_TYPE}}"  # "character", "location", "item", "story"
   content_name: "{{CONTENT_NAME}}"
   file_path: "{{FILE_PATH}}"
-  universe: "{{UNIVERSE}}"  # "draft", "ready", "complete"
+  universe: "{{UNIVERSE}}"  # "draft", "reading", "universe"
   version: "{{VERSION}}"
 
 # Validation configuration

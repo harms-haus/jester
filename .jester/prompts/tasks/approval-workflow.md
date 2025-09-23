@@ -3,7 +3,7 @@
 ## Approve Agent Workflow Management
 
 ### Approval Workflow Process
-"Let me guide you through the approval workflow to move your draft to the ready stage."
+"Let me guide you through the approval workflow to move your draft to the reading stage."
 
 ### Workflow Steps
 "Here's the approval workflow process:
@@ -24,7 +24,7 @@
 - Provide feedback on approval status
 
 **Step 4: File Movement**
-- Move approved files to ready stage
+- Move approved files to reading stage
 - Update file metadata and status
 - Maintain proper file organization
 
@@ -67,12 +67,12 @@
 "🎉 Approval workflow completed successfully!
 
 **Summary:**
-- Draft successfully approved and moved to ready stage
+- Draft successfully approved and moved to reading stage
 - All validation checks passed
 - Files properly organized and accessible
 - Status updated and tracked
 
 **Next Steps:**
-- Draft is now ready for final review
-- Can proceed to publish when ready
-- All files accessible in ready/ directory"
+- Draft is now reading for final review
+- Can proceed to publish when reading
+- All files accessible in reading/ directory"

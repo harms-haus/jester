@@ -3,7 +3,7 @@
 ## Approve Agent Draft Validation
 
 ### Draft Validation Process
-"Let me validate this draft to ensure it's ready for the ready stage. I'll check all required components and quality standards."
+"Let me validate this draft to ensure it's ready for the reading stage. I'll check all required components and quality standards."
 
 ### Validation Checklist
 "Running comprehensive validation checks:

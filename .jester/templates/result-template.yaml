@@ -28,7 +28,7 @@ content:
 location:
   file_path: "{{FILE_PATH}}"
   directory: "{{DIRECTORY}}"
-  universe: "{{UNIVERSE}}"  # "draft", "ready", "complete"
+  universe: "{{UNIVERSE}}"  # "draft", "reading", "universe"
   file_type: "{{FILE_TYPE}}"
   file_size: "{{FILE_SIZE}}"
   last_modified: "{{FILE_LAST_MODIFIED}}"

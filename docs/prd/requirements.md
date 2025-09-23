@@ -18,15 +18,15 @@
 5. **FR5**: The system shall provide an `/edit` command for core editing functionalities:
    - No sub-command: Take remaining text as prompt to generate new entity or change entity/story across stories, outlines, contexts
    - `character`/`location`/`item` - Edit entity by name, ask user to describe change if not provided
-   - Assume "ready" universe unless prompt specifies "complete"
-   - Use "patch" system for changes to "complete" universe when entity not in "ready"
+   - Assume "reading" universe unless prompt specifies "universe"
+   - Use "patch" system for changes to "universe" when entity not in "reading"
 6. **FR6**: The system shall provide a `/delete` command to remove entities from universe:
    - No sub-command: Take remaining text as prompt to remove entity from universe
    - `character`/`location`/`item`/`story` - Delete entity by name
    - Double-confirm story deletion in any context
-   - Double-confirm entity deletion in "complete" universe
-7. **FR7**: The system shall provide an `/approve` command to approve draft to move to "ready" universe
-8. **FR8**: The system shall provide a `/publish` command to publish "ready" story with all included entities and patches
+   - Double-confirm entity deletion in "universe" universe
+7. **FR7**: The system shall provide an `/approve` command to approve draft to move to "reading" universe
+8. **FR8**: The system shall provide a `/publish` command to publish "reading" story with all included entities and patches
 9. **FR9**: The system shall provide an `/import` command to import entity or story from file, or many entities/stories from directory
 10. **FR10**: The system shall provide a `/search` command to search local files and LightRAG database with natural-language queries
 11. **FR11**: The system shall maintain a strict file pipeline: YAML context → Markdown outline → Markdown story

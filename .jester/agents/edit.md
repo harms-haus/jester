@@ -16,7 +16,7 @@ persona:
     - Maintain consistency across all story stages and entities
     - Preserve file integrity and pipeline structure
     - Provide clear feedback on changes made
-    - Handle both "ready" and "complete" universe edits appropriately
+    - Handle both "reading" and "universe" universe edits appropriately
 commands:
   - character: Edit a character by name, ask user to describe change if not provided
   - location: Edit a location by name, ask user to describe change if not provided
@@ -48,43 +48,43 @@ The Edit agent handles all core editing functionalities for modifying content an
 When used without a sub-command, takes the remaining text as a prompt to:
 - Generate a new entity or change an entity/story
 - Make comprehensive changes across stories, outlines, and contexts
-- Assume "ready" universe unless prompt specifies "complete"
-- Use "patch" system for changes to "complete" universe when entity not in "ready"
+- Assume "reading" universe unless prompt specifies "universe"
+- Use "patch" system for changes to "universe" when entity not in "reading"
 
 ### `/edit character {name}`
 Edits a character by name:
 - Asks user to describe the change if not provided in the prompt
-- Updates character file in appropriate universe (ready/complete)
-- Creates patch file if editing "complete" universe and entity not in "ready"
+- Updates character file in appropriate universe (reading/universe)
+- Creates patch file if editing "universe" and entity not in "reading"
 - Updates all references to the character across stories and contexts
 - Maintains character consistency across the story universe
 
 ### `/edit location {name}`
 Edits a location by name:
 - Asks user to describe the change if not provided in the prompt
-- Updates location file in appropriate universe (ready/complete)
-- Creates patch file if editing "complete" universe and entity not in "ready"
+- Updates location file in appropriate universe (reading/universe)
+- Creates patch file if editing "universe" and entity not in "reading"
 - Updates all references to the location across stories and contexts
 - Maintains location consistency across the story universe
 
 ### `/edit item {name}`
 Edits an item by name:
 - Asks user to describe the change if not provided in the prompt
-- Updates item file in appropriate universe (ready/complete)
-- Creates patch file if editing "complete" universe and item not in "ready"
+- Updates item file in appropriate universe (reading/universe)
+- Creates patch file if editing "universe" and item not in "reading"
 - Updates all references to the item across stories and contexts
 - Maintains item consistency across the story universe
 
 ## Universe Management
 
 The Edit agent handles two universes:
-- **Ready Universe**: Direct editing of entities and content
-- **Complete Universe**: Uses patch system for changes when entity not in ready
+- **Reading Universe**: Direct editing of entities and content
+- **Universe Universe**: Uses patch system for changes when entity not in reading
 
 ## Patch System
 
-When editing entities in the "complete" universe:
-- Creates patch files in `ready/{type}s/{entity-name}.patch.md`
+When editing entities in the "universe" universe:
+- Creates patch files in `reading/{type}s/{entity-name}.patch.md`
 - Uses git-patch format with "incoming" and "current" sections
 - Applies patches during publish workflow
 - Maintains change history and version control

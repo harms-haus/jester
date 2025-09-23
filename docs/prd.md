@@ -43,22 +43,22 @@ jester adapts proven software development methodologies (BMAD principles) to cre
 5. **FR5**: The system shall provide an `/edit` command for core editing functionalities:
    - No sub-command: Take remaining text as prompt to generate new entity or change entity/story across stories, outlines, contexts
    - `character`/`location`/`item` - Edit entity by name, ask user to describe change if not provided
-   - Assume "ready" universe unless prompt specifies "complete"
-   - Use "patch" system for changes to "complete" universe when entity not in "ready"
+   - Assume "reading" universe unless prompt specifies "universe"
+   - Use "patch" system for changes to "universe" when entity not in "reading"
 6. **FR6**: The system shall provide a `/delete` command to remove entities from universe:
    - No sub-command: Take remaining text as prompt to remove entity from universe
    - `character`/`location`/`item`/`story` - Delete entity by name
    - Double-confirm story deletion in any context
-   - Double-confirm entity deletion in "complete" universe
-7. **FR7**: The system shall provide an `/approve` command to approve draft to move to "ready" universe
-8. **FR8**: The system shall provide a `/publish` command to publish "ready" story with all included entities and patches
+   - Double-confirm entity deletion in "universe"
+7. **FR7**: The system shall provide an `/approve` command to approve draft to move to "reading" universe
+8. **FR8**: The system shall provide a `/publish` command to publish "reading" story with all included entities and patches
 9. **FR9**: The system shall provide an `/import` command to import entity or story from file, or many entities/stories from directory
 10. **FR10**: The system shall provide a `/search` command to search local files and LightRAG database with natural-language queries
 11. **FR11**: The system shall maintain a strict file pipeline: YAML context → Markdown outline → Markdown story
 12. **FR12**: The system shall support multiple plot templates (Hero's Journey, Pixar method, Golden Circle)
 13. **FR13**: The system shall integrate with LightRAG via MCP for entity discovery and relationship mapping
 14. **FR14**: The system shall prevent context bleeding between pipeline stages (each stage reads only its designated input)
-15. **FR15**: The system shall maintain local markdown files for all entities organized in subdirectories (complete/characters/, complete/locations/, complete/items/)
+15. **FR15**: The system shall maintain local markdown files for all entities organized in subdirectories (universe/characters/, universe/locations/, universe/items/)
 16. **FR16**: The system shall create and maintain a local story universe wiki with interconnected entity files using proper wiki-style [[links]]
 17. **FR17**: The system shall use local entity files as the primary source of truth for story generation
 18. **FR18**: The system shall query LightRAG only for relationship discovery and entity connections
@@ -67,8 +67,8 @@ jester adapts proven software development methodologies (BMAD principles) to cre
 21. **FR21**: The system shall maintain proper [[link]] syntax for bidirectional entity relationships across subdirectories
 22. **FR22**: The system shall organize files in a three-stage workflow:
     - `draft/` - Work in progress with incrementing draft numbers (001, 002, 013, etc.)
-    - `ready/` - Approved work ready for publication
-    - `complete/` - Published work in final form
+    - `reading/` - Approved work ready for review and reading
+    - `universe/` - Published work in the story universe
     - `import-staging/` - Imported content awaiting user validation
     - `contexts/` - Context files (no staging needed)
 23. **FR23**: The system shall maintain draft number consistency:
@@ -81,7 +81,7 @@ jester adapts proven software development methodologies (BMAD principles) to cre
     - `.jester/tasks/` - Reusable workflow tasks
     - `.jester/data/` - Knowledge base and reference data
     - `.jester/utils/` - Utility functions and helpers
-25. **FR25**: The system shall validate draft completeness before progression to ready stage, ensuring all required files exist and contain valid content
+25. **FR25**: The system shall validate draft completeness before progression to reading stage, ensuring all required files exist and contain valid content
 26. **FR26**: The system shall validate entity files and patch formatting before progression to published stage
 27. **FR27**: The system shall detect and warn users about target directory conflicts before story progression
 28. **FR28**: The system shall require user approval before overwriting existing files during story progression
@@ -95,12 +95,12 @@ jester adapts proven software development methodologies (BMAD principles) to cre
     - Warn users about potential overwrites
     - Require explicit user approval for conflicts
     - Provide detailed conflict summary before proceeding
-33. **FR33**: The system shall apply entity patches before copying files during ready → complete progression
-34. **FR34**: The system shall perform complete cleanup of ready/ directory after successful publish
-35. **FR35**: The system shall maintain change history by updating complete/ entity files with patch information and deleting patch files after successful application
+33. **FR33**: The system shall apply entity patches before copying files during reading → universe progression
+34. **FR34**: The system shall perform complete cleanup of reading/ directory after successful publish
+35. **FR35**: The system shall maintain change history by updating universe/ entity files with patch information and deleting patch files after successful application
 36. **FR36**: The system shall validate patch file format before applying patches
 37. **FR37**: The system shall provide a CLI initialization tool accessible via `npx jester-story-framework` that:
-    - Initializes a new Jester project with complete `.jester/` directory structure
+    - Initializes a new Jester project with universe `.jester/` directory structure
     - Scans the current working directory for existing story documents
     - Suggests discovered content for import into the import-staging/ directory
     - Provides user-friendly setup guidance and next steps
@@ -108,7 +108,7 @@ jester adapts proven software development methodologies (BMAD principles) to cre
 
 ### Non Functional
 
-1. **NFR1**: Token usage costs must remain under $1 per complete story generation (context → outline → story)
+1. **NFR1**: Token usage costs must remain under $1 per universe story generation (context → outline → story)
 2. **NFR2**: The system shall operate within IDE environments (Cursor, VS Code) with command-line interface
 3. **NFR3**: File operations shall be fast and efficient for pipeline management
 4. **NFR4**: Story generation and information extraction may be slower but must be thorough and accurate
@@ -209,7 +209,7 @@ The dev agent does NOT write TypeScript or other programming languages - only pr
 2. **Epic 2: Entity Management System** - Create the wiki-style entity file system with subdirectories, markdown templates, and [[link]] support for characters, locations, and items
 3. **Epic 3: LightRAG Integration** - Implement basic MCP integration for relationship discovery and entity connections while maintaining local files as primary source
 4. **Epic 4: Advanced Story Generation** - Enhance story generation with plot templates, metadata propagation, cross-stage editing capabilities, story library management, and story consistency checking
-5. **Epic 5: Story Universe Management** - Add link validation and content management for the complete storytelling ecosystem
+5. **Epic 5: Story Universe Management** - Add link validation and content management for the universe storytelling ecosystem
 
 ## Epic 1: Foundation & Core Infrastructure
 
@@ -231,7 +231,7 @@ so that **I have a foundation for building the jester storytelling system with c
 6. **Cross-platform compatibility is verified** on Windows, macOS, and Linux
 7. **README.md is updated** with new command structure and usage instructions
 8. **CLI initialization tool is available** via `npx jester-story-framework` command
-9. **CLI tool creates complete `.jester/` structure** in target directory
+9. **CLI tool creates universe `.jester/` structure** in target directory
 10. **CLI tool provides setup guidance** and next steps for users
 
 ### Story 1.2: Basic Context Generation
@@ -269,13 +269,13 @@ so that **I can see the plot structure before generating the full story**.
 ### Story 1.4: Basic Story Generation
 
 As a **parent creating bedtime stories**,
-I want **to use the `/write story` command to generate a complete story**,
+I want **to use the `/write story` command to generate a universe story**,
 so that **I can create a bedtime story from the outline**.
 
 #### Acceptance Criteria
 
 1. **`/write story` command reads outline Markdown file** and generates story
-2. **Story Markdown file is created** with complete narrative at target length
+2. **Story Markdown file is created** with universe narrative at target length
 3. **Story includes title and summary** generated from outline content
 4. **Character names and details are consistent** with outline specifications
 5. **Story follows the plot structure** defined in the outline
@@ -382,7 +382,7 @@ so that **I can build a rich knowledge base for my stories**.
 3. **Entity deletion** via `/delete character|location|item` removes files and updates all references
 4. **Entity search** via `/search` finds entities by name, type, or content
 5. **Entity listing** shows all entities organized by type and directory
-6. **Entity validation** ensures consistency and completeness
+6. **Entity validation** ensures consistency and universe
 7. **Entity backup** creates copies before major changes
 
 ### Story 2.4: Entity Integration with Story Generation
@@ -542,7 +542,7 @@ so that **my children enjoy the stories and want to hear more**.
 
 ## Epic 5: Story Universe Management
 
-**Epic Goal**: Add link validation to create a complete storytelling ecosystem that enables parents to maintain their story universe effectively. This epic delivers the essential link management tools that make jester a sustainable long-term solution.
+**Epic Goal**: Add link validation to create a universe storytelling ecosystem that enables parents to maintain their story universe effectively. This epic delivers the essential link management tools that make jester a sustainable long-term solution.
 
 ### Story 5.1: Link Validation System
 

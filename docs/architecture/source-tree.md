@@ -14,14 +14,14 @@ jester/
 │   ├── context-{number}.md     # Draft context files
 │   ├── outline-{number}.md     # Draft outline files
 │   └── story-{number}.md       # Draft story files
-├── ready/                      # Approved work
+├── reading/                    # Approved work
 │   ├── stories/                # Approved stories
 │   ├── outlines/               # Approved outlines
 │   ├── contexts/               # Approved contexts
 │   ├── characters/             # Approved characters + .patch.md files
 │   ├── locations/              # Approved locations + .patch.md files
 │   └── items/                  # Approved items + .patch.md files
-├── complete/                   # Published work
+├── universe/                   # Published work
 │   ├── stories/                # Published stories
 │   ├── outlines/               # Published outlines
 │   ├── contexts/               # Published contexts
@@ -56,7 +56,7 @@ jester/
 - **New entities**: `{entity-name-hyphen-case}.md`
   - Examples: `stella-stoat.md`, `dandelion-plains.md`, `magic-snorkel.md`
 - **Entity patches**: `{entity-name-hyphen-case}.patch.md` (in entity directories)
-  - Examples: `ready/characters/stella-stoat.patch.md`, `ready/locations/dandelion-plains.patch.md`
+  - Examples: `reading/characters/stella-stoat.patch.md`, `reading/locations/dandelion-plains.patch.md`
 
 ### Patch File Format
 - **Format**: Git-patch format with proper headers
@@ -79,8 +79,8 @@ jester/
 
 - **`.jester/`**: Framework files, hidden from users
 - **`draft/`**: Work in progress with incrementing draft numbers
-- **`ready/`**: Approved work ready for publication
-- **`complete/`**: Published work in final form
+- **`reading/`**: Approved work ready for review and reading
+- **`universe/`**: Published work in the story universe
 - **`import-staging/`**: Imported content awaiting user validation
 - **`contexts/`**: Context files (no staging needed)
 - **`docs/`**: Project documentation (sharded)

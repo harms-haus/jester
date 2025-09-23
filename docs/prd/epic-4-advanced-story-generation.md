@@ -55,12 +55,12 @@ so that **I can refine stories efficiently and maintain creative control over my
 11. **Story filtering** shows stories by various criteria
 12. **Story sorting** orders stories by date, title, or custom criteria
 13. **Story grouping** groups related stories together
-14. **Ready universe editing** allows modification of approved stories with confirmation
-15. **Complete universe editing** warns user but allows modification of published stories
+14. **Reading universe editing** allows modification of approved stories with confirmation
+15. **Universe universe editing** warns user but allows modification of published stories
 16. **Edit warnings** clearly indicate when editing published or approved content
-17. **Edit confirmation** requires user approval for changes to ready/complete content
-18. **Story progression validation** ensures content completeness before draft → ready progression
-19. **Entity validation** validates entity files and relationships before ready → published progression
+17. **Edit confirmation** requires user approval for changes to reading/universe content
+18. **Story progression validation** ensures content completeness before draft → reading progression
+19. **Entity validation** validates entity files and relationships before reading → universe progression
 20. **Conflict detection** identifies and warns about target directory conflicts during progression
 21. **Data loss prevention** requires user approval before overwriting existing files
 22. **Content quality validation** ensures story content meets quality standards before progression

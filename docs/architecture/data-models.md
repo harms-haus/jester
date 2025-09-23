@@ -79,7 +79,7 @@ jester/
 │   ├── tasks/                  # Task definitions
 │   ├── data/                   # Reference data
 │   └── utils/                  # Utility scripts
-├── complete/                   # Published work
+├── universe/                   # Published work
 │   ├── characters/             # Character markdown files
 │   ├── locations/              # Location markdown files
 │   └── items/                  # Item markdown files

@@ -35,19 +35,19 @@ What would you like to work on today?"
 
 I can see you have:
 - {draft_count} draft(s) in progress
-- {ready_count} story(ies) ready for publication
-- {complete_count} published story(ies)
+- {reading_count} story(ies) reading for publication
+- {universe_count} published story(ies)
 
 **What would you like to do?**
 - Use `/edit` to continue working on your drafts
 - Use `/muse create-new` to start a new story project
-- Use `/publish` to publish your ready stories
+- Use `/publish` to publish your reading stories
 - Use `/search` to organize your story universe"
 
 ## Greeting Logic
 
 ### Determine User Type
-1. **Check for existing files** in draft/, ready/, complete/ directories
+1. **Check for existing files** in draft/, reading/, universe/ directories
 2. **Analyze file timestamps** to determine recent activity
 3. **Look for user preferences** or previous session data
 4. **Identify user experience level** based on file structure
@@ -59,7 +59,7 @@ I can see you have:
 4. **Confused users**: Use help-focused greeting with clear guidance
 
 ### Personalization Elements
-- **Project status**: Show current draft/ready/complete counts
+- **Project status**: Show current draft/reading/universe counts
 - **Recent activity**: Reference last worked on files
 - **User preferences**: Remember preferred workflows
 - **Time context**: "Good morning/afternoon/evening" based on time

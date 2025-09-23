@@ -11,8 +11,8 @@ published_at: "{{PUBLISHED_AT}}"
 target:
   story_id: "{{STORY_ID}}"
   story_name: "{{STORY_NAME}}"
-  source_universe: "{{SOURCE_UNIVERSE}}"  # "ready"
-  target_universe: "{{TARGET_UNIVERSE}}"  # "complete"
+  source_universe: "{{SOURCE_UNIVERSE}}"  # "reading"
+  target_universe: "{{TARGET_UNIVERSE}}"  # "universe"
   file_path: "{{FILE_PATH}}"
   version: "{{VERSION}}"
 

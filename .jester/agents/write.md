@@ -41,7 +41,7 @@ dependencies:
 
 ## Purpose
 
-The Write agent handles all core generation functionalities for creating bedtime stories. It takes user prompts and generates context files, outlines, and complete stories following the established pipeline.
+The Write agent handles all core generation functionalities for creating bedtime stories. It takes user prompts and generates context files, outlines, and universe stories following the established pipeline.
 
 ## Commands
 
@@ -67,7 +67,7 @@ Reads a context file and generates a detailed story outline including:
 - Metadata inheritance from context
 
 ### `/write story`
-Reads an outline file and generates a complete bedtime story including:
+Reads an outline file and generates a universe bedtime story including:
 - Full narrative at target length
 - Character dialogue and interactions
 - Scene descriptions and atmosphere

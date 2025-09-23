@@ -28,8 +28,8 @@ This document outlines the technical architecture for **jester**, a prompt-based
 **Story Progression Validation**: The system implements comprehensive validation checks during story progression between stages to ensure content quality and prevent data loss.
 
 **Validation Components**:
-1. **Draft → Ready Validation**: Content completeness, entity consistency, file integrity
-2. **Ready → Published Validation**: Entity file validation, patch formatting, conflict detection
+1. **Draft → Reading Validation**: Content completeness, entity consistency, file integrity
+2. **Reading → Universe Validation**: Entity file validation, patch formatting, conflict detection
 3. **Conflict Resolution**: Target directory checking, user approval workflows
 4. **Quality Gates**: Automated validation with user override capabilities
 
@@ -149,7 +149,7 @@ jester/
 │   ├── tasks/                  # Task definitions
 │   ├── data/                   # Reference data
 │   └── utils/                  # Utility scripts
-├── complete/                   # Published work
+├── universe/                   # Published work
 │   ├── characters/             # Character markdown files
 │   ├── locations/              # Location markdown files
 │   └── items/                  # Item markdown files
@@ -410,7 +410,7 @@ class LightRAGClientImpl implements LightRAGClient {
   - `/muse` (Brainstorming Agent): Context gathering, entity discovery, and creative exploration (Analyst role)
   - `/edit` (Cross-Stage Editor): Content modification, entity editing, and maintenance (QA role)
   - `/delete` (Entity Management Agent): Entity and story removal with confirmation workflows
-  - `/approve` (Workflow Management Agent): Draft approval and progression to ready stage
+  - `/approve` (Workflow Management Agent): Draft approval and progression to reading stage
   - `/publish` (Publishing Agent): Story publishing with entity patches and cleanup
   - `/import` (Content Import Agent): Entity and story import from files or directories
   - `/search` (Search Agent): Local file and LightRAG database search capabilities
@@ -505,8 +505,8 @@ class LightRAGClientImpl implements LightRAGClient {
 9. External LLM follows Write prompt rules to read outline, generate story
 10. LLM saves story to `stories/` per prompt instructions
 11. User runs `/edit` commands for content modification or `/delete` commands for entity removal
-12. User runs `/approve` to move draft to ready stage
-13. User runs `/publish` to publish ready story with entities and patches
+12. User runs `/approve` to move draft to reading stage
+13. User runs `/publish` to publish reading story with entities and patches
 14. **For Import Management**: User runs `/import` commands to import content to import-staging/
 15. **For Search**: User runs `/search` commands to query local files and LightRAG database
 16. External LLM follows appropriate prompt rules to track changes via Git

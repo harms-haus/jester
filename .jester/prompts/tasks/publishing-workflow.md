@@ -3,7 +3,7 @@
 ## Publish Agent Publishing Workflow
 
 ### Publishing Workflow Process
-"Let me guide you through the publishing workflow to move your story from ready to complete stage."
+"Let me guide you through the publishing workflow to move your story from reading to universe stage."
 
 ### Workflow Steps
 "Here's the publishing workflow process:
@@ -15,25 +15,25 @@
 - Ensure proper file organization
 
 **Step 2: Patch Application**
-- Apply any pending patches to complete universe
+- Apply any pending patches to universe universe
 - Update entity files with patch changes
 - Verify patch application success
 - Handle any patch conflicts
 
 **Step 3: Story Publishing**
-- Move story from ready to complete stage
+- Move story from reading to universe stage
 - Update story metadata and status
 - Ensure proper file placement
 - Verify story accessibility
 
 **Step 4: Entity Integration**
-- Integrate story entities into complete universe
+- Integrate story entities into universe universe
 - Update entity relationships and references
 - Ensure entity consistency across universe
 - Verify entity accessibility
 
 **Step 5: Cleanup and Finalization**
-- Clean up ready stage files
+- Clean up reading stage files
 - Update universe metadata
 - Finalize publishing status
 - Provide completion notification"
@@ -72,13 +72,13 @@
 "🎉 Publishing workflow completed successfully!
 
 **Summary:**
-- Story successfully published to complete stage
+- Story successfully published to universe stage
 - All patches applied successfully
-- Entities integrated into complete universe
+- Entities integrated into universe universe
 - Cleanup completed and status updated
 
 **Next Steps:**
-- Story is now live in complete universe
+- Story is now live in universe universe
 - All entities accessible and consistent
 - Ready for final review and use
 - Workflow process complete"

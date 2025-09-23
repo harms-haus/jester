@@ -78,27 +78,27 @@ commands:
   approve:
     id: "approve"
     title: "✅ Approve - Draft Approval"
-    description: "Approve a draft to move to the ready universe"
+    description: "Approve a draft to move to the reading universe"
     subcommands:
-      - "approve [draft] - Approve a draft to ready stage"
+      - "approve [draft] - Approve a draft to reading stage"
     use_case: "When you want to approve content for publication"
     agent: "approve"
     prompts:
-      - "draft-to-ready-validation.md"
+      - "draft-to-reading-validation.md"
       - "workflow-management.md"
 
   publish:
     id: "publish"
     title: "🚀 Publish - Story Publishing"
-    description: "Publish a ready story with entities and patches"
+    description: "Publish a reading story with entities and patches"
     subcommands:
-      - "publish [story] - Publish a ready story"
-    use_case: "When you want to publish content to complete universe"
+      - "publish [story] - Publish a reading story"
+    use_case: "When you want to publish content to universe universe"
     agent: "publish"
     prompts:
-      - "ready-to-complete-validation.md"
+      - "reading-to-universe-validation.md"
       - "apply-patches.md"
-      - "move-to-complete.md"
+      - "move-to-universe.md"
 
   import:
     id: "import"
@@ -157,7 +157,7 @@ intent_indicators:
       - "story generation"
     context:
       - "user wants to generate content"
-      - "has context or outline ready"
+      - "has context or outline reading"
     confidence: "high"
 
   muse:
@@ -205,12 +205,12 @@ intent_indicators:
   approve:
     keywords:
       - "approve"
-      - "ready"
+      - "reading"
       - "approve draft"
-      - "move to ready"
+      - "move to reading"
     context:
       - "user has completed draft"
-      - "ready for next stage"
+      - "reading for next stage"
     confidence: "high"
 
   publish:
@@ -218,10 +218,10 @@ intent_indicators:
       - "publish"
       - "publish story"
       - "finalize"
-      - "complete"
+      - "universe"
     context:
-      - "user has ready content"
-      - "ready for publication"
+      - "user has reading content"
+      - "reading for publication"
     confidence: "high"
 
   import:
@@ -258,7 +258,7 @@ transitions:
       - "Guide user to appropriate command"
 
   write:
-    message: "Perfect! I'll help you generate story content:\n- Create context files from your ideas\n- Generate story outlines\n- Write complete bedtime stories\n\nLet me load the story generation tools..."
+    message: "Perfect! I'll help you generate story content:\n- Create context files from your ideas\n- Generate story outlines\n- Write universe bedtime stories\n\nLet me load the story generation tools..."
     next_steps:
       - "Load write.md agent"
       - "Load story generation prompts"
@@ -286,7 +286,7 @@ transitions:
       - "Initialize content removal workflow"
 
   approve:
-    message: "Perfect! I'll help you approve your draft:\n- Draft validation and quality checking\n- Move content to ready stage\n- Workflow progression management\n\nLet me load the approval tools..."
+    message: "Perfect! I'll help you approve your draft:\n- Draft validation and quality checking\n- Move content to reading stage\n- Workflow progression management\n\nLet me load the approval tools..."
     next_steps:
       - "Load approve.md agent"
       - "Load validation prompts"

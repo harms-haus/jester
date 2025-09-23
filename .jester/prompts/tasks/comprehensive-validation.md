@@ -3,7 +3,7 @@
 ## Approve Agent Comprehensive Validation
 
 ### Comprehensive Validation Process
-"Let me perform comprehensive validation of your draft to ensure it's ready for the ready stage. I'll validate context, outline, and story files individually, then check for consistency between them."
+"Let me perform comprehensive validation of your draft to ensure it's ready for the reading stage. I'll validate context, outline, and story files individually, then check for consistency between them."
 
 ### Validation Sequence
 "Running comprehensive validation in sequence:
@@ -21,8 +21,8 @@
 - Theme consistency across all files
 
 **Step 3: Destination Readiness Check**
-- Verify ready directory exists and is accessible
-- Check for naming conflicts in ready directory
+- Verify reading directory exists and is accessible
+- Check for naming conflicts in reading directory
 - Ensure proper file organization structure
 - Validate metadata compatibility"
 
@@ -75,7 +75,7 @@
 ### Destination Readiness Check Results
 "Destination readiness check complete:
 
-**Ready Directory Status:**
+**Reading Directory Status:**
 - Directory exists: [YES/NO]
 - Directory accessible: [YES/NO]
 - Naming conflicts: [NONE/FOUND]

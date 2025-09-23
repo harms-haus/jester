@@ -14,7 +14,7 @@ jester adapts BMAD principles to create personalized bedtime stories through a h
 - **`/muse`** - Brainstorming (create-new, explore-existing, list-elicitations)
 - **`/edit`** - Content editing (character/location/item editing, general editing)
 - **`/delete`** - Entity removal (character/location/item/story deletion)
-- **`/approve`** - Draft approval to ready stage
+- **`/approve`** - Draft approval to reading stage
 - **`/publish`** - Story publishing with entities and patches
 - **`/import`** - Content import from files or directories
 - **`/search`** - Search local files and LightRAG database
@@ -24,6 +24,11 @@ jester adapts BMAD principles to create personalized bedtime stories through a h
 1. **Context** (YAML) - Gather story ideas, characters, settings
 2. **Outline** (Markdown) - Structure the plot and story flow
 3. **Story** (Markdown) - Generate the final bedtime story
+
+### Content Pipeline
+- **Draft** - Initial content creation and development
+- **Reading** - Content ready for review and reading
+- **Universe** - Published content in the story universe
 
 ## Architecture
 
@@ -46,7 +51,7 @@ jester/
 │   ├── types/             # TypeScript type definitions
 │   ├── utils/             # Utility functions
 │   └── index.ts           # Main entry point
-├── complete/              # Published work
+├── universe/              # Published work
 │   ├── characters/        # Character definitions
 │   ├── locations/         # Location definitions
 │   └── items/             # Item definitions
@@ -166,11 +171,11 @@ See `docs/` for complete project documentation:
   - `item [name]` - Delete an item by name
   - `story [name]` - Delete a story by name
 
-- **`/approve`** - Draft approval to ready stage
-  - `approve [draft]` - Approve a draft to ready stage
+- **`/approve`** - Draft approval to reading stage
+  - `approve [draft]` - Approve a draft to reading stage
 
 - **`/publish`** - Story publishing with entities and patches
-  - `publish [story]` - Publish a ready story
+  - `publish [story]` - Publish a reading story
 
 - **`/import`** - Content import from files or directories
   - `import [file]` - Import from specific file

@@ -19,7 +19,7 @@ source:
 target:
   staging_directory: "{{STAGING_DIRECTORY}}"
   final_directory: "{{FINAL_DIRECTORY}}"
-  universe: "{{TARGET_UNIVERSE}}"  # "draft", "ready", "complete"
+  universe: "{{TARGET_UNIVERSE}}"  # "draft", "reading", "universe"
   backup_created: {{BACKUP_CREATED}}  # true/false
 
 # Import configuration

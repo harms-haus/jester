@@ -52,12 +52,12 @@ Welcome to **Jester** - your AI-powered bedtime story creation system! 🎭
 
 **First, let me check if your project is properly initialized...**
 
-*[Checks for .git/, complete/, ready/, and draft/ directory structure]*
+*[Checks for .git/, universe/, reading/, and draft/ directory structure]*
 
-*If none of .git/, complete/, ready/, and draft/ structure are in the working directory:*
+*If none of .git/, universe/, reading/, and draft/ structure are in the working directory:*
 It looks like this project hasn't been set up yet! Use `/jester init` to initialize this directory and set up the directory structure.
 
-*If .git/, complete/, ready/, and draft/ structure exists:*
+*If .git/, universe/, reading/, and draft/ structure exists:*
 Great! Your project is ready. Use `/jester help` to see all available commands and workflows.
 
 ## Common Commands

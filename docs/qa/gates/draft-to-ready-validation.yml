@@ -1,8 +1,8 @@
 schema: 1
-story: 'validation-draft-to-ready'
-story_title: 'Draft to Ready Progression Validation'
+story: 'validation-draft-to-reading'
+story_title: 'Draft to Reading Progression Validation'
 gate: PASS
-status_reason: 'Comprehensive validation framework implemented for draft to ready progression'
+status_reason: 'Comprehensive validation framework implemented for draft to reading progression'
 reviewer: 'Sarah (Product Owner)'
 updated: '2025-01-27T21:45:00Z'
 
@@ -37,7 +37,7 @@ validation_requirements:
 recommendations:
   immediate: []
   future:
-    - action: 'Add integration tests for complete draft to ready validation workflow'
+    - action: 'Add integration tests for complete draft to reading validation workflow'
       refs: ['src/__tests__/integration/']
     - action: 'Consider adding performance optimization for large content validation'
       refs: ['src/agents/editAgent.ts']

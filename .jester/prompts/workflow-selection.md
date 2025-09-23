@@ -123,7 +123,7 @@ Let me load the appropriate tools for you..."
 - `/muse` - Brainstorming (create-new, explore-existing, list-elicitations)
 - `/edit` - Content editing (character/location/item editing, general editing)
 - `/delete` - Entity removal (character/location/item/story deletion)
-- `/approve` - Draft approval to ready stage
+- `/approve` - Draft approval to reading stage
 - `/publish` - Story publishing with entities and patches
 - `/import` - Content import from files or directories
 - `/search` - Search local files and LightRAG database

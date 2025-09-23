@@ -13,7 +13,7 @@ target:
   draft_name: "{{DRAFT_NAME}}"
   draft_type: "{{DRAFT_TYPE}}"  # "story", "character", "location", "item"
   source_universe: "{{SOURCE_UNIVERSE}}"  # "draft"
-  target_universe: "{{TARGET_UNIVERSE}}"  # "ready"
+  target_universe: "{{TARGET_UNIVERSE}}"  # "reading"
   file_path: "{{FILE_PATH}}"
 
 # Approval criteria
@@ -79,7 +79,7 @@ actions:
   validation_completed: {{VALIDATION_COMPLETED}}  # true/false
   review_completed: {{REVIEW_COMPLETED}}  # true/false
   approval_granted: {{APPROVAL_GRANTED}}  # true/false
-  move_to_ready: {{MOVE_TO_READY}}  # true/false
+  move_to_reading: {{MOVE_TO_READING}}  # true/false
   cleanup_completed: {{CLEANUP_COMPLETED}}  # true/false
 
 # Approval metadata

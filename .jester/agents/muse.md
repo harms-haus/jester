@@ -45,7 +45,7 @@ The Muse agent facilitates creative brainstorming and context gathering for stor
 ## Commands
 
 ### `/muse create-new`
-Initiates a new brainstorming session for a completely new story:
+Initiates a new brainstorming session for a universe new story:
 - Asks about story themes, characters, and settings
 - Explores plot ideas and moral lessons
 - Discovers connections to existing story universe

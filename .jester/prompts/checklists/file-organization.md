@@ -9,7 +9,7 @@
 "Checking file organization against standards:
 
 **Directory Structure:**
-- Files in correct directories (draft/, ready/, complete/)
+- Files in correct directories (draft/, reading/, universe/)
 - Proper subdirectory organization
 - No orphaned or misplaced files
 - Consistent naming conventions

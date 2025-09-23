@@ -11,7 +11,7 @@ target:
   type: "{{TARGET_TYPE}}"  # "story", "outline", "context", "character", "location", "item"
   name: "{{TARGET_NAME}}"
   file_path: "{{TARGET_FILE_PATH}}"
-  universe: "{{TARGET_UNIVERSE}}"  # "draft", "ready", "complete"
+  universe: "{{TARGET_UNIVERSE}}"  # "draft", "reading", "universe"
   version: "{{TARGET_VERSION}}"
 
 # Edit details

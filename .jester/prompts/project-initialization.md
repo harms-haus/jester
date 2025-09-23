@@ -52,8 +52,8 @@
 
 **Next Steps:**
 1. Review and edit your context file
-2. Use `/write outline` when ready to create the story structure
-3. Use `/write story` when ready to generate the final story"
+2. Use `/write outline` when reading to create the story structure
+3. Use `/write story` when reading to generate the final story"
 
 ## Draft Continuation
 
@@ -95,7 +95,7 @@
 
 **If you have a complete story:**
 - Review the story for any final edits
-- Use `/approve` to move to ready stage
+- Use `/approve` to move to reading stage
 - Use `/edit` to continue editing if you want to make changes"
 
 ## Universe Management
@@ -103,8 +103,8 @@
 ### Universe Overview
 "Let me show you the current state of your story universe:
 
-**Published Stories**: {complete_count}
-**Ready for Publication**: {ready_count}
+**Published Stories**: {universe_count}
+**Reading for Publication**: {reading_count}
 **Drafts in Progress**: {draft_count}
 
 **What would you like to manage?**

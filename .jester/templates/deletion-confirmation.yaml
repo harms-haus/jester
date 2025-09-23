@@ -12,7 +12,7 @@ target:
   entity_type: "{{ENTITY_TYPE}}"  # "character", "location", "item", "story"
   entity_name: "{{ENTITY_NAME}}"
   file_path: "{{FILE_PATH}}"
-  universe: "{{UNIVERSE}}"  # "draft", "ready", "complete"
+  universe: "{{UNIVERSE}}"  # "draft", "reading", "universe"
   version: "{{VERSION}}"
 
 # Deletion configuration
