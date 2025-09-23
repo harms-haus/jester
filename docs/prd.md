@@ -68,6 +68,7 @@ jester adapts proven software development methodologies (BMAD principles) to cre
     - `draft/` - Work in progress with incrementing draft numbers (001, 002, 013, etc.)
     - `ready/` - Approved work ready for publication
     - `complete/` - Published work in final form
+    - `import-staging/` - Imported content awaiting user validation
     - `contexts/` - Context files (no staging needed)
 
 29. **FR29**: The system shall maintain draft number consistency:
@@ -78,10 +79,42 @@ jester adapts proven software development methodologies (BMAD principles) to cre
 30. **FR30**: The system shall provide workflow commands (via @jester):
     - `/edit approve-draft {number}` - Move draft to ready/
     - `/edit publish "{title}"` - Move ready story to complete/
+    - `/import <file-path>` - Import content to import-staging/ for validation
+    - `/import story <file-path>` - Import story to import-staging/ for validation
+    - `/publish import-staging` - Move validated import-staging content to complete/
 
 31. **FR31**: The system shall create entities directly in complete/ directory when approved:
     - Format: Standard entity naming (character-name.md, location-name.md, item-name.md)
     - Location: `complete/characters/`, `complete/locations/`, `complete/items/`
+
+32. **FR32**: The system shall use consistent entity file naming conventions:
+    - New entities: `{entity-name-hyphen-case}.md` (e.g., `stella-stoat.md`)
+    - Entity patches: `{entity-name-hyphen-case}.patch.md` (e.g., `stella-stoat.patch.md`)
+
+33. **FR33**: The system shall use git-patch format for entity patch files with proper "incoming" and "current" sections and expected line start/end markers
+
+34. **FR34**: The system shall implement comprehensive conflict detection before story progression:
+    - Scan target directories for existing files with matching names
+    - Warn users about potential overwrites
+    - Require explicit user approval for conflicts
+    - Provide detailed conflict summary before proceeding
+
+35. **FR35**: The system shall apply entity patches before copying files during ready → complete progression
+
+36. **FR36**: The system shall perform complete cleanup of ready/ directory after successful publish:
+    - Remove published story files from ready/stories/
+    - Remove published outline files from ready/outlines/
+    - Remove published context files from ready/contexts/
+    - Remove published entity files from ready/characters/, ready/locations/, ready/items/
+    - Apply and delete patch files from ready/{type}s/{entity-name}.patch.md
+
+37. **FR37**: The system shall maintain change history by updating complete/ entity files with patch information and deleting patch files after successful application
+
+38. **FR38**: The system shall validate patch file format before applying patches:
+    - Verify git-patch format compliance
+    - Validate entity name and type consistency
+    - Check for malformed patch content
+    - Provide clear error messages for invalid patches
 
 ### Non Functional
 

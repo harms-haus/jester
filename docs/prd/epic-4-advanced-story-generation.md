@@ -66,6 +66,10 @@ so that **I can refine stories efficiently and maintain creative control over my
 22. **Content quality validation** ensures story content meets quality standards before progression
 23. **Entity consistency validation** verifies entity relationships and references are valid
 24. **Patch formatting validation** ensures entity files are properly formatted before publishing
+25. **Entity file naming validation** ensures consistent naming conventions are followed
+26. **Patch application validation** verifies patches are applied correctly to existing entities
+27. **Cleanup validation** ensures ready/ directory is properly cleaned after publish
+28. **Audit trail validation** verifies patch files are preserved in complete/patches/
 
 ## Story 4.4: Advanced Character Integration
 
@@ -114,3 +118,7 @@ so that **my stories maintain coherence with my story universe**.
 5. **Inconsistency reporting** shows specific issues found in the story
 6. **User approval workflow** requests permission to correct inconsistencies
 7. **Adaptive correction** updates entity files and other stories when approved
+8. **Patch file validation** ensures patch files follow proper git-patch format
+9. **Entity naming consistency** validates entity file naming conventions
+10. **Conflict detection validation** verifies conflict detection works correctly
+11. **Cleanup validation** ensures proper cleanup after story progression

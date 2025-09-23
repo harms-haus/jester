@@ -332,25 +332,112 @@ NEXT STEPS:
    - **RENAME** `ready/contexts/{current-name} (context).md` → `ready/contexts/{final-story-title} (context).md`
    - **RENAME** `ready/outlines/{current-name} (outline).md` → `ready/outlines/{final-story-title} (outline).md`
    - **UPDATE** content in context and outline files to use final story title in headers
-3. **Move story and related files** to `complete/` directory
-4. **Update entity references** to final locations
-5. **Confirm publication** and provide summary
+3. **Process PATCH entity files**:
+   - **SCAN** `ready/characters/`, `ready/locations/`, `ready/items/` for `.patch.md` files
+   - **READ** each patch file to extract entity name, type, and changes
+   - **APPLY** patches to existing entities in `complete/` directory:
+     - Read existing entity file from `complete/{type}s/{entity-name}.md`
+     - Apply changes from patch file (BEFORE → AFTER content)
+     - Update entity file with new content and add change history
+     - **DELETE** the `.patch.md` file after successful application
+4. **Move story and related files** to `complete/` directory
+5. **Move new entity files** from `ready/` to `complete/` directory
+6. **Update entity references** to final locations
+7. **Clean up ready/ directory** (remove all published files)
+8. **Confirm publication** and provide summary
 
 **File Operations:**
 - **Read**: `ready/stories/{title}.md`, `ready/outlines/{title} (outline).md`, `ready/contexts/{title} (context).md`, `ready/characters/*.md`, `ready/locations/*.md`, `ready/items/*.md`
 - **Rename**: Update context and outline files with final story title before moving
-- **Create**: `complete/stories/{title}.md`, `complete/outlines/{title} (outline).md`, `complete/contexts/{title} (context).md`, `complete/characters/*.md`, `complete/locations/*.md`, `complete/items/*.md`
+- **Process PATCH files**: 
+  - **Read**: `ready/{type}s/{entity-name}.patch.md` files
+  - **Read**: Existing `complete/{type}s/{entity-name}.md` files to be patched
+  - **Apply**: Patch changes to existing entity files in `complete/` directory
+  - **Update**: Add change history to `complete/{type}s/{entity-name}.md`
+  - **DELETE**: `ready/{type}s/{entity-name}.patch.md` after successful application
+- **Move**: `ready/stories/{title}.md` → `complete/stories/{title}.md`
+- **Move**: `ready/outlines/{title} (outline).md` → `complete/outlines/{title} (outline).md`
+- **Move**: `ready/contexts/{title} (context).md` → `complete/contexts/{title} (context).md`
+- **Move**: `ready/characters/*.md` → `complete/characters/*.md`
+- **Move**: `ready/locations/*.md` → `complete/locations/*.md`
+- **Move**: `ready/items/*.md` → `complete/items/*.md`
 - **Update**: Final entity references and links
+- **Cleanup**: Remove published files from ready/ directory:
+  - **DELETE**: `ready/stories/{title}.md`
+  - **DELETE**: `ready/outlines/{title} (outline).md`
+  - **DELETE**: `ready/contexts/{title} (context).md`
+  - **DELETE**: Published entity files from `ready/characters/`, `ready/locations/`, `ready/items/`
+  - **DELETE**: Applied patch files from `ready/{type}s/{entity-name}.patch.md`
 
 **Error Handling:**
 - If ready story not found, list available ready stories
+- If PATCH files are malformed, report specific formatting issues and provide correction guidance
+- If target entity files for patching don't exist in `complete/`, create them from patch content or report missing dependencies
+- If patch application fails, provide rollback instructions and manual patch application steps
 - If move operations fail, provide specific error details
 - If entity references can't be updated, list manual steps needed
+- If patch conflicts detected (multiple patches for same entity), request user resolution
 
 **Response Format:**
 - Confirm publication with file paths
 - List all files moved to complete/
+- **PATCH Processing Summary**:
+  - List all `.patch.md` files processed from entity directories
+  - List all entities successfully patched
+  - Report any patch application failures
+  - Show before/after summary for each patched entity
+  - Confirm patch files deleted after successful application
+- **Cleanup Summary**:
+  - List all files removed from ready/ directory
+  - Confirm ready/ directory is clean
 - Provide story summary and next steps
+
+**EXAMPLE OUTPUT FORMAT:**
+```
+PUBLICATION COMPLETE: "Stella's Honest Mistake" → Complete
+
+FILES MOVED:
+- ready/stories/Stellas-Honest-Mistake.md → complete/stories/Stellas-Honest-Mistake.md
+- ready/outlines/Stellas-Honest-Mistake (outline).md → complete/outlines/Stellas-Honest-Mistake (outline).md
+- ready/contexts/Stellas-Honest-Mistake (context).md → complete/contexts/Stellas-Honest-Mistake (context).md
+
+NEW ENTITIES ADDED:
+- ready/characters/Lily.md → complete/characters/Lily.md
+- ready/characters/Rascal.md → complete/characters/Rascal.md
+- ready/characters/Stella-Stoat.md → complete/characters/Stella-Stoat.md
+- ready/locations/Old-Oak-Tree.md → complete/locations/Old-Oak-Tree.md
+- ready/locations/Bees-Hive.md → complete/locations/Bees-Hive.md
+
+PATCHES APPLIED:
+- ready/locations/Dandelion-Plains.patch.md
+  ✓ Applied to complete/locations/Dandelion-Plains.md (added story appearance)
+  ✓ Deleted ready/locations/Dandelion-Plains.patch.md
+- ready/characters/Lily.patch.md
+  ✓ Applied to complete/characters/Lily.md (added story appearance)
+  ✓ Deleted ready/characters/Lily.patch.md
+- ready/characters/Rascal.patch.md
+  ✓ Applied to complete/characters/Rascal.md (added story appearance)
+  ✓ Deleted ready/characters/Rascal.patch.md
+- ready/characters/Stella-Stoat.patch.md
+  ✓ Applied to complete/characters/Stella-Stoat.md (added story appearance)
+  ✓ Deleted ready/characters/Stella-Stoat.patch.md
+
+CLEANUP COMPLETED:
+- Removed ready/stories/Stellas-Honest-Mistake.md
+- Removed ready/outlines/Stellas-Honest-Mistake (outline).md
+- Removed ready/contexts/Stellas-Honest-Mistake (context).md
+- Removed 5 entity files from ready/characters/, ready/locations/
+- Applied and deleted 4 patch files from ready/ entity directories
+- Ready/ directory is now clean
+
+SUMMARY:
+- 1 story published with 3 related files
+- 5 new entities added to complete/
+- 4 existing entities successfully patched and updated with change history
+- All entity references updated
+- All patch files applied and deleted from ready/ directories
+- Ready/ directory cleaned up successfully
+```
 
 ### Command: `/edit create-draft {draft-number}`
 

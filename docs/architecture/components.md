@@ -40,6 +40,9 @@
 - **Key Features**:
   - Entity file management (characters/, locations/, items/) via LLM operations
   - Story file management (stories/, outlines/, contexts/) via LLM operations
+  - **Patch file management (patches/) via LLM operations**
+  - **Conflict detection and validation via LLM operations**
+  - **Cleanup operations after successful publish via LLM operations**
   - Wiki-style link parsing and validation via LLM operations
   - Git integration for versioning and analytics via LLM operations
 - **Dependencies**: External LLM, Git, local file system
@@ -104,6 +107,11 @@
    - User runs `/write story` via @jester
    - External LLM follows Write prompt rules to read outline, generate story
    - LLM saves story to `stories/` per prompt instructions
+   - User runs `/edit approve-draft {number}` via @jester
+   - External LLM follows Edit prompt rules to move files to ready/ directory
+   - **LLM creates entity files in ready/ directory and patch files for existing entities**
+   - User runs `/edit publish "{title}"` via @jester
+   - **External LLM follows Edit prompt rules to apply patches, copy files, and cleanup**
 6. **For Continue Draft**: User runs `/edit` commands via @jester as needed
 7. **For Universe Management**: User accesses entity management and validation tools via @jester
 8. External LLM follows appropriate prompt rules to track changes via Git

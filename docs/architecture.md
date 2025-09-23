@@ -152,6 +152,13 @@ jester/
 │   ├── characters/             # Character markdown files
 │   ├── locations/              # Location markdown files
 │   └── items/                  # Item markdown files
+├── import-staging/             # Imported content awaiting validation
+│   ├── stories/                # Imported stories
+│   ├── outlines/               # Imported outlines
+│   ├── contexts/               # Imported contexts
+│   ├── characters/             # Imported characters
+│   ├── locations/              # Imported locations
+│   └── items/                  # Imported items
 ├── stories/                    # Generated story files
 ├── outlines/                   # Generated outline files
 ├── contexts/                   # Generated context files
@@ -391,6 +398,7 @@ class LightRAGClientImpl implements LightRAGClient {
   - `/muse` (Story Context Agent): Prompt rules for context gathering and entity discovery (Analyst role)
   - `/write` (Story Generation Agent): Prompt rules for outline and story generation (Dev role)
   - `/edit` (Cross-Stage Editor): Prompt rules for content modification and maintenance (QA role)
+  - `/import` (Content Import Agent): Prompt rules for importing and staging content
 - **Communication**: LLM agents follow prompt rules to use file-based pipeline (YAML → Markdown → Markdown)
 - **Dependencies**: LightRAG MCP client, external LLM capable of file operations
 
@@ -471,7 +479,9 @@ class LightRAGClientImpl implements LightRAGClient {
 9. External LLM follows Write prompt rules to read outline, generate story
 10. LLM saves story to `stories/` per prompt instructions
 11. User runs `/edit` commands as needed
-12. External LLM follows Edit prompt rules to track changes via Git
+12. **For Import Management**: User runs `/import` commands via @jester to import content to import-staging/
+13. **For Import Publishing**: User runs `/publish import-staging` via @jester to move validated content to complete/
+14. External LLM follows appropriate prompt rules to track changes via Git
 
 **Error Handling**:
 - LightRAG connection failures → Prompt rules instruct LLM to use offline mode with cached data

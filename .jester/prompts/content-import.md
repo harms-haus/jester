@@ -708,9 +708,9 @@ Respond with the complete populated template.
 ## Story Import Functionality
 
 ### Story Import Commands
-- `/edit import story <file-path>` - Import and update single story file
-- `/edit import story <directory-path>` - Import and update multiple story files
-- `/edit import story <file-path> [template-type]` - Import with specific template compliance
+- `/import story <file-path>` - Import and update single story file
+- `/import story <directory-path>` - Import and update multiple story files
+- `/import story <file-path> [template-type]` - Import with specific template compliance
 
 ### Story Import Process
 1. Read existing .md story file
@@ -719,8 +719,9 @@ Respond with the complete populated template.
 4. Update story wording to match current entity descriptions
 5. Ensure story fits provided templates (heroes_journey, pixar, golden_circle)
 6. Generate updated story file with proper formatting
-7. Save to stories/ directory with timestamp
+7. Save to import-staging/stories/ directory with timestamp
 8. Provide user feedback on import success and changes made
+9. Inform user to use `/publish import-staging` when ready to publish
 
 ## Import Summary Prompts
 

@@ -68,16 +68,20 @@ draft/
 - `draft/story-{number}.md` → `ready/stories/{title}.md`
 
 ### `/edit publish "{story-title}"` (via @jester)
-**Purpose**: Move ready story to complete/ directory with comprehensive validation
+**Purpose**: Move ready story to complete/ directory with comprehensive validation and patch processing
 **Process**:
 1. Find ready story by title
-2. **NEW**: Validate all entity files are properly formatted
-3. **NEW**: Check for patch formatting consistency
-4. **NEW**: Validate target directory for conflicts
-5. **NEW**: Request user approval for any conflicts
-6. Move story and related files to complete/
-7. Update entity references to final locations
-8. Confirm publication
+2. **NEW**: Scan ready/characters/, ready/locations/, ready/items/ for .patch.md files
+3. **NEW**: Validate all patch files are properly formatted (git-patch format)
+4. **NEW**: Check for target directory conflicts (existing files with same names)
+5. **NEW**: Request user approval for any conflicts found
+6. **NEW**: Apply patches to existing entities in complete/ directory
+7. **NEW**: Update complete/ entity files with change history and delete patch files
+8. Move story and related files to complete/
+9. Move new entity files from ready/ to complete/
+10. **NEW**: Clean up ready/ directory (remove published files)
+11. Update entity references to final locations
+12. Confirm publication
 
 **File Operations**:
 - `ready/stories/{title}.md` → `complete/stories/{title}.md`
@@ -86,6 +90,57 @@ draft/
 - `ready/characters/*.md` → `complete/characters/*.md`
 - `ready/locations/*.md` → `complete/locations/*.md`
 - `ready/items/*.md` → `complete/items/*.md`
+- **NEW**: Apply patches to existing complete/ entities and delete patch files
+- **NEW**: Remove published files from ready/ directory
+
+### `/import <file-path>` (via @jester)
+**Purpose**: Import content to import-staging/ directory for user validation
+**Process**:
+1. Auto-detect content type (character, location, item, story)
+2. Parse and structure content using appropriate templates
+3. Save to import-staging/{type}s/ directory
+4. Validate imported content for completeness and consistency
+5. Provide user feedback on import success and any issues
+6. Inform user to use `/publish import-staging` when ready to publish
+
+**File Operations**:
+- `{source-file}` → `import-staging/{type}s/{structured-file}.md`
+
+### `/import story <file-path>` (via @jester)
+**Purpose**: Import story content to import-staging/ directory for validation
+**Process**:
+1. Read existing .md story file
+2. Analyze story content for entity references
+3. Map story entities to current knowledge base entities
+4. Update story wording to match current entity descriptions
+5. Ensure story fits provided templates (heroes_journey, pixar, golden_circle)
+6. Generate updated story file with proper formatting
+7. Save to import-staging/stories/ directory with timestamp
+8. Provide user feedback on import success and changes made
+9. Inform user to use `/publish import-staging` when ready to publish
+
+**File Operations**:
+- `{source-story}` → `import-staging/stories/{updated-story}.md`
+
+### `/publish import-staging` (via @jester)
+**Purpose**: Move validated import-staging content to complete/ directory
+**Process**:
+1. Scan import-staging/ directory for content
+2. Validate all content is ready for publication
+3. Check for target directory conflicts (existing files with same names)
+4. Request user approval for any conflicts found
+5. Move content from import-staging/ to complete/
+6. Clean up import-staging/ directory
+7. Confirm publication
+
+**File Operations**:
+- `import-staging/stories/*.md` → `complete/stories/*.md`
+- `import-staging/outlines/*.md` → `complete/outlines/*.md`
+- `import-staging/contexts/*.md` → `complete/contexts/*.md`
+- `import-staging/characters/*.md` → `complete/characters/*.md`
+- `import-staging/locations/*.md` → `complete/locations/*.md`
+- `import-staging/items/*.md` → `complete/items/*.md`
+- Remove published files from import-staging/ directory
 
 ### `/edit list-drafts` (via @jester)
 **Purpose**: List all current drafts
