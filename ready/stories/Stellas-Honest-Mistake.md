@@ -1,8 +1,8 @@
 # Stella's Honest Mistake
 
 **A bedtime story for 4-8 year olds**  
-**Reading time: 6-8 minutes**  
-**Word count: 1,200 words**
+**Reading time: 5-6 minutes**  
+**Word count: 875 words**
 
 ---
 
@@ -39,10 +39,6 @@ Stella's face turned a deep shade of red. "I... I took it to play with it. I fou
 Lily's eyes filled with empathy. "Oh, Stella, I can see why you're embarrassed. But the important thing is that we fix this together. Where exactly did you take the compass? We need to find that missing piece."
 
 Stella looked down at her paws, her voice trembling. "I took it to the old oak tree. That's where the missing piece fell off. But I'm so ashamed of what I did. I should have been more careful!"
-
-Rascal's clever eyes lit up. "Don't worry, Stella! We can fix this. But we need to know exactly where you took it so we can find that missing piece. The compass won't work properly without it."
-
-Stella took another deep breath, her chest rising and falling. "You're right. I need to tell you the complete truth. I took the compass to the old oak tree to play with it, and that's where the missing piece fell off. I was being too curious and not careful enough, and now the bees are suffering because of my mistake."
 
 Lily smiled warmly. "Thank you for being honest, Stella. That takes a lot of courage. Now we know exactly where to look for the missing piece. Let's go to the old oak tree together and fix this compass!"
 
