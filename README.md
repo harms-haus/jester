@@ -66,7 +66,9 @@ jester/
 │   └── {NNN} - Story Title/ # Additional story projects
 ├── draft/                 # Work in progress organized by story project
 │   ├── 001/               # Draft project 001
-│   │   └── [same structure] # Same subdirectory structure
+│   │   ├── context-001.yaml    # Draft context
+│   │   ├── outline-001.md      # Draft outline
+│   │   └── story-001.md        # Draft story
 │   └── {NNN}/             # Additional draft projects
 ├── .jester/               # Framework configuration
 │   ├── agents/            # Agent rule files

@@ -77,7 +77,7 @@ jester adapts proven software development methodologies (BMAD principles) to cre
     - `contexts/` - Context files (no staging needed)
 23. **FR23**: The system shall maintain story project organization:
     - Each story project has a unique 3-digit number (001, 002, 013, etc.)
-    - Draft projects use format: `draft/{NNN}/` with subdirectories for characters/, contexts/, items/, locations/, outlines/, stories/
+    - Draft projects use format: `draft/{NNN}/` with NO subdirectories, containing only context-NNN.yaml, outline-NNN.md, and story-NNN.md
     - Reading projects use format: `reading/{NNN} - Story Title/` with same subdirectory structure
     - All files within a project maintain the same project number
 24. **FR24**: The system shall organize framework files in a hidden `.jester/` directory structure:

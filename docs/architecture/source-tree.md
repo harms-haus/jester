@@ -18,23 +18,20 @@ jester/
 │   └── target-audience-profiles.yaml  # Target audience member profiles
 ├── draft/                      # Work in progress
 │   ├── 001/                    # Draft project 001
-│   │   ├── characters/         # Draft characters
-│   │   ├── contexts/           # Draft contexts
-│   │   ├── items/              # Draft items
-│   │   ├── locations/          # Draft locations
-│   │   ├── outlines/           # Draft outlines
-│   │   └── stories/            # Draft stories
+│   │   ├── context-001.yaml    # Draft context
+│   │   ├── outline-001.md      # Draft outline
+│   │   └── story-001.md        # Draft story
 │   ├── 002/                    # Draft project 002
 │   │   └── [same structure]    # Same subdirectory structure
 │   └── {NNN}/                  # Additional draft projects
 ├── reading/                    # Approved work
 │   ├── 001 - Story Title/      # Story project 001
 │   │   ├── characters/         # Approved characters + .patch.md files
-│   │   ├── contexts/           # Approved contexts
 │   │   ├── items/              # Approved items
 │   │   ├── locations/          # Approved locations + .patch.md files
-│   │   ├── outlines/           # Approved outlines
-│   │   └── stories/            # Approved stories
+│   │   ├── Story Title-context.yaml           # Approved context
+│   │   ├── Story Title-outline.md             # Approved outline
+│   │   └── Story Title-story.md               # Approved story
 │   ├── 002 - Story Title/      # Story project 002
 │   │   └── [same structure]    # Same subdirectory structure
 │   └── {NNN} - Story Title/    # Additional story projects
@@ -84,11 +81,11 @@ jester/
   Type: character/location/item
   Changes: {description}
   
-  BEFORE:
-  [original content]
+  BEFORE (lines {orig_start_line:000}-{orig_end_line:000}):
+  {original content}
   
-  AFTER:
-  [updated content]
+  AFTER (lines {upd_start_line:000}-{upd_end_line:000}):
+  {updated content}
   ---
   ```
 
@@ -109,11 +106,13 @@ Each story project is organized with a consistent structure:
 
 ### Draft Projects (`draft/{NNN}/`)
 - **Numbering**: 3-digit numbers (001, 002, 013, etc.)
-- **Structure**: Each project has subdirectories for characters/, contexts/, items/, locations/, outlines/, stories/
+- **Structure**: Each draft project has NO subdirectories.
+- **Main Content**: Each draft project contains a context-NNN.yaml, an outline-NNN.md, and a story-NNN.md
 - **Purpose**: Work in progress for a specific story
 
 ### Reading Projects (`reading/{NNN} - Story Title/`)
 - **Numbering**: 3-digit numbers matching draft projects
 - **Naming**: Includes descriptive story title for easy identification
-- **Structure**: Same subdirectory structure as draft projects
+- **Structure**: Each reading project contains folders for each type of entity: characters, locations, items
+- **Main Content**: Each reading project contains context, outline, and story files: `{Story Title}-{context/outline/story}.{yaml/md}`
 - **Purpose**: Approved work ready for review and reading
