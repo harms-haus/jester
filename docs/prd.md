@@ -10,6 +10,7 @@
 - Create a growing library of interconnected stories that evolve with children's development
 - Establish a sustainable workflow that parents can use regularly without technical barriers
 - Demonstrate measurable improvement in story consistency compared to unstructured approaches
+- **Enhance user experience through engaging AI personas that make story creation more fun and interactive**
 
 ### Background Context
 
@@ -17,11 +18,14 @@ jester addresses a critical gap in current bedtime story creation tools. While e
 
 jester adapts proven software development methodologies (BMAD principles) to create a structured, three-stage storytelling workflow. The system uses specialized AI agents for context gathering and story generation, integrated with LightRAG knowledge graphs to ensure entity consistency and suggest meaningful connections. This approach enables parents to build rich, interconnected story universes that grow with their children while maintaining the collaborative creative process they value.
 
+**The system also features engaging AI personas (Court Jester, Agatha Christie, Mary Shelley, Arthur, The Bard) that enhance user interaction while preserving all core story generation functionality.**
+
 ### Change Log
 
 | Date | Version | Description | Author |
 |------|---------|-------------|---------|
 | 2024-12-19 | 1.0 | Initial PRD creation from project brief | John (PM) |
+| 2024-12-19 | 1.1 | Added persona system enhancement | Sarah (PO) |
 
 ## Requirements
 
@@ -106,6 +110,18 @@ jester adapts proven software development methodologies (BMAD principles) to cre
     - Suggests discovered content for import into the import-staging/ directory
     - Provides user-friendly setup guidance and next steps
     - Detects if `.jester/` structure already exists and provides appropriate messaging
+38. **FR38**: The system shall implement a persona system that:
+
+    - Selects a random persona at startup from available personas (Court Jester, Agatha Christie, Mary Shelley, Arthur, The Bard)
+    - Applies the selected persona to all user interactions
+    - Never applies persona to tool output
+    - Maintains persona throughout the session
+    - Enhances user experience without affecting story generation functionality
+    - Allows users to list available personas via `/jester personas` command
+    - Allows users to change personas via `/jester persona [name]` command
+    - Asks users if they want to remember their persona choice
+    - Stores persona preferences in `.jester/.memory/persona-settings.yaml`
+    - Loads saved persona preferences at startup when available
 
 ### Non Functional
 

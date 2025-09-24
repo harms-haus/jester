@@ -2,16 +2,17 @@
 
 ## Executive Summary
 
-This document outlines the technical architecture for **jester**, a prompt-based bedtime story generation system that adapts BMAD principles for interactive storytelling. The system uses a hierarchical command structure with a 3-stage workflow (context → outline → story), specialized agents for different functions, LightRAG integration for entity management, and local file-based storage with wiki-style linking.
+This document outlines the technical architecture for **jester**, a prompt-based bedtime story generation system that adapts BMAD principles for interactive storytelling. The system uses a hierarchical command structure with a 3-stage workflow (context → outline → story), specialized agents for different functions, LightRAG integration for entity management, local file-based storage with wiki-style linking, and an engaging persona system that enhances user interaction.
 
 ## High-Level Architecture
 
 ### System Overview
 
-**Architecture Pattern**: Hierarchical agent-based file pipeline with external knowledge graph integration  
-**Primary Interface**: Command-line interface with organized slash commands  
+**Architecture Pattern**: Hierarchical agent-based file pipeline with external knowledge graph integration and persona system  
+**Primary Interface**: Command-line interface with organized slash commands and engaging AI personas  
 **Data Flow**: Unidirectional pipeline (context → outline → story) with cross-stage editing and workflow management  
 **Storage Strategy**: Local-first with LightRAG knowledge graph integration  
+**Persona System**: Random persona selection at startup that affects user interactions while preserving tool output integrity, with user control and preference persistence  
 
 ### Core Principles
 
@@ -22,6 +23,7 @@ This document outlines the technical architecture for **jester**, a prompt-based
 5. **Local-First**: All user content stored locally with optional cloud sync
 6. **Knowledge Graph Integration**: LightRAG provides entity relationships and discovery via MCP client
 7. **Prompt Engineering**: Development produces markdown prompt rule files, not executable code
+8. **Persona System**: Engaging AI personas enhance user interaction while preserving core functionality, with user control and preference persistence
 
 ### Validation Framework
 
