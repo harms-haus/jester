@@ -26,12 +26,17 @@ jester adapts proven software development methodologies (BMAD principles) to cre
 |------|---------|-------------|---------|
 | 2024-12-19 | 1.0 | Initial PRD creation from project brief | John (PM) |
 | 2024-12-19 | 1.1 | Added persona system enhancement | Sarah (PO) |
+| 2024-12-19 | 1.2 | Added agent reliability requirements (FR1.1-FR1.4) | Sarah (PO) |
 
 ## Requirements
 
 ### Functional
 
 1. **FR1**: The system shall provide a `/jester` command that serves as the main entry point for core functionalities including initialization, help, and project management
+1.1. **FR1.1**: The system shall ensure agents properly identify and load relevant procedure files from user requests
+1.2. **FR1.2**: The system shall provide reliable procedure execution regardless of whether users use explicit commands or plain language
+1.3. **FR1.3**: The system shall maintain proper context retention during procedure execution
+1.4. **FR1.4**: The system shall provide clear feedback about loaded context files when requested
 2. **FR2**: The `/jester` command shall provide sub-commands:
    - `init` - Initialize git repo if installed (help user install otherwise)
    - `help` - Describe how jester works, answer questions, load necessary prompts/agents

@@ -24,6 +24,7 @@ This document outlines the technical architecture for **jester**, a prompt-based
 6. **Knowledge Graph Integration**: LightRAG provides entity relationships and discovery via MCP client
 7. **Prompt Engineering**: Development produces markdown prompt rule files, not executable code
 8. **Persona System**: Engaging AI personas enhance user interaction while preserving core functionality, with user control and preference persistence
+9. **Agent Procedure Recognition**: Agents must reliably identify and load relevant procedure files from user requests, ensuring consistent execution regardless of request format (explicit commands vs. plain language)
 
 ### Validation Framework
 
@@ -418,6 +419,12 @@ class LightRAGClientImpl implements LightRAGClient {
   - `/search` (Search Agent): Local file and LightRAG database search capabilities
 - **Communication**: LLM agents follow prompt rules to use file-based pipeline (YAML → Markdown → Markdown)
 - **Dependencies**: LightRAG MCP client, external LLM capable of file operations
+- **File Loading Mechanism**:
+  - Agents analyze user requests to identify relevant procedure files
+  - Agents load identified files into context before executing procedures
+  - Debug mode tracks and displays all loaded context files
+  - Context retention is maintained throughout procedure execution
+  - Fallback mechanisms ensure reliable execution even with ambiguous requests
 
 **2. LightRAG MCP Client**
 - **Purpose**: Provides structured access to knowledge graph entities and relationships
