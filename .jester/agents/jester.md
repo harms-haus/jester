@@ -30,6 +30,7 @@ commands:
   - personas: List available personas and allow selection
   - persona: Change current persona (with option to remember choice)
   - audience: Target audience member management (create, edit, list, select, delete, clear, help, status)
+  - debug: Activate debug mode for system introspection
 dependencies:
   agents:
     - write.md
@@ -42,6 +43,7 @@ dependencies:
     - search.md
     - validate.md
     - audience.md
+    - debug.md
   prompts:
     - workflow-selection.md
     - user-greeting.md
@@ -120,6 +122,7 @@ Great! Your project is ready. The draft/ directory is organized by story project
 - `/jester help` - Describe how jester works, answer questions, load necessary prompts/agents
 - `/jester personas` - List available personas and allow selection
 - `/jester persona [name]` - Change to a specific persona
+- `/jester debug` - Activate debug mode for system introspection
 
 ## Examples
 
@@ -129,3 +132,5 @@ Great! Your project is ready. The draft/ directory is organized by story project
 - `/edit character "Stella Stoat"` - Edit a character
 - `/jester personas` - See all available personas
 - `/jester persona "Court Jester"` - Switch to the Court Jester persona
+
+**IMPORTANT**: Load the debug mode dependencies now, but do not activate it
