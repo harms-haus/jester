@@ -38,18 +38,6 @@ target_audience_profiles:
       max_words: null
       target_words: null
       calculation_method: null  # 'overlap_range', 'average_centers', or 'single_member'
-      overlap_range:
-        min_words: null
-        max_words: null
-      outer_range:
-        min_words: null
-        max_words: null
-      adjustments:
-        applied: false
-        reason: null
-        original_range:
-          min_words: null
-          max_words: null
     last_calculated: null
 
   # Settings metadata

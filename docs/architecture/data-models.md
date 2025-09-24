@@ -117,22 +117,6 @@ interface TargetAudienceProfile {
       max_words: number;
       target_words: number;
       calculation_method: 'overlap_range' | 'average_centers' | 'single_member';
-      overlap_range?: {
-        min_words: number;
-        max_words: number;
-      };
-      outer_range: {
-        min_words: number;
-        max_words: number;
-      };
-      adjustments?: {
-        applied: boolean;
-        reason: string;
-        original_range: {
-          min_words: number;
-          max_words: number;
-        };
-      };
     };
   };
   metadata: {
