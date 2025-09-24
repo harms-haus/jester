@@ -243,7 +243,6 @@ The dev agent does NOT write TypeScript or other programming languages - only pr
 2. **Epic 2: Entity Management System** - Create the wiki-style entity file system with subdirectories, markdown templates, and [[link]] support for characters, locations, and items
 3. **Epic 3: LightRAG Integration** - Implement basic MCP integration for relationship discovery and entity connections while maintaining local files as primary source
 4. **Epic 4: Advanced Story Generation** - Enhance story generation with plot templates, metadata propagation, cross-stage editing capabilities, story library management, and story consistency checking
-5. **Epic 5: Story Universe Management** - Add link validation and content management for the universe storytelling ecosystem
 
 ## Epic 1: Foundation & Core Infrastructure
 
@@ -573,58 +572,6 @@ so that **my children enjoy the stories and want to hear more**.
 5. **Story engagement** includes elements that capture attention
 6. **Story validation** checks for common issues and inconsistencies
 7. **Story enhancement** suggests improvements for better quality
-
-## Epic 5: Story Universe Management
-
-**Epic Goal**: Add link validation to create a universe storytelling ecosystem that enables parents to maintain their story universe effectively. This epic delivers the essential link management tools that make jester a sustainable long-term solution.
-
-### Story 5.1: Link Validation System
-
-As a **parent maintaining a story universe**,
-I want **to detect and fix broken links**,
-so that **my entity relationships remain consistent and navigable**.
-
-#### Acceptance Criteria
-
-1. **Link scanning** detects all [[wiki-links]] in entity and story files
-2. **Link validation** checks if linked entities exist and are accessible
-3. **Broken link reporting** shows which links are broken and where
-4. **Link fixing** suggests corrections for broken links
-5. **Link updating** automatically updates links when entities are renamed
-6. **Link statistics** shows link usage and relationship patterns
-7. **Link export** provides link relationship data for analysis
-
-### Story 5.3: Story Universe Analytics
-
-As a **parent building a story universe**,
-I want **to understand how my story universe is growing**,
-so that **I can make informed decisions about future stories**.
-
-#### Acceptance Criteria
-
-1. **Git log analysis** reads repository history to track entity and story changes
-2. **Entity usage statistics** show which entities appear most frequently based on git history
-3. **Story creation patterns** reveal when and how often stories are created from git commits
-4. **Character development tracking** shows how characters evolve over time using git diff analysis
-5. **Relationship mapping** visualizes entity connections and relationships from git history
-6. **Content analysis** provides insights into story themes and patterns using git log data
-7. **Growth metrics** track the expansion of the story universe through git commit analysis
-
-### Story 5.4: Maintenance Check System
-
-As a **parent maintaining a story universe**,
-I want **to run maintenance checks on demand**,
-so that **my story universe stays organized and consistent**.
-
-#### Acceptance Criteria
-
-1. **`/edit` command with maintenance prompt** runs comprehensive maintenance checks
-2. **Orphaned file detection** finds files that are no longer referenced
-3. **Unused file detection** identifies files that haven't been used recently
-4. **Entity consistency validation** checks entity information accuracy
-5. **Story consistency validation** verifies story coherence and structure
-6. **Duplicate detection** finds and reports duplicate content
-7. **Maintenance reporting** shows what changes were made and what issues were found
 
 ## Checklist Results Report
 

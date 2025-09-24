@@ -57,6 +57,38 @@ Before querying LightRAG, analyze the story idea to generate targeted queries:
 - More complex relationships and challenges
 - Query for: "complex character relationships", "challenging environments", "sophisticated items"
 
+### Context-Aware Query Generation for Muse Agent
+
+**LLM Agent Instructions for Context Generation:**
+1. **Analyze Story Requirements**: Extract key elements from user's story concept:
+   - Story themes and genre (adventure, friendship, mystery, fantasy)
+   - Target audience age and reading level
+   - Plot template and structure
+   - Existing character/location/item preferences
+
+2. **Generate Targeted Queries**: Create specific LightRAG queries based on analysis:
+   - Character queries: "characters suitable for [age] [genre] stories with [theme]"
+   - Location queries: "locations perfect for [story_type] adventures for [age_group]"
+   - Item queries: "magical items and tools for [genre] stories for [age]"
+   - Relationship queries: "relationships between characters in [genre] stories"
+
+3. **Execute LightRAG Queries**: Use LightRAG MCP client to search for entities:
+   - Query for characters, locations, and items separately
+   - Use progressive querying (broad to specific)
+   - Handle query failures gracefully with fallback queries
+
+4. **Score and Rank Results**: Evaluate discovered entities:
+   - Calculate relevance scores (0.0-1.0) based on story fit
+   - Check age-appropriateness for target audience
+   - Assess thematic alignment with story concept
+   - Rank entities by overall suitability
+
+5. **Present Entity Suggestions**: Display results to user:
+   - Show top 3-5 entities per category (characters, locations, items)
+   - Include relevance scores and reasoning
+   - Allow user to select which entities to include
+   - Provide option to search for more entities
+
 ### Query Optimization
 
 **Relevance Scoring:**
