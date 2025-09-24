@@ -88,8 +88,8 @@ jester adapts proven software development methodologies (BMAD principles) to cre
 28. **FR28**: The system shall require user approval before overwriting existing files during story progression
 29. **FR29**: The system shall provide the standardized command structure as defined in FR1-FR10, replacing all previous command patterns with the new hierarchical structure
 30. **FR30**: The system shall use consistent entity file naming conventions:
-    - New entities: `{entity-name-hyphen-case}.md` (e.g., `stella-stoat.md`)
-    - Entity patches: `{entity-name-hyphen-case}.patch.md` (e.g., `stella-stoat.patch.md`)
+    - New entities: `{Entity Name with Proper Casing, Punctuation and Spacing}.md` (e.g., `Stella Stoat.md`)
+    - Entity patches: `{Entity Name with Proper Casing, Punctuation and Spacing}.patch.md` (e.g., `Stella Stoat.patch.md`)
 31. **FR31**: The system shall use git-patch format for entity patch files with proper "incoming" and "current" sections and expected line start/end markers
 32. **FR32**: The system shall implement comprehensive conflict detection before story progression:
     - Scan target directories for existing files with matching names

@@ -49,7 +49,7 @@ VALIDATE ENTITY REFERENCE INTEGRITY
 You are validating entity reference integrity across all files.
 
 1. **Reference Completeness:**
-   - [ ] All [[entity-name]] links have corresponding entity files
+   - [ ] All [[Entity Name with Proper Casing, Punctuation and Spacing]] links have corresponding entity files
    - [ ] No orphaned references (links to non-existent entities)
    - [ ] No broken wiki-link syntax
    - [ ] All entity references are properly formatted
@@ -119,7 +119,7 @@ VALIDATE ENTITY LINKS
 You are validating entity link syntax and functionality.
 
 1. **Link Syntax Validation:**
-   - [ ] All [[entity-name]] links use correct wiki syntax
+   - [ ] All [[Entity Name with Proper Casing, Punctuation and Spacing]] links use correct wiki syntax
    - [ ] No malformed link syntax
    - [ ] Link names match entity file names exactly
    - [ ] No special characters in link names

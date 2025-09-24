@@ -80,7 +80,7 @@ EXECUTE ENTITY VALIDATION
 You are executing entity validation for draft progression.
 
 1. **Entity Reference Validation:**
-   - Check all [[entity-name]] links are valid
+   - Check all [[Entity Name with Proper Casing, Punctuation and Spacing]] links are valid
    - Verify entity files exist in reading/ directory
    - Validate wiki-link syntax is correct
    - Check entity names are consistent

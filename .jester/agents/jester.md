@@ -72,4 +72,4 @@ Great! Your project is ready. The draft/ directory is organized by story project
 - `/jester init` - Set up a new project
 - `/muse create-new` - Start a new story about a brave mouse
 - `/write outline` - Generate an outline from context
-- `/edit character stella-stoat` - Edit a character
+- `/edit character "Stella Stoat"` - Edit a character

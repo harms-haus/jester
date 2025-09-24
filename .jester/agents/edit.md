@@ -104,7 +104,7 @@ The Edit agent handles two universes:
 ## Patch System
 
 When editing entities in the "universe" universe:
-- Creates patch files in `reading/{NNN} - Story Title/{type}s/{entity-name}.patch.md`
+- Creates patch files in `reading/{NNN} - Story Title/{type}s/{Entity Name with Proper Casing}.patch.md`
 - Uses git-patch format with "incoming" and "current" sections
 - Applies patches during publish workflow
 - Maintains change history and version control

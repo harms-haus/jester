@@ -62,7 +62,7 @@
 ### Entity Rename Scenarios
 
 **Character Rename:**
-- Rename character file: `{old-name}.md` → `{new-name}.md`
+- Rename character file: `{Old Name with Proper Casing}.md` → `{New Name with Proper Casing}.md`
 - Update character's own description and metadata
 - Update all stories that reference the character
 - Update location references (e.g., "Oscar's Tide Pool" → "Octavia's Tide Pool")
@@ -70,7 +70,7 @@
 - Update other character references to this character
 
 **Location Rename:**
-- Rename location file: `{old-name}.md` → `{new-name}.md`
+- Rename location file: `{Old Name with Proper Casing}.md` → `{New Name with Proper Casing}.md`
 - Update location's own description and metadata
 - Update all stories that reference the location
 - Update character references to this location
@@ -78,7 +78,7 @@
 - Update item references to this location
 
 **Item Rename:**
-- Rename item file: `{old-name}.md` → `{new-name}.md`
+- Rename item file: `{Old Name with Proper Casing}.md` → `{New Name with Proper Casing}.md`
 - Update item's own description and metadata
 - Update all stories that reference the item
 - Update character references to this item
@@ -88,9 +88,9 @@
 ### Story Title Rename Scenarios
 
 **Story Title Rename:**
-- Rename context file: `{old-title}-context.yaml` → `{new-title}-context.yaml`
-- Rename outline file: `{old-title}-outline.md` → `{new-title}-outline.md`
-- Rename story file: `{old-title}-story.md` → `{new-title}-story.md`
+- Rename context file: `{Old Title with Proper Casing}-context.yaml` → `{New Title with Proper Casing}-context.yaml`
+- Rename outline file: `{Old Title with Proper Casing}-outline.md` → `{New Title with Proper Casing}-outline.md`
+- Rename story file: `{Old Title with Proper Casing}-story.md` → `{New Title with Proper Casing}-story.md`
 - Update story references in character entity files
 - Update story references in location entity files
 - Update story references in item entity files
@@ -104,7 +104,7 @@
 - Internal file references and metadata
 
 **Wiki-Link References:**
-- [[entity-name]] links in stories
+- [[Entity Name with Proper Casing, Punctuation and Spacing]] links in stories
 - [[story-title]] links in entity files
 - Cross-references between entities
 
@@ -187,7 +187,7 @@
 "✅ Entity rename completed successfully!
 
 **Summary:**
-- Entity file renamed: {old-name} → {new-name}
+- Entity file renamed: {Old Name with Proper Casing} → {New Name with Proper Casing}
 - {X} direct references updated
 - {Y} [[wiki-links]] updated
 - {Z} unlinked references updated
@@ -210,7 +210,7 @@
 "✅ Story title rename completed successfully!
 
 **Summary:**
-- Story files renamed: {old-title} → {new-title}
+- Story files renamed: {Old Title with Proper Casing} → {New Title with Proper Casing}
 - {X} entity file references updated
 - {Y} story metadata updated
 - {Z} cross-references updated

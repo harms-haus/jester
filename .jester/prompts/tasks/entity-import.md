@@ -112,7 +112,7 @@ Move processed entity to import staging directory:
 
 **Staging Steps:**
 1. Create appropriate staging subdirectory
-2. Copy processed entity file to staging location
+2. Copy processed entity file to staging location with proper entity name (e.g., `Stella Stoat.md`)
 3. Update entity metadata
 4. Generate staging confirmation
 

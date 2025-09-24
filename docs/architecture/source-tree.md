@@ -64,17 +64,17 @@ jester/
 ## File Naming Conventions
 
 ### Entity Files
-- **New entities**: `{entity-name-hyphen-case}.md`
-  - Examples: `stella-stoat.md`, `dandelion-plains.md`, `magic-snorkel.md`
-- **Entity patches**: `{entity-name-hyphen-case}.patch.md` (in entity directories)
-  - Examples: `reading/001 - Story Title/characters/stella-stoat.patch.md`, `reading/002 - Story Title/locations/dandelion-plains.patch.md`
+- **New entities**: `{Entity Name with Proper Casing, Punctuation and Spacing}.md`
+  - Examples: `Stella Stoat.md`, `Dandelion Plains.md`, `Magic Snorkel.md`
+- **Entity patches**: `{Entity Name with Proper Casing, Punctuation and Spacing}.patch.md` (in entity directories)
+  - Examples: `reading/001 - Story Title/characters/Stella Stoat.patch.md`, `reading/002 - Story Title/locations/Dandelion Plains.patch.md`
 
 ### Patch File Format
 - **Format**: Git-patch format with proper headers
 - **Structure**: 
   ```
   ---
-  Entity: {entity-name}
+  Entity: {Entity Name with Proper Casing, Punctuation and Spacing}
   Type: character/location/item
   Changes: {description}
   

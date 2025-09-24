@@ -62,9 +62,9 @@ You are detecting specific file conflicts in the target directory.
    - Identify conflict type (structure, content, metadata)
 
 3. **Entity File Conflicts:**
-   - Check ready/characters/{name}.md exists
-   - Check ready/locations/{name}.md exists
-   - Check ready/items/{name}.md exists
+   - Check ready/characters/{Entity Name with Proper Casing}.md exists
+   - Check ready/locations/{Entity Name with Proper Casing}.md exists
+   - Check ready/items/{Entity Name with Proper Casing}.md exists
    - Compare entity definitions and properties
 
 4. **Metadata Conflicts:**

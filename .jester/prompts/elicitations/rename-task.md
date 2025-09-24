@@ -60,7 +60,7 @@ Would you like me to proceed with updating all these references?"
 "Executing rename process:
 
 **Step 1: File Rename**
-- Renaming entity files: {old-name} → {new-name}
+- Renaming entity files: {Old Name with Proper Casing} → {New Name with Proper Casing}
 - Updating file metadata and timestamps
 
 **Step 2: Reference Updates**
@@ -86,7 +86,7 @@ Would you like me to proceed with updating all these references?"
 "🎉 Rename process completed successfully!
 
 **Summary:**
-- {entity_type|story_title} renamed: {old-name} → {new-name}
+- {entity_type|story_title} renamed: {Old Name with Proper Casing} → {New Name with Proper Casing}
 - {X} files modified
 - {Y} references updated
 - {Z} links verified

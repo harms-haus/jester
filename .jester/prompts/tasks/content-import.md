@@ -62,7 +62,7 @@ Process the selected file for import:
 2. Extract relevant information based on content type
 3. Structure the information according to the appropriate template
 4. Validate the structured content
-5. Generate import staging file
+5. Generate import staging file with proper entity name (e.g., `Stella Stoat.md`)
 
 **For Entity Files:**
 - Extract entity name, description, and properties

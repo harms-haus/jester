@@ -120,7 +120,7 @@ After successful publishing:
 - Remove published outline files from reading/{NNN} - Story Title/outlines/
 - Remove published context files from reading/{NNN} - Story Title/contexts/
 - Remove published entity files from reading/{NNN} - Story Title/characters/, reading/{NNN} - Story Title/locations/, reading/{NNN} - Story Title/items/
-- Apply and delete patch files from reading/{NNN} - Story Title/{type}s/{entity-name}.patch.md
+- Apply and delete patch files from reading/{NNN} - Story Title/{type}s/{Entity Name with Proper Casing}.patch.md
 
 ## Quality Assurance
 
