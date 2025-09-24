@@ -1,0 +1,58 @@
+# Target Audience Profiles Template
+# This template is used to create the target-audience-profiles.yaml file in .memory/
+# Copy this template to .memory/target-audience-profiles.yaml when initializing the system
+
+target_audience_profiles:
+  # Currently active members for story generation
+  active_members: []  # Array of member IDs
+  
+  # Individual member profiles
+  members: []
+    # Example member structure:
+    # - id: "zoe-001"
+    #   name: "Zoe"
+    #   birthday: "2019-03-15"  # ISO date format
+    #   preferred_length:
+    #     min_words: 700
+    #     max_words: 900
+    #     target_words: 800
+    #   preferences:
+    #     themes: ["adventure", "friendship", "animals"]
+    #     characters: ["brave", "stella-stoat", "theo-bear"]
+    #     settings: ["forest", "village", "magical-places"]
+    #   metadata:
+    #     created_at: "2024-12-19T10:30:00Z"
+    #     last_modified: "2024-12-19T10:30:00Z"
+    #     version: 1
+
+  # Calculated parameters (updated when active members change)
+  calculated_parameters:
+    age_range:
+      min_age: null
+      max_age: null
+      expanded_range:
+        min_age: null
+        max_age: null
+    target_length:
+      min_words: null
+      max_words: null
+      target_words: null
+      calculation_method: null  # 'overlap_range', 'average_centers', or 'single_member'
+      overlap_range:
+        min_words: null
+        max_words: null
+      outer_range:
+        min_words: null
+        max_words: null
+      adjustments:
+        applied: false
+        reason: null
+        original_range:
+          min_words: null
+          max_words: null
+    last_calculated: null
+
+  # Settings metadata
+  created_at: null
+  last_modified: null
+  version: "1.0"

@@ -7,9 +7,15 @@ jester/
 ├── .jester/                    # Framework files (hidden)
 │   ├── agents/                 # Agent prompt definitions
 │   ├── templates/              # Story and plot templates
+│   │   └── memory/             # Memory system templates
+│   │       ├── persona-settings-template.yaml
+│   │       └── target-audience-profiles-template.yaml
 │   ├── tasks/                  # Task definitions
 │   ├── data/                   # Reference data
 │   └── utils/                  # Utility scripts
+├── .memory/                    # User preferences and settings
+│   ├── persona-settings.yaml   # Persona system preferences
+│   └── target-audience-profiles.yaml  # Target audience member profiles
 ├── draft/                      # Work in progress
 │   ├── 001/                    # Draft project 001
 │   │   ├── characters/         # Draft characters

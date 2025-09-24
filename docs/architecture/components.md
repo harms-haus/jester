@@ -2,7 +2,8 @@
 
 ## Core Components
 
-**1. Agent System**
+### 1. Agent System
+
 - **Purpose**: Orchestrates the hierarchical command workflow through prompt rules
 - **Technology**: Markdown prompt rule files following BMAD pattern
 - **Key Agents**:
@@ -18,7 +19,8 @@
 - **Communication**: LLM agents follow prompt rules to use file-based pipeline (YAML → Markdown → Markdown)
 - **Dependencies**: LightRAG MCP client, external LLM capable of file operations
 
-**1a. Entry Point Management**
+### 1a. Entry Point Management
+
 - **Purpose**: Provides unified workflow selection and user guidance
 - **Technology**: Markdown prompt rule file with workflow selection logic
 - **Key Features**:
@@ -28,7 +30,8 @@
   - Seamless transitions to specialized agents
 - **Dependencies**: All agent files, workflow selection prompts
 
-**2. LightRAG MCP Client**
+### 2. LightRAG MCP Client
+
 - **Purpose**: Provides structured access to knowledge graph entities and relationships
 - **Technology**: Python MCP client with OpenAPI integration
 - **Key Features**:
@@ -38,7 +41,8 @@
   - Local caching and offline mode support
 - **Dependencies**: LightRAG service, Python runtime
 
-**3. File System Operations**
+### 3. File System Operations
+
 - **Purpose**: LLM agents perform file operations as instructed by prompt rules
 - **Technology**: External LLM agents following prompt instructions
 - **Key Features**:
@@ -51,7 +55,8 @@
   - Git integration for versioning and analytics via LLM operations
 - **Dependencies**: External LLM, Git, local file system
 
-**4. Template System**
+### 4. Template System
+
 - **Purpose**: Provides structured templates for LLM agents to use in story generation
 - **Technology**: YAML/Markdown templates referenced by prompt rules
 - **Key Features**:
@@ -63,17 +68,21 @@
 
 ## Supporting Components
 
-**5. Configuration Manager**
-- **Purpose**: Manages project settings and LightRAG connection
+### 5. Configuration Manager
+
+- **Purpose**: Manages project settings, LightRAG connection, and user preferences
 - **Technology**: YAML configuration files
 - **Key Features**:
   - LightRAG endpoint configuration
   - Story generation parameters
   - Entity type definitions
   - Template selection
-- **Dependencies**: Local file system
+  - **Target audience member profiles and preferences**
+  - **Persona system settings**
+- **Dependencies**: Local file system, `.memory` system
 
-**6. Analytics Engine**
+### 6. Analytics Engine
+
 - **Purpose**: Tracks story universe growth and entity usage
 - **Technology**: Git log analysis and file system monitoring
 - **Key Features**:
@@ -83,7 +92,8 @@
   - Growth pattern identification
 - **Dependencies**: Git, local file system
 
-**7. Validation System**
+### 7. Validation System
+
 - **Purpose**: Ensures consistency between local files and LightRAG
 - **Technology**: TypeScript validation logic
 - **Key Features**:
@@ -93,28 +103,50 @@
   - Relationship consistency verification
 - **Dependencies**: LightRAG MCP client, local file system
 
+### 8. Target Audience Management System
+
+- **Purpose**: Manages personalized target audience member profiles and parameter calculation
+- **Technology**: YAML configuration files with prompt-based agent integration
+- **Key Features**:
+  - Target audience member profile creation and management
+  - Automatic age calculation from birthday information
+  - Intelligent parameter adjustment for multiple members
+  - Integration with story generation pipeline
+  - Profile persistence in `.memory` system
+  - Template-based initialization from `.jester/templates/memory/`
+- **Dependencies**: Local file system, agent system, template system
+
 ## Component Interactions
 
-**Data Flow**:
-1. User initiates `/jester` command for project management or `/muse create-new` for story creation
-2. External LLM follows appropriate prompt rules to query LightRAG via TypeScript MCP client for entities
-3. LLM generates context file and saves to `contexts/` per prompt instructions
-4. User edits context file
-5. User runs `/write outline`
-6. External LLM follows Write prompt rules to read context, generate outline
-7. LLM saves outline to `outlines/` per prompt instructions
-8. User runs `/write story`
-9. External LLM follows Write prompt rules to read outline, generate story
-10. LLM saves story to `stories/` per prompt instructions
-11. User runs `/edit` commands for content modification or `/delete` commands for entity removal
-12. User runs `/approve` to move draft to reading stage
-13. User runs `/publish` to publish reading story with entities and patches
-14. **For Import Management**: User runs `/import` commands to import content to import-staging/
-15. **For Search**: User runs `/search` commands to query local files and LightRAG database
-16. External LLM follows appropriate prompt rules to track changes via Git
+### Data Flow
 
-**Error Handling**:
+1. User initiates `/jester` command for project management or `/muse create-new` for story creation
+2. **Target Audience Integration**: System loads target audience profiles from `.memory` system
+3. **Target Audience Selection**: User selects target audience members via `/jester audience select` command
+4. **Parameter Calculation**: System calculates age ranges and target lengths from selected members
+5. External LLM follows appropriate prompt rules to query LightRAG via TypeScript MCP client for entities
+6. LLM generates context file with target audience parameters and saves to `contexts/` per prompt instructions
+7. User edits context file
+8. User runs `/write outline`
+9. External LLM follows Write prompt rules to read context, generate outline
+10. LLM saves outline to `outlines/` per prompt instructions
+11. User runs `/write story`
+12. External LLM follows Write prompt rules to read outline, generate story
+13. LLM saves story to `stories/` per prompt instructions
+14. User runs `/edit` commands for content modification or `/delete` commands for entity removal
+15. User runs `/approve` to move draft to reading stage
+16. User runs `/publish` to publish reading story with entities and patches
+17. **For Import Management**: User runs `/import` commands to import content to import-staging/
+18. **For Search**: User runs `/search` commands to query local files and LightRAG database
+19. **For Target Audience Management**: User runs `/jester audience` commands to manage member profiles
+20. External LLM follows appropriate prompt rules to track changes via Git
+
+### Error Handling
+
 - LightRAG connection failures → Prompt rules instruct LLM to use offline mode with cached data
 - File system errors → Prompt rules instruct LLM to provide graceful degradation with user notification
 - Validation failures → Prompt rules instruct LLM to provide detailed error messages with suggested fixes
 - LLM failures → Prompt rules provide fallback to manual editing mode instructions
+- **Target audience calculation failures** → Prompt rules instruct LLM to fall back to default parameters with user notification
+- **Invalid birthday data** → Prompt rules instruct LLM to request valid date format and provide examples
+- **Missing target audience profiles** → Prompt rules instruct LLM to offer profile creation or use default parameters

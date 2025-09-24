@@ -7,11 +7,21 @@ title: "{{STORY_TITLE}}"
 target_audience:
   age_range: "{{AGE_RANGE}}"  # e.g., "5-8", "8-12", "12+"
   reading_level: "{{READING_LEVEL}}"  # e.g., "beginner", "intermediate", "advanced"
+  selected_members: ["{{SELECTED_MEMBER_1}}", "{{SELECTED_MEMBER_2}}"]  # Array of member IDs
+  calculated_from_members: {{CALCULATED_FROM_MEMBERS}}  # true/false
 
 target_length:
   min_words: {{MIN_WORDS}}  # e.g., 500
   max_words: {{MAX_WORDS}}  # e.g., 1500
   final_target: {{FINAL_TARGET}}  # e.g., 1000
+  calculated_from_members: {{CALCULATED_FROM_MEMBERS}}  # true/false
+  member_preferences:  # Details about member preferences used in calculation
+    "{{MEMBER_ID_1}}":
+      preferred_words: {{MEMBER_PREFERRED_WORDS_1}}
+      weight: {{MEMBER_WEIGHT_1}}  # For averaging when multiple members selected
+    "{{MEMBER_ID_2}}":
+      preferred_words: {{MEMBER_PREFERRED_WORDS_2}}
+      weight: {{MEMBER_WEIGHT_2}}
 
 # Entity information stored as structured data only - no individual entity files created
 entities:

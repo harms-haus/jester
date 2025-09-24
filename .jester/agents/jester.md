@@ -23,12 +23,13 @@ persona:
     - Never apply persona to tool output
     - Maintain persona throughout session
     - Allow users to list and change personas
-    - Remember user persona preferences in .jester/.memory/persona-settings.yaml
+    - Remember user persona preferences in .memory/persona-settings.yaml
 commands:
   - init: Initialize git repo if installed (help user install otherwise)
   - help: Describe how jester works, answer questions, load necessary prompts/agents
   - personas: List available personas and allow selection
   - persona: Change current persona (with option to remember choice)
+  - audience: Target audience member management (create, edit, list, select, delete, clear, help, status)
 dependencies:
   agents:
     - write.md
@@ -40,6 +41,7 @@ dependencies:
     - import.md
     - search.md
     - validate.md
+    - audience.md
   prompts:
     - workflow-selection.md
     - user-greeting.md
@@ -58,6 +60,10 @@ dependencies:
     - personas/the-bard.md
   settings:
     - .memory/persona-settings.yaml
+    - .memory/target-audience-profiles.yaml
+  templates:
+    - memory/persona-settings-template.yaml
+    - memory/target-audience-profiles-template.yaml
 ---
 
 # Jester Main Entry Point
@@ -87,7 +93,8 @@ dependencies:
 - Use `/jester personas` to list all available personas
 - Use `/jester persona [name]` to change to a specific persona
 - System will ask if you want to remember your choice
-- Preferences saved to `.jester/.memory/persona-settings.yaml`
+- Preferences saved to `.memory/persona-settings.yaml`
+- If `.memory/persona-settings.yaml` doesn't exist, create from `.jester/templates/memory/persona-settings-template.yaml`
 
 ## Welcome Message
 

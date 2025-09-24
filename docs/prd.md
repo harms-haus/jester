@@ -120,8 +120,20 @@ jester adapts proven software development methodologies (BMAD principles) to cre
     - Allows users to list available personas via `/jester personas` command
     - Allows users to change personas via `/jester persona [name]` command
     - Asks users if they want to remember their persona choice
-    - Stores persona preferences in `.jester/.memory/persona-settings.yaml`
+    - Stores persona preferences in `.memory/persona-settings.yaml`
+    - Creates `.memory/persona-settings.yaml` from `.jester/templates/memory/persona-settings-template.yaml` if it doesn't exist
     - Loads saved persona preferences at startup when available
+39. **FR39**: The system shall implement a target audience management system that:
+    - Allows users to create named target audience member profiles (e.g., "Zoe", "Max")
+    - Stores birthday information for automatic age calculation
+    - Affects story generation parameters (age range, target length, content appropriateness)
+    - Supports multiple target audience member selection with intelligent parameter adjustment
+    - Calculates combined age ranges with appropriate wiggle room (e.g., 3-5 becomes 2-6 or 3-7)
+    - Calculates combined target word counts using overlap range algorithm with minimum 200-word range
+    - Stores target audience preferences in `.memory/target-audience-profiles.yaml`
+    - Creates `.memory/target-audience-profiles.yaml` from `.jester/templates/memory/target-audience-profiles-template.yaml` if it doesn't exist
+    - Loads saved target audience profiles at startup when available
+    - Integrates with existing context generation and story generation workflows
 
 ### Non Functional
 

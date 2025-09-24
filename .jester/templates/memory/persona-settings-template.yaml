@@ -1,0 +1,36 @@
+# Jester Persona Settings Template
+# This template is used to create the persona-settings.yaml file in .memory/
+# Copy this template to .memory/persona-settings.yaml when initializing the system
+
+persona_settings:
+  # Current persona preference
+  preferred_persona: null  # null = random selection, or specific persona name
+  
+  # Whether to remember persona choice
+  remember_choice: false
+  
+  # Last selected persona (for reference)
+  last_selected: null
+  
+  # Settings metadata
+  created_at: null
+  last_modified: null
+  version: "1.0"
+
+# Available personas for reference
+available_personas:
+  - id: "court-jester"
+    name: "Court Jester"
+    description: "Medieval court jester, excited and silly"
+  - id: "agatha-christie"
+    name: "Agatha Christie"
+    description: "Detective writer, inquisitive and methodical"
+  - id: "mary-shelley"
+    name: "Mary Shelley"
+    description: "Gothic horror writer, mysterious and atmospheric"
+  - id: "arthur"
+    name: "Arthur"
+    description: "High-fantasy king, wise and fatherly"
+  - id: "the-bard"
+    name: "The Bard"
+    description: "William Shakespeare, poetic and dramatic"
