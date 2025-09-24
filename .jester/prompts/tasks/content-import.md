@@ -68,7 +68,10 @@ Process the selected file for import:
 - Extract entity name, description, and properties
 - Identify entity type (character, location, item)
 - Extract relationships and connections
-- Structure according to entity template
+- Structure according to appropriate entity template:
+  - Character entities: Use .jester/templates/character-template.md
+  - Location entities: Use .jester/templates/location-template.md
+  - Item entities: Use .jester/templates/item-template.md
 
 **For Story Files:**
 - Extract story title, content, and metadata
@@ -99,15 +102,15 @@ Process the selected file for import:
 
 ### Import Staging Task
 ```
-Move processed content to import staging directory:
+Move processed content to import-staging directory:
 
 **Source File:** {{SOURCE_FILE_PATH}}
 **Staging Directory:** import-staging/
 **Content Type:** {{CONTENT_TYPE}}
 
 **Staging Steps:**
-1. Create appropriate staging subdirectory
-2. Copy processed file to staging location
+1. Create appropriate `import-staging/` subdirectory (characters, locations, items, contexts, outlines, stories)
+2. Copy processed file to `import-staging/` location into the new format
 3. Update file metadata
 4. Generate staging confirmation
 

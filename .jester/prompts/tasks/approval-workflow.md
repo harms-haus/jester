@@ -98,7 +98,7 @@
 
 **Step 2: Character File Creation**
 - Create individual character files for each newly-created character in context
-- Use character template format
+- Use character template format from .jester/templates/character-template.md
 - Store in reading/{NNN} - Story Title/characters/ directory
 - Include character descriptions, relationships, and metadata
 - Create individual character patch files for each existing character in context with any new information, otherwise skip this step
@@ -106,7 +106,7 @@
 
 **Step 3: Location File Creation**
 - Create individual location files for each newly-created location in context
-- Use location template format
+- Use location template format from .jester/templates/location-template.md
 - Store in reading/{NNN} - Story Title/locations/ directory
 - Include location descriptions, atmosphere, and metadata
 - Create individual location patch files for each existing location in context with any new information, otherwise skip this step
@@ -114,7 +114,7 @@
 
 **Step 4: Item File Creation**
 - Create individual item files for each newly-created item in context
-- Use item template format
+- Use item template format from .jester/templates/item-template.md
 - Store in reading/{NNN} - Story Title/items/ directory
 - Include item descriptions, purpose, and metadata
 - Create individual item patch files for each existing item in context with any new information, otherwise skip this step

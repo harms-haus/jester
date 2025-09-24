@@ -56,7 +56,10 @@ Process the selected entity file for import:
 2. Extract entity name, description, and properties
 3. Identify entity type and characteristics
 4. Extract relationships and connections
-5. Structure according to entity template
+5. Structure according to appropriate entity template:
+   - Character entities: Use .jester/templates/character-template.md
+   - Location entities: Use .jester/templates/location-template.md
+   - Item entities: Use .jester/templates/item-template.md
 6. Validate the structured content
 7. Generate import staging file
 

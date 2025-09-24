@@ -34,6 +34,12 @@ dependencies:
   templates:
     - import-template.yaml
     - validation-template.yaml
+    - context-template.md
+    - outline-template.md
+    - story-template.md
+    - character-template.md
+    - location-template.md
+    - item-template.md
 ---
 
 # Import Agent - Content Import

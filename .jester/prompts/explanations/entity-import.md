@@ -45,7 +45,10 @@ All imported entities go through a staging process:
 ### Entity Quality Standards
 Imported entities must meet these standards:
 
-- **Structure**: Follow Jester entity template formats
+- **Structure**: Follow Jester entity template formats:
+  - Character entities: Use .jester/templates/character-template.md
+  - Location entities: Use .jester/templates/location-template.md
+  - Item entities: Use .jester/templates/item-template.md
 - **Completeness**: Include all required entity fields
 - **Consistency**: Align with existing story universe
 - **Quality**: Meet entity description quality standards

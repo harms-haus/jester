@@ -36,7 +36,10 @@ dependencies:
     - checklists/validation-workflow.md
   templates:
     - edit-template.yaml
-    - patch-template.yaml
+    - patch-template.md
+    - character-template.md
+    - location-template.md
+    - item-template.md
 ---
 
 # Edit Agent - Content & Entity Editing

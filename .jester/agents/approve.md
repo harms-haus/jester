@@ -39,6 +39,9 @@ dependencies:
     - approval-template.yaml
     - validation-checklist.yaml
     - validation-report.yaml
+    - character-template.md
+    - location-template.md
+    - item-template.md
 ---
 
 # Approve Agent - Draft Approval

@@ -38,7 +38,13 @@ All imported content goes through a staging process:
 ### Quality Standards
 Imported content must meet these standards:
 
-- **Structure**: Follow Jester template formats
+- **Structure**: Follow Jester template formats:
+  - Character entities: Use .jester/templates/character-template.md
+  - Location entities: Use .jester/templates/location-template.md
+  - Item entities: Use .jester/templates/item-template.md
+  - Stories: Use .jester/templates/story-template.md
+  - Outlines: Use .jester/templates/outline-template.md
+  - Contexts: Use .jester/templates/context-template.yaml
 - **Completeness**: Include all required fields
 - **Consistency**: Align with existing story universe
 - **Quality**: Meet content quality standards
