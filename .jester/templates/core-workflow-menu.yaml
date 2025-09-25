@@ -1,0 +1,69 @@
+<!-- Powered by BMAD™ Core -->
+
+<!-- Powered by BMAD™ Core -->
+
+# Core Workflow Menu
+
+## Purpose
+
+Core workflow menu for main Jester functionalities and project management.
+
+## Main Commands
+
+```yaml
+commands:
+  jester:
+    id: "main"
+    title: "🎭 Jester - Main Entry Point"
+    description: "Core functionalities and project management"
+    subcommands:
+      - "init - Initialize git repo if installed"
+      - "help - Describe how jester works, answer questions"
+    use_case: "When you need general guidance or project setup"
+    agent: "jester"
+    prompts:
+      - "user-greeting.md"
+      - "workflow-selection.md"
+
+  write:
+    id: "write"
+    title: "✍️ Write - Story Generation"
+    description: "Core generation functionalities for stories"
+    subcommands:
+      - "context - Write out the context"
+      - "outline - Write out the outline"
+      - "story - Write out the story"
+    use_case: "When you want to generate story content"
+    agent: "write"
+    prompts:
+      - "context-generation.md"
+      - "outline-generation.md"
+      - "story-generation.md"
+
+  muse:
+    id: "muse"
+    title: "💡 Muse - Brainstorming"
+    description: "Core brainstorming functionalities and creative exploration"
+    subcommands:
+      - "create-new - Start new brainstorming session"
+      - "explore-existing - Explore existing draft for details"
+      - "list-elicitations - List brainstorming techniques"
+    use_case: "When you want to brainstorm and explore ideas"
+    agent: "muse"
+    prompts:
+      - "context-generation.md"
+      - "brainstorming-techniques.md"
+      - "lightrag-workflows.md"
+```
+
+## Usage Guidelines
+
+### Command Selection
+- **jester**: Use for general guidance and project setup
+- **write**: Use for story content generation
+- **muse**: Use for brainstorming and creative exploration
+
+### Integration
+- Commands are designed to work with all Jester agents
+- Consistent structure enables easy command execution
+- Supports both automated and manual workflow execution

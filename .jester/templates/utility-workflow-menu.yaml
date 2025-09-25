@@ -1,0 +1,69 @@
+<!-- Powered by BMAD™ Core -->
+
+<!-- Powered by BMAD™ Core -->
+
+# Utility Workflow Menu
+
+## Purpose
+
+Utility workflow menu for search, audience management, and system utilities.
+
+## Utility Commands
+
+```yaml
+commands:
+  search:
+    id: "search"
+    title: "🔍 Search - Content Discovery"
+    description: "Search for content across the story universe"
+    subcommands:
+      - "search [query] - Search for content"
+      - "entities - Search for entities specifically"
+      - "stories - Search for stories specifically"
+    use_case: "When you want to find existing content"
+    agent: "search"
+    prompts:
+      - "search-queries.md"
+      - "lightrag-workflows.md"
+
+  audience:
+    id: "audience"
+    title: "👥 Audience - Target Audience Management"
+    description: "Manage target audience profiles and preferences"
+    subcommands:
+      - "create [name] [birthday] - Create new audience profile"
+      - "edit [name] - Edit existing audience profile"
+      - "list - List all audience profiles"
+      - "select [names] - Select active audience members"
+    use_case: "When you want to manage target audience"
+    agent: "audience"
+    prompts:
+      - "audience-profile-creation.md"
+      - "audience-profile-editing.md"
+
+  system:
+    id: "system"
+    title: "⚙️ System - System Utilities"
+    description: "System maintenance and utility functions"
+    subcommands:
+      - "status - Check system status"
+      - "cleanup - Clean up temporary files"
+      - "backup - Create system backup"
+    use_case: "When you need system maintenance"
+    agent: "system"
+    prompts:
+      - "system-integrity-validation.md"
+      - "cleanup-operations-validation.md"
+```
+
+## Usage Guidelines
+
+### Command Selection
+- **search**: Use for finding existing content
+- **audience**: Use for managing target audience profiles
+- **system**: Use for system maintenance and utilities
+
+### Integration
+- Commands are designed to work with utility agents
+- Consistent structure enables easy command execution
+- Supports both automated and manual utility workflows

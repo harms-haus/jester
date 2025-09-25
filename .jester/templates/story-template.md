@@ -1,3 +1,5 @@
+<!-- Powered by BMAD™ Core -->
+
 # Story Template for Write Agent
 # This template is used by the Write agent for story generation
 

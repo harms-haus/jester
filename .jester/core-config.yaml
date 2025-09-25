@@ -1,0 +1,29 @@
+markdownExploder: true
+jester:
+  jesterFile: .jester/agents/jester.md
+  jesterVersion: v2
+  jesterSharded: true
+  jesterShardedLocation: .jester
+  agentFilePattern: {name}.md
+jesterLoadAlwaysFiles:
+  - .jester/data/elicitation-methods.md
+  - .jester/data/brainstorming-techniques.md
+  - .jester/data/validation-principles.md
+  - .jester/data/lightrag-integration.md
+jesterDebugLog: .ai/debug-log.md
+jesterStoryLocation: docs/stories
+slashPrefix: Jester
+memory:
+  memoryLocation: .memory
+  personaSettings: persona-settings.yaml
+  targetAudienceProfiles: target-audience-profiles.yaml
+project:
+  projectStructure:
+    - .git/
+    - universe/
+    - reading/
+    - draft/
+    - .memory/
+    - .jester/
+  initializationRequired: true
+  gitRequired: true

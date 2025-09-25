@@ -1,0 +1,68 @@
+<!-- Powered by BMAD™ Core -->
+
+<!-- Powered by BMAD™ Core -->
+
+# Editing Workflow Menu
+
+## Purpose
+
+Editing workflow menu for content modification and entity management.
+
+## Editing Commands
+
+```yaml
+commands:
+  edit:
+    id: "edit"
+    title: "✏️ Edit - Content Editing"
+    description: "Cross-stage editing across stories, outlines, contexts, and entities"
+    subcommands:
+      - "character [name] - Edit a character by name"
+      - "location [name] - Edit a location by name"
+      - "item [name] - Edit an item by name"
+    use_case: "When you want to edit existing content"
+    agent: "edit"
+    prompts:
+      - "editing-workflows.md"
+      - "system-integrity-validation.md"
+
+  delete:
+    id: "delete"
+    title: "🗑️ Delete - Entity Removal"
+    description: "Remove entities from the story universe"
+    subcommands:
+      - "character [name] - Delete a character by name"
+      - "location [name] - Delete a location by name"
+      - "item [name] - Delete an item by name"
+      - "story [name] - Delete a story by name"
+    use_case: "When you want to remove content"
+    agent: "delete"
+    prompts:
+      - "delete-entity.md"
+      - "reference-integrity-validation.md"
+
+  import:
+    id: "import"
+    title: "📥 Import - Content Import"
+    description: "Import content from external sources"
+    subcommands:
+      - "import [path] - Import content from specified path"
+      - "import-staging - Review staged import content"
+    use_case: "When you want to import external content"
+    agent: "import"
+    prompts:
+      - "import-workflows.md"
+      - "import-validation.md"
+```
+
+## Usage Guidelines
+
+### Command Selection
+- **edit**: Use for modifying existing content
+- **delete**: Use for removing content from the universe
+- **import**: Use for bringing in external content
+
+### Integration
+- Commands are designed to work with editing agents
+- Consistent structure enables easy command execution
+- Supports both automated and manual editing workflows
