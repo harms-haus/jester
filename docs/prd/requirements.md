@@ -28,15 +28,15 @@
 7. **FR7**: The system shall provide an `/approve` command to approve draft to move to "reading" universe
 8. **FR8**: The system shall provide a `/publish` command to publish "reading" story with all included entities and patches
 9. **FR9**: The system shall provide an `/import` command to import entity or story from file, or many entities/stories from directory
-10. **FR10**: The system shall provide a `/search` command to search local files and LightRAG database with natural-language queries
+10. **FR10**: The system shall provide a `/search` command to search local files and Entity Management database with natural-language queries
 11. **FR11**: The system shall maintain a strict file pipeline: YAML context → Markdown outline → Markdown story
 12. **FR12**: The system shall support multiple plot templates (Hero's Journey, Pixar method, Golden Circle)
-13. **FR13**: The system shall integrate with LightRAG via MCP for entity discovery and relationship mapping
+13. **FR13**: The system shall integrate with Entity Management via Entity Management for entity discovery and relationship mapping
 14. **FR14**: The system shall prevent context bleeding between pipeline stages (each stage reads only its designated input)
 15. **FR15**: The system shall maintain local markdown files for all entities organized in subdirectories (universe/characters/, universe/locations/, universe/items/)
 16. **FR16**: The system shall create and maintain a local story universe wiki with interconnected entity files using proper wiki-style [[links]]
 17. **FR17**: The system shall use local entity files as the primary source of truth for story generation
-18. **FR18**: The system shall query LightRAG only for relationship discovery and entity connections
+18. **FR18**: The system shall query Entity Management only for relationship discovery and entity connections
 19. **FR19**: The system shall support Obsidian-compatible markdown formatting and linking
 20. **FR20**: The system shall provide fine-grained control over which entity information is available to story generation
 21. **FR21**: The system shall maintain proper [[link]] syntax for bidirectional entity relationships across subdirectories
@@ -67,12 +67,12 @@
 4. **NFR4**: Story generation and information extraction may be slower but must be thorough and accurate
 5. **NFR5**: The system shall maintain character consistency across stories 90% of the time
 6. **NFR6**: The system shall be cross-platform compatible (Windows, macOS, Linux)
-7. **NFR7**: The system shall use prompt-based agents with minimal Python dependencies (only for LightRAG MCP)
+7. **NFR7**: The system shall use prompt-based agents with minimal Python dependencies (only for Entity Management)
 8. **NFR8**: The system shall preserve user privacy by keeping all story content local
 9. **NFR9**: The system shall be maintainable and extensible for future enhancements
-10. **NFR10**: The system shall provide clear error messages and graceful handling of LightRAG query failures
+10. **NFR10**: The system shall provide clear error messages and graceful handling of Entity Management query failures
 11. **NFR11**: The system shall maintain local file consistency and prevent broken [[links]] across entity subdirectories
 12. **NFR12**: The system shall provide fast local file operations for entity lookup and story generation
-13. **NFR13**: The system shall support manual LightRAG updates without automatic synchronization
+13. **NFR13**: The system shall support manual Entity Management updates without automatic synchronization
 14. **NFR14**: The system shall maintain clean separation between framework files (hidden) and user content (visible)
 15. **NFR15**: The system shall provide intuitive user experience with minimal visible complexity

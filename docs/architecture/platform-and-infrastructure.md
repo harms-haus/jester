@@ -12,7 +12,7 @@
 
 **Infrastructure Requirements**:
 - Local development environment (Node.js, Git)
-- LightRAG service (local or cloud-hosted)
+- Entity Management service (local or cloud-hosted)
 - File system with Git versioning
 - Optional: Cloud storage for backup/sync
 
@@ -20,14 +20,14 @@
 
 **Core Runtime**: Node.js with TypeScript  
 **Agent Framework**: Prompt-based (no custom agent code)  
-**Knowledge Graph**: LightRAG with OpenAPI integration  
+**Knowledge Graph**: Entity Management with OpenAPI integration  
 **File Management**: Node.js file system + Git  
 **Configuration**: YAML files  
 **Templates**: YAML with prompt injection  
 
 **Dependencies**:
 - `@types/node` - TypeScript definitions
-- `axios` - HTTP client for LightRAG API
+- `axios` - HTTP client for Entity Management API
 - `yaml` - YAML parsing and generation
 - `fs-extra` - Enhanced file system operations
 - `git-js` - Git operations for analytics

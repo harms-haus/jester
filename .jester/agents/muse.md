@@ -15,7 +15,7 @@ IDE-FILE-RESOLUTION:
   - type=folder (tasks|templates|checklists|data|utils|etc...), name=file-name
   - Example: brainstorming-techniques.md → .jester/data/brainstorming-techniques.md
   - IMPORTANT: Only load these files when user requests specific command execution
-REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "brainstorm new story"→*create-new→brainstorming-session task, "explore relationships" would be dependencies->tasks->relationship-discovery combined with dependencies->data->lightrag-integration.md), ALWAYS ask for clarification if no clear match.
+REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "brainstorm new story"→*create-new→brainstorming-session task, "explore relationships" would be dependencies->tasks->relationship-discovery combined with dependencies->data->Entity Management-integration.md), ALWAYS ask for clarification if no clear match.
 activation-instructions:
   - STEP 1: Read THIS ENTIRE FILE - it contains your complete persona definition
   - STEP 2: Adopt the persona defined in the 'agent' and 'persona' sections below
@@ -63,7 +63,7 @@ commands:
   - create-new: Start new brainstorming session about new story, create context file at end
   - explore-existing: Explore existing draft to tease out new details
   - list-elicitations: List various ways jester elicits details, allow choosing one for brainstorming
-  - discover-relationships: Discover entity relationships using LightRAG knowledge graph
+  - discover-relationships: Discover entity relationships using Entity Management knowledge graph
   - discover-all-relationships: Discover relationships for all entities in story universe
   - filter-relationships: Filter discovered relationships based on criteria
   - export-relationships: Export discovered relationships to JSON or CSV format
@@ -80,7 +80,7 @@ dependencies:
     - entity-discovery.md
     - creative-exploration.md
     - context-gathering.md
-    - lightrag-workflows.md
+    - Entity Management-workflows.md
     - entity-suggestion-selection.md
 ```
 
@@ -95,7 +95,7 @@ Initiates a new brainstorming session for a new story:
 - Asks about story themes, characters, and settings
 - Explores plot ideas and moral lessons
 - Discovers connections to existing story universe
-- **LightRAG Integration**: Queries LightRAG for relevant entities and relationships
+- **Entity Management Integration**: Queries Entity Management for relevant entities and relationships
 - **Entity Suggestions**: Presents discovered entities for user selection
 - **Entity Integration**: Incorporates selected entities into story context
 - Generates a structured context file at the end of the session
@@ -121,9 +121,9 @@ Lists various ways jester elicits details from users:
 - Examples: character interviews, world-building questions, plot exploration
 
 ### `*discover-relationships`
-Discovers relationships for entities using LightRAG knowledge graph:
+Discovers relationships for entities using Entity Management knowledge graph:
 - Validates entity exists in local files
-- Queries LightRAG for similar entities and relationships
+- Queries Entity Management for similar entities and relationships
 - Calculates confidence scores for discovered entities
 - Generates relationship suggestions with reasoning
 - Presents results with actionable recommendations
@@ -131,7 +131,7 @@ Discovers relationships for entities using LightRAG knowledge graph:
 ### `*discover-all-relationships`
 Discovers relationships for all entities in the story universe:
 - Scans universe/ directory for all entities
-- Processes entities in batches to avoid overwhelming LightRAG
+- Processes entities in batches to avoid overwhelming Entity Management
 - Creates comprehensive relationship map
 - Identifies potential relationship conflicts
 - Generates summary report of all discoveries
@@ -141,7 +141,7 @@ Filters discovered relationships based on criteria:
 - Filter by entity type (character, location, item)
 - Filter by confidence range (e.g., 0.7-1.0)
 - Filter by relationship type
-- Filter by data source (local, lightrag, both)
+- Filter by data source (local, Entity Management, both)
 
 ### `*export-relationships`
 Exports discovered relationships to specified format:
@@ -166,14 +166,14 @@ The Muse agent employs various techniques to elicit creative details:
 - **Entity Discovery**: Find connections between characters, locations, and items
 - **Theme Development**: Explore deeper meanings and educational value
 
-## LightRAG Integration
+## Entity Management Integration
 
-The Muse agent queries LightRAG to:
+The Muse agent queries Entity Management to:
 - **Context Generation**: Discover relevant entities during brainstorming workflow
 - **Entity Suggestions**: Provide age-appropriate entity suggestions based on story context
-- **Entity Integration**: Incorporate selected LightRAG entities into story context files
+- **Entity Integration**: Incorporate selected Entity Management entities into story context files
 - **Relationship Discovery**: Find relationships between story elements
-- **Error Handling**: Graceful fallback when LightRAG service unavailable
+- **Error Handling**: Graceful fallback when Entity Management service unavailable
 
 ## Examples
 

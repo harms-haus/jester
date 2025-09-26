@@ -1,11 +1,11 @@
 # API Specification
 
-## LightRAG OpenAPI Integration
+## Entity Management OpenAPI Integration
 
 **API Style:** REST API with JSON payloads  
 **Base URL:** `http://localhost:9621` (configurable)  
 **Authentication:** X-API-Key header  
-**Rate Limits:** As defined by LightRAG service configuration  
+**Rate Limits:** As defined by Entity Management service configuration  
 
 **Key Endpoints Used:**
 - `POST /query` - Natural language queries with reranking support
@@ -111,7 +111,7 @@ interface StreamResponse {
 
 **TypeScript Client Interface:**
 ```typescript
-interface LightRAGClient {
+interface Entity ManagementClient {
   query(query: string, enableRerank?: boolean): Promise<QueryResponse>;
   queryStream(query: string, enableRerank?: boolean): Promise<AsyncIterable<StreamResponse>>;
   queryData(query: string, format?: string, includeVectors?: boolean): Promise<DataQueryResponse>;
@@ -121,7 +121,7 @@ interface LightRAGClient {
   healthCheck(): Promise<boolean>;
 }
 
-class LightRAGClientImpl implements LightRAGClient {
+class Entity ManagementClientImpl implements Entity ManagementClient {
   private baseUrl: string;
   private apiKey: string;
 
@@ -206,10 +206,10 @@ class LightRAGClientImpl implements LightRAGClient {
 ```
 
 **Integration Notes:**
-- MCP client handles all LightRAG communication through HTTP requests
+- Entity Management client handles all Entity Management communication through HTTP requests
 - Responses cached locally to minimize API calls and costs
 - Error handling for network failures, authentication issues, and rate limits
-- Offline mode when LightRAG service unavailable
+- Offline mode when Entity Management service unavailable
 - Reranking enabled by default for better relevance
 - Streaming support for real-time query results
 - **Structured data queries** via `/query/data` for knowledge graph entities and relationships
@@ -217,4 +217,4 @@ class LightRAGClientImpl implements LightRAGClient {
 - **Entity validation** via `/graph/entity/exists` for local file consistency checks
 - Support for multiple export formats (JSON, CSV, Excel, Markdown, Text)
 
-**Detailed Rationale**: These additional endpoints provide comprehensive graph management capabilities for jester. The `/graph/label/list` endpoint allows the `/muse` agent to discover all available entities without complex queries. The `/graphs` endpoint provides detailed node information for relationship mapping. The `/graph/entity/exists` endpoint is crucial for the local file system integration, allowing jester to validate that entities referenced in local markdown files actually exist in the LightRAG knowledge graph, ensuring consistency between the local files and the centralized knowledge base.
+**Detailed Rationale**: These additional endpoints provide comprehensive graph management capabilities for jester. The `/graph/label/list` endpoint allows the `/muse` agent to discover all available entities without complex queries. The `/graphs` endpoint provides detailed node information for relationship mapping. The `/graph/entity/exists` endpoint is crucial for the local file system integration, allowing jester to validate that entities referenced in local markdown files actually exist in the Entity Management knowledge graph, ensuring consistency between the local files and the centralized knowledge base.

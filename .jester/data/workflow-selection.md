@@ -82,7 +82,7 @@
 
 ### To Story Creation (New Project)
 "Great! I'll connect you with our story creation specialists. They'll help you with:
-- `/muse create-new` - Interactive context gathering with LightRAG integration
+- `/muse create-new` - Interactive context gathering with Entity Management integration
 - `/write` commands - Story outline and final story generation
 - Character, location, and item discovery
 - Plot template selection
@@ -128,7 +128,7 @@ Let me load the appropriate tools for you..."
 - `/approve` - Draft approval to reading stage
 - `/publish` - Story publishing with entities and patches
 - `/import` - Content import from files or directories
-- `/search` - Search local files and LightRAG database
+- `/search` - Search local files and Entity Management database
 - `/validate` - Content validation (context, outline, story)
 
 **Three-Stage Workflow:**

@@ -6,7 +6,7 @@ jester will use a monorepo structure containing all agent definitions, templates
 
 ## Service Architecture
 
-**Prompt-Based Agent System**: jester uses a microservices-inspired architecture with specialized agents (`/muse`, `/write`, `/edit`) that communicate through file-based pipelines. Each agent is a self-contained markdown file with YAML configuration, following BMAD principles. The system uses minimal Python dependencies (only for LightRAG MCP integration) while maintaining pure prompt-based agent behavior.
+**Prompt-Based Agent System**: jester uses a microservices-inspired architecture with specialized agents (`/muse`, `/write`, `/edit`) that communicate through file-based pipelines. Each agent is a self-contained markdown file with YAML configuration, following BMAD principles. The system uses minimal Python dependencies (only for Entity Management Entity Management integration) while maintaining pure prompt-based agent behavior.
 
 **Development Target**: The development process produces **markdown prompt rule files** that external LLM agents can follow to perform story generation tasks. These prompt files follow the same BMAD pattern as the current analyst/qa/dev agent rules, where:
 - **Muse Agent** = Analyst role (context gathering and requirements)
@@ -21,7 +21,7 @@ The dev agent does NOT write TypeScript or other programming languages - only pr
 - Prompt rule clarity and completeness for LLM agents
 - Agent behavior consistency when following prompt rules
 - File pipeline integrity (YAML → Markdown → Markdown) through LLM execution
-- LightRAG integration and query handling via prompt instructions
+- Entity Management integration and query handling via prompt instructions
 - Entity file management and [[link]] consistency through LLM operations
 - Cross-platform compatibility of generated files
 
@@ -30,7 +30,7 @@ The dev agent does NOT write TypeScript or other programming languages - only pr
 - **Prompt Rule Engineering**: The system must produce clear, actionable prompt rules that LLM agents can follow to perform file operations
 - **Markdown Processing**: LLM agents must handle markdown parsing and generation for entity files, stories, and outlines with proper [[wiki-link]] support
 - **File System Operations**: Prompt rules must instruct LLM agents to perform robust file creation, reading, and modification with proper error handling
-- **LightRAG MCP Integration**: Python MCP client for querying relationships and entity connections only (not part of prompt rules)
+- **Entity Management Entity Management integration**: Python Entity Management client for querying relationships and entity connections only (not part of prompt rules)
 - **Cross-Platform File Paths**: Prompt rules must instruct LLM agents to handle file paths across Windows, macOS, and Linux
 - **Entity File Templates**: Prompt rules must reference standardized markdown templates for characters, locations, and items with consistent structure
 - **Link Validation**: Prompt rules must instruct LLM agents to detect and report broken [[links]] in the entity wiki

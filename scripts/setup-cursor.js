@@ -4,7 +4,7 @@
  * Jester Cursor Setup Script
  * 
  * This script sets up Cursor IDE integration for the Jester story creation framework.
- * It configures MCP servers, creates Cursor rules, and ensures proper IDE integration.
+ * It creates Cursor rules and ensures proper IDE integration.
  */
 
 import fs from 'fs-extra';
@@ -73,7 +73,7 @@ async function createCursorRules() {
 function generateCursorRules() {
   return `# Jester Story Creation Framework - Cursor Rules
 
-You are working with the Jester story creation framework, a prompt-based bedtime story generation system with LightRAG integration.
+You are working with the Jester story creation framework, a prompt-based bedtime story generation system.
 
 ## Available Agents
 

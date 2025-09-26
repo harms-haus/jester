@@ -45,7 +45,7 @@ jester adapts proven software development methodologies (specifically BMAD princ
 **Key Differentiators from Existing Solutions:**
 - **Collaborative AI Partnership**: Unlike pre-written stories or pure AI generation, jester maintains the human creative process while adding AI assistance
 - **Structured Workflow**: Three distinct stages (context → outline → story) with clear handoffs and quality gates
-- **Entity Continuity**: LightRAG knowledge graph integration ensures character consistency and suggests meaningful connections
+- **Entity Continuity**: Entity Management knowledge graph integration ensures character consistency and suggests meaningful connections
 - **Adaptive Complexity**: System grows with children through entity evolution and age-appropriate content generation
 - **File-Based Pipeline**: Clean separation of concerns with YAML context files, Markdown outlines, and final stories
 - **Prompt-Based Architecture**: External LLM agents follow markdown prompt rules rather than executing code
@@ -64,7 +64,7 @@ jester becomes the go-to system for parents who want to create rich, interconnec
 - Parents of children aged 3-10 years old
 - Tech-savvy individuals comfortable with AI tools
 - Families who value storytelling and creative expression
-- Parents with existing LightRAG knowledge graphs or willingness to build one
+- Parents with existing Entity Management knowledge graphs or willingness to build one
 - Users who prefer structured, systematic approaches to creative tasks
 
 **Current Behaviors and Workflows:**
@@ -114,12 +114,12 @@ jester becomes the go-to system for parents who want to create rich, interconnec
 
 ### Core Features (Must Have)
 
-- **`/muse` Context Agent**: Interactive agent that gathers story context through collaborative dialogue, queries LightRAG for entity connections, and generates structured YAML context files
+- **`/muse` Context Agent**: Interactive agent that gathers story context through collaborative dialogue, queries Entity Management for entity connections, and generates structured YAML context files
 - **`/write outline` Command**: Generates detailed story outlines from context files, including plot points, character integration, and metadata propagation
 - **`/write story` Command**: Converts outlines into complete bedtime stories at specified target lengths
 - **`/edit` Command**: Cross-stage editing capabilities for modifying outlines and stories without regeneration
 - **File Pipeline System**: YAML context files → Markdown outlines → Markdown stories with strict one-way flow
-- **LightRAG Integration**: MCP-based connection to existing knowledge graph for entity discovery and relationship mapping
+- **Entity Management Integration**: Entity Management-based connection to existing knowledge graph for entity discovery and relationship mapping
 - **Basic Plot Templates**: Support for Hero's Journey, Pixar method, and Golden Circle plot structures
 - **Metadata Management**: Target audience, story length, and other requirements tracked through the pipeline
 
@@ -135,7 +135,7 @@ jester becomes the go-to system for parents who want to create rich, interconnec
 
 ### MVP Success Criteria
 
-jester successfully enables a parent to create a complete, consistent bedtime story from initial idea to final output using the three-stage workflow, with LightRAG integration providing meaningful entity suggestions and the system maintaining character consistency across multiple stories.
+jester successfully enables a parent to create a complete, consistent bedtime story from initial idea to final output using the three-stage workflow, with Entity Management integration providing meaningful entity suggestions and the system maintaining character consistency across multiple stories.
 
 ## Post-MVP Vision
 
@@ -156,7 +156,7 @@ jester evolves into a comprehensive personal storytelling system that becomes an
 
 - **Educational Integration**: Story elements that support learning objectives and developmental milestones
 - **AI Personality Development**: Characters that develop distinct personalities and growth arcs over time
-- **Enhanced LightRAG Integration**: Deeper knowledge graph features for more sophisticated entity relationships
+- **Enhanced Entity Management Integration**: Deeper knowledge graph features for more sophisticated entity relationships
 - **Workflow Optimization**: Additional automation and efficiency improvements based on usage patterns
 
 ## Technical Considerations
@@ -171,14 +171,14 @@ jester evolves into a comprehensive personal storytelling system that becomes an
 
 - **Frontend:** Command-line interface with potential future web UI for easier access
 - **Backend:** External LLM agents following markdown prompt rules with minimal Python dependencies
-- **Database:** LightRAG knowledge graph (existing system)
-- **Hosting/Infrastructure:** Local development with LightRAG MCP integration
+- **Database:** Entity Management knowledge graph (existing system)
+- **Hosting/Infrastructure:** Local development with Entity Management Entity Management integration
 
 ### Architecture Considerations
 
 - **Repository Structure:** BMAD-style agent files with YAML configurations and markdown prompts
 - **Service Architecture:** External LLM agents following prompt rules with file-based pipeline communication
-- **Integration Requirements:** Python MCP client for LightRAG queries only, everything else handled by external LLM agents following prompt rules
+- **Integration Requirements:** Python Entity Management client for Entity Management queries only, everything else handled by external LLM agents following prompt rules
 - **Security/Compliance:** Local data processing with optional encryption for story files, privacy-focused design for family content
 
 ## Constraints & Assumptions
@@ -187,12 +187,12 @@ jester evolves into a comprehensive personal storytelling system that becomes an
 
 - **Budget:** Token usage costs must be reasonable for regular use (target: <$1 per story generation)
 - **Timeline:** Personal project with flexible timeline, but aiming for functional MVP within 3 months
-- **Resources:** Solo development effort, leveraging existing LightRAG system and BMAD principles
-- **Technical:** Must integrate with existing LightRAG knowledge graph, maintain file-based pipeline, work within IDE environment
+- **Resources:** Solo development effort, leveraging existing Entity Management system and BMAD principles
+- **Technical:** Must integrate with existing Entity Management knowledge graph, maintain file-based pipeline, work within IDE environment
 
 ### Key Assumptions
 
-- LightRAG knowledge graph will remain stable and accessible throughout development
+- Entity Management knowledge graph will remain stable and accessible throughout development
 - Current unstructured storytelling workflow provides sufficient foundation for structured approach
 - Children will engage positively with AI-assisted story creation process
 - File-based pipeline will be sufficient for workflow management without complex database systems
@@ -204,7 +204,7 @@ jester evolves into a comprehensive personal storytelling system that becomes an
 
 ### Key Risks
 
-- **LightRAG Integration Complexity:** MCP integration may be more complex than anticipated, potentially requiring significant development time
+- **Entity Management Integration Complexity:** Entity Management integration may be more complex than anticipated, potentially requiring significant development time
 - **Agent Prompt Engineering:** Adapting BMAD principles to creative storytelling may require extensive prompt tuning and iteration
 - **Token Cost Escalation:** AI generation costs could exceed budget constraints if not carefully managed
 - **Workflow Adoption:** The structured approach may feel too rigid compared to current unstructured storytelling process
@@ -212,15 +212,15 @@ jester evolves into a comprehensive personal storytelling system that becomes an
 
 ### Open Questions
 
-- How will the system handle conflicting character information in the LightRAG knowledge graph?
+- How will the system handle conflicting character information in the Entity Management knowledge graph?
 - What happens when the AI suggests entity connections that don't align with the parent's creative vision?
-- How can the system gracefully handle cases where LightRAG queries return no relevant results?
+- How can the system gracefully handle cases where Entity Management queries return no relevant results?
 - What's the optimal balance between AI suggestions and human creative control?
 - How will the system scale as the story universe grows larger and more complex?
 
 ### Areas Needing Further Research
 
-- MCP integration patterns and best practices for LightRAG queries
+- Entity Management integration patterns and best practices for Entity Management queries
 - Prompt engineering techniques for creative writing and character consistency
 - Cost optimization strategies for AI generation workflows
 - User experience design for command-line creative tools
@@ -234,13 +234,13 @@ jester evolves into a comprehensive personal storytelling system that becomes an
 - Identified core system architecture: 3 slash commands (`/muse`, `/write`, `/edit`) with file-based pipeline
 - Established agent specialization: context-gathering vs. generation-focused agents
 - Defined file pipeline: YAML context → Markdown outline → Markdown story with strict one-way flow
-- Confirmed LightRAG integration approach via MCP for entity discovery and relationship mapping
+- Confirmed Entity Management integration approach via Entity Management for entity discovery and relationship mapping
 - Validated BMAD adaptation strategy: using agent principles without full framework complexity
 
 **Technical Architecture Decisions:**
 - External LLM agents following markdown prompt rules (minimal Python dependencies)
 - File-based workflow management
-- LightRAG MCP integration for knowledge graph queries
+- Entity Management Entity Management integration for knowledge graph queries
 - IDE/command-line interface focus
 - Cost-conscious token usage approach
 
@@ -248,7 +248,7 @@ jester evolves into a comprehensive personal storytelling system that becomes an
 
 **Primary Stakeholder (Blake):**
 - Personal use case for family bedtime stories
-- Existing LightRAG knowledge graph with characters, locations, items, and stories
+- Existing Entity Management knowledge graph with characters, locations, items, and stories
 - Preference for structured, systematic approaches to creative tasks
 - Desire to maintain collaborative storytelling process while adding consistency
 - Focus on long-term story universe development and character continuity
@@ -256,9 +256,9 @@ jester evolves into a comprehensive personal storytelling system that becomes an
 ### C. References
 
 - BMAD-METHOD™ framework and agent architecture principles
-- LightRAG knowledge graph system documentation
+- Entity Management knowledge graph system documentation
 - Existing unstructured bedtime story creation workflow
-- MCP (Model Context Protocol) integration patterns
+- Entity Management (Model Context Protocol) integration patterns
 
 ## Next Steps
 
@@ -266,9 +266,9 @@ jester evolves into a comprehensive personal storytelling system that becomes an
 
 1. **Create Project Brief Document** - Save this brief as `docs/brief.md` in the jester project
 2. **Set Up Project Structure** - Create basic directory structure for agent files and templates
-3. **Research MCP Integration** - Investigate LightRAG MCP client setup and integration patterns
+3. **Research Entity Management integration** - Investigate Entity Management client setup and integration patterns
 4. **Design Agent Templates** - Create initial YAML templates for `/muse` and `/write` agents
-5. **Plan LightRAG Query Patterns** - Define specific query types for entity discovery and relationship mapping
+5. **Plan Entity Management Query Patterns** - Define specific query types for entity discovery and relationship mapping
 
 ### PM Handoff
 

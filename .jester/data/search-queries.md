@@ -5,7 +5,7 @@
 ## Search Agent Query Processing
 
 ### Natural Language Query Understanding
-"Let me help you find exactly what you're looking for in your story universe. I can search through your local files and the LightRAG database to discover relevant content."
+"Let me help you find exactly what you're looking for in your story universe. I can search through your local files and the Entity Management database to discover relevant content."
 
 ### Query Types and Processing
 
@@ -48,7 +48,7 @@
 **1. Intent Recognition**
 "Let me understand what you're looking for:
 - **Query Type**: {character|location|story|item|relationship}
-- **Search Scope**: {local|lightrag|both}
+- **Search Scope**: {local|Entity Management|both}
 - **Specificity**: {broad|specific|exact}
 - **Context**: {story_universe|specific_story|general}"
 
@@ -62,7 +62,7 @@
 **3. Search Execution**
 "Searching through your content:
 - **Local Files**: Scanning {file_count} files
-- **LightRAG Database**: Querying knowledge graph
+- **Entity Management Database**: Querying knowledge graph
 - **Search Methods**: {semantic|keyword|fuzzy}
 - **Confidence Threshold**: {confidence_level}"
 

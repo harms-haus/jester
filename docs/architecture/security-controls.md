@@ -7,11 +7,10 @@ This document outlines the security controls, compliance requirements, and data 
 1. [Security Architecture](#security-architecture)
 2. [Authentication and Authorization](#authentication-and-authorization)
 3. [Data Protection](#data-protection)
-4. [API Security](#api-security)
-5. [File System Security](#file-system-security)
-6. [Compliance Requirements](#compliance-requirements)
-7. [Security Monitoring](#security-monitoring)
-8. [Incident Response](#incident-response)
+4. [File System Security](#file-system-security)
+5. [Compliance Requirements](#compliance-requirements)
+6. [Security Monitoring](#security-monitoring)
+7. [Incident Response](#incident-response)
 
 ## Security Architecture
 
@@ -51,23 +50,6 @@ Security Layers:
 
 ### Authentication Mechanisms
 
-**API Key Authentication**:
-```yaml
-# LightRAG API Authentication
-lightrag:
-  authentication:
-    type: "api_key"
-    header: "X-API-Key"
-    validation:
-      - check_key_format
-      - validate_key_permissions
-      - check_key_expiration
-    error_handling:
-      - invalid_key: "Authentication failed"
-      - expired_key: "API key expired"
-      - missing_key: "API key required"
-```
-
 **Local File System Authentication**:
 ```markdown
 ## File System Access Control
@@ -88,18 +70,23 @@ lightrag:
 - **Permission Model**: User owns all data and controls access
 ```
 
-**API Authorization**:
+**File System Authorization**:
 ```typescript
-interface APIAuthorization {
-  lightrag: {
-    read: boolean;    // Query entities and relationships
-    write: boolean;   // Update knowledge graph
-    admin: boolean;   // Administrative operations
-  };
+interface FileSystemAuthorization {
   local: {
     read: boolean;    // Read local files
     write: boolean;   // Write local files
-    delete: boolean;  // Delete local files
+    execute: boolean; // Execute scripts
+  };
+  universe: {
+    read: boolean;    // Read universe entities
+    write: boolean;   // Write universe entities
+    delete: boolean;  // Delete universe entities
+  };
+  reading: {
+    read: boolean;    // Read story content
+    write: boolean;   // Write story content
+    delete: boolean;  // Delete story content
   };
 }
 ```
@@ -108,236 +95,133 @@ interface APIAuthorization {
 
 ### Data Classification
 
-**Data Types and Protection Levels**:
+**Data Types**:
+```markdown
+## Data Classification
+1. **Public Data**: Templates, examples, documentation
+2. **User Data**: Stories, characters, personal content
+3. **System Data**: Configuration, logs, temporary files
+4. **Sensitive Data**: User preferences, personal information
+```
+
+**Data Handling Requirements**:
 ```yaml
-data_classification:
-  public:
-    - system_documentation
-    - templates
-    - configuration_examples
-  internal:
-    - system_logs
-    - performance_metrics
-    - error_reports
-  confidential:
-    - user_stories
-    - entity_information
-    - personal_preferences
-  restricted:
-    - api_keys
-    - authentication_tokens
-    - system_credentials
+data_protection:
+  user_data:
+    storage: "local_only"
+    encryption: "file_system"
+    backup: "user_controlled"
+    retention: "indefinite"
+  system_data:
+    storage: "local_only"
+    encryption: "file_system"
+    backup: "automatic"
+    retention: "30_days"
+  sensitive_data:
+    storage: "local_only"
+    encryption: "file_system"
+    backup: "user_controlled"
+    retention: "user_controlled"
 ```
 
 ### Data Encryption
 
 **Encryption Strategy**:
 ```markdown
-## Data Encryption
-- **Data at Rest**: File system encryption (OS-level)
-- **Data in Transit**: HTTPS/TLS for API communications
-- **Data in Memory**: Process memory protection
-- **Backup Encryption**: Encrypted backups for sensitive data
+## Encryption Implementation
+- **File System Encryption**: Rely on OS-level encryption
+- **Data at Rest**: File system encryption
+- **Data in Transit**: HTTPS/TLS for any network communication
+- **Key Management**: OS-level key management
 ```
 
-**Encryption Implementation**:
-```typescript
-interface EncryptionConfig {
-  atRest: {
-    enabled: boolean;
-    method: "filesystem" | "application";
-    algorithm: "AES-256";
-  };
-  inTransit: {
-    enabled: boolean;
-    protocol: "TLS 1.3";
-    certificateValidation: boolean;
-  };
-  inMemory: {
-    enabled: boolean;
-    method: "process_isolation";
-  };
-}
-```
-
-### Data Retention and Purging
-
-**Data Retention Policy**:
+**Encryption Standards**:
 ```yaml
-data_retention:
-  user_content:
-    stories: "indefinite"  # User controls retention
-    entities: "indefinite" # User controls retention
-    preferences: "indefinite" # User controls retention
-  system_data:
-    logs: "90_days"
-    metrics: "30_days"
-    errors: "90_days"
-  temporary_data:
-    cache: "24_hours"
-    temp_files: "immediate"
-    session_data: "session_end"
-```
-
-**Data Purging Procedures**:
-```markdown
-## Data Purging Process
-1. **User-Initiated**: User can delete any of their data
-2. **System-Initiated**: Automatic cleanup of temporary data
-3. **Retention Expiry**: Automatic purging of expired system data
-4. **Verification**: Confirm data deletion and cleanup
-5. **Audit Trail**: Log all data purging activities
-```
-
-## API Security
-
-### LightRAG API Security
-
-**API Security Controls**:
-```typescript
-interface APISecurityConfig {
-  authentication: {
-    type: "api_key";
-    validation: {
-      format: "uuid_v4";
-      length: 36;
-      characters: "alphanumeric_hyphens";
-    };
-  };
-  authorization: {
-    scope: "read_only"; // Jester only reads from LightRAG
-    permissions: ["query", "graph_labels", "entity_exists"];
-  };
-  rate_limiting: {
-    enabled: true;
-    requests_per_minute: 60;
-    burst_limit: 10;
-  };
-  input_validation: {
-    query_length: { max: 1000, min: 1 };
-    query_format: "string";
-    parameters: "validated";
-  };
-}
-```
-
-**API Request Security**:
-```markdown
-## API Request Security
-- **HTTPS Only**: All API communications use HTTPS
-- **Certificate Validation**: Validate SSL certificates
-- **Request Validation**: Validate all request parameters
-- **Response Sanitization**: Sanitize all response data
-- **Error Handling**: Secure error messages without sensitive data
-```
-
-### Local API Security
-
-**File System API Security**:
-```markdown
-## File System API Security
-- **Path Validation**: Validate all file paths
-- **Permission Checks**: Check file permissions before operations
-- **Input Sanitization**: Sanitize all file inputs
-- **Operation Validation**: Validate file operations
-- **Error Handling**: Secure error handling without path exposure
+encryption:
+  algorithm: "AES-256"
+  key_management: "OS_managed"
+  file_system: "OS_encryption"
+  network: "TLS_1.3"
 ```
 
 ## File System Security
 
-### File Permissions
+### Directory Structure Security
 
-**Permission Model**:
-```yaml
-file_permissions:
-  user_files:
-    owner: "user"
-    permissions: "rwx"
-    group: "user"
-    other: "---"
-  system_files:
-    owner: "user"
-    permissions: "rwx"
-    group: "user"
-    other: "---"
-  configuration:
-    owner: "user"
-    permissions: "rw-"
-    group: "user"
-    other: "---"
-  logs:
-    owner: "user"
-    permissions: "rw-"
-    group: "user"
-    other: "---"
-```
-
-### File System Security Controls
-
-**Security Measures**:
+**Directory Permissions**:
 ```markdown
-## File System Security
-- **Access Control**: User-level access control
-- **Path Validation**: Validate all file paths
-- **Permission Enforcement**: Enforce file permissions
-- **Operation Logging**: Log all file operations
-- **Backup Security**: Secure backup procedures
+## Directory Security Model
+- **Universe Directory**: Read/write for user only
+- **Reading Directory**: Read/write for user only
+- **Draft Directory**: Read/write for user only
+- **Memory Directory**: Read/write for user only
+- **Jester Directory**: Read-only for user, write for system
 ```
 
-**File Operation Security**:
+**File Permissions**:
+```bash
+# Example file permissions
+universe/          755  # rwxr-xr-x
+reading/           755  # rwxr-xr-x
+draft/             755  # rwxr-xr-x
+memory/            755  # rwxr-xr-x
+.jester/           755  # rwxr-xr-x
+.cursorrules       644  # rw-r--r--
+```
+
+### File Access Controls
+
+**Access Control Model**:
 ```typescript
-interface FileSecurityConfig {
-  pathValidation: {
-    allowedPaths: string[]; // Restrict to user directory
-    forbiddenPatterns: string[]; // Block dangerous patterns
-    maxPathLength: number;
+interface FileAccessControl {
+  universe: {
+    characters: "user_read_write";
+    locations: "user_read_write";
+    items: "user_read_write";
   };
-  operationValidation: {
-    allowedOperations: string[]; // read, write, delete
-    forbiddenOperations: string[]; // execute, system
-    maxFileSize: number;
+  reading: {
+    stories: "user_read_write";
+    contexts: "user_read_write";
+    outlines: "user_read_write";
   };
-  contentValidation: {
-    allowedFormats: string[]; // yaml, markdown, json
-    forbiddenContent: string[]; // executable code, scripts
-    maxContentLength: number;
+  draft: {
+    temp_files: "user_read_write";
+    work_in_progress: "user_read_write";
+  };
+  memory: {
+    preferences: "user_read_write";
+    settings: "user_read_write";
   };
 }
 ```
 
 ## Compliance Requirements
 
-### Privacy Compliance
+### Data Privacy Compliance
 
-**Data Privacy Principles**:
+**Privacy Principles**:
 ```markdown
 ## Privacy Compliance
-- **Data Minimization**: Collect only necessary data
-- **Purpose Limitation**: Use data only for stated purposes
-- **Storage Limitation**: Store data only as long as necessary
-- **Accuracy**: Maintain accurate and up-to-date data
-- **Security**: Protect data with appropriate security measures
-- **Transparency**: Provide clear information about data use
-- **User Control**: Give users control over their data
+1. **Data Minimization**: Collect only necessary data
+2. **Purpose Limitation**: Use data only for intended purpose
+3. **Storage Limitation**: Store data only as long as necessary
+4. **Accuracy**: Ensure data accuracy and currency
+5. **Security**: Protect data with appropriate measures
+6. **Transparency**: Clear privacy practices
+7. **User Control**: User controls their own data
 ```
 
 **Privacy Controls**:
 ```yaml
 privacy_controls:
   data_collection:
-    stories: "user_generated"
-    entities: "user_generated"
-    preferences: "user_configured"
-    system_data: "minimal"
-  data_use:
-    stories: "story_generation"
-    entities: "entity_management"
-    preferences: "system_configuration"
-    system_data: "system_operation"
-  data_sharing:
-    external_services: "lightrag_only"
-    data_transmission: "encrypted"
-    third_party: "none"
+    purpose: "story_creation"
+    scope: "minimal_necessary"
+    consent: "implicit_local_use"
+  data_processing:
+    location: "local_only"
+    sharing: "none"
+    retention: "user_controlled"
   user_rights:
     access: "full_access"
     correction: "user_controlled"
@@ -350,159 +234,134 @@ privacy_controls:
 **Security Standards**:
 ```markdown
 ## Security Compliance
-- **OWASP Top 10**: Address OWASP security risks
-- **CIS Controls**: Implement CIS security controls
-- **NIST Framework**: Follow NIST cybersecurity framework
-- **ISO 27001**: Align with ISO 27001 security standards
-```
-
-**Security Controls Implementation**:
-```yaml
-security_controls:
-  access_control:
-    - user_authentication
-    - file_permissions
-    - process_isolation
-    - least_privilege
-  data_protection:
-    - encryption_at_rest
-    - encryption_in_transit
-    - secure_backup
-    - data_retention
-  monitoring:
-    - access_logging
-    - error_monitoring
-    - security_events
-    - audit_trail
-  incident_response:
-    - security_procedures
-    - incident_detection
-    - response_plan
-    - recovery_procedures
+- **OWASP Top 10**: Address common web vulnerabilities
+- **CIS Controls**: Implement critical security controls
+- **NIST Framework**: Follow cybersecurity framework
+- **Local Security**: Follow OS security best practices
 ```
 
 ## Security Monitoring
 
-### Security Event Monitoring
+### Monitoring Strategy
 
-**Monitoring Areas**:
-```yaml
-security_monitoring:
-  authentication:
-    - failed_login_attempts
-    - api_key_usage
-    - session_management
-    - access_patterns
-  data_access:
-    - file_access_logs
-    - data_modification
-    - backup_operations
-    - export_activities
-  system_events:
-    - error_rates
-    - performance_anomalies
-    - resource_usage
-    - system_changes
-  network_activity:
-    - api_requests
-    - connection_attempts
-    - data_transmission
-    - error_responses
+**Monitoring Levels**:
+```markdown
+## Security Monitoring
+1. **File System Monitoring**: Monitor file access and changes
+2. **Process Monitoring**: Monitor system processes
+3. **Error Monitoring**: Monitor system errors and exceptions
+4. **Performance Monitoring**: Monitor system performance
 ```
 
-**Security Logging**:
-```typescript
-interface SecurityLogEntry {
-  timestamp: string;
-  event_type: "authentication" | "data_access" | "system" | "network";
-  severity: "low" | "medium" | "high" | "critical";
-  user_id?: string;
-  source_ip?: string;
-  resource: string;
-  action: string;
-  result: "success" | "failure" | "error";
-  details: Record<string, any>;
-}
+**Monitoring Tools**:
+```yaml
+monitoring:
+  file_system:
+    tool: "OS_audit_logs"
+    events: ["file_access", "file_modification", "file_deletion"]
+  process:
+    tool: "OS_process_monitor"
+    events: ["process_creation", "process_termination"]
+  errors:
+    tool: "application_logs"
+    events: ["error_occurrence", "exception_thrown"]
+  performance:
+    tool: "OS_performance_monitor"
+    metrics: ["cpu_usage", "memory_usage", "disk_usage"]
 ```
 
-### Security Alerts
+### Logging and Auditing
 
-**Alert Conditions**:
+**Log Categories**:
+```markdown
+## Logging Strategy
+1. **Security Logs**: Authentication, authorization, access
+2. **Application Logs**: Application events, errors, warnings
+3. **System Logs**: System events, errors, warnings
+4. **Audit Logs**: User actions, file operations, changes
+```
+
+**Log Management**:
 ```yaml
-security_alerts:
-  authentication_failures:
-    threshold: 5
-    time_window: "5_minutes"
-    action: "log_and_notify"
-  suspicious_access:
-    pattern: "unusual_access_pattern"
-    action: "log_and_investigate"
-  data_breach:
-    condition: "unauthorized_data_access"
-    action: "immediate_response"
-  system_compromise:
-    indicators: ["unusual_processes", "file_modifications"]
-    action: "incident_response"
+logging:
+  security:
+    level: "INFO"
+    retention: "90_days"
+    location: "local_logs"
+  application:
+    level: "DEBUG"
+    retention: "30_days"
+    location: "local_logs"
+  system:
+    level: "WARN"
+    retention: "7_days"
+    location: "system_logs"
+  audit:
+    level: "INFO"
+    retention: "1_year"
+    location: "audit_logs"
 ```
 
 ## Incident Response
 
-### Incident Response Plan
+### Incident Classification
 
-**Response Procedures**:
+**Incident Types**:
+```markdown
+## Incident Classification
+1. **Security Incidents**: Unauthorized access, data breach
+2. **System Incidents**: System failure, data corruption
+3. **Performance Incidents**: Performance degradation
+4. **User Incidents**: User error, data loss
+```
+
+**Severity Levels**:
+```yaml
+severity_levels:
+  critical:
+    description: "System down, data loss"
+    response_time: "immediate"
+    escalation: "immediate"
+  high:
+    description: "Major functionality affected"
+    response_time: "1_hour"
+    escalation: "2_hours"
+  medium:
+    description: "Minor functionality affected"
+    response_time: "4_hours"
+    escalation: "8_hours"
+  low:
+    description: "Cosmetic issues, minor bugs"
+    response_time: "24_hours"
+    escalation: "48_hours"
+```
+
+### Response Procedures
+
+**Incident Response Process**:
 ```markdown
 ## Incident Response Process
-1. **Detection**: Identify security incidents
-2. **Assessment**: Assess incident severity and impact
+1. **Detection**: Identify and classify incident
+2. **Assessment**: Assess impact and severity
 3. **Containment**: Contain the incident
-4. **Investigation**: Investigate the incident
-5. **Recovery**: Recover from the incident
-6. **Lessons Learned**: Document lessons learned
-7. **Improvement**: Improve security measures
+4. **Investigation**: Investigate root cause
+5. **Recovery**: Restore normal operations
+6. **Documentation**: Document incident and response
+7. **Lessons Learned**: Improve processes
 ```
 
-**Incident Classification**:
+**Response Team**:
 ```yaml
-incident_classification:
-  severity_levels:
-    low:
-      description: "Minor security issues"
-      response_time: "24_hours"
-      escalation: "none"
-    medium:
-      description: "Moderate security issues"
-      response_time: "4_hours"
-      escalation: "security_team"
-    high:
-      description: "Significant security issues"
-      response_time: "1_hour"
-      escalation: "management"
-    critical:
-      description: "Critical security incidents"
-      response_time: "immediate"
-      escalation: "executive_team"
-```
-
-### Security Procedures
-
-**Security Maintenance**:
-```markdown
-## Security Maintenance
-- **Regular Updates**: Keep system and dependencies updated
-- **Security Patches**: Apply security patches promptly
-- **Vulnerability Scanning**: Regular vulnerability assessments
-- **Security Training**: User security awareness training
-- **Incident Drills**: Regular incident response drills
-```
-
-**Security Documentation**:
-```markdown
-## Security Documentation
-- **Security Policies**: Document security policies and procedures
-- **Incident Reports**: Document security incidents and responses
-- **Security Assessments**: Regular security assessments
-- **Compliance Reports**: Compliance status and reports
-- **Security Metrics**: Security performance metrics
+response_team:
+  primary:
+    role: "System Administrator"
+    responsibilities: ["incident_response", "system_recovery"]
+  secondary:
+    role: "Developer"
+    responsibilities: ["technical_investigation", "fix_implementation"]
+  escalation:
+    role: "Project Owner"
+    responsibilities: ["decision_making", "stakeholder_communication"]
 ```
 
 ## Security Best Practices
@@ -512,45 +371,59 @@ incident_classification:
 **Secure Development Practices**:
 ```markdown
 ## Secure Development
-- **Input Validation**: Validate all user inputs
-- **Output Sanitization**: Sanitize all outputs
-- **Error Handling**: Secure error handling
-- **Code Review**: Security-focused code review
-- **Dependency Management**: Manage dependencies securely
+1. **Input Validation**: Validate all user inputs
+2. **Output Sanitization**: Sanitize all outputs
+3. **Error Handling**: Secure error handling
+4. **Code Review**: Regular code reviews
+5. **Security Testing**: Regular security testing
+```
+
+**Security Testing**:
+```yaml
+security_testing:
+  static_analysis:
+    tool: "ESLint_Security"
+    frequency: "every_commit"
+  dynamic_analysis:
+    tool: "Manual_Testing"
+    frequency: "every_release"
+  penetration_testing:
+    tool: "Manual_Testing"
+    frequency: "quarterly"
 ```
 
 ### Operational Security
 
-**Secure Operations**:
+**Operational Security Practices**:
 ```markdown
-## Secure Operations
-- **Access Control**: Implement proper access controls
-- **Monitoring**: Monitor system security
-- **Backup Security**: Secure backup procedures
-- **Incident Response**: Maintain incident response capabilities
-- **Security Training**: Regular security training
+## Operational Security
+1. **Regular Updates**: Keep system updated
+2. **Backup Security**: Secure backup procedures
+3. **Access Control**: Regular access reviews
+4. **Monitoring**: Continuous security monitoring
+5. **Training**: Regular security training
 ```
 
-### User Security
-
-**User Security Guidelines**:
-```markdown
-## User Security
-- **Data Protection**: Protect user data
-- **Privacy Controls**: Provide privacy controls
-- **Security Awareness**: Promote security awareness
-- **Incident Reporting**: Enable incident reporting
-- **User Education**: Provide security education
+**Security Maintenance**:
+```yaml
+security_maintenance:
+  updates:
+    frequency: "monthly"
+    scope: "security_patches"
+  backups:
+    frequency: "daily"
+    retention: "30_days"
+    encryption: "required"
+  access_review:
+    frequency: "quarterly"
+    scope: "all_access"
+  monitoring:
+    frequency: "continuous"
+    scope: "all_systems"
 ```
 
 ## Conclusion
 
-This security framework provides comprehensive protection for the Jester system while maintaining the local-first, user-controlled approach. The security controls are designed to:
+This security controls document provides a comprehensive framework for ensuring the security and privacy of the Jester system. By following these guidelines and implementing the recommended controls, we can maintain a secure environment that protects user data while providing a reliable and trustworthy story creation platform.
 
-1. **Protect User Data**: Ensure user data is secure and private
-2. **Maintain System Integrity**: Protect system from security threats
-3. **Enable Compliance**: Meet privacy and security compliance requirements
-4. **Support Incident Response**: Enable effective incident response
-5. **Promote Security Awareness**: Foster security-conscious development
-
-The security measures are implemented at multiple layers to provide defense in depth while maintaining system usability and performance. This security framework will be essential for the upcoming refactor, ensuring that all changes maintain or improve security posture.
+The key to effective security is to integrate it into every aspect of the system, from development to operations, and to continuously monitor and improve security practices based on emerging threats and best practices.

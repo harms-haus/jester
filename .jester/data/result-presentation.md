@@ -14,7 +14,7 @@
 - Grouping results by type (characters, locations, items, stories)
 - Sorting by relevance and importance
 - Highlighting exact matches and high-confidence results
-- Separating local and LightRAG results
+- Separating local and Entity Management results
 
 **Information Hierarchy:**
 - Primary information (name, type, description)

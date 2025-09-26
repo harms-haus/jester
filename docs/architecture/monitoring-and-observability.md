@@ -4,7 +4,7 @@
 
 - **Agent Operations**: Prompt execution and response logging
 - **File Operations**: File read/write operations
-- **LightRAG Queries**: API call logging with response times
+- **Entity Management Queries**: API call logging with response times
 - **Error Tracking**: Detailed error messages with context
 
 ## Metrics
@@ -16,7 +16,7 @@
 
 ## Health Checks
 
-- **LightRAG Connectivity**: Regular health check calls
+- **Entity Management Connectivity**: Regular health check calls
 - **File System**: Disk space and permission checks
 - **Git Repository**: Repository integrity checks
 - **Configuration**: Settings validation

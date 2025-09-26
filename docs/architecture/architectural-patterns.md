@@ -25,5 +25,5 @@
 
 **Pattern**: External knowledge graph for entity relationships  
 **Benefits**: Rich entity discovery, relationship mapping  
-**Implementation**: LightRAG OpenAPI integration with local caching  
+**Implementation**: Entity Management OpenAPI integration with local caching  
 **Trade-offs**: External dependency, potential latency  

@@ -17,7 +17,7 @@ jester adapts BMAD principles to create personalized bedtime stories through a h
 - **`/approve`** - Draft approval to reading stage
 - **`/publish`** - Story publishing with entities and patches
 - **`/import`** - Content import from files or directories
-- **`/search`** - Search local files and LightRAG database
+- **`/search`** - Search local files and entities
 - **`/validate`** - Content validation (context, outline, story)
 
 ### Three-Stage Workflow
@@ -37,9 +37,9 @@ Context (YAML) → Outline (Markdown) → Story (Markdown)
 ```
 
 - **File-based pipeline** with strict one-way flow
-- **LightRAG integration** for entity discovery and consistency
+- **Entity Management integration** for entity discovery and consistency
 - **Pure prompt-based agents** - external LLM agents follow markdown prompt rules
-- **No TypeScript agent execution** - only MCP client for LightRAG integration
+- **No TypeScript agent execution** - only Entity Management client for Entity Management integration
 
 ## Project Structure
 
@@ -47,7 +47,7 @@ Context (YAML) → Outline (Markdown) → Story (Markdown)
 jester/
 ├── src/                    # TypeScript source code
 │   ├── agents/            # AI agent implementations
-│   ├── clients/           # External API clients (LightRAG)
+│   ├── clients/           # External API clients (Entity Management)
 │   ├── types/             # TypeScript type definitions
 │   ├── utils/             # Utility functions
 │   └── index.ts           # Main entry point
@@ -107,11 +107,11 @@ jester uses a **pure prompt-based architecture** where external LLM agents follo
    - Use `/edit` to modify content as needed
    - Use `/approve` and `/publish` for workflow management
 
-### LightRAG Integration
+### Entity Management Integration
 
-The system includes a TypeScript MCP client for LightRAG integration:
-- **Location**: `src/clients/lightragClient.ts`
-- **Service**: `src/services/lightragService.ts`
+The system includes a TypeScript Entity Management client for Entity Management integration:
+- **Location**: `src/clients/Entity ManagementClient.ts`
+- **Service**: `src/services/Entity ManagementService.ts`
 - **Purpose**: Entity discovery and relationship mapping
 
 ## Status
@@ -193,7 +193,7 @@ See `docs/` for complete project documentation:
   - `import [file]` - Import from specific file
   - `import directory [path]` - Import from directory
 
-- **`/search`** - Search local files and LightRAG database
+- **`/search`** - Search local files and entities
   - `search [query]` - Search with natural language
 
 ### Command Examples

@@ -41,27 +41,27 @@ This document outlines the comprehensive testing strategy for the Jester system,
 **Purpose**: Test individual components and functions in isolation
 
 **Scope**:
-- TypeScript MCP client functions
 - File operation utilities
 - Template processing logic
 - Configuration management
 - Validation functions
+- Entity management functions
 
 **Implementation**:
 ```typescript
-// Example: LightRAG Client Unit Tests
-describe('LightRAGClient', () => {
-  describe('query', () => {
-    it('should return query results for valid query', async () => {
-      const client = new LightRAGClient('http://localhost:9621', 'test-key');
-      const result = await client.query('test query');
-      expect(result).toBeDefined();
-      expect(result.reranked_documents).toBeInstanceOf(Array);
+// Example: Entity Manager Unit Tests
+describe('EntityManager', () => {
+  describe('loadEntities', () => {
+    it('should load entities from universe directory', async () => {
+      const manager = new EntityManager('./universe');
+      const entities = await manager.loadEntities();
+      expect(entities).toBeDefined();
+      expect(entities.characters).toBeInstanceOf(Array);
     });
 
-    it('should handle query errors gracefully', async () => {
-      const client = new LightRAGClient('http://localhost:9621', 'invalid-key');
-      await expect(client.query('test query')).rejects.toThrow('Authentication failed');
+    it('should handle missing directory gracefully', async () => {
+      const manager = new EntityManager('./nonexistent');
+      await expect(manager.loadEntities()).rejects.toThrow('Directory not found');
     });
   });
 });
@@ -78,78 +78,56 @@ describe('LightRAGClient', () => {
 **Purpose**: Test the interaction between components and external services
 
 **Scope**:
-- LightRAG MCP client integration
 - File system operations
 - Agent command processing
 - Template system integration
 - Configuration system integration
+- Story generation pipeline
 
 **Implementation**:
 ```markdown
 ## Integration Test Scenarios
-1. **LightRAG Integration**
-   - Test API connectivity
-   - Test query processing
-   - Test error handling
-   - Test offline mode
-
-2. **File System Integration**
+1. **File System Integration**
    - Test file operations
    - Test directory management
    - Test permission handling
    - Test error recovery
 
-3. **Agent Integration**
-   - Test command processing
-   - Test context loading
-   - Test file operations
+2. **Agent Command Integration**
+   - Test command parsing
+   - Test workflow execution
+   - Test error handling
+   - Test state management
+
+3. **Template System Integration**
+   - Test template loading
+   - Test variable substitution
+   - Test validation
    - Test error handling
 ```
 
-**Test Categories**:
-- **API Integration Tests**: Test external service integration
-- **File System Tests**: Test file operations and management
-- **Agent Integration Tests**: Test agent behavior and interactions
-- **Workflow Tests**: Test end-to-end workflows
+**Test Scenarios**:
+- **End-to-End Workflows**: Test complete user workflows
+- **Component Interaction**: Test how components work together
+- **Data Flow**: Test data flow between components
+- **Error Propagation**: Test how errors propagate through the system
 
 ### 3. System Testing
 
 **Purpose**: Test the complete system as a whole
 
 **Scope**:
-- End-to-end story generation workflow
-- Complete user interactions
-- System performance under load
-- Error handling and recovery
-- Data consistency and integrity
+- Full story generation pipeline
+- Multi-agent workflows
+- File system operations
+- User interface interactions
+- Performance under load
 
-**Implementation**:
-```markdown
-## System Test Scenarios
-1. **Complete Story Generation**
-   - Create context
-   - Generate outline
-   - Generate story
-   - Validate output
-
-2. **Entity Management**
-   - Create entities
-   - Update entities
-   - Delete entities
-   - Validate relationships
-
-3. **Workflow Progression**
-   - Draft to reading
-   - Reading to universe
-   - Validation and approval
-   - Publishing process
-```
-
-**Test Categories**:
-- **Functional Tests**: Test complete system functionality
-- **Performance Tests**: Test system performance and scalability
-- **Reliability Tests**: Test system reliability and error handling
-- **Usability Tests**: Test user experience and workflow
+**Test Scenarios**:
+- **Complete Story Creation**: Test full context → outline → story pipeline
+- **Multi-Agent Workflows**: Test agent switching and coordination
+- **File Management**: Test file creation, editing, and organization
+- **Error Recovery**: Test system recovery from various error conditions
 
 ### 4. Acceptance Testing
 
@@ -157,168 +135,49 @@ describe('LightRAGClient', () => {
 
 **Scope**:
 - User story validation
-- Requirement compliance
-- User experience validation
-- Business value validation
+- Feature completeness
+- Performance requirements
+- Usability requirements
+- Quality standards
 
-**Implementation**:
-```markdown
-## Acceptance Test Scenarios
-1. **User Story Validation**
-   - Test each user story
-   - Validate acceptance criteria
-   - Test user workflows
-   - Validate business value
-
-2. **Requirement Compliance**
-   - Test functional requirements
-   - Test non-functional requirements
-   - Test constraints and limitations
-   - Test integration requirements
-```
-
-**Test Categories**:
-- **User Story Tests**: Test individual user stories
-- **Requirement Tests**: Test requirement compliance
-- **Business Value Tests**: Test business value delivery
-- **User Experience Tests**: Test user experience and satisfaction
+**Test Scenarios**:
+- **User Story Validation**: Test that user stories are met
+- **Feature Completeness**: Test that all features work as expected
+- **Performance Validation**: Test that performance requirements are met
+- **Usability Testing**: Test that the system is easy to use
 
 ## Testing Types
 
 ### 1. Functional Testing
 
-**Purpose**: Test the system's functionality and features
+**Purpose**: Test that the system functions correctly
 
-**Test Areas**:
-- **Command Processing**: Test all agent commands and sub-commands
-- **Story Generation**: Test the three-stage workflow
-- **Entity Management**: Test entity creation, modification, and deletion
-- **File Operations**: Test file creation, reading, and modification
-- **Validation**: Test content and entity validation
-- **Workflow Management**: Test workflow progression and approval
-
-**Test Cases**:
-```markdown
-## Functional Test Cases
-1. **Command Processing**
-   - Test `/jester` commands
-   - Test `/write` commands
-   - Test `/muse` commands
-   - Test `/edit` commands
-   - Test `/delete` commands
-   - Test `/approve` commands
-   - Test `/publish` commands
-   - Test `/import` commands
-   - Test `/search` commands
-
-2. **Story Generation**
-   - Test context creation
-   - Test outline generation
-   - Test story generation
-   - Test metadata propagation
-   - Test entity integration
-
-3. **Entity Management**
-   - Test entity creation
-   - Test entity modification
-   - Test entity deletion
-   - Test entity relationships
-   - Test entity validation
-```
+**Types**:
+- **Unit Testing**: Test individual functions
+- **Integration Testing**: Test component interactions
+- **System Testing**: Test complete system functionality
+- **Acceptance Testing**: Test user requirements
 
 ### 2. Non-Functional Testing
 
-**Purpose**: Test system performance, reliability, and other non-functional aspects
+**Purpose**: Test system qualities and characteristics
 
-**Test Areas**:
-- **Performance**: Test system performance under various conditions
-- **Reliability**: Test system reliability and error handling
-- **Usability**: Test user experience and workflow
-- **Security**: Test security controls and data protection
-- **Compatibility**: Test cross-platform compatibility
-- **Scalability**: Test system scalability and resource usage
-
-**Test Cases**:
-```markdown
-## Non-Functional Test Cases
-1. **Performance Testing**
-   - Test response times
-   - Test throughput
-   - Test resource usage
-   - Test scalability
-   - Test load handling
-
-2. **Reliability Testing**
-   - Test error handling
-   - Test recovery procedures
-   - Test fault tolerance
-   - Test data integrity
-   - Test system stability
-
-3. **Security Testing**
-   - Test authentication
-   - Test authorization
-   - Test data protection
-   - Test input validation
-   - Test security controls
-```
+**Types**:
+- **Performance Testing**: Test system performance
+- **Security Testing**: Test system security
+- **Usability Testing**: Test user experience
+- **Reliability Testing**: Test system reliability
+- **Compatibility Testing**: Test system compatibility
 
 ### 3. Regression Testing
 
 **Purpose**: Ensure that changes don't break existing functionality
 
-**Test Areas**:
-- **Core Functionality**: Test all core features after changes
-- **Integration Points**: Test all integration points
-- **User Workflows**: Test all user workflows
-- **Error Handling**: Test all error handling scenarios
-- **Performance**: Test performance after changes
-
-**Test Cases**:
-```markdown
-## Regression Test Cases
-1. **Core Functionality**
-   - Test all agent commands
-   - Test story generation workflow
-   - Test entity management
-   - Test file operations
-   - Test validation
-
-2. **Integration Points**
-   - Test LightRAG integration
-   - Test file system integration
-   - Test agent integration
-   - Test template integration
-   - Test configuration integration
-```
-
-### 4. Smoke Testing
-
-**Purpose**: Quick validation that the system is working after deployment
-
-**Test Areas**:
-- **Basic Functionality**: Test basic system functionality
-- **Critical Paths**: Test critical user workflows
-- **Integration**: Test key integration points
-- **Error Handling**: Test basic error handling
-
-**Test Cases**:
-```markdown
-## Smoke Test Cases
-1. **Basic Functionality**
-   - Test system startup
-   - Test basic commands
-   - Test file operations
-   - Test LightRAG connectivity
-   - Test error handling
-
-2. **Critical Paths**
-   - Test story generation
-   - Test entity management
-   - Test workflow progression
-   - Test validation
-   - Test publishing
-```
+**Types**:
+- **Smoke Testing**: Quick tests to verify basic functionality
+- **Sanity Testing**: Focused tests on specific areas
+- **Full Regression**: Complete test suite execution
+- **Selective Regression**: Tests on affected areas only
 
 ## Validation Procedures
 
@@ -326,995 +185,290 @@ describe('LightRAGClient', () => {
 
 **Purpose**: Ensure content quality and consistency
 
-**Validation Areas**:
-- **File Format**: Validate file format and structure
-- **Content Quality**: Validate content quality and completeness
-- **Entity Consistency**: Validate entity consistency and relationships
-- **Story Structure**: Validate story structure and flow
-- **Metadata**: Validate metadata completeness and accuracy
+**Procedures**:
+- **Story Quality**: Validate story content meets quality standards
+- **Entity Consistency**: Ensure entity consistency across stories
+- **Template Compliance**: Validate content follows templates
+- **Format Validation**: Ensure proper file formatting
 
-**Validation Procedures**:
-```markdown
-## Content Validation Procedures
-1. **File Format Validation**
-   - Check file format (YAML, Markdown)
-   - Validate file structure
-   - Check required fields
-   - Validate field types
-   - Check for syntax errors
+### 2. System Validation
 
-2. **Content Quality Validation**
-   - Check content completeness
-   - Validate content quality
-   - Check for consistency
-   - Validate entity references
-   - Check for broken links
+**Purpose**: Ensure system functionality and reliability
 
-3. **Entity Consistency Validation**
-   - Check entity definitions
-   - Validate entity relationships
-   - Check for duplicates
-   - Validate entity references
-   - Check for inconsistencies
-```
+**Procedures**:
+- **Command Validation**: Test all agent commands
+- **Workflow Validation**: Test complete workflows
+- **Error Handling**: Test error conditions and recovery
+- **Performance Validation**: Test system performance
 
-### 2. Entity Validation
+### 3. User Experience Validation
 
-**Purpose**: Ensure entity consistency and relationship integrity
+**Purpose**: Ensure good user experience
 
-**Validation Areas**:
-- **Entity Structure**: Validate entity file structure
-- **Entity Properties**: Validate entity properties and values
-- **Entity Relationships**: Validate entity relationships and references
-- **Entity Consistency**: Validate entity consistency across stories
-- **Entity Integrity**: Validate entity integrity and completeness
-
-**Validation Procedures**:
-```markdown
-## Entity Validation Procedures
-1. **Entity Structure Validation**
-   - Check entity file structure
-   - Validate required fields
-   - Check field types
-   - Validate file format
-   - Check for syntax errors
-
-2. **Entity Relationship Validation**
-   - Check entity references
-   - Validate bidirectional links
-   - Check for broken links
-   - Validate relationship consistency
-   - Check for circular references
-
-3. **Entity Consistency Validation**
-   - Check entity consistency
-   - Validate entity properties
-   - Check for duplicates
-   - Validate entity usage
-   - Check for inconsistencies
-```
-
-### 3. Workflow Validation
-
-**Purpose**: Ensure workflow progression and approval processes work correctly
-
-**Validation Areas**:
-- **Workflow Progression**: Validate workflow progression between stages
-- **Approval Processes**: Validate approval and validation processes
-- **Conflict Resolution**: Validate conflict detection and resolution
-- **Data Integrity**: Validate data integrity during workflow progression
-- **Error Handling**: Validate error handling and recovery
-
-**Validation Procedures**:
-```markdown
-## Workflow Validation Procedures
-1. **Workflow Progression Validation**
-   - Check workflow stages
-   - Validate progression rules
-   - Check file movement
-   - Validate directory structure
-   - Check for conflicts
-
-2. **Approval Process Validation**
-   - Check approval workflows
-   - Validate validation rules
-   - Check user interactions
-   - Validate confirmation processes
-   - Check for errors
-
-3. **Conflict Resolution Validation**
-   - Check conflict detection
-   - Validate conflict resolution
-   - Check user approval
-   - Validate file handling
-   - Check for data loss
-```
+**Procedures**:
+- **Usability Testing**: Test ease of use
+- **Interface Testing**: Test user interface
+- **Workflow Testing**: Test user workflows
+- **Documentation Testing**: Test documentation quality
 
 ## Quality Assurance Guidelines
 
-### 1. Quality Standards
+### 1. Code Quality
 
-**Content Quality**:
-- **Completeness**: All required fields must be present
-- **Accuracy**: Content must be accurate and consistent
-- **Clarity**: Content must be clear and understandable
-- **Consistency**: Content must be consistent across the system
-- **Relevance**: Content must be relevant and appropriate
+**Standards**:
+- **Code Review**: All code must be reviewed
+- **Testing Coverage**: Minimum 80% test coverage
+- **Documentation**: All code must be documented
+- **Standards Compliance**: Follow coding standards
 
-**Technical Quality**:
-- **Reliability**: System must be reliable and stable
-- **Performance**: System must perform within acceptable limits
-- **Security**: System must be secure and protect user data
-- **Usability**: System must be easy to use and understand
-- **Maintainability**: System must be maintainable and extensible
+### 2. Content Quality
 
-### 2. Quality Metrics
+**Standards**:
+- **Story Quality**: Stories must meet quality standards
+- **Entity Consistency**: Entities must be consistent
+- **Template Compliance**: Content must follow templates
+- **Format Standards**: Files must follow format standards
 
-**Content Quality Metrics**:
-- **Completeness Rate**: Percentage of required fields present
-- **Accuracy Rate**: Percentage of accurate content
-- **Consistency Rate**: Percentage of consistent content
-- **Error Rate**: Percentage of content with errors
-- **Validation Pass Rate**: Percentage of content passing validation
+### 3. System Quality
 
-**Technical Quality Metrics**:
-- **Reliability**: System uptime and error rates
-- **Performance**: Response times and throughput
-- **Security**: Security incidents and vulnerabilities
-- **Usability**: User satisfaction and task completion rates
-- **Maintainability**: Code quality and documentation completeness
-
-### 3. Quality Gates
-
-**Content Quality Gates**:
-- **Validation Pass Rate**: Must be > 95%
-- **Error Rate**: Must be < 5%
-- **Completeness Rate**: Must be > 98%
-- **Consistency Rate**: Must be > 95%
-- **Accuracy Rate**: Must be > 98%
-
-**Technical Quality Gates**:
-- **Test Coverage**: Must be > 80%
-- **Performance**: Response times must be < 2 seconds
-- **Reliability**: Uptime must be > 99%
-- **Security**: No critical vulnerabilities
-- **Usability**: User satisfaction must be > 90%
+**Standards**:
+- **Reliability**: System must be reliable
+- **Performance**: System must meet performance requirements
+- **Security**: System must be secure
+- **Usability**: System must be usable
 
 ## Testing Tools and Frameworks
 
-### 1. Unit Testing Tools
+### 1. Unit Testing
 
-**TypeScript Testing**:
+**Tools**:
 - **Jest**: JavaScript testing framework
-- **Mocha**: JavaScript test framework
+- **Mocha**: Alternative testing framework
 - **Chai**: Assertion library
-- **Sinon**: Test spies, stubs, and mocks
+- **Sinon**: Mocking library
 
-**Implementation**:
-```typescript
-// Jest configuration
-module.exports = {
-  testEnvironment: 'node',
-  testMatch: ['**/__tests__/**/*.test.ts'],
-  collectCoverageFrom: [
-    'src/**/*.ts',
-    '!src/**/*.d.ts',
-  ],
-  coverageThreshold: {
-    global: {
-      branches: 80,
-      functions: 80,
-      lines: 80,
-      statements: 80,
-    },
-  },
-};
-```
+### 2. Integration Testing
 
-### 2. Integration Testing Tools
+**Tools**:
+- **Supertest**: HTTP testing
+- **Nock**: HTTP mocking
+- **Testcontainers**: Container testing
+- **Docker**: Container management
 
-**API Testing**:
-- **Supertest**: HTTP assertion library
-- **Nock**: HTTP mocking library
-- **Axios**: HTTP client for testing
+### 3. End-to-End Testing
 
-**File System Testing**:
-- **fs-extra**: Enhanced file system operations
-- **temp**: Temporary file and directory creation
-- **mock-fs**: File system mocking
+**Tools**:
+- **Playwright**: Browser automation
+- **Cypress**: End-to-end testing
+- **Selenium**: Web driver
+- **Puppeteer**: Headless Chrome
 
-**Implementation**:
-```typescript
-// Integration test example
-describe('LightRAG Integration', () => {
-  let client: LightRAGClient;
-  let mockServer: nock.Scope;
+### 4. Performance Testing
 
-  beforeEach(() => {
-    client = new LightRAGClient('http://localhost:9621', 'test-key');
-    mockServer = nock('http://localhost:9621');
-  });
-
-  afterEach(() => {
-    nock.cleanAll();
-  });
-
-  it('should query LightRAG successfully', async () => {
-    mockServer
-      .post('/query')
-      .reply(200, { reranked_documents: [] });
-
-    const result = await client.query('test query');
-    expect(result).toBeDefined();
-  });
-});
-```
-
-### 3. System Testing Tools
-
-**End-to-End Testing**:
-- **Playwright**: End-to-end testing framework
-- **Puppeteer**: Headless Chrome automation
-- **Cypress**: End-to-end testing framework
-
-**Performance Testing**:
-- **Artillery**: Load testing framework
-- **K6**: Load testing tool
-- **JMeter**: Performance testing tool
-
-**Implementation**:
-```typescript
-// E2E test example
-import { test, expect } from '@playwright/test';
-
-test('complete story generation workflow', async ({ page }) => {
-  // Navigate to the application
-  await page.goto('/');
-
-  // Test story generation workflow
-  await page.click('[data-testid="create-story"]');
-  await page.fill('[data-testid="story-title"]', 'Test Story');
-  await page.click('[data-testid="generate-context"]');
-  
-  // Wait for context generation
-  await expect(page.locator('[data-testid="context-generated"]')).toBeVisible();
-  
-  // Continue with outline generation
-  await page.click('[data-testid="generate-outline"]');
-  await expect(page.locator('[data-testid="outline-generated"]')).toBeVisible();
-  
-  // Continue with story generation
-  await page.click('[data-testid="generate-story"]');
-  await expect(page.locator('[data-testid="story-generated"]')).toBeVisible();
-});
-```
+**Tools**:
+- **Artillery**: Load testing
+- **K6**: Performance testing
+- **JMeter**: Load testing
+- **Newman**: API testing
 
 ## Test Data Management
 
 ### 1. Test Data Strategy
 
-**Test Data Types**:
-- **Unit Test Data**: Small, focused test data for unit tests
-- **Integration Test Data**: Realistic test data for integration tests
-- **System Test Data**: Complete test data for system tests
-- **Performance Test Data**: Large datasets for performance tests
+**Approach**:
+- **Synthetic Data**: Generate test data programmatically
+- **Real Data**: Use anonymized real data
+- **Mock Data**: Use mock data for testing
+- **Fixture Data**: Use predefined test data
 
-**Test Data Management**:
-- **Test Data Creation**: Create test data for different scenarios
-- **Test Data Maintenance**: Maintain and update test data
-- **Test Data Cleanup**: Clean up test data after tests
-- **Test Data Isolation**: Isolate test data between tests
+### 2. Test Data Categories
 
-### 2. Test Data Examples
+**Types**:
+- **Entity Data**: Character, location, and item data
+- **Story Data**: Story content and metadata
+- **Configuration Data**: System configuration
+- **User Data**: User preferences and settings
 
-**Story Context Test Data**:
-```yaml
-# test-context.yaml
-title: "Test Story"
-target_audience:
-  age_range: "5-7"
-  reading_level: "beginner"
-target_length:
-  min_words: 200
-  max_words: 500
-  final_target: 350
-entities:
-  characters:
-    - name: "Test Character"
-      type: "character"
-      description: "A test character for testing"
-  locations:
-    - name: "Test Location"
-      type: "location"
-      description: "A test location for testing"
-  items:
-    - name: "Test Item"
-      type: "item"
-      description: "A test item for testing"
-plot_template: "heroes_journey"
-plot_points: []
-location_progression: []
-morals: ["Test moral"]
-themes: ["Test theme"]
-metadata:
-  created_at: "2024-12-19T00:00:00Z"
-  last_modified: "2024-12-19T00:00:00Z"
-  version: 1
-```
+### 3. Test Data Maintenance
 
-**Entity Test Data**:
-```markdown
-# Test Character.md
-# Test Character
-
-## Description
-A test character for testing purposes.
-
-## Properties
-- **Type**: Character
-- **Appearance**: Test appearance
-- **Personality**: Test personality
-
-## Relationships
-- [[Test Location]]
-- [[Test Item]]
-
-## Story Appearances
-- [[Test Story]]
-
-## Metadata
-- **Created**: 2024-12-19T00:00:00Z
-- **Last Modified**: 2024-12-19T00:00:00Z
-- **Usage Count**: 1
-```
-
-### 3. Test Data Lifecycle
-
-**Test Data Creation**:
-```markdown
-## Test Data Creation Process
-1. **Identify Test Scenarios**: Identify test scenarios that need data
-2. **Create Test Data**: Create appropriate test data for each scenario
-3. **Validate Test Data**: Validate test data quality and completeness
-4. **Store Test Data**: Store test data in appropriate locations
-5. **Document Test Data**: Document test data purpose and usage
-```
-
-**Test Data Maintenance**:
-```markdown
-## Test Data Maintenance Process
-1. **Regular Review**: Regularly review test data for accuracy
-2. **Update Test Data**: Update test data as needed
-3. **Validate Changes**: Validate test data changes
-4. **Version Control**: Use version control for test data
-5. **Document Changes**: Document test data changes
-```
-
-**Test Data Cleanup**:
-```markdown
-## Test Data Cleanup Process
-1. **Identify Cleanup Needs**: Identify test data that needs cleanup
-2. **Execute Cleanup**: Execute test data cleanup
-3. **Validate Cleanup**: Validate that cleanup was successful
-4. **Document Cleanup**: Document cleanup activities
-5. **Monitor Results**: Monitor cleanup results
-```
+**Procedures**:
+- **Data Refresh**: Regularly refresh test data
+- **Data Validation**: Validate test data quality
+- **Data Cleanup**: Clean up test data after tests
+- **Data Security**: Ensure test data security
 
 ## Performance Testing
 
-### 1. Performance Testing Strategy
+### 1. Load Testing
 
-**Performance Metrics**:
-- **Response Time**: Time to complete operations
-- **Throughput**: Number of operations per unit time
-- **Resource Usage**: CPU, memory, and disk usage
-- **Scalability**: Performance under increased load
-- **Reliability**: Performance consistency over time
+**Purpose**: Test system performance under normal load
 
-**Performance Test Types**:
-- **Load Testing**: Test performance under expected load
-- **Stress Testing**: Test performance under extreme load
-- **Volume Testing**: Test performance with large data volumes
-- **Spike Testing**: Test performance under sudden load spikes
-- **Endurance Testing**: Test performance over extended periods
+**Metrics**:
+- **Response Time**: Time to complete requests
+- **Throughput**: Requests per second
+- **Resource Usage**: CPU, memory, disk usage
+- **Error Rate**: Percentage of failed requests
 
-### 2. Performance Test Scenarios
+### 2. Stress Testing
 
-**Story Generation Performance**:
-```markdown
-## Story Generation Performance Tests
-1. **Context Generation**
-   - Test context generation time
-   - Test context generation under load
-   - Test context generation with large entities
-   - Test context generation error handling
+**Purpose**: Test system performance under extreme load
 
-2. **Outline Generation**
-   - Test outline generation time
-   - Test outline generation under load
-   - Test outline generation with complex plots
-   - Test outline generation error handling
+**Metrics**:
+- **Breaking Point**: Maximum load before failure
+- **Recovery Time**: Time to recover from overload
+- **Resource Limits**: Maximum resource usage
+- **Error Handling**: How system handles overload
 
-3. **Story Generation**
-   - Test story generation time
-   - Test story generation under load
-   - Test story generation with long stories
-   - Test story generation error handling
-```
+### 3. Volume Testing
 
-**Entity Management Performance**:
-```markdown
-## Entity Management Performance Tests
-1. **Entity Creation**
-   - Test entity creation time
-   - Test entity creation under load
-   - Test entity creation with large entities
-   - Test entity creation error handling
+**Purpose**: Test system with large amounts of data
 
-2. **Entity Search**
-   - Test entity search time
-   - Test entity search under load
-   - Test entity search with large datasets
-   - Test entity search error handling
-
-3. **Entity Validation**
-   - Test entity validation time
-   - Test entity validation under load
-   - Test entity validation with complex entities
-   - Test entity validation error handling
-```
-
-### 3. Performance Test Implementation
-
-**Load Testing with Artillery**:
-```yaml
-# artillery-config.yml
-config:
-  target: 'http://localhost:3000'
-  phases:
-    - duration: 60
-      arrivalRate: 10
-    - duration: 120
-      arrivalRate: 20
-    - duration: 60
-      arrivalRate: 10
-
-scenarios:
-  - name: "Story Generation"
-    weight: 70
-    flow:
-      - post:
-          url: "/api/stories"
-          json:
-            title: "Test Story"
-            target_audience: "5-7"
-            target_length: 350
-      - get:
-          url: "/api/stories/{{ storyId }}"
-
-  - name: "Entity Management"
-    weight: 30
-    flow:
-      - post:
-          url: "/api/entities"
-          json:
-            name: "Test Entity"
-            type: "character"
-            description: "Test description"
-      - get:
-          url: "/api/entities/{{ entityId }}"
-```
-
-**Performance Monitoring**:
-```typescript
-// Performance monitoring example
-class PerformanceMonitor {
-  private metrics: Map<string, number[]> = new Map();
-
-  startTimer(operation: string): () => void {
-    const startTime = Date.now();
-    return () => {
-      const duration = Date.now() - startTime;
-      this.recordMetric(operation, duration);
-    };
-  }
-
-  recordMetric(operation: string, value: number): void {
-    if (!this.metrics.has(operation)) {
-      this.metrics.set(operation, []);
-    }
-    this.metrics.get(operation)!.push(value);
-  }
-
-  getMetrics(operation: string): {
-    count: number;
-    average: number;
-    min: number;
-    max: number;
-    p95: number;
-  } {
-    const values = this.metrics.get(operation) || [];
-    if (values.length === 0) {
-      return { count: 0, average: 0, min: 0, max: 0, p95: 0 };
-    }
-
-    const sorted = values.sort((a, b) => a - b);
-    const count = values.length;
-    const average = values.reduce((sum, val) => sum + val, 0) / count;
-    const min = sorted[0];
-    const max = sorted[sorted.length - 1];
-    const p95Index = Math.floor(sorted.length * 0.95);
-    const p95 = sorted[p95Index];
-
-    return { count, average, min, max, p95 };
-  }
-}
-```
+**Metrics**:
+- **Data Processing**: Time to process large datasets
+- **Storage Requirements**: Disk space requirements
+- **Memory Usage**: Memory consumption with large data
+- **Query Performance**: Database query performance
 
 ## Security Testing
 
-### 1. Security Testing Strategy
+### 1. Authentication Testing
 
-**Security Test Areas**:
-- **Authentication**: Test authentication mechanisms
-- **Authorization**: Test authorization controls
-- **Input Validation**: Test input validation and sanitization
-- **Data Protection**: Test data encryption and protection
-- **API Security**: Test API security controls
-- **File System Security**: Test file system security
+**Tests**:
+- **Login Security**: Test login mechanisms
+- **Session Management**: Test session handling
+- **Password Security**: Test password requirements
+- **Multi-Factor Authentication**: Test MFA if implemented
 
-**Security Test Types**:
-- **Vulnerability Testing**: Test for known vulnerabilities
-- **Penetration Testing**: Test system security under attack
-- **Security Scanning**: Automated security scanning
-- **Code Review**: Security-focused code review
-- **Configuration Review**: Security configuration review
+### 2. Authorization Testing
 
-### 2. Security Test Scenarios
+**Tests**:
+- **Access Control**: Test access permissions
+- **Role-Based Access**: Test role-based permissions
+- **Resource Access**: Test resource access controls
+- **Privilege Escalation**: Test for privilege escalation
 
-**Authentication Testing**:
-```markdown
-## Authentication Security Tests
-1. **API Key Validation**
-   - Test valid API key authentication
-   - Test invalid API key rejection
-   - Test expired API key handling
-   - Test API key format validation
+### 3. Data Security Testing
 
-2. **Session Management**
-   - Test session creation
-   - Test session validation
-   - Test session expiration
-   - Test session cleanup
-```
-
-**Input Validation Testing**:
-```markdown
-## Input Validation Security Tests
-1. **File Input Validation**
-   - Test file type validation
-   - Test file size validation
-   - Test file content validation
-   - Test malicious file handling
-
-2. **User Input Validation**
-   - Test command input validation
-   - Test parameter validation
-   - Test content validation
-   - Test malicious input handling
-```
-
-**Data Protection Testing**:
-```markdown
-## Data Protection Security Tests
-1. **Data Encryption**
-   - Test data encryption at rest
-   - Test data encryption in transit
-   - Test encryption key management
-   - Test decryption processes
-
-2. **Data Access Control**
-   - Test data access permissions
-   - Test data isolation
-   - Test data sharing controls
-   - Test data deletion
-```
-
-### 3. Security Test Implementation
-
-**Security Test Framework**:
-```typescript
-// Security test example
-describe('Security Tests', () => {
-  describe('API Key Authentication', () => {
-    it('should reject invalid API keys', async () => {
-      const client = new LightRAGClient('http://localhost:9621', 'invalid-key');
-      await expect(client.query('test query')).rejects.toThrow('Authentication failed');
-    });
-
-    it('should accept valid API keys', async () => {
-      const client = new LightRAGClient('http://localhost:9621', 'valid-key');
-      const result = await client.query('test query');
-      expect(result).toBeDefined();
-    });
-  });
-
-  describe('Input Validation', () => {
-    it('should reject malicious file inputs', async () => {
-      const maliciousFile = 'malicious-content';
-      await expect(processFile(maliciousFile)).rejects.toThrow('Invalid file content');
-    });
-
-    it('should validate file types', async () => {
-      const invalidFile = { type: 'application/executable' };
-      await expect(validateFileType(invalidFile)).rejects.toThrow('Invalid file type');
-    });
-  });
-});
-```
+**Tests**:
+- **Data Encryption**: Test data encryption
+- **Data Transmission**: Test secure data transmission
+- **Data Storage**: Test secure data storage
+- **Data Privacy**: Test data privacy controls
 
 ## Regression Testing
 
-### 1. Regression Testing Strategy
+### 1. Automated Regression
 
-**Regression Test Scope**:
-- **Core Functionality**: All core features and functions
-- **Integration Points**: All integration points and interfaces
-- **User Workflows**: All user workflows and scenarios
-- **Error Handling**: All error handling and recovery scenarios
-- **Performance**: Performance characteristics and benchmarks
+**Tools**:
+- **CI/CD Pipeline**: Automated test execution
+- **Test Suites**: Comprehensive test suites
+- **Test Reports**: Automated test reporting
+- **Test Notifications**: Automated test notifications
 
-**Regression Test Triggers**:
-- **Code Changes**: Any code changes or modifications
-- **Configuration Changes**: Any configuration changes
-- **Dependency Updates**: Any dependency updates or changes
-- **Environment Changes**: Any environment changes or updates
-- **Deployment**: Any deployment or release
+### 2. Manual Regression
 
-### 2. Regression Test Implementation
+**Procedures**:
+- **Smoke Tests**: Quick functionality tests
+- **Critical Path Tests**: Test critical user paths
+- **Feature Tests**: Test specific features
+- **Integration Tests**: Test component integration
 
-**Automated Regression Tests**:
-```typescript
-// Regression test suite
-describe('Regression Tests', () => {
-  describe('Core Functionality', () => {
-    it('should maintain story generation workflow', async () => {
-      // Test complete story generation workflow
-      const context = await createContext('Test Story');
-      const outline = await generateOutline(context);
-      const story = await generateStory(outline);
-      
-      expect(context).toBeDefined();
-      expect(outline).toBeDefined();
-      expect(story).toBeDefined();
-    });
+### 3. Regression Test Strategy
 
-    it('should maintain entity management functionality', async () => {
-      // Test entity management functionality
-      const entity = await createEntity('Test Entity', 'character');
-      const updatedEntity = await updateEntity(entity.id, { description: 'Updated' });
-      await deleteEntity(entity.id);
-      
-      expect(entity).toBeDefined();
-      expect(updatedEntity).toBeDefined();
-    });
-  });
-
-  describe('Integration Points', () => {
-    it('should maintain LightRAG integration', async () => {
-      // Test LightRAG integration
-      const client = new LightRAGClient('http://localhost:9621', 'test-key');
-      const result = await client.query('test query');
-      expect(result).toBeDefined();
-    });
-
-    it('should maintain file system integration', async () => {
-      // Test file system integration
-      const file = await createFile('test.txt', 'test content');
-      const content = await readFile('test.txt');
-      await deleteFile('test.txt');
-      
-      expect(file).toBeDefined();
-      expect(content).toBe('test content');
-    });
-  });
-});
-```
-
-**Regression Test Automation**:
-```yaml
-# GitHub Actions regression test workflow
-name: Regression Tests
-
-on:
-  push:
-    branches: [ main, develop ]
-  pull_request:
-    branches: [ main ]
-
-jobs:
-  regression-tests:
-    runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/checkout@v2
-    
-    - name: Setup Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '18'
-        
-    - name: Install dependencies
-      run: npm install
-      
-    - name: Run unit tests
-      run: npm run test:unit
-      
-    - name: Run integration tests
-      run: npm run test:integration
-      
-    - name: Run system tests
-      run: npm run test:system
-      
-    - name: Run performance tests
-      run: npm run test:performance
-      
-    - name: Run security tests
-      run: npm run test:security
-```
+**Approach**:
+- **Risk-Based**: Focus on high-risk areas
+- **Change-Based**: Focus on changed areas
+- **Coverage-Based**: Ensure adequate coverage
+- **Time-Based**: Regular regression testing
 
 ## Continuous Testing
 
-### 1. Continuous Testing Strategy
+### 1. Continuous Integration
 
-**Continuous Testing Pipeline**:
+**Process**:
 - **Code Commit**: Trigger tests on code commit
-- **Pull Request**: Run tests on pull request creation
-- **Merge**: Run tests before merge
+- **Build Process**: Run tests during build
 - **Deployment**: Run tests before deployment
-- **Post-Deployment**: Run tests after deployment
+- **Monitoring**: Monitor test results
 
-**Test Execution Levels**:
-- **Fast Tests**: Run on every commit (unit tests)
-- **Medium Tests**: Run on pull requests (integration tests)
-- **Slow Tests**: Run on merge (system tests)
-- **Performance Tests**: Run on schedule (performance tests)
-- **Security Tests**: Run on schedule (security tests)
+### 2. Continuous Deployment
 
-### 2. Continuous Testing Implementation
+**Process**:
+- **Automated Testing**: Run tests automatically
+- **Quality Gates**: Prevent deployment on test failure
+- **Rollback**: Automatic rollback on failure
+- **Monitoring**: Monitor deployment success
 
-**CI/CD Pipeline**:
-```yaml
-# CI/CD pipeline configuration
-stages:
-  - test
-  - build
-  - deploy
+### 3. Test Automation
 
-test:
-  stage: test
-  script:
-    - npm run test:unit
-    - npm run test:integration
-    - npm run test:system
-  coverage: '/Coverage: \d+\.\d+%/'
-
-build:
-  stage: build
-  script:
-    - npm run build
-    - npm run test:build
-  artifacts:
-    paths:
-      - dist/
-
-deploy:
-  stage: deploy
-  script:
-    - npm run deploy
-    - npm run test:deployment
-  only:
-    - main
-```
-
-**Test Automation**:
-```typescript
-// Test automation example
-class TestAutomation {
-  async runTests(testType: string): Promise<TestResult> {
-    const startTime = Date.now();
-    const results: TestResult[] = [];
-
-    try {
-      switch (testType) {
-        case 'unit':
-          results.push(await this.runUnitTests());
-          break;
-        case 'integration':
-          results.push(await this.runIntegrationTests());
-          break;
-        case 'system':
-          results.push(await this.runSystemTests());
-          break;
-        case 'performance':
-          results.push(await this.runPerformanceTests());
-          break;
-        case 'security':
-          results.push(await this.runSecurityTests());
-          break;
-        default:
-          throw new Error(`Unknown test type: ${testType}`);
-      }
-
-      const duration = Date.now() - startTime;
-      return {
-        success: results.every(r => r.success),
-        duration,
-        results,
-        timestamp: new Date().toISOString()
-      };
-    } catch (error) {
-      return {
-        success: false,
-        duration: Date.now() - startTime,
-        error: error.message,
-        timestamp: new Date().toISOString()
-      };
-    }
-  }
-}
-```
+**Tools**:
+- **GitHub Actions**: CI/CD automation
+- **Jenkins**: Build automation
+- **Docker**: Container automation
+- **Kubernetes**: Orchestration automation
 
 ## Testing Metrics and Reporting
 
-### 1. Testing Metrics
+### 1. Test Metrics
 
-**Test Coverage Metrics**:
-- **Line Coverage**: Percentage of code lines covered by tests
-- **Branch Coverage**: Percentage of code branches covered by tests
-- **Function Coverage**: Percentage of functions covered by tests
-- **Statement Coverage**: Percentage of statements covered by tests
+**Metrics**:
+- **Test Coverage**: Percentage of code covered by tests
+- **Test Pass Rate**: Percentage of tests passing
+- **Test Execution Time**: Time to run test suite
+- **Defect Density**: Number of defects per unit
 
-**Test Quality Metrics**:
-- **Test Pass Rate**: Percentage of tests that pass
-- **Test Failure Rate**: Percentage of tests that fail
-- **Test Execution Time**: Time taken to execute tests
-- **Test Maintenance Effort**: Effort required to maintain tests
+### 2. Quality Metrics
 
-**Test Effectiveness Metrics**:
-- **Bug Detection Rate**: Percentage of bugs detected by tests
-- **Bug Escape Rate**: Percentage of bugs that escape testing
-- **Test ROI**: Return on investment for testing
-- **Test Efficiency**: Efficiency of test execution
+**Metrics**:
+- **Defect Rate**: Rate of defects found
+- **Defect Resolution Time**: Time to fix defects
+- **Customer Satisfaction**: User satisfaction scores
+- **System Uptime**: System availability
 
-### 2. Testing Reports
+### 3. Performance Metrics
 
-**Test Execution Report**:
-```typescript
-interface TestExecutionReport {
-  summary: {
-    totalTests: number;
-    passedTests: number;
-    failedTests: number;
-    skippedTests: number;
-    executionTime: number;
-    timestamp: string;
-  };
-  coverage: {
-    lines: number;
-    branches: number;
-    functions: number;
-    statements: number;
-  };
-  results: TestResult[];
-  errors: TestError[];
-  performance: PerformanceMetrics;
-}
-```
+**Metrics**:
+- **Response Time**: Average response time
+- **Throughput**: Requests per second
+- **Resource Utilization**: CPU, memory usage
+- **Error Rate**: Percentage of errors
 
-**Test Quality Report**:
-```typescript
-interface TestQualityReport {
-  quality: {
-    passRate: number;
-    failureRate: number;
-    coverage: number;
-    maintainability: number;
-  };
-  trends: {
-    passRateTrend: number[];
-    coverageTrend: number[];
-    executionTimeTrend: number[];
-  };
-  recommendations: string[];
-  actionItems: string[];
-}
-```
+### 4. Reporting
 
-**Test Performance Report**:
-```typescript
-interface TestPerformanceReport {
-  performance: {
-    averageExecutionTime: number;
-    slowestTests: TestResult[];
-    fastestTests: TestResult[];
-    resourceUsage: ResourceUsage;
-  };
-  bottlenecks: {
-    slowOperations: string[];
-    resourceConstraints: string[];
-    optimizationOpportunities: string[];
-  };
-  recommendations: string[];
-}
-```
+**Reports**:
+- **Test Reports**: Detailed test results
+- **Quality Reports**: Quality metrics and trends
+- **Performance Reports**: Performance metrics
+- **Dashboard**: Real-time metrics dashboard
 
-### 3. Test Reporting Implementation
+## Test Environment Management
 
-**Test Report Generation**:
-```typescript
-class TestReporter {
-  generateExecutionReport(results: TestResult[]): TestExecutionReport {
-    const summary = {
-      totalTests: results.length,
-      passedTests: results.filter(r => r.success).length,
-      failedTests: results.filter(r => !r.success).length,
-      skippedTests: results.filter(r => r.skipped).length,
-      executionTime: results.reduce((sum, r) => sum + r.duration, 0),
-      timestamp: new Date().toISOString()
-    };
+### 1. Environment Setup
 
-    const coverage = this.calculateCoverage(results);
-    const errors = this.extractErrors(results);
-    const performance = this.calculatePerformance(results);
+**Environments**:
+- **Development**: Local development environment
+- **Testing**: Dedicated testing environment
+- **Staging**: Pre-production environment
+- **Production**: Live production environment
 
-    return {
-      summary,
-      coverage,
-      results,
-      errors,
-      performance
-    };
-  }
+### 2. Environment Configuration
 
-  generateQualityReport(executionReport: TestExecutionReport): TestQualityReport {
-    const quality = {
-      passRate: (executionReport.summary.passedTests / executionReport.summary.totalTests) * 100,
-      failureRate: (executionReport.summary.failedTests / executionReport.summary.totalTests) * 100,
-      coverage: executionReport.coverage.lines,
-      maintainability: this.calculateMaintainability(executionReport)
-    };
+**Configuration**:
+- **Database**: Test database setup
+- **File System**: Test file system setup
+- **Network**: Network configuration
+- **Security**: Security configuration
 
-    const trends = this.calculateTrends(executionReport);
-    const recommendations = this.generateRecommendations(quality);
-    const actionItems = this.generateActionItems(executionReport);
+### 3. Environment Maintenance
 
-    return {
-      quality,
-      trends,
-      recommendations,
-      actionItems
-    };
-  }
-}
-```
+**Maintenance**:
+- **Regular Updates**: Keep environments updated
+- **Data Refresh**: Refresh test data regularly
+- **Cleanup**: Clean up test artifacts
+- **Monitoring**: Monitor environment health
 
 ## Conclusion
 
-This comprehensive testing strategy provides a robust framework for ensuring the quality, reliability, and performance of the Jester system. By implementing these testing practices, we can:
+This testing strategy provides a comprehensive approach to ensuring the quality and reliability of the Jester system. By following these guidelines and procedures, we can maintain high standards of quality while ensuring the system meets user requirements and performs reliably in production.
 
-1. **Ensure Quality**: Maintain high quality standards through comprehensive testing
-2. **Prevent Regressions**: Catch issues early through automated regression testing
-3. **Validate Performance**: Ensure system performance meets requirements
-4. **Enhance Security**: Identify and address security vulnerabilities
-5. **Improve Reliability**: Ensure system reliability and error handling
-6. **Support Maintenance**: Facilitate system maintenance and updates
-
-The testing strategy is designed to be:
-- **Comprehensive**: Covers all aspects of the system
-- **Automated**: Minimizes manual testing effort
-- **Continuous**: Integrates with the development process
-- **Measurable**: Provides clear metrics and reporting
-- **Maintainable**: Easy to maintain and update
-
-This testing framework will be essential for the upcoming refactor, ensuring that all changes maintain system quality and reliability while enabling confident development and deployment.
+The key to successful testing is to integrate it into the development process, automate where possible, and continuously improve based on feedback and metrics. Regular review and updates of this strategy will ensure it remains effective and relevant as the system evolves.

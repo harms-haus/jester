@@ -15,9 +15,9 @@
   - `/approve` (Workflow Management Agent): Draft approval and progression to ready stage
   - `/publish` (Publishing Agent): Story publishing with entity patches and cleanup
   - `/import` (Content Import Agent): Entity and story import from files or directories
-  - `/search` (Search Agent): Local file and LightRAG database search capabilities
+  - `/search` (Search Agent): Local file and Entity Management database search capabilities
 - **Communication**: LLM agents follow prompt rules to use file-based pipeline (YAML → Markdown → Markdown)
-- **Dependencies**: LightRAG MCP client, external LLM capable of file operations
+- **Dependencies**: Entity Management client, external LLM capable of file operations
 
 ### 1a. Entry Point Management
 
@@ -30,16 +30,16 @@
   - Seamless transitions to specialized agents
 - **Dependencies**: All agent files, workflow selection prompts
 
-### 2. LightRAG MCP Client
+### 2. Entity Management client
 
 - **Purpose**: Provides structured access to knowledge graph entities and relationships
-- **Technology**: Python MCP client with OpenAPI integration
+- **Technology**: Python Entity Management client with OpenAPI integration
 - **Key Features**:
   - Entity discovery and relationship queries
   - Structured data retrieval for story context
   - Graph management and entity validation
   - Local caching and offline mode support
-- **Dependencies**: LightRAG service, Python runtime
+- **Dependencies**: Entity Management service, Python runtime
 
 ### 3. File System Operations
 
@@ -70,10 +70,10 @@
 
 ### 5. Configuration Manager
 
-- **Purpose**: Manages project settings, LightRAG connection, and user preferences
+- **Purpose**: Manages project settings, Entity Management connection, and user preferences
 - **Technology**: YAML configuration files
 - **Key Features**:
-  - LightRAG endpoint configuration
+  - Entity Management endpoint configuration
   - Story generation parameters
   - Entity type definitions
   - Template selection
@@ -94,14 +94,14 @@
 
 ### 7. Validation System
 
-- **Purpose**: Ensures consistency between local files and LightRAG
+- **Purpose**: Ensures consistency between local files and Entity Management
 - **Technology**: TypeScript validation logic
 - **Key Features**:
   - Entity existence validation
   - Link integrity checking
   - File format validation
   - Relationship consistency verification
-- **Dependencies**: LightRAG MCP client, local file system
+- **Dependencies**: Entity Management client, local file system
 
 ### 8. Target Audience Management System
 
@@ -124,7 +124,7 @@
 2. **Target Audience Integration**: System loads target audience profiles from `.memory` system
 3. **Target Audience Selection**: User selects target audience members via `/jester audience select` command
 4. **Parameter Calculation**: System calculates age ranges and target lengths from selected members
-5. External LLM follows appropriate prompt rules to query LightRAG via TypeScript MCP client for entities
+5. External LLM follows appropriate prompt rules to query Entity Management via TypeScript Entity Management client for entities
 6. LLM generates context file with target audience parameters and saves to `contexts/` per prompt instructions
 7. User edits context file
 8. User runs `/write outline`
@@ -137,13 +137,13 @@
 15. User runs `/approve` to move draft to reading stage
 16. User runs `/publish` to publish reading story with entities and patches
 17. **For Import Management**: User runs `/import` commands to import content to import-staging/
-18. **For Search**: User runs `/search` commands to query local files and LightRAG database
+18. **For Search**: User runs `/search` commands to query local files and Entity Management database
 19. **For Target Audience Management**: User runs `/jester audience` commands to manage member profiles
 20. External LLM follows appropriate prompt rules to track changes via Git
 
 ### Error Handling
 
-- LightRAG connection failures → Prompt rules instruct LLM to use offline mode with cached data
+- Entity Management connection failures → Prompt rules instruct LLM to use offline mode with cached data
 - File system errors → Prompt rules instruct LLM to provide graceful degradation with user notification
 - Validation failures → Prompt rules instruct LLM to provide detailed error messages with suggested fixes
 - LLM failures → Prompt rules provide fallback to manual editing mode instructions

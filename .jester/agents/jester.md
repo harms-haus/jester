@@ -143,7 +143,7 @@ dependencies:
     - elicitation-methods.md
     - brainstorming-techniques.md
     - validation-principles.md
-    - lightrag-integration.md
+    - Entity Management-integration.md
   workflows:
     - story-creation.yaml
     - entity-management.yaml

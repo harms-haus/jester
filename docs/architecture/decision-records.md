@@ -54,33 +54,7 @@ Implement a local-first storage strategy where all user content is stored locall
 - **Negative**: No automatic backup, requires manual sync management
 - **Risk**: Data loss if local storage fails
 
-## ADR-003: LightRAG Integration via MCP Client
-
-**Status**: Accepted  
-**Date**: 2024-12-19  
-**Context**: Need to integrate with LightRAG knowledge graph for entity relationship discovery while maintaining prompt-based architecture.
-
-### Decision
-Use a TypeScript MCP (Model Context Protocol) client as the only executable code in the system, with all other functionality implemented through prompt-based agents.
-
-### Rationale
-- **Reliable API Communication**: TypeScript provides robust HTTP client capabilities
-- **Exception to Prompt Rule**: Only external service integration requires executable code
-- **Maintains Architecture**: All other functionality remains prompt-based
-- **Performance**: Efficient API communication for knowledge graph queries
-- **Error Handling**: Robust error handling for external service failures
-
-### Alternatives Considered
-1. **Prompt-Only API Calls**: Rejected due to unreliable LLM API handling
-2. **Full TypeScript Implementation**: Rejected due to complexity and maintenance overhead
-3. **Python/Other Language Client**: Rejected due to additional complexity
-
-### Consequences
-- **Positive**: Reliable API communication, maintains prompt-based architecture
-- **Negative**: Single point of executable code, requires TypeScript maintenance
-- **Risk**: MCP client becomes a bottleneck or failure point
-
-## ADR-004: Hierarchical Command Structure
+## ADR-003: Hierarchical Command Structure
 
 **Status**: Accepted  
 **Date**: 2024-12-19  
@@ -106,7 +80,7 @@ Implement a hierarchical command structure with slash commands (`/jester`, `/wri
 - **Negative**: Command hierarchy complexity, requires careful design
 - **Risk**: Command structure becomes too complex or confusing
 
-## ADR-005: File-Based Pipeline Communication
+## ADR-004: File-Based Pipeline Communication
 
 **Status**: Accepted  
 **Date**: 2024-12-19  
@@ -132,7 +106,7 @@ Use a file-based pipeline where LLM agents communicate through structured files 
 - **Negative**: Relies on LLM file operations, potential consistency issues
 - **Risk**: File operations may fail or be inconsistent
 
-## ADR-006: Wiki-Style Entity Linking
+## ADR-005: Wiki-Style Entity Linking
 
 **Status**: Accepted  
 **Date**: 2024-12-19  
@@ -158,7 +132,7 @@ Use wiki-style `[[entity]]` linking for entity references in all files, with bid
 - **Negative**: Requires link validation and maintenance
 - **Risk**: Broken links may cause inconsistencies
 
-## ADR-007: Three-Stage Workflow Organization
+## ADR-006: Three-Stage Workflow Organization
 
 **Status**: Accepted  
 **Date**: 2024-12-19  
@@ -184,7 +158,7 @@ Organize files in a three-stage workflow with story-project-based organization: 
 - **Negative**: Directory structure complexity, requires careful management
 - **Risk**: Directory structure becomes too complex or confusing
 
-## ADR-008: Persona System Implementation
+## ADR-007: Persona System Implementation
 
 **Status**: Accepted  
 **Date**: 2024-12-19  
@@ -210,7 +184,7 @@ Implement a persona system that selects random personas at startup and applies t
 - **Negative**: Additional complexity, potential confusion
 - **Risk**: Personas may interfere with core functionality
 
-## ADR-009: Target Audience Management System
+## ADR-008: Target Audience Management System
 
 **Status**: Accepted  
 **Date**: 2024-12-19  
@@ -236,7 +210,7 @@ Implement a target audience management system that stores named profiles with bi
 - **Negative**: Additional complexity, profile management overhead
 - **Risk**: Profile management becomes too complex or confusing
 
-## ADR-010: Validation Framework Implementation
+## ADR-009: Validation Framework Implementation
 
 **Status**: Accepted  
 **Date**: 2024-12-19  

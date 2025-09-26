@@ -17,7 +17,7 @@ jester provides an intuitive, conversational interface that feels natural to par
 - **Command Interface**: Primary interaction point for all agent commands
 - **File Explorer**: IDE file tree showing context.yaml, outline.md, and story.md files
 - **Story Library**: Directory view of generated stories organized by date or theme
-- **LightRAG Query Results**: Display of entity connections and relationships discovered
+- **Entity Management Query Results**: Display of entity connections and relationships discovered
 - **Edit Interface**: In-place editing capabilities for outlines and stories
 
 ## Accessibility: None

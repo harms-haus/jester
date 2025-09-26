@@ -4,8 +4,8 @@
 
 ## Entity Suggestion System
 
-**IMPORTANT: READ-ONLY LightRAG Integration**
-All LightRAG operations are read-only. The system only queries LightRAG to discover and suggest entities, never modifies the LightRAG knowledge graph. Local entity files remain the primary source of truth.
+**IMPORTANT: READ-ONLY Entity Management Integration**
+All Entity Management operations are read-only. The system only queries Entity Management to discover and suggest entities, never modifies the Entity Management knowledge graph. Local entity files remain the primary source of truth.
 
 ### Entity Suggestion Algorithm
 
@@ -13,7 +13,7 @@ All LightRAG operations are read-only. The system only queries LightRAG to disco
 
 1. **Analyze Story Context**: Review the story concept, themes, and target audience to understand entity requirements.
 
-2. **Score Entity Relevance**: For each discovered LightRAG entity, calculate relevance scores based on:
+2. **Score Entity Relevance**: For each discovered Entity Management entity, calculate relevance scores based on:
    - **Story Fit** (0.0-1.0): How well the entity fits the story concept and themes
    - **Age Appropriateness** (boolean): Whether the entity is suitable for the target audience age
    - **Thematic Alignment** (0.0-1.0): How well the entity matches the story's themes and morals
@@ -106,9 +106,9 @@ Would you like to include any of these items? (Type the number or name)
    - Process "all" selections for categories
 
 3. **Integrate Selected Entities**: Add selected entities to the context template:
-   - Include LightRAG metadata (source, confidence, query used)
+   - Include Entity Management metadata (source, confidence, query used)
    - Set appropriate entity properties and relationships
-   - Maintain entity source tracking (local vs LightRAG)
+   - Maintain entity source tracking (local vs Entity Management)
 
 4. **Provide Confirmation**: Confirm selected entities and their roles in the story.
 
@@ -119,14 +119,14 @@ Would you like to include any of these items? (Type the number or name)
 1. **Validate Selected Entities**: Ensure selected entities are appropriate and consistent.
 
 2. **Generate Entity Metadata**: Create comprehensive metadata for each selected entity:
-   - Source tracking (LightRAG vs local)
+   - Source tracking (Entity Management vs local)
    - Discovery timestamp and query used
    - Confidence scores and reasoning
    - Suggested properties and relationships
 
 3. **Update Context Template**: Integrate entities into the context file:
    - Add entities to appropriate sections (characters, locations, items)
-   - Include LightRAG metadata for tracking
+   - Include Entity Management metadata for tracking
    - Set entity relationships and properties
    - Maintain consistency with story requirements
 
@@ -142,10 +142,10 @@ Would you like to include any of these items? (Type the number or name)
 ```
 🔍 No Suitable Entities Found
 
-I searched LightRAG for entities relevant to your story concept, but didn't find any that perfectly match your requirements. This could mean:
+I searched Entity Management for entities relevant to your story concept, but didn't find any that perfectly match your requirements. This could mean:
 
 - Your story concept is very unique and original
-- The LightRAG knowledge graph doesn't have entities for this specific theme
+- The Entity Management knowledge graph doesn't have entities for this specific theme
 - The search criteria were too specific
 
 🔄 Options:
@@ -157,11 +157,11 @@ I searched LightRAG for entities relevant to your story concept, but didn't find
 What would you like to do?
 ```
 
-**LightRAG Service Unavailable:**
+**Entity Management Service Unavailable:**
 ```
-⚠️ LightRAG Service Unavailable
+⚠️ Entity Management Service Unavailable
 
-The LightRAG service is currently not accessible, so I can't search for additional entities. However, I can still help you create a rich story context using:
+The Entity Management service is currently not accessible, so I can't search for additional entities. However, I can still help you create a rich story context using:
 
 🔄 Available Options:
 1. Local entities from your story universe

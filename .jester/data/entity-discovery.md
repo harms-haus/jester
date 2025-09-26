@@ -16,7 +16,7 @@
 - Finding item files that could enhance the story
 - Identifying existing relationships and connections
 
-**LightRAG Database Discovery:**
+**Entity Management Database Discovery:**
 - Querying knowledge graph for related entities
 - Finding entities with similar themes or characteristics
 - Discovering unexpected connections and relationships

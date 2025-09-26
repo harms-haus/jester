@@ -9,11 +9,10 @@ This document provides comprehensive troubleshooting guidance for common issues,
 3. [Error Recovery Procedures](#error-recovery-procedures)
 4. [Performance Troubleshooting](#performance-troubleshooting)
 5. [File System Issues](#file-system-issues)
-6. [LightRAG Integration Issues](#lightrag-integration-issues)
-7. [Agent Behavior Issues](#agent-behavior-issues)
-8. [Validation and Quality Issues](#validation-and-quality-issues)
-9. [System Health Checks](#system-health-checks)
-10. [Emergency Procedures](#emergency-procedures)
+6. [Agent Behavior Issues](#agent-behavior-issues)
+7. [Validation and Quality Issues](#validation-and-quality-issues)
+8. [System Health Checks](#system-health-checks)
+9. [Emergency Procedures](#emergency-procedures)
 
 ## Debug Mode and Logging
 
@@ -23,13 +22,12 @@ Debug mode provides detailed information about system operations, loaded context
 ```markdown
 ## Debug Mode Activation
 To enable debug mode:
-1. Use the `/jester debug` command
+1. Use the `@jester *debug` command
 2. Or set the DEBUG environment variable to true
 3. Debug mode will show:
    - All loaded context files
    - File operations in detail
    - Agent command processing
-   - LightRAG query details
    - Validation results
    - Performance metrics
 ```
@@ -44,923 +42,458 @@ Debug Information:
 │   └── Data files
 ├── Operations Performed
 │   ├── File operations
-│   ├── LightRAG queries
 │   ├── Validation checks
 │   └── User interactions
 ├── Error Details
 │   ├── Error messages
 │   ├── Stack traces
-│   ├── Context information
-│   └── Suggested solutions
+│   └── Context information
 └── Performance Metrics
-    ├── Operation timing
-    ├── Resource usage
-    ├── Cache hit rates
-    └── Error rates
+    ├── Execution times
+    ├── Memory usage
+    └── Resource utilization
 ```
 
 ### Logging Configuration
+
+**Log Levels**:
 ```yaml
-# .jester/config/logging.yaml
 logging:
-  level: "debug"  # debug, info, warn, error
-  file: ".jester/logs/jester.log"
-  max_size: "10MB"
-  max_files: 5
-  format: "json"  # json, text
-  
-debug:
-  enabled: true
-  show_context: true
-  show_operations: true
-  show_performance: true
-  show_errors: true
+  debug: "Detailed debugging information"
+  info: "General information about operations"
+  warn: "Warning messages for potential issues"
+  error: "Error messages for failures"
+```
+
+**Log Locations**:
+```markdown
+## Log File Locations
+- **Application Logs**: `.jester/logs/application.log`
+- **Error Logs**: `.jester/logs/error.log`
+- **Debug Logs**: `.jester/logs/debug.log`
+- **System Logs**: OS-specific log locations
 ```
 
 ## Common Issues and Solutions
 
-### 1. Agent Command Not Recognized
+### 1. Agent Not Responding
 
-**Symptoms:**
-- Agent doesn't respond to commands
-- Commands are ignored or misinterpreted
-- Error messages about unknown commands
+**Symptoms**:
+- Agent commands not working
+- No response to `@agent-name` commands
+- Error messages about agent not found
 
-**Diagnosis:**
+**Solutions**:
 ```markdown
-## Command Recognition Debug
-1. Check if debug mode is enabled
-2. Verify the command syntax
-3. Check if the agent file exists
-4. Verify agent file permissions
-5. Check for typos in command
-6. Verify agent context loading
+## Agent Troubleshooting
+1. **Check Agent File**: Ensure agent file exists in `.jester/agents/`
+2. **Verify Command**: Use correct command format `@agent-name *command`
+3. **Restart Cursor**: Restart Cursor to reload configuration
+4. **Check Logs**: Review error logs for specific issues
+5. **Validate Configuration**: Check `.jester/core-config.yaml`
 ```
 
-**Solutions:**
-1. **Check Command Syntax**: Ensure commands follow the correct format
-2. **Verify Agent Files**: Check that agent files exist in `.jester/agents/`
-3. **Enable Debug Mode**: Use `/jester debug` to see loaded context
-4. **Check File Permissions**: Ensure agent files are readable
-5. **Restart Agent**: Try reinitializing the agent context
+### 2. File System Issues
 
-**Prevention:**
-- Use consistent command syntax
-- Validate agent files regularly
-- Test commands in debug mode
-- Keep agent files up to date
-
-### 2. File Operation Failures
-
-**Symptoms:**
-- Files not created or modified
+**Symptoms**:
+- Files not found
 - Permission denied errors
-- File not found errors
-- Corrupted file content
+- Directory structure issues
 
-**Diagnosis:**
+**Solutions**:
 ```markdown
-## File Operation Debug
-1. Check file permissions
-2. Verify directory structure
-3. Check disk space
-4. Validate file paths
-5. Check for file locks
-6. Verify file format
+## File System Troubleshooting
+1. **Check Permissions**: Ensure proper file permissions
+2. **Verify Paths**: Check file paths are correct
+3. **Create Directories**: Ensure required directories exist
+4. **Check Disk Space**: Verify sufficient disk space
+5. **Validate Structure**: Check project structure integrity
 ```
 
-**Solutions:**
-1. **Permission Issues**: Check file and directory permissions
-2. **Path Issues**: Verify file paths are correct and accessible
-3. **Disk Space**: Ensure sufficient disk space available
-4. **File Locks**: Check for processes holding file locks
-5. **Format Issues**: Validate file format and content
+### 3. Template Processing Issues
 
-**Prevention:**
-- Regular permission checks
-- Validate paths before operations
-- Monitor disk space
-- Use proper file locking
-- Validate file formats
+**Symptoms**:
+- Templates not loading
+- Variable substitution errors
+- Template validation failures
 
-### 3. LightRAG Connection Issues
-
-**Symptoms:**
-- LightRAG queries fail
-- Connection timeout errors
-- API key authentication failures
-- Service unavailable errors
-
-**Diagnosis:**
+**Solutions**:
 ```markdown
-## LightRAG Connection Debug
-1. Check LightRAG service status
-2. Verify API key configuration
-3. Test network connectivity
-4. Check service logs
-5. Validate endpoint URLs
-6. Test with health check
+## Template Troubleshooting
+1. **Check Template File**: Ensure template exists and is valid
+2. **Validate YAML**: Check YAML syntax is correct
+3. **Check Variables**: Verify all required variables are provided
+4. **Review Logs**: Check error logs for specific issues
+5. **Test Template**: Use debug mode to test template processing
 ```
 
-**Solutions:**
-1. **Service Status**: Check if LightRAG service is running
-2. **API Key**: Verify API key is correct and valid
-3. **Network**: Test network connectivity to LightRAG
-4. **Configuration**: Check LightRAG configuration
-5. **Offline Mode**: Enable offline mode for fallback
+### 4. Validation Failures
 
-**Prevention:**
-- Regular health checks
-- Monitor service status
-- Validate configuration
-- Implement offline mode
-- Use connection pooling
+**Symptoms**:
+- Content validation errors
+- Quality checks failing
+- Entity consistency issues
 
-### 4. Template Processing Errors
-
-**Symptoms:**
-- Templates fail to process
-- Missing or invalid template values
-- Template syntax errors
-- Generated content is malformed
-
-**Diagnosis:**
+**Solutions**:
 ```markdown
-## Template Processing Debug
-1. Check template file existence
-2. Validate template syntax
-3. Verify template values
-4. Check template processing logic
-5. Validate generated content
-6. Check for missing dependencies
+## Validation Troubleshooting
+1. **Check Content**: Review content for quality issues
+2. **Validate Entities**: Ensure entity consistency
+3. **Check Templates**: Verify content follows templates
+4. **Review Rules**: Check validation rules are appropriate
+5. **Use Debug Mode**: Enable debug mode for detailed validation info
 ```
-
-**Solutions:**
-1. **Template Files**: Ensure template files exist and are readable
-2. **Syntax**: Validate template syntax and format
-3. **Values**: Check that all required values are provided
-4. **Processing**: Verify template processing logic
-5. **Content**: Validate generated content format
-
-**Prevention:**
-- Validate templates regularly
-- Test template processing
-- Provide default values
-- Use template validation
-- Keep templates updated
-
-### 5. Validation Failures
-
-**Symptoms:**
-- Content validation fails
-- Entity validation errors
-- Workflow validation issues
-- Quality checks fail
-
-**Diagnosis:**
-```markdown
-## Validation Debug
-1. Check validation rules
-2. Verify content format
-3. Check entity references
-4. Validate file structure
-5. Check for missing fields
-6. Verify consistency rules
-```
-
-**Solutions:**
-1. **Rules**: Review and adjust validation rules
-2. **Format**: Fix content format issues
-3. **References**: Resolve entity reference problems
-4. **Structure**: Fix file structure issues
-5. **Fields**: Add missing required fields
-6. **Consistency**: Resolve consistency issues
-
-**Prevention:**
-- Regular validation testing
-- Clear validation rules
-- Comprehensive error messages
-- User override options
-- Validation documentation
 
 ## Error Recovery Procedures
 
-### 1. File System Recovery
+### 1. File Recovery
 
-**Corrupted Files:**
+**Problem**: Files corrupted or deleted
+**Solution**:
 ```markdown
-## File Recovery Procedure
-1. Stop all operations
-2. Check for backup files
-3. Restore from backup if available
-4. Validate restored files
-5. Check for data loss
-6. Resume operations
+## File Recovery Process
+1. **Check Backups**: Look for backup files
+2. **Restore from Git**: Use git to restore files
+3. **Recreate Files**: Recreate files from templates
+4. **Validate Content**: Ensure recovered content is valid
+5. **Update References**: Update any references to recovered files
 ```
 
-**Missing Files:**
+### 2. Configuration Recovery
+
+**Problem**: Configuration corrupted or missing
+**Solution**:
 ```markdown
-## Missing File Recovery
-1. Check if files were moved
-2. Look for backup copies
-3. Check Git history
-4. Restore from version control
-5. Recreate if necessary
-6. Validate restored files
+## Configuration Recovery Process
+1. **Restore from Backup**: Restore configuration from backup
+2. **Reset to Defaults**: Reset to default configuration
+3. **Recreate Configuration**: Recreate configuration manually
+4. **Validate Settings**: Ensure configuration is valid
+5. **Test System**: Test system with recovered configuration
 ```
 
-**Directory Structure Issues:**
+### 3. Data Recovery
+
+**Problem**: Data loss or corruption
+**Solution**:
 ```markdown
-## Directory Recovery
-1. Check directory permissions
-2. Recreate missing directories
-3. Restore directory structure
-4. Validate file organization
-5. Check for orphaned files
-6. Clean up if necessary
-```
-
-### 2. LightRAG Recovery
-
-**Service Unavailable:**
-```markdown
-## LightRAG Service Recovery
-1. Check service status
-2. Restart service if needed
-3. Verify configuration
-4. Test connectivity
-5. Enable offline mode
-6. Resume operations
-```
-
-**Data Corruption:**
-```markdown
-## LightRAG Data Recovery
-1. Check data integrity
-2. Restore from backup
-3. Rebuild knowledge graph
-4. Validate data consistency
-5. Test queries
-6. Resume operations
-```
-
-**API Key Issues:**
-```markdown
-## API Key Recovery
-1. Verify API key validity
-2. Check key permissions
-3. Regenerate key if needed
-4. Update configuration
-5. Test authentication
-6. Resume operations
-```
-
-### 3. Agent Recovery
-
-**Agent Context Issues:**
-```markdown
-## Agent Context Recovery
-1. Clear agent context
-2. Reload agent files
-3. Verify file integrity
-4. Test agent commands
-5. Check for errors
-6. Resume operations
-```
-
-**Agent File Corruption:**
-```markdown
-## Agent File Recovery
-1. Check file integrity
-2. Restore from backup
-3. Validate file content
-4. Test agent functionality
-5. Check for errors
-6. Resume operations
+## Data Recovery Process
+1. **Check Backups**: Look for data backups
+2. **Restore from Git**: Use git to restore data
+3. **Recreate Data**: Recreate data from scratch
+4. **Validate Data**: Ensure recovered data is valid
+5. **Update References**: Update any references to recovered data
 ```
 
 ## Performance Troubleshooting
 
-### 1. Slow Operations
+### 1. Slow Response Times
 
-**Symptoms:**
-- Operations take longer than expected
-- System becomes unresponsive
-- High resource usage
+**Symptoms**:
+- Commands taking too long
+- System unresponsive
 - Timeout errors
 
-**Diagnosis:**
+**Solutions**:
 ```markdown
-## Performance Debug
-1. Check operation timing
-2. Monitor resource usage
-3. Check for bottlenecks
-4. Analyze error rates
-5. Check cache performance
-6. Monitor network latency
+## Performance Optimization
+1. **Check System Resources**: Monitor CPU, memory, disk usage
+2. **Optimize Files**: Reduce file sizes, optimize content
+3. **Clear Cache**: Clear temporary files and cache
+4. **Check Processes**: Ensure no conflicting processes
+5. **Update System**: Keep system and dependencies updated
 ```
-
-**Solutions:**
-1. **Optimize Operations**: Improve operation efficiency
-2. **Resource Management**: Optimize resource usage
-3. **Caching**: Improve cache performance
-4. **Network**: Optimize network operations
-5. **Parallel Processing**: Use parallel operations where possible
 
 ### 2. Memory Issues
 
-**Symptoms:**
-- High memory usage
-- Memory leaks
+**Symptoms**:
 - Out of memory errors
 - System slowdown
+- Crashes
 
-**Diagnosis:**
+**Solutions**:
 ```markdown
-## Memory Debug
-1. Monitor memory usage
-2. Check for memory leaks
-3. Analyze memory patterns
-4. Check cache size
-5. Monitor garbage collection
-6. Check for large objects
+## Memory Troubleshooting
+1. **Check Memory Usage**: Monitor memory consumption
+2. **Close Unused Applications**: Free up memory
+3. **Optimize Files**: Reduce file sizes
+4. **Check for Leaks**: Look for memory leaks
+5. **Restart System**: Restart if necessary
 ```
-
-**Solutions:**
-1. **Memory Management**: Optimize memory usage
-2. **Cache Limits**: Set appropriate cache limits
-3. **Garbage Collection**: Optimize garbage collection
-4. **Object Lifecycle**: Manage object lifecycles
-5. **Memory Monitoring**: Implement memory monitoring
 
 ### 3. Disk Space Issues
 
-**Symptoms:**
-- Disk space warnings
-- File operation failures
+**Symptoms**:
+- Disk full errors
+- File write failures
 - System slowdown
-- Out of space errors
 
-**Diagnosis:**
+**Solutions**:
 ```markdown
-## Disk Space Debug
-1. Check disk usage
-2. Identify large files
-3. Check for temporary files
-4. Monitor file growth
-5. Check for duplicates
-6. Analyze space usage
+## Disk Space Troubleshooting
+1. **Check Disk Usage**: Monitor disk space usage
+2. **Clean Temporary Files**: Remove temporary files
+3. **Archive Old Data**: Archive old stories and data
+4. **Check Logs**: Clean up log files
+5. **Free Up Space**: Delete unnecessary files
 ```
-
-**Solutions:**
-1. **Cleanup**: Remove unnecessary files
-2. **Compression**: Compress large files
-3. **Archival**: Archive old files
-4. **Monitoring**: Implement disk monitoring
-5. **Quotas**: Set disk quotas
 
 ## File System Issues
 
-### 1. Permission Problems
+### 1. Permission Issues
 
-**Symptoms:**
-- Permission denied errors
-- Files not accessible
-- Operations fail
-- Security warnings
-
-**Diagnosis:**
-```markdown
-## Permission Debug
-1. Check file permissions
-2. Verify user permissions
-3. Check directory permissions
-4. Verify ownership
-5. Check ACLs
-6. Test permissions
+**Problem**: Permission denied errors
+**Solution**:
+```bash
+# Fix file permissions
+chmod -R 755 universe/
+chmod -R 755 reading/
+chmod -R 755 draft/
+chmod -R 755 .jester/
+chmod 644 .cursorrules
 ```
 
-**Solutions:**
-1. **Fix Permissions**: Correct file permissions
-2. **User Permissions**: Verify user access
-3. **Ownership**: Fix file ownership
-4. **ACLs**: Configure access control lists
-5. **Security**: Review security settings
+### 2. Directory Structure Issues
 
-### 2. File Locking Issues
-
-**Symptoms:**
-- Files locked by other processes
-- Concurrent access errors
-- File operation failures
-- System hangs
-
-**Diagnosis:**
-```markdown
-## File Lock Debug
-1. Check for file locks
-2. Identify locking processes
-3. Check for deadlocks
-4. Monitor file access
-5. Check for concurrent operations
-6. Analyze lock patterns
+**Problem**: Missing directories or incorrect structure
+**Solution**:
+```bash
+# Create required directories
+mkdir -p universe/{characters,locations,items}
+mkdir -p reading/{stories,contexts,outlines}
+mkdir -p draft/
+mkdir -p .jester/{agents,tasks,templates,data}
+mkdir -p .memory/
 ```
-
-**Solutions:**
-1. **Release Locks**: Release file locks
-2. **Process Management**: Manage processes
-3. **Deadlock Prevention**: Prevent deadlocks
-4. **Concurrent Access**: Manage concurrent access
-5. **Lock Monitoring**: Monitor file locks
 
 ### 3. File Corruption
 
-**Symptoms:**
-- Corrupted file content
-- Invalid file format
-- Parsing errors
-- Data loss
-
-**Diagnosis:**
+**Problem**: Files corrupted or unreadable
+**Solution**:
 ```markdown
-## File Corruption Debug
-1. Check file integrity
-2. Validate file format
-3. Check for corruption
-4. Analyze file content
-5. Check for encoding issues
-6. Verify file structure
+## File Corruption Recovery
+1. **Check File Integrity**: Verify file is readable
+2. **Restore from Backup**: Restore from backup if available
+3. **Recreate File**: Recreate file from template
+4. **Validate Content**: Ensure content is valid
+5. **Update References**: Update any references to file
 ```
-
-**Solutions:**
-1. **File Recovery**: Recover corrupted files
-2. **Format Validation**: Validate file formats
-3. **Backup Restoration**: Restore from backups
-4. **Data Recovery**: Recover lost data
-5. **Prevention**: Implement corruption prevention
-
-## LightRAG Integration Issues
-
-### 1. Query Failures
-
-**Symptoms:**
-- Queries return no results
-- Query timeouts
-- Invalid query responses
-- API errors
-
-**Diagnosis:**
-```markdown
-## Query Debug
-1. Check query syntax
-2. Verify query parameters
-3. Test query manually
-4. Check service logs
-5. Validate response format
-6. Check for rate limits
-```
-
-**Solutions:**
-1. **Query Syntax**: Fix query syntax
-2. **Parameters**: Verify query parameters
-3. **Service**: Check service status
-4. **Rate Limits**: Handle rate limits
-5. **Fallback**: Implement query fallback
-
-### 2. Connection Issues
-
-**Symptoms:**
-- Connection timeouts
-- Network errors
-- Service unavailable
-- Authentication failures
-
-**Diagnosis:**
-```markdown
-## Connection Debug
-1. Check network connectivity
-2. Verify service status
-3. Test authentication
-4. Check configuration
-5. Monitor connection logs
-6. Test with health check
-```
-
-**Solutions:**
-1. **Network**: Fix network issues
-2. **Service**: Restart service
-3. **Authentication**: Fix authentication
-4. **Configuration**: Update configuration
-5. **Offline Mode**: Enable offline mode
-
-### 3. Data Synchronization Issues
-
-**Symptoms:**
-- Data inconsistencies
-- Missing entities
-- Stale data
-- Sync failures
-
-**Diagnosis:**
-```markdown
-## Sync Debug
-1. Check data consistency
-2. Verify sync status
-3. Check for conflicts
-4. Monitor sync logs
-5. Validate data integrity
-6. Check for errors
-```
-
-**Solutions:**
-1. **Data Sync**: Resync data
-2. **Conflict Resolution**: Resolve conflicts
-3. **Data Validation**: Validate data
-4. **Error Handling**: Handle sync errors
-5. **Monitoring**: Monitor sync status
 
 ## Agent Behavior Issues
 
-### 1. Command Processing Issues
+### 1. Agent Not Loading
 
-**Symptoms:**
-- Commands not processed
-- Incorrect command interpretation
-- Agent confusion
-- Unexpected behavior
-
-**Diagnosis:**
+**Problem**: Agent not responding to commands
+**Solution**:
 ```markdown
-## Command Processing Debug
-1. Check command syntax
-2. Verify agent context
-3. Check for conflicts
-4. Monitor command logs
-5. Test command processing
-6. Check for errors
+## Agent Loading Troubleshooting
+1. **Check Agent File**: Ensure agent file exists
+2. **Validate Syntax**: Check agent file syntax
+3. **Check Dependencies**: Verify all dependencies are available
+4. **Restart Cursor**: Restart Cursor to reload agents
+5. **Check Logs**: Review error logs for specific issues
 ```
 
-**Solutions:**
-1. **Command Syntax**: Fix command syntax
-2. **Agent Context**: Reload agent context
-3. **Conflict Resolution**: Resolve conflicts
-4. **Error Handling**: Handle errors
-5. **Testing**: Test command processing
+### 2. Command Processing Issues
 
-### 2. Context Loading Issues
-
-**Symptoms:**
-- Context not loaded
-- Missing context files
-- Context corruption
-- Agent confusion
-
-**Diagnosis:**
+**Problem**: Commands not being processed correctly
+**Solution**:
 ```markdown
-## Context Loading Debug
-1. Check context files
-2. Verify file integrity
-3. Check for missing files
-4. Validate context structure
-5. Test context loading
-6. Check for errors
+## Command Processing Troubleshooting
+1. **Check Command Format**: Use correct command format
+2. **Validate Parameters**: Ensure parameters are correct
+3. **Check Agent State**: Verify agent is in correct state
+4. **Use Debug Mode**: Enable debug mode for detailed info
+5. **Check Logs**: Review logs for error details
 ```
 
-**Solutions:**
-1. **Context Files**: Fix context files
-2. **File Integrity**: Validate file integrity
-3. **Missing Files**: Restore missing files
-4. **Context Structure**: Fix context structure
-5. **Error Handling**: Handle errors
+### 3. Workflow Issues
 
-### 3. Agent Communication Issues
-
-**Symptoms:**
-- Agents not communicating
-- Communication failures
-- Data loss
-- Inconsistent behavior
-
-**Diagnosis:**
+**Problem**: Workflows not executing correctly
+**Solution**:
 ```markdown
-## Communication Debug
-1. Check communication channels
-2. Verify data flow
-3. Check for errors
-4. Monitor communication logs
-5. Test communication
-6. Check for conflicts
+## Workflow Troubleshooting
+1. **Check Workflow Definition**: Verify workflow is defined correctly
+2. **Validate Steps**: Ensure all steps are valid
+3. **Check Dependencies**: Verify all dependencies are available
+4. **Test Individual Steps**: Test each step separately
+5. **Use Debug Mode**: Enable debug mode for detailed workflow info
 ```
-
-**Solutions:**
-1. **Communication Channels**: Fix communication
-2. **Data Flow**: Verify data flow
-3. **Error Handling**: Handle errors
-4. **Conflict Resolution**: Resolve conflicts
-5. **Testing**: Test communication
 
 ## Validation and Quality Issues
 
 ### 1. Content Validation Failures
 
-**Symptoms:**
-- Content validation fails
-- Quality checks fail
-- Validation errors
-- Inconsistent content
-
-**Diagnosis:**
+**Problem**: Content not passing validation
+**Solution**:
 ```markdown
-## Content Validation Debug
-1. Check validation rules
-2. Verify content format
-3. Check for missing fields
-4. Validate content structure
-5. Test validation logic
-6. Check for errors
+## Content Validation Troubleshooting
+1. **Check Content Quality**: Review content for quality issues
+2. **Validate Against Templates**: Ensure content follows templates
+3. **Check Entity Consistency**: Verify entity consistency
+4. **Review Validation Rules**: Check validation rules are appropriate
+5. **Use Debug Mode**: Enable debug mode for detailed validation info
 ```
 
-**Solutions:**
-1. **Validation Rules**: Fix validation rules
-2. **Content Format**: Fix content format
-3. **Missing Fields**: Add missing fields
-4. **Content Structure**: Fix content structure
-5. **Error Handling**: Handle errors
+### 2. Entity Consistency Issues
 
-### 2. Entity Validation Issues
-
-**Symptoms:**
-- Entity validation fails
-- Entity inconsistencies
-- Missing entities
-- Broken relationships
-
-**Diagnosis:**
+**Problem**: Entities not consistent across stories
+**Solution**:
 ```markdown
-## Entity Validation Debug
-1. Check entity files
-2. Verify entity structure
-3. Check for missing entities
-4. Validate relationships
-5. Test entity validation
-6. Check for errors
+## Entity Consistency Troubleshooting
+1. **Check Entity Files**: Verify entity files are correct
+2. **Validate References**: Check all entity references
+3. **Update Entities**: Update entities to maintain consistency
+4. **Check Templates**: Ensure templates are consistent
+5. **Use Validation Tools**: Use validation tools to check consistency
 ```
 
-**Solutions:**
-1. **Entity Files**: Fix entity files
-2. **Entity Structure**: Fix entity structure
-3. **Missing Entities**: Restore missing entities
-4. **Relationships**: Fix relationships
-5. **Error Handling**: Handle errors
+### 3. Template Compliance Issues
 
-### 3. Workflow Validation Problems
-
-**Symptoms:**
-- Workflow validation fails
-- Workflow inconsistencies
-- Missing workflow steps
-- Workflow errors
-
-**Diagnosis:**
+**Problem**: Content not following templates
+**Solution**:
 ```markdown
-## Workflow Validation Debug
-1. Check workflow steps
-2. Verify workflow structure
-3. Check for missing steps
-4. Validate workflow logic
-5. Test workflow validation
-6. Check for errors
+## Template Compliance Troubleshooting
+1. **Check Template**: Verify template is correct
+2. **Validate Content**: Ensure content follows template
+3. **Update Content**: Update content to match template
+4. **Check Variables**: Verify all required variables are provided
+5. **Use Debug Mode**: Enable debug mode for detailed template info
 ```
-
-**Solutions:**
-1. **Workflow Steps**: Fix workflow steps
-2. **Workflow Structure**: Fix workflow structure
-3. **Missing Steps**: Add missing steps
-4. **Workflow Logic**: Fix workflow logic
-5. **Error Handling**: Handle errors
 
 ## System Health Checks
 
-### 1. Daily Health Checks
+### 1. Basic Health Check
 
+**Command**: `@jester *debug`
+**Purpose**: Check system status and loaded context
+**Output**:
 ```markdown
-## Daily Health Check Procedure
-1. Check system status
-2. Verify file system health
-3. Test LightRAG connectivity
-4. Validate configuration
-5. Check for errors
-6. Monitor performance
-7. Generate health report
+## System Health Check
+- **Agent Status**: All agents loaded and ready
+- **File System**: All directories and files accessible
+- **Configuration**: Configuration loaded and valid
+- **Templates**: All templates loaded and valid
+- **Memory**: Memory usage within normal limits
 ```
 
-### 2. Weekly Health Checks
+### 2. File System Health Check
 
+**Command**: Check file system integrity
+**Purpose**: Verify file system is healthy
+**Checks**:
 ```markdown
-## Weekly Health Check Procedure
-1. Perform daily checks
-2. Check data integrity
-3. Validate entity consistency
-4. Test backup systems
-5. Check for security issues
-6. Monitor resource usage
-7. Generate weekly report
+## File System Health Checks
+1. **Directory Structure**: All required directories exist
+2. **File Permissions**: All files have correct permissions
+3. **File Integrity**: All files are readable and valid
+4. **Disk Space**: Sufficient disk space available
+5. **Access Rights**: User has access to all required files
 ```
 
-### 3. Monthly Health Checks
+### 3. Agent Health Check
 
+**Command**: Test each agent individually
+**Purpose**: Verify all agents are working correctly
+**Tests**:
 ```markdown
-## Monthly Health Check Procedure
-1. Perform weekly checks
-2. Check system performance
-3. Validate data quality
-4. Test disaster recovery
-5. Check for updates
-6. Monitor growth trends
-7. Generate monthly report
+## Agent Health Checks
+1. **Agent Loading**: All agents load without errors
+2. **Command Processing**: All commands process correctly
+3. **Template Access**: All agents can access templates
+4. **File Operations**: All agents can perform file operations
+5. **Error Handling**: All agents handle errors gracefully
 ```
 
 ## Emergency Procedures
 
 ### 1. System Recovery
 
-**Complete System Failure:**
+**Problem**: System completely non-functional
+**Solution**:
 ```markdown
 ## Emergency System Recovery
-1. Stop all operations
-2. Assess damage
-3. Restore from backup
-4. Validate system integrity
-5. Test critical functions
-6. Resume operations
-7. Document incident
+1. **Stop All Processes**: Stop all running processes
+2. **Check System Status**: Verify system is stable
+3. **Restore from Backup**: Restore from latest backup
+4. **Validate Configuration**: Ensure configuration is correct
+5. **Test Basic Functions**: Test basic system functions
+6. **Gradual Restart**: Gradually restart all components
 ```
 
-**Data Loss:**
+### 2. Data Recovery
+
+**Problem**: Critical data lost or corrupted
+**Solution**:
 ```markdown
 ## Emergency Data Recovery
-1. Stop all operations
-2. Assess data loss
-3. Restore from backup
-4. Validate data integrity
-5. Check for corruption
-6. Resume operations
-7. Document incident
+1. **Stop All Operations**: Stop all data operations
+2. **Assess Damage**: Determine extent of data loss
+3. **Restore from Backup**: Restore from latest backup
+4. **Validate Data**: Ensure recovered data is valid
+5. **Update References**: Update all data references
+6. **Test System**: Test system with recovered data
 ```
 
-### 2. Service Recovery
+### 3. Configuration Reset
 
-**LightRAG Service Failure:**
+**Problem**: Configuration completely corrupted
+**Solution**:
 ```markdown
-## Emergency LightRAG Recovery
-1. Check service status
-2. Restart service
-3. Verify configuration
-4. Test connectivity
-5. Enable offline mode
-6. Resume operations
-7. Document incident
+## Emergency Configuration Reset
+1. **Backup Current Config**: Save current configuration
+2. **Reset to Defaults**: Reset to default configuration
+3. **Validate Defaults**: Ensure default configuration works
+4. **Restore User Settings**: Restore user-specific settings
+5. **Test System**: Test system with reset configuration
+6. **Document Changes**: Document any necessary changes
 ```
 
-**File System Failure:**
+## Prevention and Best Practices
+
+### 1. Regular Maintenance
+
+**Schedule**:
 ```markdown
-## Emergency File System Recovery
-1. Check file system status
-2. Repair file system
-3. Restore from backup
-4. Validate file integrity
-5. Test file operations
-6. Resume operations
-7. Document incident
+## Regular Maintenance Schedule
+- **Daily**: Check system logs for errors
+- **Weekly**: Clean up temporary files
+- **Monthly**: Review and update configuration
+- **Quarterly**: Full system health check
+- **Annually**: Complete system review and update
 ```
 
-### 3. Security Incidents
+### 2. Backup Strategy
 
-**Security Breach:**
+**Backup Schedule**:
 ```markdown
-## Emergency Security Response
-1. Isolate system
-2. Assess breach
-3. Contain damage
-4. Restore security
-5. Test system integrity
-6. Resume operations
-7. Document incident
+## Backup Strategy
+- **Daily**: Backup user data and configuration
+- **Weekly**: Full system backup
+- **Monthly**: Archive old backups
+- **Before Changes**: Backup before major changes
+- **After Changes**: Backup after successful changes
 ```
 
-**Data Exposure:**
+### 3. Monitoring
+
+**Monitoring Strategy**:
 ```markdown
-## Emergency Data Protection
-1. Stop all operations
-2. Assess exposure
-3. Contain damage
-4. Restore security
-5. Test system integrity
-6. Resume operations
-7. Document incident
+## Monitoring Strategy
+- **Real-time**: Monitor system performance
+- **Log Monitoring**: Monitor logs for errors
+- **Resource Monitoring**: Monitor system resources
+- **Alert System**: Set up alerts for critical issues
+- **Regular Reviews**: Regular review of monitoring data
 ```
 
-## Debugging Tools and Commands
+## Conclusion
 
-### 1. Debug Commands
+This troubleshooting guide provides comprehensive guidance for diagnosing and resolving issues in the Jester system. By following these procedures and best practices, users can maintain a stable and reliable story creation environment.
 
-```markdown
-## Debug Commands
-- `/jester debug` - Enable debug mode
-- `/jester status` - Show system status
-- `/jester health` - Run health checks
-- `/jester logs` - Show system logs
-- `/jester validate` - Run validation checks
-- `/jester test` - Run system tests
-```
-
-### 2. Log Analysis
-
-```markdown
-## Log Analysis
-- Check error logs for patterns
-- Monitor performance logs
-- Analyze access logs
-- Review validation logs
-- Check system logs
-- Monitor debug logs
-```
-
-### 3. Performance Monitoring
-
-```markdown
-## Performance Monitoring
-- Monitor operation timing
-- Check resource usage
-- Analyze error rates
-- Monitor cache performance
-- Check network latency
-- Monitor disk usage
-```
-
-## Prevention Strategies
-
-### 1. Proactive Monitoring
-
-```markdown
-## Proactive Monitoring
-- Regular health checks
-- Performance monitoring
-- Error rate monitoring
-- Resource usage monitoring
-- Security monitoring
-- Data integrity monitoring
-```
-
-### 2. Regular Maintenance
-
-```markdown
-## Regular Maintenance
-- File system cleanup
-- Log rotation
-- Cache management
-- Configuration validation
-- Security updates
-- Performance optimization
-```
-
-### 3. Backup and Recovery
-
-```markdown
-## Backup and Recovery
-- Regular backups
-- Backup validation
-- Recovery testing
-- Disaster recovery planning
-- Data protection
-- System restoration
-```
-
-## Getting Help
-
-### 1. Documentation
-
-- Check this troubleshooting guide
-- Review implementation guides
-- Consult decision records
-- Check system documentation
-- Review error messages
-- Check log files
-
-### 2. Community Support
-
-- Check project issues
-- Review community discussions
-- Ask for help in forums
-- Report bugs
-- Share solutions
-- Contribute improvements
-
-### 3. Professional Support
-
-- Contact system administrators
-- Consult technical experts
-- Use professional services
-- Get specialized help
-- Consider training
-- Plan for support
+The key to effective troubleshooting is to:
+1. **Identify the Problem**: Use debug mode and logs to identify issues
+2. **Follow Procedures**: Use systematic approaches to resolve issues
+3. **Document Solutions**: Keep track of solutions for future reference
+4. **Prevent Issues**: Implement preventive measures to avoid problems
+5. **Continuous Improvement**: Regularly update procedures based on experience

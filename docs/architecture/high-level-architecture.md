@@ -5,7 +5,7 @@
 **Architecture Pattern**: Hierarchical agent-based file pipeline with external knowledge graph integration  
 **Primary Interface**: Command-line interface with organized slash commands  
 **Data Flow**: Unidirectional pipeline (context → outline → story) with cross-stage editing and workflow management  
-**Storage Strategy**: Local-first with LightRAG knowledge graph integration  
+**Storage Strategy**: Local-first with Entity Management knowledge graph integration  
 
 ## Core Principles
 
@@ -14,5 +14,5 @@
 3. **File-Based Pipeline**: LLM agents communicate through structured files (YAML, Markdown) as instructed by prompt rules
 4. **User-in-the-Loop**: Human editing at each stage for quality control
 5. **Local-First**: All user content stored locally with optional cloud sync
-6. **Knowledge Graph Integration**: LightRAG provides entity relationships and discovery via MCP client
+6. **Knowledge Graph Integration**: Entity Management provides entity relationships and discovery via Entity Management client
 7. **Prompt Engineering**: Development produces markdown prompt rule files, not executable code

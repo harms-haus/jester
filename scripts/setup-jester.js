@@ -4,7 +4,7 @@
  * Jester Complete Setup Script
  * 
  * This script sets up the complete Jester story creation framework for Cursor IDE.
- * It configures both the Jester agents and LightRAG MCP integration.
+ * It configures Jester agents for Cursor IDE integration.
  */
 
 import fs from 'fs-extra';

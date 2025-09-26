@@ -1,21 +1,21 @@
 <!-- Powered by BMAD™ Core -->
 
-# LightRAG Workflows
+# Entity Management Workflows
 
 ## Purpose
 
-Comprehensive LightRAG integration workflows for knowledge graph queries, relationship discovery, and entity enhancement.
+Comprehensive Entity Management integration workflows for knowledge graph queries, relationship discovery, and entity enhancement.
 
 ## Integration Methods
 
 ### Query Processing
-- Converting natural language to LightRAG queries
+- Converting natural language to Entity Management queries
 - Optimizing queries for best results
 - Handling complex and multi-part queries
 - Managing query timeouts and errors
 
 ### Result Enhancement
-- Enriching local results with LightRAG data
+- Enriching local results with Entity Management data
 - Adding relationship information
 - Providing context and connections
 - Cross-referencing with local content
@@ -29,7 +29,7 @@ Comprehensive LightRAG integration workflows for knowledge graph queries, relati
 ## Query Generation
 
 ### Story Idea Analysis
-Before querying LightRAG, analyze the story idea to generate targeted queries:
+Before querying Entity Management, analyze the story idea to generate targeted queries:
 
 **Character Queries:**
 - Extract character types from story idea (hero, villain, helper, etc.)
@@ -87,7 +87,7 @@ Before querying LightRAG, analyze the story idea to generate targeted queries:
 
 ### Entity Discovery Process
 1. **Entity Validation**: Verify the entity exists in local files
-2. **LightRAG Query**: Use LightRAG MCP client to query for similar entities
+2. **Entity Management Query**: Use Entity Management client to query for similar entities
 3. **Similarity Analysis**: Analyze discovered entities for similarity and relevance
 4. **Relationship Generation**: Generate relationship suggestions based on knowledge graph data
 5. **Result Presentation**: Display discovered relationships with confidence scores
@@ -109,8 +109,8 @@ Calculate confidence scores (0.0-1.0) based on:
 
 ### LLM Agent Instructions
 1. **Analyze Story Requirements**: Extract key elements from user's story concept
-2. **Generate Targeted Queries**: Create specific LightRAG queries based on analysis
-3. **Execute LightRAG Queries**: Use LightRAG MCP client to search for entities
+2. **Generate Targeted Queries**: Create specific Entity Management queries based on analysis
+3. **Execute Entity Management Queries**: Use Entity Management client to search for entities
 4. **Score and Rank Results**: Evaluate discovered entities for relevance
 5. **Present Entity Suggestions**: Display results to user with scores and reasoning
 
@@ -139,9 +139,9 @@ Calculate confidence scores (0.0-1.0) based on:
 ## Integration Status
 
 ### Connection Status
-- **Connected**: LightRAG service is available and responding
-- **Disconnected**: LightRAG service is unavailable
-- **Error**: LightRAG service is responding with errors
+- **Connected**: Entity Management service is available and responding
+- **Disconnected**: Entity Management service is unavailable
+- **Error**: Entity Management service is responding with errors
 
 ### Performance Metrics
 - **Query Success Rate**: Percentage of successful queries
@@ -153,7 +153,7 @@ Calculate confidence scores (0.0-1.0) based on:
 
 ### Success Response
 ```yaml
-lightrag_integration:
+Entity Management_integration:
   success: true
   entities_found: [count]
   relationships_discovered: [count]
@@ -167,7 +167,7 @@ lightrag_integration:
 
 ### Integration Summary
 ```
-🔗 LightRAG integration successful!
+🔗 Entity Management integration successful!
 
 Summary:
 - [X] entities discovered
