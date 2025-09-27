@@ -105,7 +105,11 @@ venv/
 
 # IDE
 .vscode/
-.cursor/
+#.cursor/
+.clinerules/
+.roomodes/
+.claude/
+.roomodes
 *.swp
 *.swo
 .idea/
