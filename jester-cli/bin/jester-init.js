@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 /**
- * Jester Story Framework CLI Initialization Tool
+ * Jester CLI Initialization Tool
  * 
  * This tool initializes a new Jester project by copying the framework files
  * to the current working directory.
@@ -14,14 +14,14 @@ const FRAMEWORK_SOURCE = path.join(__dirname, '..', '.jester');
 const TARGET_DIR = '.jester';
 
 function main() {
-  console.log('🎭 Jester Story Framework Initializer');
+  console.log('🎭 Jester CLI Initializer');
   console.log('=====================================\n');
 
   // Check if framework source exists
   if (!fs.existsSync(FRAMEWORK_SOURCE)) {
     console.error('❌ Error: Framework source not found!');
     console.error('   The package appears to be corrupted or incomplete.');
-    console.error('   Please reinstall the package: npm uninstall jester-story-framework && npm install jester-story-framework');
+    console.error('   Please reinstall the package: npm uninstall jester-cli && npm install jester-cli');
     process.exit(1);
   }
 

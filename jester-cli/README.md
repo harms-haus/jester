@@ -1,4 +1,4 @@
-# jester-story-framework
+# jester-cli
 
 🎭 **CLI tool to initialize Jester story framework in your project**
 
@@ -7,7 +7,7 @@ Jester is an AI-powered bedtime story creation system that helps parents create 
 ## Installation
 
 ```bash
-npx jester-story-framework
+npx jester-cli
 ```
 
 No global installation required! The tool runs directly via npx.
@@ -17,7 +17,7 @@ No global installation required! The tool runs directly via npx.
 1. **Navigate to your project directory** where you want to set up Jester
 2. **Run the initialization command**:
    ```bash
-   npx jester-story-framework
+   npx jester-cli
    ```
 3. **The tool will create** a `.jester/` directory with all framework files
 4. **Use @jester in your IDE** to start creating stories
@@ -28,6 +28,7 @@ No global installation required! The tool runs directly via npx.
 - ✅ Copies all framework files (agents, prompts, templates, etc.)
 - ✅ Sets up the complete Jester story creation system
 - ✅ Provides guidance for next steps
+- ✅ Includes build scripts for package distribution
 
 ## Framework Structure
 
@@ -53,6 +54,35 @@ The tool creates the following structure in your project:
    - Use `/write outline` for outline generation
    - Use `/write story` for story creation
    - Use `/edit`, `/delete`, `/approve`, `/publish` for content management
+
+## Development
+
+### Building the Package
+
+The CLI package includes build scripts for distribution:
+
+```bash
+# Build the package (copies framework files)
+npm run build
+
+# Test the package
+npm test
+
+# Clean up temporary files
+npm run cleanup
+```
+
+### Package Structure
+
+```
+jester-cli/
+├── bin/
+│   └── jester-init.js      # Main CLI executable
+├── scripts/
+│   └── build.js            # Build script for package distribution
+├── package.json            # Package configuration
+└── README.md               # This file
+```
 
 ## Requirements
 
@@ -82,7 +112,7 @@ MIT
 
 ## Support
 
-For issues and questions, please visit the [Jester GitHub repository](https://github.com/jester-story-framework/jester-story-framework).
+For issues and questions, please visit the [Jester GitHub repository](https://github.com/jester-cli/jester-cli).
 
 ---
 

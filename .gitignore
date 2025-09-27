@@ -128,4 +128,4 @@ logs/
 dist/
 build/
 
-jester-story-framework/.jester/
+jester-cli/.jester/

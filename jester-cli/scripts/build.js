@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 /**
- * Build script for jester-story-framework package
+ * Build script for jester-cli package
  * 
  * This script temporarily copies the .jester/ framework files from the main project
  * into the package directory for distribution, then cleans up after build.
@@ -14,7 +14,7 @@ const SOURCE_DIR = path.join(__dirname, '..', '..', '.jester');
 const TARGET_DIR = path.join(__dirname, '..', '.jester');
 
 function build() {
-  console.log('🔨 Building jester-story-framework package...');
+  console.log('🔨 Building jester-cli package...');
   
   // Check if source directory exists
   if (!fs.existsSync(SOURCE_DIR)) {
