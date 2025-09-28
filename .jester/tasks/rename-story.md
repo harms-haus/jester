@@ -35,10 +35,9 @@ To safely rename a story title and update all references across the entire syste
 
 ### 3. File Rename Execution
 
-- **Context file rename**: Rename context file in draft/ directory
-- **Outline file rename**: Rename outline file in draft/ directory
-- **Story file rename**: Rename story file in draft/ directory
-- **Directory structure**: Ensure proper directory organization
+- **DO NOT rename**: Core file in `./draft/{NNN}/` directory, they should remain generically named: `outline-{NNN}.md`, etc.
+- **Core files rename**: Rename context, outline, story files in `./reading/{NNN} - Story Title` directory
+- **Directory structure**: Ensure proper directory organization: rename directories thate reference the old title
 - **File permissions**: Maintain proper file permissions
 - **Backup creation**: Create backup of original files if requested
 - **Verification**: Confirm all files renamed successfully

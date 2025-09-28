@@ -78,11 +78,11 @@ To transform structured outlines into engaging, age-appropriate bedtime stories 
 
 ### 8. Story File Creation
 
-- **File structure**: Create story file with proper structure
-- **Content organization**: Organize content logically
+- **File structure**: Create outline file with proper structure from template: `./.jester/templates/story-template.md`
 - **Metadata inclusion**: Include necessary metadata
-- **File saving**: Save story file in draft/ directory
+- **File saving**: Save context file in `./draft/{NNN}/` directory (NNN is the current project index)
 - **Verification**: Verify file creation and content
+- **File name**: Name the file `story-NNN.md`
 
 ### 9. Generate Story Report
 

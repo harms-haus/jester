@@ -69,11 +69,11 @@ To create comprehensive story contexts that establish characters, settings, them
 
 ### 7. Context File Creation
 
-- **File structure**: Create context file with proper structure
-- **Content organization**: Organize content logically
+- **File structure**: Create context file with proper structure from template: `./.jester/templates/context-template.yaml`
 - **Metadata inclusion**: Include necessary metadata
-- **File saving**: Save context file in draft/ directory
+- **File saving**: Save context file in `./draft/{NNN}/` directory (NNN is the current project index)
 - **Verification**: Verify file creation and content
+- **File name**: Name the file `context-NNN.yaml`
 
 ### 8. Generate Context Report
 

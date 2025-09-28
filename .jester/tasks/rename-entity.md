@@ -29,7 +29,7 @@ To safely rename an entity (character, location, or item) and update all referen
 
 ### 2. Reference Discovery
 
-- **File system scan**: Find all entity files in reading/ and universe/ directories
+- **File system scan**: Find all entity files in `./reading/` and `./universe/` directories
 - **Internal reference scan**: Find all internal references within entity files
 - **Back-reference scan**: Find all back-references to the entity
 - **Wiki-link scan**: Find all [[wiki-links]] in stories that reference the entity
@@ -38,8 +38,8 @@ To safely rename an entity (character, location, or item) and update all referen
 
 ### 3. File Rename Execution
 
-- **Entity file rename**: Rename entity files in reading/ and universe/ directories
-- **Directory structure**: Ensure proper directory organization
+- **Entity file rename**: Rename entity files in `./reading/` and `./universe/` directories
+- **Directory structure**: Ensure proper directory organization, rename directories that reference the old entity (if any)
 - **File permissions**: Maintain proper file permissions
 - **Backup creation**: Create backup of original files if requested
 - **Verification**: Confirm all files renamed successfully
@@ -49,7 +49,7 @@ To safely rename an entity (character, location, or item) and update all referen
 - **Internal references**: Update all internal references within entity files
 - **Back-references**: Update all back-references to the entity
 - **Wiki-links**: Update all [[wiki-links]] in stories
-- **Unlinked references**: Update unlinked references and nicknames
+- **Unlinked references**: Update unlinked references and nicknames (maintain casuality of name references: e.g.- Rascal Raccoon -> Rocket Rodent, Rascal -> Rocket, the raccoon -> the rodent)
 - **Relationship references**: Update related entity references
 - **Cross-references**: Update cross-references between files
 

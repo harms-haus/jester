@@ -24,10 +24,17 @@ To perform comprehensive validation of draft stories, ensuring they meet quality
 - **Context file validation**: Validate context file consistency, completeness, and logical coherence
 - **Outline file validation**: Validate outline file structure, consistency, and length estimation
 - **Story file validation**: Validate story file quality, length, and audience appropriateness
-- **File format validation**: Validate file formats and structure
+- **File format validation**: Validate file formats and structure for characters, locations, items, patches
 - **Content validation**: Validate content quality and completeness
 
-### 2. Cross-File Consistency Validation
+### 2. Story File Validation
+
+- **Grammar validation**: Validate that each sentence follows proper grammar
+- **Continuity validation**: Validate that each sentence and paragraph flows logicaly from one to the next
+- **Readability validation**: Validate that each sentence and paragraph is worded readibly and isn't a tongue-twister
+- **Vocabulary validation**: Validate that the vocabulary is appropriate for the audience
+
+### 3. Cross-File Consistency Validation
 
 - **Character consistency**: Check character consistency across context, outline, and story
 - **Location consistency**: Check location consistency across all files
@@ -35,23 +42,24 @@ To perform comprehensive validation of draft stories, ensuring they meet quality
 - **Plot consistency**: Check plot consistency between outline and story
 - **Theme consistency**: Check theme consistency across all files
 
-### 3. Destination Readiness Check
+### 4. Destination Readiness Check
 
 - **Reading directory verification**: Verify reading directory exists and is accessible
 - **Naming conflict check**: Check for naming conflicts in reading directory
 - **File organization structure**: Ensure proper file organization structure
 - **Metadata compatibility**: Validate metadata compatibility
 - **System readiness**: Verify system readiness for progression
+- **Extra files**: Check for extra or duplicate files
 
-### 4. Quality Standards Validation
+### 5. Quality Standards Validation
 
-- **Content quality**: Validate content quality meets standards
+- **Content quality**: Validate content quality meets high standards
 - **Age appropriateness**: Ensure content is appropriate for target audience
 - **Length requirements**: Verify length meets requirements
 - **Theme integration**: Validate theme integration and delivery
 - **Educational value**: Assess educational value and moral lessons
 
-### 5. Template Compliance Validation
+### 6. Template Compliance Validation
 
 - **Template structure**: Validate template structure compliance
 - **Required sections**: Check all required sections are present
@@ -59,15 +67,15 @@ To perform comprehensive validation of draft stories, ensuring they meet quality
 - **Format compliance**: Check format compliance
 - **Metadata compliance**: Validate metadata compliance
 
-### 6. System Integration Validation
+### 7. System Integration Validation
 
 - **File system integration**: Validate file system integration
 - **Reference integrity**: Check reference integrity
-- **Link validation**: Validate internal and external links
+- **Link validation**: Validate [[link]] are applied where appropriate
 - **Dependency validation**: Validate dependencies
 - **System compatibility**: Check system compatibility
 
-### 7. Generate Validation Report
+### 8. Generate Validation Report
 
 Provide a structured comprehensive validation report including:
 

@@ -69,11 +69,11 @@ To create detailed story outlines that transform context information into struct
 
 ### 7. Outline File Creation
 
-- **File structure**: Create outline file with proper structure
-- **Content organization**: Organize content logically
+- **File structure**: Create outline file with proper structure from template: `./.jester/templates/outline-template.md`
 - **Metadata inclusion**: Include necessary metadata
-- **File saving**: Save outline file in draft/ directory
+- **File saving**: Save context file in `./draft/{NNN}/` directory (NNN is the current project index)
 - **Verification**: Verify file creation and content
+- **File name**: Name the file `ouline-NNN.md`
 
 ### 8. Generate Outline Report
 
