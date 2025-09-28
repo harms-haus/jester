@@ -1,4 +1,4 @@
-<!-- Powered by BMAD™ Core -->
+
 
 # Age Appropriateness Validation Checklist
 

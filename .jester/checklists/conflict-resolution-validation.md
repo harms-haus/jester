@@ -1,4 +1,4 @@
-<!-- Powered by BMAD™ Core -->
+
 
 # Conflict Resolution Validation Checklist
 

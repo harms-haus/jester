@@ -1,4 +1,4 @@
-<!-- Powered by BMAD™ Core -->
+
 
 # Rename Task Elicitations
 

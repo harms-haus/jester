@@ -1,0 +1,66 @@
+#!/bin/bash
+
+# Jester CLI Wrapper Script
+# This script makes it easier to run Jester CLI commands
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+CLI_DIR="$SCRIPT_DIR/jester-cli"
+
+# Check if we're in the right directory
+if [ ! -d "$CLI_DIR" ]; then
+    echo "❌ Error: jester-cli directory not found!"
+    echo "   Please run this script from the jester project root directory."
+    exit 1
+fi
+
+# Check if the command exists
+if [ $# -eq 0 ]; then
+    echo "🎭 Jester CLI - Available Commands"
+    echo "=================================="
+    echo ""
+    echo "Usage: ./jester <command> [options]"
+    echo ""
+    echo "Available commands:"
+    echo "  init        - Initialize a new Jester project"
+    echo "  convert     - Convert files for different IDEs"
+    echo "  config      - Manage configuration"
+    echo "  validate    - Validate stories and content"
+    echo "  standalone  - Standalone initialization"
+    echo ""
+    echo "Examples:"
+    echo "  ./jester init"
+    echo "  ./jester convert --ide=claude"
+    echo "  ./jester config --help"
+    echo "  ./jester validate --help"
+    exit 0
+fi
+
+COMMAND="$1"
+shift
+
+case "$COMMAND" in
+    "init")
+        node "$CLI_DIR/bin/jester-init.js" "$@"
+        ;;
+    "convert")
+        node "$CLI_DIR/bin/jester-convert.js" "$@"
+        ;;
+    "config")
+        node "$CLI_DIR/bin/jester-config.js" "$@"
+        ;;
+    "validate")
+        node "$CLI_DIR/bin/jester-validate.js" "$@"
+        ;;
+    "standalone")
+        node "$CLI_DIR/bin/jester-init-standalone.js" "$@"
+        ;;
+    *)
+        echo "❌ Unknown command: $COMMAND"
+        echo ""
+        echo "Available commands: init, convert, config, validate, standalone"
+        echo "Run './jester' without arguments to see help."
+        exit 1
+        ;;
+esac
+
+

@@ -1,4 +1,4 @@
-<!-- Powered by BMAD™ Core -->
+
 
 # Reference Integrity Validation Checklist
 

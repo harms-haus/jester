@@ -1,4 +1,4 @@
-<!-- Powered by BMAD™ Core -->
+
 
 # Entity Consistency Validation Checklist
 

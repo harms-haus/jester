@@ -1,4 +1,4 @@
-<!-- Powered by BMAD™ Core -->
+
 
 # Story Template for Write Agent
 # This template is used by the Write agent for story generation
@@ -10,6 +10,8 @@
 **Word count: {{WORD_COUNT}} words**
 
 ---
+
+{{STORY_SUMMARY}}
 
 ## {{STORY_TITLE}}
 
