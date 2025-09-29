@@ -31,38 +31,37 @@ The goal is safe content integration, not just checking boxes.]]
 ### 1. **File Format Validation:**
 
    [[LLM: File format is critical for system compatibility. Check each item carefully]]
-   - [ ] Imported files are in supported format (Markdown, YAML, JSON)
-   - [ ] File encoding is UTF-8 compatible
-   - [ ] File structure follows expected patterns
-   - [ ] No corrupted or malformed files detected
-   - [ ] File extensions are correct and recognized
+   - [ ] Imported files are in supported format (.md, .yaml, .yml, .json extensions)
+   - [ ] File encoding is UTF-8 compatible (no encoding errors when reading files)
+   - [ ] File structure follows expected patterns (files match `./.jester/templates/` structure)
+   - [ ] No corrupted or malformed files detected (files can be parsed without errors)
+   - [ ] File extensions are correct and recognized (extensions match content type)
 
 ### 2. **Content Structure Validation:**
 
    [[LLM: Content structure must match system expectations]]
-   - [ ] Required sections/fields are present
-   - [ ] Content follows expected template structure
-   - [ ] Metadata is properly formatted
-   - [ ] Content hierarchy is logical and consistent
-   - [ ] No missing or incomplete sections
+   - [ ] Required sections/fields are present (all template placeholders are filled)
+   - [ ] Content follows expected template structure (structure matches `./.jester/templates/` files)
+   - [ ] Metadata is properly formatted (metadata follows `./.jester/data/metadata-propagation.md` format)
+   - [ ] Content hierarchy is logical and consistent (heading structure and organization)
+   - [ ] No missing or incomplete sections (all required sections from templates are present)
 
 ### 3. **Entity Validation:**
 
    [[LLM: Entities must be valid for system integration]]
-   - [ ] Character entities have required fields (name, description, etc.)
-   - [ ] Location entities have required fields (name, description, etc.)
-   - [ ] Item entities have required fields (name, description, etc.)
-   - [ ] Entity relationships are properly defined
-   - [ ] Entity properties are consistent and logical
+   - [ ] Character entities have required fields (each character has name, description, type, and at least 2 traits)
+   - [ ] Location entities have required fields (each location has name, description, type, and atmosphere details)
+   - [ ] Item entities have required fields (each item has name, description, type, and purpose)
+   - [ ] Entity relationships are properly defined (all relationships are bidirectional and logical)
+   - [ ] Entity properties are consistent and logical (no contradictory properties within entities)
 
 ### 4. **Story Content Validation:**
 
    [[LLM: Story content must meet quality standards]]
-   - [ ] Story has clear beginning, middle, and end
-   - [ ] Story content is complete and coherent
-   - [ ] Character references are consistent
-   - [ ] Location references are consistent
-   - [ ] Plot progression is logical
+   - [ ] Story content is complete and coherent (no missing plot points or logical gaps)
+   - [ ] Character references are consistent (all character names match entity definitions)
+   - [ ] Location references are consistent (all location names match entity definitions)
+   - [ ] Plot progression is logical (story events follow logical sequence)
 
 ### 5. **Conflict Detection:**
 
@@ -76,11 +75,10 @@ The goal is safe content integration, not just checking boxes.]]
 ### 6. **Quality Standards:**
 
    [[LLM: Quality standards must be met for integration]]
-   - [ ] Content is age-appropriate for target audience
-   - [ ] Language is clear and appropriate
-   - [ ] Content meets minimum quality thresholds
-   - [ ] Educational value is present (if applicable)
-   - [ ] Content is engaging and well-written
+   - [ ] Language is clear and appropriate (reading level matches target audience)
+   - [ ] Content meets minimum quality thresholds (check against `./.jester/checklists/story-validation.md`)
+   - [ ] Educational value is present (if applicable) (themes and morals are clear and positive)
+   - [ ] Content is engaging and well-written (narrative flow and character development)
 
 ### 7. **System Compatibility:**
 

@@ -31,20 +31,20 @@ The goal is quality publishing, not just checking boxes.]]
 ### 1. **Content Completeness:**
 
    [[LLM: Content must be complete and ready for publishing]]
-   - [ ] All required content is present and complete
-   - [ ] Content quality meets publishing standards
-   - [ ] Content is coherent and well-structured
-   - [ ] Content is engaging and appropriate
-   - [ ] Content is ready for target audience
+   - [ ] All required content is present and complete (verify context, outline, and story files exist and are complete)
+   - [ ] Content quality meets publishing standards (verify against `./.jester/checklists/story-validation.md`)
+   - [ ] Content is coherent and well-structured (verify three-act structure and logical flow)
+   - [ ] Content is engaging and appropriate (verify against `./.jester/checklists/age-appropriateness-validation.md`)
+   - [ ] Content is ready for target audience (verify word count and reading level match target audience)
 
 ### 2. **File Organization:**
 
    [[LLM: Files must be properly organized for publishing]]
-   - [ ] All required files are present and accessible
-   - [ ] File organization follows system standards
-   - [ ] File naming conventions are followed
-   - [ ] File permissions are correct and appropriate
-   - [ ] File structure is consistent and logical
+   - [ ] All required files are present and accessible (verify context, outline, story files in `draft/{NNN}/` directory)
+   - [ ] File organization follows system standards (verify files follow `./.jester/templates/` structure)
+   - [ ] File naming conventions are followed (verify files follow naming pattern: `context-NNN.yaml`, `outline-NNN.md`, `story-NNN.md`)
+   - [ ] File permissions are correct and appropriate (verify files are readable and writable as needed)
+   - [ ] File structure is consistent and logical (verify directory structure matches system requirements)
 
 ### 3. **Entity Integration:**
 

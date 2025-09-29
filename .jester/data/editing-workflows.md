@@ -74,14 +74,12 @@ Comprehensive editing workflows for content, entities, and cross-stage editing o
 
 **Context to Outline:**
 - Ensuring outline reflects context requirements
-- Maintaining character consistency
-- Preserving setting details
+- Maintaining character and setting consistency
 - Updating plot structure as needed
 
 **Outline to Story:**
 - Ensuring story follows outline structure
-- Maintaining character development
-- Preserving plot progression
+- Maintaining character development and plot progression
 - Updating narrative elements
 
 **Story to Entities:**
@@ -93,16 +91,16 @@ Comprehensive editing workflows for content, entities, and cross-stage editing o
 ## Editing Guidelines
 
 ### Quality Standards
-- Content meets target audience requirements
-- Language is clear and engaging
-- Structure is logical and well-organized
-- Style is consistent throughout
+- Content meets target audience requirements (check against `./.jester/checklists/age-appropriateness-validation.md`)
+- Language is clear and engaging (reading level matches target audience)
+- Structure is logical and well-organized (three-act structure and scene progression)
+- Style is consistent throughout (narrative voice and tone consistency)
 
 ### Consistency Checks
-- Character descriptions match across files
-- Setting details are consistent
-- Plot points align with story structure
-- References and links are accurate
+- Character descriptions match across files (character names, traits, and relationships match context file)
+- Setting details are consistent (location names and descriptions match context file)
+- Plot points align with story structure (outline structure matches story implementation)
+- References and links are accurate (all `[[Entity Name]]` links resolve to existing files)
 
 ### Improvement Focus
 - Enhancing readability and engagement

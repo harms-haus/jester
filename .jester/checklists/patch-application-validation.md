@@ -31,20 +31,20 @@ The goal is safe patch application, not just checking boxes.]]
 ### 1. **Patch Discovery:**
 
    [[LLM: All pending patches must be identified and validated]]
-   - [ ] All pending patches have been discovered
-   - [ ] Patch files are accessible and readable
-   - [ ] Patch integrity has been verified
-   - [ ] Patch dependencies have been identified
-   - [ ] Patch application order has been determined
+   - [ ] All pending patches have been discovered (verify all patch files in `patches/` directory are identified)
+   - [ ] Patch files are accessible and readable (verify patch files can be opened and parsed)
+   - [ ] Patch integrity has been verified (verify patch files are not corrupted and contain valid data)
+   - [ ] Patch dependencies have been identified (verify all required files for patch application exist)
+   - [ ] Patch application order has been determined (verify patches are ordered by dependency and priority)
 
 ### 2. **Patch Format Validation:**
 
    [[LLM: Patch format must be correct for application]]
-   - [ ] Patch files are in correct format
-   - [ ] Patch structure is valid and complete
-   - [ ] Patch metadata is properly formatted
-   - [ ] Patch versioning is compatible
-   - [ ] Patch syntax is correct and parseable
+   - [ ] Patch files are in correct format (verify patches use supported format: .yaml, .json, .md)
+   - [ ] Patch structure is valid and complete (verify patch structure matches `./.jester/templates/patch-template.yaml`)
+   - [ ] Patch metadata is properly formatted (verify metadata follows `./.jester/data/metadata-propagation.md` format)
+   - [ ] Patch versioning is compatible (verify patch version is compatible with current system version)
+   - [ ] Patch syntax is correct and parseable (verify patches can be parsed without syntax errors)
 
 ### 3. **Target Validation:**
 

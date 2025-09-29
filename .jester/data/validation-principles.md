@@ -10,22 +10,22 @@ Content validation is the process of systematically checking content to ensure i
 ### Validation Types
 
 **Context Validation:**
-- Ensures context files are complete and consistent
-- Validates entity relationships and logical coherence
-- Checks content adequacy for target story length
-- Verifies character and location completeness
+- Ensures context files are complete and consistent (check against `./.jester/checklists/content-completeness.md`)
+- Validates entity relationships and logical coherence (check against `./.jester/checklists/entity-consistency-validation.md`)
+- Checks content adequacy for target story length (word count targets are realistic)
+- Verifies character and location completeness (all required fields are present)
 
 **Outline Validation:**
-- Validates story structure and pacing
-- Checks length estimation accuracy
-- Ensures internal and external consistency
-- Verifies plot logic and flow
+- Validates story structure and pacing (check against `./.jester/checklists/outline-validation.md`)
+- Checks length estimation accuracy (word count estimates match target range)
+- Ensures internal and external consistency (character and location consistency)
+- Verifies plot logic and flow (three-act structure and scene progression)
 
 **Story Validation:**
-- Validates content quality and engagement
-- Checks length and audience appropriateness
-- Ensures narrative consistency
-- Verifies adherence to requirements
+- Validates content quality and engagement (check against `./.jester/checklists/story-validation.md`)
+- Checks length and audience appropriateness (check against `./.jester/checklists/age-appropriateness-validation.md`)
+- Ensures narrative consistency (character and plot consistency)
+- Verifies adherence to requirements (all context file requirements are met)
 
 ### Validation Principles
 
@@ -42,15 +42,13 @@ Content validation is the process of systematically checking content to ensure i
 - Plot points are complete
 
 **Quality:**
-- Content meets quality standards
-- Language is appropriate for audience
+- Content meets quality standards and is suitable for target audience
+- Language is appropriate for audience (complexity matches target age)
 - Narrative flow is smooth
 - Engagement level is high
 
 **Appropriateness:**
-- Content is suitable for target audience
 - Themes are age-appropriate
-- Language complexity matches audience
 - Moral lessons are positive
 
 ### Validation Process

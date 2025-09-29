@@ -31,26 +31,25 @@ The goal is child-safe content, not just checking boxes.]]
 ### 1. **Language Appropriateness:**
 
    [[LLM: Language must be appropriate for target age]]
-   - [ ] Vocabulary is appropriate for target age range
-   - [ ] Sentence structure is appropriate for reading level
-   - [ ] Complex concepts are explained appropriately
-   - [ ] Technical terms are simplified or explained
-   - [ ] Language complexity matches target audience
+   - [ ] Vocabulary is appropriate for target age range (no words beyond 2+ grade levels above target)
+   - [ ] Sentence structure is appropriate for reading level (average sentence length: 3-5 words for ages 3-4, 8-12 words for ages 5-7, 12-15 words for ages 8-10)
+   - [ ] Complex concepts are explained appropriately (abstract concepts use concrete examples)
+   - [ ] Technical terms are simplified or explained (all technical terms have age-appropriate definitions)
+   - [ ] Language complexity matches target audience (reading level assessment matches target age)
 
 ### 2. **Content Themes:**
 
    [[LLM: Themes must be appropriate for target age]]
-   - [ ] Themes are suitable for target age range
-   - [ ] Moral lessons are age-appropriate
-   - [ ] Educational content is appropriate for level
-   - [ ] Emotional content is suitable for age
-   - [ ] Social themes are appropriate for development
+   - [ ] Themes are suitable for target age range (themes match developmental stage: basic emotions for ages 3-5, friendship/school for ages 6-8, problem-solving for ages 9-12)
+   - [ ] Moral lessons are age-appropriate (lessons are concrete and actionable for target age)
+   - [ ] Educational content is appropriate for level (concepts match cognitive development stage)
+   - [ ] Emotional content is suitable for age (emotional complexity matches emotional development stage)
+   - [ ] Social themes are appropriate for development (social concepts match social development stage)
 
 ### 3. **Character Behavior:**
 
    [[LLM: Character behavior must be appropriate and positive]]
-   - [ ] Character actions are appropriate for age
-   - [ ] Character conflicts are age-appropriate
+   - [ ] Character actions and conflicts are age-appropriate
    - [ ] Character relationships are suitable
    - [ ] Character problem-solving is positive
    - [ ] Character role models are appropriate
@@ -58,8 +57,7 @@ The goal is child-safe content, not just checking boxes.]]
 ### 4. **Story Content:**
 
    [[LLM: Story content must be appropriate and safe]]
-   - [ ] Story events are appropriate for age
-   - [ ] Story conflicts are age-appropriate
+   - [ ] Story events and conflicts are age-appropriate
    - [ ] Story resolutions are positive and constructive
    - [ ] Story pacing is suitable for attention span
    - [ ] Story length is appropriate for age
@@ -76,9 +74,8 @@ The goal is child-safe content, not just checking boxes.]]
 ### 6. **Educational Value:**
 
    [[LLM: Educational content must be appropriate and valuable]]
-   - [ ] Educational concepts are age-appropriate
+   - [ ] Educational concepts and methods are age-appropriate
    - [ ] Learning objectives are suitable for age
-   - [ ] Educational methods are appropriate
    - [ ] Knowledge level matches target audience
    - [ ] Educational value is meaningful
 

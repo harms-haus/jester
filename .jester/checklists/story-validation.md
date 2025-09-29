@@ -27,50 +27,48 @@ The goal is ensuring story quality and readiness for approval.]]
 1. **Content Quality Validation:**
 
    [[LLM: Check that the story content meets quality standards]]
-   - [ ] Story is engaging and age-appropriate
-   - [ ] Language is clear and suitable for target audience
-   - [ ] Narrative flow is smooth and compelling
-   - [ ] Dialogue is natural and character-appropriate
+   - [ ] Story is engaging and age-appropriate (matches target age range from context file)
+   - [ ] Language complexity matches target reading level (sentence length and vocabulary appropriate)
+   - [ ] Narrative flow is smooth with logical scene transitions
+   - [ ] Dialogue is natural and character-appropriate (character voice consistency)
 
 2. **Length and Pacing Validation:**
 
    [[LLM: Ensure story length and pacing are appropriate]]
-   - [ ] Word count meets target requirements
-   - [ ] Pacing is appropriate for story length
-   - [ ] Scene transitions are smooth
-   - [ ] Story feels complete and satisfying
+   - [ ] Word count is within target range (matches context file specifications)
+   - [ ] Pacing maintains reader engagement (scene length and action balance)
+   - [ ] Scene transitions are smooth and logical
 
 3. **Consistency Validation:**
 
    [[LLM: Verify consistency with context and outline]]
-   - [ ] Character descriptions match context and outline
-   - [ ] Location details are consistent throughout
-   - [ ] Item properties are accurate and consistent
-   - [ ] Plot events follow logical sequence
+   - [ ] Character descriptions match context file specifications (names, traits, relationships)
+   - [ ] Location details are consistent with context file (setting descriptions and atmosphere)
+   - [ ] Item properties match context file definitions (object characteristics and usage)
+   - [ ] Plot events follow outline structure (scene progression and plot points)
 
 4. **Audience Appropriateness Validation:**
 
    [[LLM: Ensure content is suitable for target audience]]
-   - [ ] Content is suitable for target age range
-   - [ ] Themes are appropriate and meaningful
-   - [ ] Language complexity matches audience
-   - [ ] Moral lessons are clear and positive
+   - [ ] Content is suitable for target age range (check against `./.jester/checklists/age-appropriateness-validation.md`)
+   - [ ] Themes are appropriate and meaningful for target audience
+   - [ ] Moral lessons are clear and positive (theme integration from context file)
 
 5. **Technical Quality Validation:**
 
    [[LLM: Check technical aspects of the story]]
-   - [ ] Grammar and spelling are correct
-   - [ ] Sentence structure is varied and engaging
-   - [ ] Paragraph flow is logical
-   - [ ] Overall readability is high
+   - [ ] Grammar and spelling are correct (spell-check and grammar validation)
+   - [ ] Sentence structure is varied and engaging (sentence length variety)
+   - [ ] Paragraph flow is logical (paragraph transitions and structure)
+   - [ ] Overall readability is high (reading level matches target audience)
 
 6. **Completeness Validation:**
 
    [[LLM: Verify story is complete and ready]]
-   - [ ] Story has clear beginning, middle, and end
-   - [ ] All plot threads are resolved
-   - [ ] Character arcs are complete
-   - [ ] Story meets all requirements
+   - [ ] Story has clear beginning, middle, and end (three-act structure)
+   - [ ] All plot threads are resolved (matches outline plot points)
+   - [ ] Character arcs are complete (character development from context file)
+   - [ ] Story meets all requirements (context file specifications and outline structure)
 
 ## Final Confirmation
 

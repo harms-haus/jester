@@ -1,5 +1,3 @@
-
-
 # Context Generation
 
 ## Muse Agent Context Generation
@@ -33,24 +31,119 @@
 **Setting Preferences:**
 "What kind of world should this story take place in? A magical forest, a cozy home, a distant planet, or something else entirely?"
 
-### Context Creation Process
+## SEQUENTIAL Task Execution (Do not proceed until current Task is complete)
 
-1. **Analyze Story Requirements**: Review the provided story concept, target audience, and preferences.
-2. **Load Target Audience Profiles**: Check for active target audience members and load their preferences from `.memory/target-audience-profiles.yaml`.
-3. **Calculate Parameters**: If active members are selected, use the sophisticated parameter calculation algorithm to determine age range and word count.
-4. **Select Plot Template**: Choose the most appropriate story structure for the story concept.
-5. **Entity Management Entity Discovery**: Query Entity Management for relevant entities based on story requirements:
-   - Generate context-aware queries based on story concept, themes, and target audience
-   - Use Entity Management client to search for characters, locations, and items
-   - Score and rank discovered entities by relevance and age-appropriateness
-   - Present entity suggestions to user for selection
-6. **Create Character Profiles**: Develop detailed character information with relationships and motivations, incorporating selected Entity Management entities.
-7. **Establish Settings**: Create rich, immersive locations with atmosphere and sensory details, incorporating selected Entity Management locations.
-8. **Define Plot Points**: Structure the story according to the chosen template.
-9. **Integrate Themes**: Weave moral lessons and educational elements throughout the context.
-10. **Quality Assurance**: Ensure the context is age-appropriate, coherent, and engaging.
-11. **Save Context File**: Store the generated context in the `draft/{NNN}/` directory with filename template `context-NNN.yaml`.
-12. **Metadata Propagation**: Use `metadata-propagation.md` to ensure all relevant metadata is carried through.
+### 0. Load Core Configuration and Inputs
+
+- Load `.jester/core-config.yaml`
+- If the file does not exist, HALT and inform the user: "core-config.yaml not found. This file is required for context generation."
+- Extract key configurations: `jesterStoryLocation`, `jesterDebugLog`
+- Identify and load the following inputs:
+  - **Story requirements**: Concept, target audience, length, preferences
+  - **Plot templates**: Available story structure templates
+  - **Character templates**: Character development templates
+  - **Location templates**: Setting development templates
+
+### 1. Story Requirements Gathering
+
+- **Concept collection**: Collect story concept and theme
+- **Audience analysis**: Analyze target audience and age requirements
+- **Length determination**: Determine appropriate story length
+- **Preference collection**: Collect user preferences and requirements
+- **Template selection**: Select appropriate plot template
+
+### 2. Plot Template Selection
+
+- **Template analysis**: Analyze available plot templates
+- **Template selection**: Choose appropriate story structure
+- **Structure planning**: Plan story structure according to template
+- **Plot point definition**: Define key plot points
+- **Theme integration**: Integrate moral lessons and educational elements
+
+### 3. Character Profile Creation
+
+- **Main character development**: Develop detailed main character profile
+- **Supporting character creation**: Create supporting character profiles
+- **Relationship establishment**: Establish character relationships
+- **Character arc planning**: Plan character development throughout story
+- **Personality definition**: Define character personalities and traits
+
+### 4. Setting Establishment
+
+- **Location creation**: Create rich, immersive locations
+- **Setting details**: Develop detailed setting descriptions
+- **Atmosphere creation**: Create appropriate atmosphere and mood
+- **Connection establishment**: Establish connections between locations
+- **Sensory details**: Include sensory details for immersion
+
+### 5. Plot Structure Development
+
+- **Plot point organization**: Organize story according to chosen template
+- **Scene planning**: Plan individual scenes and transitions
+- **Pacing establishment**: Establish appropriate pacing
+- **Conflict development**: Develop conflicts and resolutions
+- **Theme integration**: Weave themes throughout plot
+
+### 6. Content Validation
+
+- **Age appropriateness**: Ensure content is appropriate for target audience
+- **Story coherence**: Verify story coherence and logical flow
+- **Character consistency**: Ensure character consistency
+- **Setting consistency**: Ensure setting consistency
+- **Theme integration**: Verify theme integration
+
+### 7. Context File Creation
+
+- **File structure**: Create context file with proper structure from template: `./.jester/templates/context-template.yaml`
+- **Metadata inclusion**: Include necessary metadata
+- **File saving**: Save context file in `./draft/{NNN}/` directory (NNN is the current project index)
+- **Verification**: Verify file creation and content
+- **File name**: Name the file `context-NNN.yaml`
+
+### 8. Generate Context Report
+
+Provide a structured context generation report including:
+
+#### Context Summary
+- Story concept and theme
+- Target audience and length
+- Plot template selected
+- Character count and types
+- Setting details
+
+#### Character Development
+- Main character profile
+- Supporting character profiles
+- Character relationships
+- Character arcs planned
+- Personality traits defined
+
+#### Setting Development
+- Locations created
+- Setting details developed
+- Atmosphere established
+- Location connections
+- Sensory details included
+
+#### Plot Structure
+- Plot template used
+- Plot points defined
+- Scene structure planned
+- Pacing established
+- Theme integration
+
+#### Validation Results
+- Age appropriateness check
+- Story coherence validation
+- Character consistency check
+- Setting consistency check
+- Theme integration verification
+
+#### Final Assessment
+- **SUCCESS**: Context generated successfully
+- **PARTIAL**: Context generated with minor issues
+- **FAILED**: Context generation failed, manual intervention required
+- **Ready for Outline**: Context ready for outline generation
 
 ### Error Handling Prompts
 
@@ -90,4 +183,9 @@
 **Characters**: [character count]
 **Locations**: [location count]
 
-Ready to review your context? Use `/edit [file path]` to make any final adjustments, or `/write outline [story identifier]` to generate the story outline!"
+Ready to review your context? Use `/edit [file path]` to make any final adjustments, or `/write outline [story identifier]` to generate the story outline!
+
+**Related Files:**
+- Context template: `./.jester/templates/context-template.yaml`
+- Outline generation: `./.jester/data/outline-generation.md`
+- Metadata propagation: `./.jester/data/metadata-propagation.md`"

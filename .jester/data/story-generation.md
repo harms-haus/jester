@@ -1,6 +1,4 @@
-
-
-# Story Generation Elicitations
+# Story Generation
 
 ## Write Agent Story Generation
 
@@ -18,18 +16,135 @@
 **Story Length Confirmation:**
 "Confirming the target story length: {{MIN_WORDS}}-{{MAX_WORDS}} words. Is this correct, or would you like to adjust it?"
 
-### Story Creation Process
+## SEQUENTIAL Task Execution (Do not proceed until current Task is complete)
 
-1. **Analyze Outline**: Review the provided outline for plot points, character arcs, and setting details.
-2. **Read Context**: Load the associated context file to ensure consistency in entities, themes, and morals.
-3. **Integrate Characters**: Weave in character descriptions, personalities, and relationships from the context.
-4. **Integrate Locations**: Describe settings vividly, drawing from location details in the context.
-5. **Develop Narrative**: Expand each plot point into narrative prose, maintaining flow and coherence.
-6. **Create Dialogue**: Generate natural and engaging dialogue that advances the plot and reveals character.
-7. **Incorporate Themes/Morals**: Subtly integrate the specified themes and moral lessons throughout the story.
-8. **Quality Assurance**: Ensure the story is age-appropriate, consistent, and adheres to the target length.
-9. **Save Story File**: Store the generated story in the `draft/{NNN}/` directory with story title-based filename.
-10. **Metadata Propagation**: Use `metadata-propagation.md` to ensure all relevant metadata is carried through.
+### 0. Load Core Configuration and Inputs
+
+- Load `.jester/core-config.yaml`
+- If the file does not exist, HALT and inform the user: "core-config.yaml not found. This file is required for story generation."
+- Extract key configurations: `jesterStoryLocation`, `jesterDebugLog`
+- Identify and load the following inputs:
+  - **Outline file**: The outline markdown file from draft/ directory
+  - **Context file**: The context file with character and setting details
+  - **Target audience**: Age range and reading level
+  - **Length requirements**: Target word count and pacing
+  - **Age appropriateness validation checklist**: `./.jester/checklists/age-appropriateness-validation.md` for validation
+
+### 1. Outline File Processing
+
+- **Outline loading**: Load the outline markdown file from `./draft/{NNN}/` directory
+- **Metadata extraction**: Extract target length, audience, and theme information
+- **Scene structure analysis**: Analyze scene structure and progression
+- **Character information extraction**: Extract character details from outline
+- **Plot point analysis**: Analyze plot points and story flow
+
+### 2. Character Integration
+
+- **Character profile loading**: Load character information from context file
+- **Character voice development**: Develop distinct character voices and dialogue
+- **Character interaction creation**: Create engaging character interactions
+- **Character arc implementation**: Implement character development throughout story
+- **Personality expression**: Express character personalities through actions and dialogue
+
+### 3. Setting Integration
+
+- **Location details loading**: Load location descriptions from context file
+- **Atmosphere creation**: Create immersive atmosphere and mood
+- **Sensory detail integration**: Integrate sensory details for immersion
+- **Setting consistency**: Maintain setting consistency throughout story
+- **Environmental storytelling**: Use setting to enhance story elements
+
+### 4. Plot Development
+
+- **Scene transformation**: Transform outline points into engaging narrative
+- **Dialogue creation**: Add age-appropriate character dialogue
+- **Action sequence development**: Develop action sequences and events
+- **Conflict resolution**: Implement conflicts and resolutions
+- **Pacing optimization**: Optimize pacing for target audience
+
+### 5. Theme Integration
+
+- **Moral lesson weaving**: Weave moral lessons throughout the story
+- **Educational element integration**: Integrate educational elements naturally
+- **Theme consistency**: Maintain theme consistency throughout story
+- **Message delivery**: Deliver themes through story events and character actions
+- **Age-appropriate messaging**: Ensure themes are appropriate for target age
+
+### 6. Language and Style
+
+- **Age-appropriate language**: Use language appropriate for target audience
+- **Reading level optimization**: Optimize for target reading level
+- **Engagement techniques**: Use techniques to maintain reader engagement
+- **Flow and rhythm**: Create smooth flow and rhythm
+- **Voice consistency**: Maintain consistent narrative voice
+
+### 7. Length and Quality Validation
+
+- **Word count validation**: Ensure story meets target word count
+- **Quality assessment**: Assess story quality and engagement
+- **Age appropriateness check**: Verify content is appropriate for target audience
+- **Coherence validation**: Verify story coherence and logical flow
+- **Theme integration check**: Verify theme integration and delivery
+
+### 8. Story File Creation
+
+- **File structure**: Create story file with proper structure from template: `./.jester/templates/story-template.md`
+- **Metadata inclusion**: Include necessary metadata
+- **File saving**: Save story file in `./draft/{NNN}/` directory (NNN is the current project index)
+- **Verification**: Verify file creation and content
+- **File name**: Name the file `story-NNN.md`
+
+### 9. Generate Story Report
+
+Provide a structured story generation report including:
+
+#### Story Summary
+- Story title and theme
+- Target audience and length
+- Word count achieved
+- Character count and types
+- Setting details
+
+#### Character Development
+- Character voices developed
+- Character interactions created
+- Character arcs implemented
+- Personality expression
+- Dialogue quality
+
+#### Setting Integration
+- Location details integrated
+- Atmosphere created
+- Sensory details included
+- Setting consistency maintained
+- Environmental storytelling
+
+#### Plot Development
+- Scenes transformed
+- Dialogue created
+- Action sequences developed
+- Conflicts resolved
+- Pacing optimized
+
+#### Theme Integration
+- Moral lessons woven
+- Educational elements integrated
+- Theme consistency maintained
+- Message delivery
+- Age-appropriate messaging
+
+#### Validation Results
+- Word count validation
+- Quality assessment
+- Age appropriateness check
+- Coherence validation
+- Theme integration check
+
+#### Final Assessment
+- **SUCCESS**: Story generated successfully
+- **PARTIAL**: Story generated with minor issues
+- **FAILED**: Story generation failed, manual intervention required
+- **Ready for Approval**: Story ready for approval workflow
 
 ### Error Handling Prompts
 
@@ -53,4 +168,9 @@
 **Word Count**: [word count]
 **Reading Time**: [reading time]
 
-Ready to review your masterpiece? Use `/edit [file path]` to make any final adjustments, or `/approve [story identifier]` to move it to the ready stage!"
+Ready to review your masterpiece? Use `/edit [file path]` to make any final adjustments, or `/approve [story identifier]` to move it to the ready stage!
+
+**Related Files:**
+- Story template: `./.jester/templates/story-template.md`
+- Story validation: `./.jester/checklists/story-validation.md`
+- Metadata propagation: `./.jester/data/metadata-propagation.md`"

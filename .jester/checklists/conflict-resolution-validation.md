@@ -31,11 +31,11 @@ The goal is complete conflict resolution, not just checking boxes.]]
 ### 1. **Conflict Identification:**
 
    [[LLM: All conflicts must be properly identified]]
-   - [ ] All naming conflicts have been identified
-   - [ ] All content conflicts have been identified
-   - [ ] All structural conflicts have been identified
-   - [ ] All reference conflicts have been identified
-   - [ ] All system conflicts have been identified
+   - [ ] All naming conflicts have been identified (verify no duplicate entity names or file names)
+   - [ ] All content conflicts have been identified (verify no contradictory entity properties or story content)
+   - [ ] All structural conflicts have been identified (verify no template structure mismatches)
+   - [ ] All reference conflicts have been identified (verify no broken `[[Entity Name]]` links)
+   - [ ] All system conflicts have been identified (verify no file permission or access conflicts)
 
 ### 2. **Conflict Analysis:**
 

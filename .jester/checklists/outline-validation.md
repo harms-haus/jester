@@ -27,26 +27,26 @@ The goal is ensuring outline quality and readiness for story generation.]]
 1. **Structure Validation:**
 
    [[LLM: Check that outline structure follows template and is logical]]
-   - [ ] Plot structure follows chosen template
+   - [ ] Plot structure follows chosen template (matches `./.jester/templates/outline-template.md`)
    - [ ] Scene progression is logical and engaging
-   - [ ] Character arcs are complete and meaningful
-   - [ ] Pacing is appropriate for target length
+   - [ ] Character arcs are complete and meaningful (follows context file specifications)
+   - [ ] Pacing is appropriate for target length (scene count and word estimates match context)
 
 2. **Consistency Validation:**
 
    [[LLM: Verify consistency with context file]]
-   - [ ] Character descriptions match context
-   - [ ] Location details are consistent
-   - [ ] Item properties are accurate
-   - [ ] Plot logic is sound and coherent
+   - [ ] Character descriptions match context (names, traits, relationships match context file)
+   - [ ] Location details are consistent (names and descriptions match context file)
+   - [ ] Item properties are accurate (names and purposes match context file)
+   - [ ] Plot logic is sound and coherent (follows logical sequence and character motivations)
 
 3. **Length Validation:**
 
    [[LLM: Ensure length estimates are realistic and appropriate]]
-   - [ ] Estimated word count is realistic
-   - [ ] Scene count appropriate for length
-   - [ ] Character development suitable for length
-   - [ ] Plot complexity matches target length
+   - [ ] Estimated word count is realistic (within target range from context file)
+   - [ ] Scene count appropriate for length (allows adequate development within word limit)
+   - [ ] Character development suitable for length (arcs can be completed within estimated length)
+   - [ ] Plot complexity matches target length (appropriate for target word count)
 
 4. **Internal Consistency Validation:**
 
@@ -67,10 +67,10 @@ The goal is ensuring outline quality and readiness for story generation.]]
 6. **Template Compliance Validation:**
 
    [[LLM: Ensure outline follows required template structure]]
-   - [ ] Outline follows markdown template structure
-   - [ ] All required sections are present
-   - [ ] Formatting is consistent and correct
-   - [ ] All required fields are populated
+   - [ ] Outline follows markdown template structure (matches `./.jester/templates/outline-template.md`)
+   - [ ] All required sections are present (template sections filled with content)
+   - [ ] Formatting is consistent and correct (heading structure and markdown formatting)
+   - [ ] All required fields are populated (template placeholders replaced with content)
 
 ## Final Confirmation
 
