@@ -72,7 +72,7 @@ dependencies:
   checklists:
     - import-validation.md
     - conflict-resolution-validation.md
-    - system-integrity-validation.md
+    - system-validation.md
   templates:
     - import-template.yaml
     - validation-template.yaml

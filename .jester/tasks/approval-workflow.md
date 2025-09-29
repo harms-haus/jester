@@ -27,7 +27,7 @@ To comprehensively validate and approve draft stories for progression to the rea
 
 ### 2. Comprehensive Validation
 
-- **Content completeness**: Run comprehensive validation checks: `./.jester/tasks/comprehensive-validation.md`
+- **Content completeness**: Run comprehensive validation checks: `./.jester/checklists/content-validation.md`
 - **Quality standards**: Ensure content quality meets high standards
 - **Internal consistency**: Check for internal (in-story) consistency with valid transitions between scenes etc.
 - **External consistency**: Check for external (in-universe) consistency with valid character traits, etc.
@@ -63,7 +63,7 @@ To comprehensively validate and approve draft stories for progression to the rea
 - **Entity file creation**: Create new individual character, location, and item files
 - **Changed entity extraction**: Extract changed entity information from context file
 - **Patch file creation**: Create *patch* files for entities that exist in universe but not in reading
-- **File structure**: Format the file following the templates in: `./.jester/templates/entity-templates.md`
+- **File structure**: Format the file following the templates in: `./.jester/templates/entity-template.md`
 - **File organization**: Ensure proper file naming and organization
 
 ### 6. File Movement

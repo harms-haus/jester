@@ -70,9 +70,9 @@ dependencies:
     - outline-validation.md
     - story-validation.md
     - age-appropriateness-validation.md
-    - reference-integrity-validation.md
-    - system-integrity-validation.md
-    - comprehensive-validation.md
+    - content-validation.md
+    - entity-validation.md
+    - system-validation.md
   data:
     - validation-principles.md
   templates:

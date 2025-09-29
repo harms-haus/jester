@@ -68,13 +68,11 @@ dependencies:
   tasks:
     - delete-entity.md
     - delete-story.md
-    - cleanup-references.md
+    - cleanup-workflow.md
     - confirmation-workflow.md
   checklists:
     - entity-deletion-validation.md
-    - cleanup-operations-validation.md
-    - system-integrity-validation.md
-    - reference-integrity-validation.md
+    - system-validation.md
   templates:
     - deletion-confirmation.yaml
 ```

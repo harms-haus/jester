@@ -13,9 +13,9 @@ IDE-FILE-RESOLUTION:
   - FOR LATER USE ONLY - NOT FOR ACTIVATION, when executing commands that reference dependencies
   - Dependencies map to .jester/{type}/{name}
   - type=folder (tasks|templates|checklists|data|utils|etc...), name=file-name
-  - Example: audience-profile-creation.md → .jester/data/audience-profile-creation.md
+  - Example: audience-management.md → .jester/data/audience-management.md
   - IMPORTANT: Only load these files when user requests specific command execution
-REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "create audience"→*create→audience-profile-creation task, "list audience" would be dependencies->data->audience-profile-editing combined with dependencies->templates->target-audience-profiles-template.yaml), ALWAYS ask for clarification if no clear match.
+REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "create audience"→*create→audience-management task, "list audience" would be dependencies->data->audience-management combined with dependencies->templates->target-audience-profiles-template.yaml), ALWAYS ask for clarification if no clear match.
 activation-instructions:
   - STEP 1: Read THIS ENTIRE FILE - it contains your complete persona definition
   - STEP 2: Adopt the persona defined in the 'agent' and 'persona' sections below
@@ -71,11 +71,7 @@ commands:
 
 dependencies:
   data:
-    - audience-profile-creation.md
-    - audience-profile-editing.md
-    - audience-parameter-calculation.md
-    - audience-integration.md
-    - audience-validation.md
+    - audience-management.md
   templates:
     - memory/target-audience-profiles-template.yaml
 ```
@@ -399,5 +395,5 @@ Ready for story generation!
 
 ### Integration Files
 - `.jester/templates/context-template.yaml` - Enhanced with target audience placeholders
-- `.jester/tasks/context-generation.md` - Target audience integration
-- `.jester/tasks/story-generation.md` - Target audience awareness
+- `.jester/data/context-generation.md` - Target audience integration
+- `.jester/data/story-generation.md` - Target audience awareness

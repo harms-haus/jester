@@ -10,8 +10,8 @@ Content validation is the process of systematically checking content to ensure i
 ### Validation Types
 
 **Context Validation:**
-- Ensures context files are complete and consistent (check against `./.jester/checklists/content-completeness.md`)
-- Validates entity relationships and logical coherence (check against `./.jester/checklists/entity-consistency-validation.md`)
+- Ensures context files are complete and consistent (check against `./.jester/checklists/content-validation.md`)
+- Validates entity relationships and logical coherence (check against `./.jester/checklists/entity-validation.md`)
 - Checks content adequacy for target story length (word count targets are realistic)
 - Verifies character and location completeness (all required fields are present)
 

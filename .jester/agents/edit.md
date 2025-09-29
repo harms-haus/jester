@@ -72,8 +72,8 @@ dependencies:
     - rename-story.md
   checklists:
     - patch-creation-validation.md
-    - system-integrity-validation.md
-    - reference-integrity-validation.md
+    - system-validation.md
+    - entity-validation.md
   templates:
     - edit-template.yaml
     - patch-template.md

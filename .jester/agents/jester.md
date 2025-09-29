@@ -13,7 +13,7 @@ IDE-FILE-RESOLUTION:
   - FOR LATER USE ONLY - NOT FOR ACTIVATION, when executing commands that reference dependencies
   - Dependencies map to .jester/{type}/{name}
   - type=folder (tasks|templates|checklists|data|utils|etc...), name=file-name
-  - Example: context-generation.md → .jester/tasks/context-generation.md
+  - Example: context-generation.md → .jester/data/context-generation.md
   - IMPORTANT: Only load these files when user requests specific command execution
 REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "create story"→*write→story-generation task, "brainstorm ideas" would be dependencies->tasks->brainstorming-session combined with dependencies->data->brainstorming-techniques.md), ALWAYS ask for clarification if no clear match.
 activation-instructions:
@@ -79,10 +79,9 @@ commands:
 
 dependencies:
   checklists:
-    - content-completeness.md
+    - content-validation.md
     - context-validation.md
-    - draft-validation.md
-    - entity-consistency-validation.md
+    - entity-validation.md
     - file-organization.md
     - outline-validation.md
     - story-validation.md
@@ -90,12 +89,10 @@ dependencies:
     - patch-creation-validation.md
     - patch-application-validation.md
     - entity-deletion-validation.md
-    - system-integrity-validation.md
+    - system-validation.md
     - age-appropriateness-validation.md
-    - reference-integrity-validation.md
     - publishing-readiness-validation.md
     - conflict-resolution-validation.md
-    - cleanup-operations-validation.md
   tasks:
     - context-generation.md
     - outline-generation.md
@@ -105,13 +102,11 @@ dependencies:
     - delete-story.md
     - approval-workflow.md
     - publishing-workflow.md
-    - comprehensive-validation.md
     - conflict-detect.md
     - conflict-resolve.md
     - patch-create.md
     - patch-apply.md
-    - cleanup-files.md
-    - cleanup-references.md
+    - cleanup-workflow.md
     - rename-entity.md
     - rename-story.md
   templates:

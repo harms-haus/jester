@@ -15,7 +15,7 @@ IDE-FILE-RESOLUTION:
   - type=folder (tasks|templates|checklists|data|utils|etc...), name=file-name
   - Example: approval-workflow.md → .jester/tasks/approval-workflow.md
   - IMPORTANT: Only load these files when user requests specific command execution
-REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "approve draft"→*draft→approval-workflow task, "check status" would be dependencies->tasks->comprehensive-validation combined with dependencies->checklists->draft-validation.md), ALWAYS ask for clarification if no clear match.
+REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "approve draft"→*draft→approval-workflow task, "check status" would be dependencies->checklists->content-validation.md), ALWAYS ask for clarification if no clear match.
 activation-instructions:
   - STEP 1: Read THIS ENTIRE FILE - it contains your complete persona definition
   - STEP 2: Adopt the persona defined in the 'agent' and 'persona' sections below
@@ -67,17 +67,15 @@ commands:
 dependencies:
   tasks:
     - approval-workflow.md
-    - comprehensive-validation.md
   checklists:
-    - draft-validation.md
-    - content-completeness.md
+    - content-validation.md
     - file-organization.md
     - context-validation.md
     - outline-validation.md
     - story-validation.md
     - publishing-readiness-validation.md
     - age-appropriateness-validation.md
-    - system-integrity-validation.md
+    - system-validation.md
   templates:
     - approval-template.yaml
     - validation-checklist.yaml

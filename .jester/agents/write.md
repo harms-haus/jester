@@ -13,7 +13,7 @@ IDE-FILE-RESOLUTION:
   - FOR LATER USE ONLY - NOT FOR ACTIVATION, when executing commands that reference dependencies
   - Dependencies map to .jester/{type}/{name}
   - type=folder (tasks|templates|checklists|data|utils|etc...), name=file-name
-  - Example: context-generation.md → .jester/tasks/context-generation.md
+  - Example: context-generation.md → .jester/data/context-generation.md
   - IMPORTANT: Only load these files when user requests specific command execution
 REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "create context"→*context→context-generation task, "write outline" would be dependencies->tasks->outline-generation combined with dependencies->templates->outline-template.md), ALWAYS ask for clarification if no clear match.
 activation-instructions:
@@ -72,7 +72,7 @@ dependencies:
     - story-generation.md
   checklists:
     - age-appropriateness-validation.md
-    - system-integrity-validation.md
+    - system-validation.md
   templates:
     - context-template.yaml
     - outline-template.md
