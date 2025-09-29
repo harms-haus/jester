@@ -94,7 +94,7 @@ The tool creates the following structure in your project:
 ```
 .jester/
 ├── agents/           # AI agent definitions (.md + .mdc for Cursor)
-├── checklists/       # Validation checklists (.md + .mdc for Cursor)
+├── validation/       # Validation files (.md + .mdc for Cursor)
 ├── data/             # Reference data (.md + .mdc for Cursor)
 ├── tasks/            # Workflow tasks (.md + .mdc for Cursor)
 ├── templates/        # Story and entity templates

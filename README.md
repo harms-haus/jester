@@ -133,13 +133,12 @@ The system includes a TypeScript Entity Management client for Entity Management 
 
 **Current Phase**: Entity Management System Implementation
 **Completed Stories**: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 2.1, 2.2, 2.3, 2.4, 2.5, 4.7
-**Next Step**: Advanced Story Generation and LightRAG Integration
+**Next Step**: Advanced Story Generation
 
 ### Project Progress
 
 - ✅ **Foundation & Core Infrastructure** (Epic 1) - Complete
 - ✅ **Entity Management System** (Epic 2) - In Progress
-- 🔄 **LightRAG Integration** (Epic 3) - Planned
 - 🔄 **Advanced Story Generation** (Epic 4) - Planned
 
 ### Recent Achievements
