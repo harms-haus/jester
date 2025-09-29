@@ -21,10 +21,8 @@
 
 ## About This Story
 
-**Created:** {{CREATED_AT}}  
 **Outline:** {{OUTLINE_FILE}}  
 **Context:** {{CONTEXT_FILE}}  
-**Version:** {{VERSION}}
 
 ### Themes
 {{#THEMES}}
@@ -48,4 +46,10 @@
 
 ---
 
-*This story was generated using the jester storytelling system.*
+```yaml
+metadata:
+  created_at: "{{CREATED_AT}}"
+  last_modified: "{{LAST_MODIFIED}}"
+  version: {{VERSION}}
+  status: {{STATUS}}
+```

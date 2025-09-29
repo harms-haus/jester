@@ -74,7 +74,7 @@ dependencies:
   tasks:
   templates:
     - brainstorming-session.yaml
-    - context-template.yaml
+    - context.yaml
   data:
     - brainstorming-techniques.md
     - entity-discovery.md

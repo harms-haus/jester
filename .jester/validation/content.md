@@ -26,8 +26,8 @@ The goal is ensuring all content is complete, high-quality, and ready for approv
 
    [[LLM: Verify all required files exist and are properly formatted]]
    - [ ] Context file exists and is properly formatted (`context-NNN.yaml` exists in `draft/{NNN}/` directory)
-   - [ ] Outline file exists and follows template structure (`outline-NNN.md` exists and follows `./.jester/templates/outline-template.md`)
-   - [ ] Story file exists and meets quality standards (`story-NNN.md` exists and follows `./.jester/templates/story-template.md`)
+   - [ ] Outline file exists and follows template structure (`outline-NNN.md` exists and follows `./.jester/templates/outline.md`)
+   - [ ] Story file exists and meets quality standards (`story-NNN.md` exists and follows `./.jester/templates/story.md`)
    - [ ] All required metadata is present (metadata section contains all required fields per `./.jester/data/metadata-propagation.md`)
 
 2. **Context File Completeness:**
@@ -81,9 +81,9 @@ The goal is ensuring all content is complete, high-quality, and ready for approv
 7. **Template Compliance Validation:**
 
    [[LLM: Ensure all files follow required templates]]
-   - [ ] Context file follows YAML template structure (structure matches `./.jester/templates/context-template.yaml`)
-   - [ ] Outline file follows markdown template structure (structure matches `./.jester/templates/outline-template.md`)
-   - [ ] Story file follows markdown template structure (structure matches `./.jester/templates/story-template.md`)
+   - [ ] Context file follows YAML template structure (structure matches `./.jester/templates/context.yaml`)
+   - [ ] Outline file follows markdown template structure (structure matches `./.jester/templates/outline.md`)
+   - [ ] Story file follows markdown template structure (structure matches `./.jester/templates/story.md`)
    - [ ] All required fields are populated (all template placeholders are filled with actual content)
 
 8. **Link Integrity Validation:**
@@ -126,4 +126,5 @@ After completing the checklist:
 Be thorough - it's better to identify issues now than have them cause problems later.]]
 
 - [ ] I, the Approve Agent, confirm that all applicable items above have been addressed and the content is complete and ready for approval.
+
 

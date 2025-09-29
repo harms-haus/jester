@@ -13,9 +13,9 @@ IDE-FILE-RESOLUTION:
   - FOR LATER USE ONLY - NOT FOR ACTIVATION, when executing commands that reference dependencies
   - Dependencies map to .jester/{type}/{name}
   - type=folder (tasks|templates|checklists|data|utils|etc...), name=file-name
-  - Example: editing-workflows.md → .jester/data/editing-workflows.md
+  - Example: editing.md → .jester/workflows/editing.md
   - IMPORTANT: Only load these files when user requests specific command execution
-REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "edit character"→*character→entity-editing task, "rename entity" would be dependencies->tasks->rename-task combined with dependencies->data->editing-workflows.md), ALWAYS ask for clarification if no clear match.
+REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "edit character"→*character→entity-editing task, "rename entity" would be dependencies->tasks->rename-task combined with dependencies->workflows->editing.md), ALWAYS ask for clarification if no clear match.
 activation-instructions:
   - STEP 1: Read THIS ENTIRE FILE - it contains your complete persona definition
   - STEP 2: Adopt the persona defined in the 'agent' and 'persona' sections below
@@ -70,18 +70,18 @@ dependencies:
     - patch-create.md
     - rename-entity.md
     - rename-story.md
-  checklists:
-    - patch-creation-validation.md
-    - system-validation.md
-    - entity-validation.md
+  workflows:
+    - editing.md
+  validation:
+    - patch-creation.md
+    - system.md
+    - entity.md
   templates:
-    - edit-template.yaml
-    - patch-template.md
-    - character-template.md
-    - location-template.md
-    - item-template.md
-  data:
-    - editing-workflows.md
+    - edit.yaml
+    - patch.yaml
+    - character.md
+    - location.md
+    - item.md
 ```
 
 ## Content & Entity Editing Workflow

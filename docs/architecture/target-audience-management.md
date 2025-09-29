@@ -41,7 +41,7 @@ The Target Audience Management System enhances jester's story generation pipelin
 1. User creates target audience member via `/jester audience create [name] [birthday]`
 2. System validates birthday format and calculates current age
 3. System prompts for preferred story length and preferences
-4. Profile saved to `.memory/target-audience-profiles.yaml` (created from `.jester/templates/memory/target-audience-profiles-template.yaml` if needed)
+4. Profile saved to `.memory/target-audience-profiles.yaml` (created from `.jester/templates/memory/target-audience-profiles.yaml` if needed)
 5. System confirms profile creation and offers to set as active
 
 ### Story Generation Integration Flow

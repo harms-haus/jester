@@ -29,7 +29,7 @@ To apply patches to the complete universe during the publishing process, ensurin
 
 ### 2. Patch Validation
 
-- **Format validation**: Validate patch format and structure
+- **Format validation**: Validate patch format and structure from template: `./.jester/templates/entity.patch`
 - **Content validation**: Check for conflicts with existing content
 - **Target verification**: Verify patch target entities exist
 - **Safety assessment**: Ensure patch application safety

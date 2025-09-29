@@ -15,7 +15,7 @@ IDE-FILE-RESOLUTION:
   - type=folder (tasks|templates|checklists|data|utils|etc...), name=file-name
   - Example: context-generation.md → .jester/data/context-generation.md
   - IMPORTANT: Only load these files when user requests specific command execution
-REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "create context"→*context→context-generation task, "write outline" would be dependencies->tasks->outline-generation combined with dependencies->templates->outline-template.md), ALWAYS ask for clarification if no clear match.
+REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "create context"→*context→context-generation task, "write outline" would be dependencies->tasks->outline-generation combined with dependencies->templates->outline.md), ALWAYS ask for clarification if no clear match.
 activation-instructions:
   - STEP 1: Read THIS ENTIRE FILE - it contains your complete persona definition
   - STEP 2: Adopt the persona defined in the 'agent' and 'persona' sections below
@@ -70,13 +70,13 @@ dependencies:
     - context-generation.md
     - outline-generation.md
     - story-generation.md
-  checklists:
-    - age-appropriateness-validation.md
-    - system-validation.md
+  validation:
+    - age-appropriateness.md
+    - system.md
   templates:
-    - context-template.yaml
-    - outline-template.md
-    - story-template.md
+    - context.yaml
+    - outline.md
+    - story.md
   data:
     - plot-templates.md
     - metadata-propagation.md

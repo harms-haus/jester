@@ -69,21 +69,21 @@ dependencies:
     - import-workflow.md
     - conflict-detect.md
     - conflict-resolve.md
-  checklists:
-    - import-validation.md
-    - conflict-resolution-validation.md
-    - system-validation.md
+  validation:
+    - import.md
+    - conflict-resolution.md
+    - system.md
   templates:
-    - import-template.yaml
-    - validation-template.yaml
-    - context-template.yaml
-    - outline-template.md
-    - story-template.md
-    - character-template.md
-    - location-template.md
-    - item-template.md
-  data:
-    - import-workflows.md
+    - import.yaml
+    - validation.yaml
+    - context.yaml
+    - outline.md
+    - story.md
+    - character.md
+    - location.md
+    - item.md
+  workflows:
+    - import.md
 ```
 
 ## Content Import Workflow

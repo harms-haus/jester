@@ -13,9 +13,9 @@ IDE-FILE-RESOLUTION:
   - FOR LATER USE ONLY - NOT FOR ACTIVATION, when executing commands that reference dependencies
   - Dependencies map to .jester/{type}/{name}
   - type=folder (tasks|templates|checklists|data|utils|etc...), name=file-name
-  - Example: approval-workflow.md → .jester/tasks/approval-workflow.md
+  - Example: approval.md → .jester/workflows/approval.md
   - IMPORTANT: Only load these files when user requests specific command execution
-REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "approve draft"→*draft→approval-workflow task, "check status" would be dependencies->checklists->content-validation.md), ALWAYS ask for clarification if no clear match.
+REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "approve draft"→*draft→approval workflow, "check status" would be dependencies->checklists->content-validation.md), ALWAYS ask for clarification if no clear match.
 activation-instructions:
   - STEP 1: Read THIS ENTIRE FILE - it contains your complete persona definition
   - STEP 2: Adopt the persona defined in the 'agent' and 'persona' sections below
@@ -66,23 +66,23 @@ commands:
 
 dependencies:
   tasks:
-    - approval-workflow.md
-  checklists:
-    - content-validation.md
+    - approval.md
+  validation:
+    - content.md
     - file-organization.md
-    - context-validation.md
-    - outline-validation.md
-    - story-validation.md
-    - publishing-readiness-validation.md
-    - age-appropriateness-validation.md
-    - system-validation.md
+    - context.md
+    - outline.md
+    - story.md
+    - publishing-readiness.md
+    - age-appropriateness.md
+    - system.md
   templates:
-    - approval-template.yaml
+    - approval.yaml
     - validation-checklist.yaml
     - validation-report.yaml
-    - character-template.md
-    - location-template.md
-    - item-template.md
+    - character.md
+    - location.md
+    - item.md
 ```
 
 ## Draft Approval Workflow

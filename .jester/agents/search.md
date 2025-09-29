@@ -71,8 +71,8 @@ dependencies:
     - result-presentation.md
     - content-discovery.md
   templates:
-    - search-template.yaml
-    - result-template.yaml
+    - search.yaml
+    - result.yaml
 ```
 
 # Search Agent - Content Discovery

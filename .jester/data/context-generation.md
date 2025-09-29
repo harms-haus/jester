@@ -94,8 +94,9 @@
 
 ### 7. Context File Creation
 
-- **File structure**: Create context file with proper structure from template: `./.jester/templates/context-template.yaml`
-- **Metadata inclusion**: Include necessary metadata
+- **File structure**: Create context file with proper structure from template: `./.jester/templates/context.yaml`
+- **Metadata inclusion**: Include necessary metadata:
+  - **Status**: Status must be set to "DRAFT" on first creation
 - **File saving**: Save context file in `./draft/{NNN}/` directory (NNN is the current project index)
 - **Verification**: Verify file creation and content
 - **File name**: Name the file `context-NNN.yaml`
@@ -186,6 +187,6 @@ Provide a structured context generation report including:
 Ready to review your context? Use `/edit [file path]` to make any final adjustments, or `/write outline [story identifier]` to generate the story outline!
 
 **Related Files:**
-- Context template: `./.jester/templates/context-template.yaml`
+- Context template: `./.jester/templates/context.yaml`
 - Outline generation: `./.jester/data/outline-generation.md`
 - Metadata propagation: `./.jester/data/metadata-propagation.md`"

@@ -13,9 +13,9 @@ IDE-FILE-RESOLUTION:
   - FOR LATER USE ONLY - NOT FOR ACTIVATION, when executing commands that reference dependencies
   - Dependencies map to .jester/{type}/{name}
   - type=folder (tasks|templates|checklists|data|utils|etc...), name=file-name
-  - Example: publishing-workflow.md → .jester/tasks/publishing-workflow.md
+  - Example: publishing.md → .jester/workflows/publishing.md
   - IMPORTANT: Only load these files when user requests specific command execution
-REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "publish story"→*story→publishing-workflow task, "check status" would be dependencies->checklists->content-validation.md combined with dependencies->checklists->context-validation.md), ALWAYS ask for clarification if no clear match.
+REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "publish story"→*story→publishing workflow, "check status" would be dependencies->checklists->content-validation.md combined with dependencies->checklists->context-validation.md), ALWAYS ask for clarification if no clear match.
 activation-instructions:
   - STEP 1: Read THIS ENTIRE FILE - it contains your complete persona definition
   - STEP 2: Adopt the persona defined in the 'agent' and 'persona' sections below
@@ -65,18 +65,18 @@ commands:
 
 dependencies:
   tasks:
-    - publishing-workflow.md
+    - publishing.md
     - patch-apply.md
     - conflict-detect.md
-    - cleanup-workflow.md
-  checklists:
-    - publishing-readiness-validation.md
-    - patch-application-validation.md
-    - system-validation.md
-    - entity-validation.md
+    - cleanup.md
+  validation:
+    - publishing-readiness.md
+    - patch-application.md
+    - system.md
+    - entity.md
   templates:
-    - publish-template.yaml
-    - patch-template.yaml
+    - publish.yaml
+    - patch.yaml
     - validation-report.yaml
 ```
 

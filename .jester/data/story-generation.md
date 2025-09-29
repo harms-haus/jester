@@ -88,8 +88,9 @@
 
 ### 8. Story File Creation
 
-- **File structure**: Create story file with proper structure from template: `./.jester/templates/story-template.md`
-- **Metadata inclusion**: Include necessary metadata
+- **File structure**: Create story file with proper structure from template: `./.jester/templates/story.md`
+- **Metadata inclusion**: Include necessary metadata:
+  - **Status**: Status must be set to "DRAFT" on first creation
 - **File saving**: Save story file in `./draft/{NNN}/` directory (NNN is the current project index)
 - **Verification**: Verify file creation and content
 - **File name**: Name the file `story-NNN.md`
@@ -171,6 +172,6 @@ Provide a structured story generation report including:
 Ready to review your masterpiece? Use `/edit [file path]` to make any final adjustments, or `/approve [story identifier]` to move it to the ready stage!
 
 **Related Files:**
-- Story template: `./.jester/templates/story-template.md`
+- Story template: `./.jester/templates/story.md`
 - Story validation: `./.jester/checklists/story-validation.md`
 - Metadata propagation: `./.jester/data/metadata-propagation.md`"

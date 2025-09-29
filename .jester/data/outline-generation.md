@@ -79,8 +79,9 @@
 
 ### 7. Outline File Creation
 
-- **File structure**: Create outline file with proper structure from template: `./.jester/templates/outline-template.md`
-- **Metadata inclusion**: Include necessary metadata
+- **File structure**: Create outline file with proper structure from template: `./.jester/templates/outline.md`
+- **Metadata inclusion**: Include necessary metadata:
+  - **Status**: Status must be set to "DRAFT" on first creation
 - **File saving**: Save outline file in `./draft/{NNN}/` directory (NNN is the current project index)
 - **Verification**: Verify file creation and content
 - **File name**: Name the file `outline-NNN.md`
@@ -156,6 +157,6 @@ Provide a structured outline generation report including:
 Ready to review your outline? Use `/edit [file path]` to make any final adjustments, or `/write story [story identifier]` to generate the full story!
 
 **Related Files:**
-- Outline template: `./.jester/templates/outline-template.md`
+- Outline template: `./.jester/templates/outline.md`
 - Story generation: `./.jester/data/story-generation.md`
 - Metadata propagation: `./.jester/data/metadata-propagation.md`"

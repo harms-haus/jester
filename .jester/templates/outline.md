@@ -3,9 +3,8 @@
 
 ## {{STORY_TITLE}}
 
-**Target Audience:** {{AGE_RANGE}} ({{READING_LEVEL}} level)  
-**Target Length:** {{MIN_WORDS}}-{{MAX_WORDS}} words ({{FINAL_TARGET}} target)  
-**Created:** {{CREATED_AT}}  
+**Target Audience:** {{AGE_RANGE}} ({{READING_LEVEL}} level)
+**Target Length:** {{MIN_WORDS}}-{{MAX_WORDS}} words ({{FINAL_TARGET}} target)
 **Context File:** {{CONTEXT_FILE}}
 
 ---
@@ -84,3 +83,13 @@
 ## Estimated Word Count: {{ESTIMATED_WORD_COUNT}}
 
 **Reading Time:** {{READING_TIME_MINUTES}} minutes
+
+---
+
+```yaml
+metadata:
+  created_at: "{{CREATED_AT}}"
+  last_modified: "{{LAST_MODIFIED}}"
+  version: {{VERSION}}
+  status: {{STATUS}}
+```

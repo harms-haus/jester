@@ -91,7 +91,7 @@ Comprehensive editing workflows for content, entities, and cross-stage editing o
 ## Editing Guidelines
 
 ### Quality Standards
-- Content meets target audience requirements (check against `./.jester/checklists/age-appropriateness-validation.md`)
+- Content meets target audience requirements (check against `./.jester/validation/age-appropriateness.md`)
 - Language is clear and engaging (reading level matches target audience)
 - Structure is logical and well-organized (three-act structure and scene progression)
 - Style is consistent throughout (narrative voice and tone consistency)

@@ -17,17 +17,18 @@ To comprehensively validate and approve draft stories for progression to the rea
   - **Draft story**: The draft story to be approved
   - **Validation checklists**: Required validation checklists
   - **Entity templates**: Entity file templates for creation
+  - **Draft file status**: Each core file's status from the metadata yaml at the end of the file.
 
 ### 1. Draft Identification
 
 - **Draft identification**: Identify the directory of the draft to be approved
 - **File availability**: Verify that the 3 main draft files exist and are accessible
-- **Status check**: Check draft files' status and completeness
+- **Status check**: Check draft core files' status: It MUST be "APPROVED" for every core file. Prompt the user to override this block or this workflow must terminate early, reverting any changes made so far.
 - **Readiness assessment**: Assess draft readiness for approval
 
 ### 2. Comprehensive Validation
 
-- **Content completeness**: Run comprehensive validation checks: `./.jester/checklists/content-validation.md`
+- **Content completeness**: Run comprehensive validation checks: `./.jester/validation/content.md`
 - **Quality standards**: Ensure content quality meets high standards
 - **Internal consistency**: Check for internal (in-story) consistency with valid transitions between scenes etc.
 - **External consistency**: Check for external (in-universe) consistency with valid character traits, etc.
@@ -57,22 +58,32 @@ To comprehensively validate and approve draft stories for progression to the rea
 - **Decision validation**: Validate approval decision
 - **Status update**: Update approval status
 
-### 5. Entity File Creation
+### 5.a. Entity File Creation
 
 - **New entity extraction**: Extract new entity information from context file
-- **Entity file creation**: Create new individual character, location, and item files
-- **Changed entity extraction**: Extract changed entity information from context file
-- **Patch file creation**: Create *patch* files for entities that exist in universe but not in reading
-- **File structure**: Format the file following the templates in: `./.jester/templates/entity-template.md`
+- **Entity file creation**: Create new individual character, location, and item files based on one of these templates:
+  - **Character**: `./.jester/templates/character.md`
+  - **Location**: `./.jester/templates/location.md`
+  - **Item**: `./.jester/templates/item.md`
 - **File organization**: Ensure proper file naming and organization
 
-### 6. File Movement
+### 5.b. Changed Entity Patches
+
+- **Changed entity extraction**: Extract changed entity information from context file
+- **Patch file creation**: Create *patch* files for entities that exist in universe but not in reading: `./.jester/tasks/patch-create.md`
+- **File structure**: Format the file following the templates in: `./.jester/templates/entity.patch`
+- **File organization**: Ensure proper file naming and organization
+
+### 6. File Management
 
 - **File relocation**: *Copy* approved core files to project reading directory
 - **Metadata update**: Update file metadata and status
 - **Directory structure**: Ensure proper directory structure
 - **Accessibility verification**: Verify file accessibility
-- **Status update**: Update system status
+- **Status update**: Update metadata for all files:
+  - **Update version**: Increase major version by 1
+  - **Update times**: Update last edit
+  - **Update status**: Ensure status reads: "APPROVED"
 
 ### 7. Post-Approval Validation
 

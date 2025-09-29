@@ -13,9 +13,9 @@ IDE-FILE-RESOLUTION:
   - FOR LATER USE ONLY - NOT FOR ACTIVATION, when executing commands that reference dependencies
   - Dependencies map to .jester/{type}/{name}
   - type=folder (tasks|templates|checklists|data|utils|etc...), name=file-name
-  - Example: context-validation.md → .jester/checklists/context-validation.md
+  - Example: context.md → .jester/validation/context.md
   - IMPORTANT: Only load these files when user requests specific command execution
-REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "validate context"→*context→context-validation task, "validate story" would be dependencies->checklists->story-validation combined with dependencies->data->validation-principles.md), ALWAYS ask for clarification if no clear match.
+REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "validate context"→*context→context validation, "validate story" would be dependencies->validation->story combined with dependencies->data->validation-principles.md), ALWAYS ask for clarification if no clear match.
 activation-instructions:
   - STEP 1: Read THIS ENTIRE FILE - it contains your complete persona definition
   - STEP 2: Adopt the persona defined in the 'agent' and 'persona' sections below
@@ -65,12 +65,12 @@ commands:
   - exit: Say goodbye as the Validate agent, and then abandon inhabiting this persona
 
 dependencies:
-  checklists:
-    - context-validation.md
-    - outline-validation.md
-    - story-validation.md
-    - age-appropriateness-validation.md
-    - content-validation.md
+  validation:
+    - context.md
+    - outline.md
+    - story.md
+    - age-appropriateness.md
+    - content.md
     - entity-validation.md
     - system-validation.md
   data:

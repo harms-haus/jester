@@ -9,11 +9,6 @@ Template for creating character entities with consistent structure and metadata.
 ```markdown
 # {{CHARACTER_NAME}}
 
-**Type:** character  
-**Created:** {{CREATED_AT}}  
-**Last Modified:** {{LAST_MODIFIED}}  
-**Version:** {{VERSION}}
-
 ## Description
 
 {{CHARACTER_DESCRIPTION}}
@@ -43,5 +38,15 @@ Template for creating character entities with consistent structure and metadata.
 - **Gender**: {{GENDER}}
 - **Species**: {{SPECIES}}
 - **Occupation**: {{OCCUPATION}}
+```
+
+---
+
+```yaml
+metadata:
+  created_at: "{{CREATED_AT}}"
+  last_modified: "{{LAST_MODIFIED}}"
+  version: {{VERSION}}
+  status: {{STATUS}}
 ```
 

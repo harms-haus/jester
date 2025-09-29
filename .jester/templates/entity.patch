@@ -1,0 +1,61 @@
+# Entity Patch for Universe Publishing
+# This patch represents changes to be applied to a file in the ./universe/ directory
+
+--- a/{{ENTITY_FILE_PATH}}
++++ b/{{ENTITY_FILE_PATH}}
+@@ -{{OLD_START_LINE}},{{OLD_LINE_COUNT}} +{{NEW_START_LINE}},{{NEW_LINE_COUNT}} @@
+ {{CHANGE_DESCRIPTION}}
+
+ {{#CHANGES}}
+ {{#EDIT}}
+-{{OLD_TEXT}}
++{{NEW_TEXT}}
+ {{/EDIT}}
+
+ {{#DELETION}}
+-{{DELETED_TEXT}}
+ {{/DELETION}}
+
+ {{#ADDITION}}
++{{ADDED_TEXT}}
+ {{/ADDITION}}
+ {{/CHANGES}}
+
+--- 
+# Patch Summary
+- Old file length: {{OLD_FILE_LENGTH}} lines
+- Expected new file length: {{EXPECTED_FILE_LENGTH}} lines
+- Words added: +{{WORDS_ADDED}}
+- Words removed: -{{WORDS_REMOVED}}
+
+# Change Details
+{{#CHANGES}}
+## Change {{CHANGE_NUMBER}}: {{CHANGE_TYPE}}
+- **Type**: {{CHANGE_TYPE}} ({{OPERATION_TYPE}})
+- **Old file lines**: {{OLD_LINE_NUMBERS}}
+- **New file lines**: {{NEW_LINE_NUMBERS}}
+- **Description**: {{CHANGE_DESCRIPTION}}
+{{#OLD_TEXT}}
+- **Original text**:
+```
+{{OLD_TEXT}}
+```
+{{/OLD_TEXT}}
+{{#NEW_TEXT}}
+- **New text**:
+```
+{{NEW_TEXT}}
+```
+{{/NEW_TEXT}}
+
+{{/CHANGES}}
+
+---
+
+```yaml
+metadata:
+  created_at: "{{CREATED_AT}}"
+  last_modified: "{{LAST_MODIFIED}}"
+  version: {{VERSION}}
+  status: "{{STATUS}}"
+```

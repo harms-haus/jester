@@ -67,12 +67,12 @@ All imported content goes through a staging process:
 Imported content must meet these standards:
 
 ### Structure Requirements
-- Character entities: Use .jester/templates/character-template.md
-- Location entities: Use .jester/templates/location-template.md
-- Item entities: Use .jester/templates/item-template.md
-- Stories: Use .jester/templates/story-template.md
-- Outlines: Use .jester/templates/outline-template.md
-- Contexts: Use .jester/templates/context-template.yaml
+- Character entities: Use .jester/templates/character.md
+- Location entities: Use .jester/templates/location.md
+- Item entities: Use .jester/templates/item.md
+- Stories: Use .jester/templates/story.md
+- Outlines: Use .jester/templates/outline.md
+- Contexts: Use .jester/templates/context.yaml
 
 ### Content Requirements
 - **Completeness**: Include all required fields

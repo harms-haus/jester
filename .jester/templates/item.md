@@ -9,11 +9,6 @@ Template for creating item entities with consistent structure and metadata.
 ```markdown
 # {{ITEM_NAME}}
 
-**Type:** item  
-**Created:** {{CREATED_AT}}  
-**Last Modified:** {{LAST_MODIFIED}}  
-**Version:** {{VERSION}}
-
 ## Description
 
 {{ITEM_DESCRIPTION}}
@@ -43,5 +38,15 @@ Template for creating item entities with consistent structure and metadata.
 - **Rarity**: {{RARITY}}
 - **Value**: {{VALUE}}
 - **Origin**: {{ORIGIN}}
+```
+
+---
+
+```yaml
+metadata:
+  created_at: "{{CREATED_AT}}"
+  last_modified: "{{LAST_MODIFIED}}"
+  version: {{VERSION}}
+  status: {{STATUS}}
 ```
 

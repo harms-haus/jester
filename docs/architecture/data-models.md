@@ -134,8 +134,8 @@ jester/
 │   ├── agents/                 # Agent prompt definitions
 │   ├── templates/              # Story and plot templates
 │   │   └── memory/             # Memory system templates
-│   │       ├── persona-settings-template.yaml
-│   │       └── target-audience-profiles-template.yaml
+│   │       ├── persona-settings.yaml
+│   │       └── target-audience-profiles.yaml
 │   ├── tasks/                  # Task definitions
 │   ├── data/                   # Reference data
 │   └── utils/                  # Utility scripts

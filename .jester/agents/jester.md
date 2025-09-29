@@ -78,56 +78,52 @@ commands:
   - exit: Say goodbye as the Jester, and then abandon inhabiting this persona
 
 dependencies:
-  checklists:
-    - content-validation.md
-    - context-validation.md
-    - entity-validation.md
+  validation:
+    - content.md
+    - context.md
+    - entity.md
     - file-organization.md
-    - outline-validation.md
-    - story-validation.md
-    - import-validation.md
-    - patch-creation-validation.md
-    - patch-application-validation.md
-    - entity-deletion-validation.md
-    - system-validation.md
-    - age-appropriateness-validation.md
-    - publishing-readiness-validation.md
-    - conflict-resolution-validation.md
+    - outline.md
+    - story.md
+    - import.md
+    - patch-creation.md
+    - patch-application.md
+    - entity-deletion.md
+    - system.md
+    - age-appropriateness.md
+    - publishing-readiness.md
+    - conflict-resolution.md
   tasks:
     - context-generation.md
     - outline-generation.md
     - story-generation.md
-    - import-workflow.md
     - delete-entity.md
     - delete-story.md
-    - approval-workflow.md
-    - publishing-workflow.md
     - conflict-detect.md
     - conflict-resolve.md
     - patch-create.md
     - patch-apply.md
-    - cleanup-workflow.md
     - rename-entity.md
     - rename-story.md
   templates:
-    - context-template.yaml
-    - outline-template.md
-    - story-template.md
-    - character-template.md
-    - location-template.md
-    - item-template.md
-    - approval-template.yaml
+    - context.yaml
+    - outline.md
+    - story.md
+    - character.md
+    - location.md
+    - item.md
+    - approval.yaml
     - deletion-confirmation.yaml
-    - import-template.yaml
-    - publish-template.yaml
-    - search-template.yaml
-    - validation-template.yaml
+    - import.yaml
+    - publish.yaml
+    - search.yaml
+    - validation.yaml
     - validation-checklist.yaml
     - validation-report.yaml
     - brainstorming-session.yaml
-    - edit-template.yaml
-    - patch-template.yaml
-    - result-template.yaml
+    - edit.yaml
+    - patch.yaml
+    - result.yaml
     - workflow-menu.yaml
   data:
     - personas/court-jester.md
@@ -145,6 +141,12 @@ dependencies:
     - import-pipeline.yaml
     - validation-pipeline.yaml
     - publishing-pipeline.yaml
+    - import.md
+    - import-task.md
+    - approval.md
+    - publishing.md
+    - cleanup.md
+    - confirmation.md
   utils:
     - file-operations.md
     - entity-management.md
@@ -172,7 +174,7 @@ dependencies:
 - Use `*persona [name]` to change to a specific persona
 - System will ask if you want to remember your choice
 - Preferences saved to `.memory/persona-settings.yaml`
-- If `.memory/persona-settings.yaml` doesn't exist, create from `.jester/templates/persona-settings-template.yaml`
+- If `.memory/persona-settings.yaml` doesn't exist, create from `.jester/templates/memory/persona-settings.yaml`
 
 ## Debug Mode
 

@@ -9,11 +9,6 @@ Template for creating location entities with consistent structure and metadata.
 ```markdown
 # {{LOCATION_NAME}}
 
-**Type:** location  
-**Created:** {{CREATED_AT}}  
-**Last Modified:** {{LAST_MODIFIED}}  
-**Version:** {{VERSION}}
-
 ## Description
 
 {{LOCATION_DESCRIPTION}}
@@ -43,5 +38,15 @@ Template for creating location entities with consistent structure and metadata.
 - **Size**: {{SIZE}}
 - **Accessibility**: {{ACCESSIBILITY}}
 - **Population**: {{POPULATION}}
+```
+
+---
+
+```yaml
+metadata:
+  created_at: "{{CREATED_AT}}"
+  last_modified: "{{LAST_MODIFIED}}"
+  version: {{VERSION}}
+  status: {{STATUS}}
 ```
 

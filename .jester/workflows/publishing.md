@@ -18,12 +18,13 @@ To guide stories through the publishing process from reading to universe stage, 
   - **Entity files**: Entity files in reading/ directory
   - **Patch files**: Pending patches for application
   - **Universe structure**: Current universe structure
-  - **Publishing readiness checklist**: publishing-readiness-validation.md for validation
+  - **Publishing readiness checklist**: publishing-readiness.md for validation
 
 ### 1. Pre-Publish Validation
 
 - **Story completeness**: Validate story completeness and quality
 - **File presence**: Check all required files are present
+- **Status check**: Check ready core files' status: It MUST be "PUBLISH" for every core file. Prompt the user to override this block or this workflow must terminate early, reverting any changes made so far.
 - **Entity consistency**: Verify entity consistency and integrity
 - **File organization**: Ensure proper file organization
 - **System readiness**: Verify system readiness for publishing
@@ -45,12 +46,17 @@ To guide stories through the publishing process from reading to universe stage, 
 - **Accessibility verification**: Verify story accessibility
 - **Status update**: Update system status
 
-### 4. Entity Integration
+### 4.a. New Entity Integration
 
-- **Entity integration**: Integrate story entity files into universe
-- **Reference update**: Update entity references
-- **Consistency maintenance**: Maintain entity consistency
+- **Entity integration**: Integrate story's *new* entity files into universe
 - **System integration**: Integrate entities into system
+
+### 4.b. Existing Entity Patching
+
+- **Entity Patching**: Patch the universe's existing entity file using the `.patch` file for the entity in the project's reading folder
+- **Patch Procedure**: Use the `./.jester/tasks/patch-apply.md` task file to apply the patch
+- **Reference update**: Update entity references if the name changed
+- **Rename file**: Rename the file if the name changed.
 
 ### 5. Post-Publish Validation
 
@@ -66,7 +72,10 @@ To guide stories through the publishing process from reading to universe stage, 
 - **Staging cleanup**: Clean up staging directories
 - **Reference cleanup**: Update references and metadata
 - **System cleanup**: Perform system cleanup operations
-- **Status update**: Update system status
+- **Status update**: Update metadata for all files:
+  - **Update version**: Increase major version by 1
+  - **Update times**: Update last edit
+  - **Update status**: Ensure status reads: "PUBLISHED"
 
 ### 7. Generate Publishing Report
 

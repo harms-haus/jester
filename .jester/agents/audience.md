@@ -15,7 +15,7 @@ IDE-FILE-RESOLUTION:
   - type=folder (tasks|templates|checklists|data|utils|etc...), name=file-name
   - Example: audience-management.md → .jester/data/audience-management.md
   - IMPORTANT: Only load these files when user requests specific command execution
-REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "create audience"→*create→audience-management task, "list audience" would be dependencies->data->audience-management combined with dependencies->templates->target-audience-profiles-template.yaml), ALWAYS ask for clarification if no clear match.
+REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "create audience"→*create→audience-management task, "list audience" would be dependencies->data->audience-management combined with dependencies->templates->memory/target-audience-profiles.yaml), ALWAYS ask for clarification if no clear match.
 activation-instructions:
   - STEP 1: Read THIS ENTIRE FILE - it contains your complete persona definition
   - STEP 2: Adopt the persona defined in the 'agent' and 'persona' sections below
@@ -73,7 +73,7 @@ dependencies:
   data:
     - audience-management.md
   templates:
-    - memory/target-audience-profiles-template.yaml
+    - memory/target-audience-profiles.yaml
 ```
 
 # Target Audience Management Agent
@@ -388,12 +388,12 @@ Ready for story generation!
 
 ### Memory Files
 - `.memory/target-audience-profiles.yaml` - Main profile storage
-- `.jester/templates/target-audience-profiles-template.yaml` - Template for initialization
+- `.jester/templates/memory/target-audience-profiles.yaml` - Template for initialization
 
 ### Agent Files
 - `.jester/agents/audience.md` - This agent file
 
 ### Integration Files
-- `.jester/templates/context-template.yaml` - Enhanced with target audience placeholders
+- `.jester/templates/context.yaml` - Enhanced with target audience placeholders
 - `.jester/data/context-generation.md` - Target audience integration
 - `.jester/data/story-generation.md` - Target audience awareness

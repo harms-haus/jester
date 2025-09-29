@@ -29,7 +29,8 @@ To create patches for changes to the complete universe when entities aren't avai
 
 ### 2. Patch Generation
 
-- **Patch file creation**: Create patch files for entity changes
+- **Patch file creation**: Create patch files for entity changes with template: `./.jester/templates/entity.patch`
+  - **File name**: The file should be named: `{Entity Name}.patch`
 - **Change documentation**: Document changes and rationale
 - **Compatibility check**: Ensure patch compatibility with target entities
 - **Format validation**: Validate patch file format and structure
@@ -37,7 +38,7 @@ To create patches for changes to the complete universe when entities aren't avai
 
 ### 3. Patch Validation
 
-- **Format validation**: Check patch file format and structure
+- **Format validation**: Check patch file format and structure against template
 - **Content validation**: Verify change accuracy and completeness
 - **Conflict detection**: Ensure no conflicts or issues with existing content
 - **Application testing**: Test patch application process

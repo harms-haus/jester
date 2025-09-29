@@ -74,3 +74,4 @@ metadata:
   created_at: "{{CREATED_AT}}"
   last_modified: "{{LAST_MODIFIED}}"
   version: {{VERSION}}
+  status: {{STATUS}}

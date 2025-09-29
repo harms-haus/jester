@@ -41,7 +41,7 @@ The goal is safe patch application, not just checking boxes.]]
 
    [[LLM: Patch format must be correct for application]]
    - [ ] Patch files are in correct format (verify patches use supported format: .yaml, .json, .md)
-   - [ ] Patch structure is valid and complete (verify patch structure matches `./.jester/templates/patch-template.yaml`)
+   - [ ] Patch structure is valid and complete (verify patch structure matches `./.jester/templates/patch.yaml`)
    - [ ] Patch metadata is properly formatted (verify metadata follows `./.jester/data/metadata-propagation.md` format)
    - [ ] Patch versioning is compatible (verify patch version is compatible with current system version)
    - [ ] Patch syntax is correct and parseable (verify patches can be parsed without syntax errors)

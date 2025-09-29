@@ -23,9 +23,9 @@ project:
       - contexts/outlines/stories dirs
     - reading/{NNN} - {Story Title}/
       - characters/locations/items dirs
-      - {Story Title}-context.yaml/{Story Title}-outline.md/{Story Title}-story.md files
+      - {Story Title}-context.yaml/{Story Title}-outline.md/{Story Title}-story.md core files
     - draft/{NNN}/
-      - context-{NNN}.yaml/outline-{NNN}.md/story-{NNN}.md files
+      - context-{NNN}.yaml/outline-{NNN}.md/story-{NNN}.md core files
     - .memory/
     - .jester/
   initializationRequired: true

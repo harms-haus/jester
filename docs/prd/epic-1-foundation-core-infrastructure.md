@@ -13,7 +13,7 @@ so that **I have a foundation for building the jester storytelling system throug
 1. **Project directory structure is created** with .jester/agents/, .jester/templates/, .jester/tasks/, .jester/data/, .jester/utils/, entities/, stories/, outlines/, and contexts/ directories
 2. **Basic prompt rule files are created** for `/muse`, `/write`, and `/edit` commands following BMAD markdown format with YAML headers
 3. **Prompt rule system is functional** with clear instructions for external LLM agents to follow
-4. **File pipeline structure is established** with templates for context-template.yaml, outline-template.md, and story-template.md
+4. **File pipeline structure is established** with templates for context.yaml, outline.md, and story.md
 5. **Basic error handling is implemented** through prompt rules for invalid commands and missing files
 6. **Cross-platform compatibility is verified** through prompt rules for Windows, macOS, and Linux
 7. **README.md is updated** with basic usage instructions and project overview
