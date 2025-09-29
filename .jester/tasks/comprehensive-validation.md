@@ -32,7 +32,6 @@ To perform comprehensive validation of draft stories, ensuring they meet quality
 - **Grammar validation**: Validate that each sentence follows proper grammar
 - **Continuity validation**: Validate that each sentence and paragraph flows logicaly from one to the next
 - **Readability validation**: Validate that each sentence and paragraph is worded readibly and isn't a tongue-twister
-- **Vocabulary validation**: Validate that the vocabulary is appropriate for the audience
 
 ### 3. Cross-File Consistency Validation
 
@@ -54,7 +53,7 @@ To perform comprehensive validation of draft stories, ensuring they meet quality
 ### 5. Quality Standards Validation
 
 - **Content quality**: Validate content quality meets high standards
-- **Age appropriateness**: Ensure content is appropriate for target audience
+- **Age appropriateness**: Validate that the story content and vocabulary is age-appropriate with the following checklist: `./.jester/checklists/age-appropriateness-validation.md`
 - **Length requirements**: Verify length meets requirements
 - **Theme integration**: Validate theme integration and delivery
 - **Educational value**: Assess educational value and moral lessons

@@ -34,11 +34,12 @@ To guide stories through the publishing process from reading to universe stage, 
 - **Patch validation**: Validate patch format and structure
 - **Patch application**: Apply patches to universe entities
 - **Application verification**: Verify patch application success
-- **Conflict handling**: Handle any patch conflicts
+- **Conflict handling**: Handle any simple patch conflicts
+- **Complex conflicts**: Request guidance from the user for complex patch conflicts
 
 ### 3. Story Publishing
 
-- **File movement**: Move story from reading to universe stage
+- **File movement**: *Move* core files from reading to universe stage
 - **Metadata update**: Update story metadata and status
 - **File placement**: Ensure proper file placement
 - **Accessibility verification**: Verify story accessibility
@@ -46,9 +47,8 @@ To guide stories through the publishing process from reading to universe stage, 
 
 ### 4. Entity Integration
 
-- **Entity integration**: Integrate story entities into universe
+- **Entity integration**: Integrate story entity files into universe
 - **Reference update**: Update entity references
-- **Relationship establishment**: Establish entity relationships
 - **Consistency maintenance**: Maintain entity consistency
 - **System integration**: Integrate entities into system
 

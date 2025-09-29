@@ -20,35 +20,41 @@ To comprehensively validate and approve draft stories for progression to the rea
 
 ### 1. Draft Identification
 
-- **Draft identification**: Identify the draft to be approved
-- **Accessibility verification**: Verify draft exists and is accessible
-- **Status check**: Check draft status and completeness
-- **File validation**: Validate all required files are present
+- **Draft identification**: Identify the directory of the draft to be approved
+- **File availability**: Verify that the 3 main draft files exist and are accessible
+- **Status check**: Check draft files' status and completeness
 - **Readiness assessment**: Assess draft readiness for approval
 
 ### 2. Comprehensive Validation
 
-- **Content completeness**: Run comprehensive validation checks
-- **File presence**: Verify all required files are present
-- **Quality standards**: Ensure content quality meets standards
-- **Consistency check**: Check for internal and external consistency
-- **Entity validation**: Validate entity relationships and references
-- **Conflict detection**: Check for any conflicts or issues
+- **Content completeness**: Run comprehensive validation checks: `./.jester/tasks/comprehensive-validation.md`
+- **Quality standards**: Ensure content quality meets high standards
+- **Internal consistency**: Check for internal (in-story) consistency with valid transitions between scenes etc.
+- **External consistency**: Check for external (in-universe) consistency with valid character traits, etc.
+- **Entity validation**: Validate entity relationships are valid (e.g. a predator animal is less likely to be a friend, but it's possible)
+- **Conflict detection**: Check for any conflicting sentences or easily-confused object-subject mixups
 
 ### 3. User Approval Request
 
 - **Validation summary**: Present validation results to user
-- **Issue identification**: Identify critical and warning issues
-- **Approval options**: Present approval options to user
-- **User consultation**: Request user decision on approval
-- **Confirmation process**: Confirm user approval decision
+- **Issue identification**: Identify and number critical and warning issues
+- **Critical resolutions**: For each *critical* issue, present a potential resolution to the user
+- **Warning resolutions**: If no critical issues remain, for each *warning* issue, present a potential resolution to the user
+- **User approval**: User may agree to zero or more resolutions -> 4.a.
+- **Confirmation process**: Confirm user approval decision -> 4.b.
 
-### 4. Approval Confirmation
+### 4.a. Resolving issues
+
+- **Adapt to the User**: Be flexible and creative with your resolutions, incorporating the user's prompt, or replacing yours with theirs
+- **Methodical execution**: Execute each resolution without pausing until it is complete
+- **On completion**: Present a summary of the changes to the user
+- **Continuing resolve**: Present any remaining issues to the user for review -> 4.a.
+- **Confirmation process**: Confirm user approval decision -> 4.b.
+
+### 4.b. Approval Confirmation
 
 - **Approval processing**: Process user approval decision
 - **Decision validation**: Validate approval decision
-- **Action planning**: Plan actions based on approval decision
-- **Execution preparation**: Prepare for approval execution
 - **Status update**: Update approval status
 
 ### 5. Entity File Creation
@@ -56,12 +62,13 @@ To comprehensively validate and approve draft stories for progression to the rea
 - **New entity extraction**: Extract new entity information from context file
 - **Entity file creation**: Create new individual character, location, and item files
 - **Changed entity extraction**: Extract changed entity information from context file
-- **Patch file creation**: Create patch files for entities that exist in universe but not in reading
+- **Patch file creation**: Create *patch* files for entities that exist in universe but not in reading
+- **File structure**: Format the file following the templates in: `./.jester/templates/entity-templates.md`
 - **File organization**: Ensure proper file naming and organization
 
 ### 6. File Movement
 
-- **File relocation**: Move approved files to reading directory
+- **File relocation**: *Copy* approved core files to project reading directory
 - **Metadata update**: Update file metadata and status
 - **Directory structure**: Ensure proper directory structure
 - **Accessibility verification**: Verify file accessibility
@@ -75,7 +82,12 @@ To comprehensively validate and approve draft stories for progression to the rea
 - **Reference validation**: Validate all references are correct
 - **System integrity**: Check system integrity
 
-### 8. Generate Approval Report
+### 8. Clean Up
+
+- **Delete old files**: Delete the core files in `./draft/{NNN}/`
+- **Delete old directory**: Delete the draft directory if no files remain
+
+### 9. Generate Approval Report
 
 Provide a structured approval workflow report including:
 

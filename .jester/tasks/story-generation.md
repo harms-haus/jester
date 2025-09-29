@@ -22,7 +22,7 @@ To transform structured outlines into engaging, age-appropriate bedtime stories 
 
 ### 1. Outline File Processing
 
-- **Outline loading**: Load the outline markdown file from draft/ directory
+- **Outline loading**: Load the outline markdown file from `./draft/{NNN}/` directory
 - **Metadata extraction**: Extract target length, audience, and theme information
 - **Scene structure analysis**: Analyze scene structure and progression
 - **Character information extraction**: Extract character details from outline
