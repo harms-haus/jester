@@ -71,13 +71,12 @@ dependencies:
     - story.md
     - age-appropriateness.md
     - content.md
-    - entity-validation.md
-    - system-validation.md
+    - entity.md
+    - system.md
   data:
     - validation-principles.md
   templates:
-    - validation-report.yaml
-    - validation-checklist.yaml
+    - validation-template.yaml
 ```
 
 # Validate Agent - Content Validation

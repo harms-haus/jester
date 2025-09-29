@@ -395,5 +395,5 @@ Ready for story generation!
 
 ### Integration Files
 - `.jester/templates/context.yaml` - Enhanced with target audience placeholders
-- `.jester/data/context-generation.md` - Target audience integration
-- `.jester/data/story-generation.md` - Target audience awareness
+- `.jester/workflows/context-generation.md` - Target audience integration
+- `.jester/workflows/story-generation.md` - Target audience awareness

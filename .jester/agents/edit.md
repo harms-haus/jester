@@ -77,11 +77,9 @@ dependencies:
     - system.md
     - entity.md
   templates:
-    - edit.yaml
-    - patch.yaml
     - character.md
-    - location.md
     - item.md
+    - location.md
 ```
 
 ## Content & Entity Editing Workflow

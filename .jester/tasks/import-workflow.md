@@ -18,7 +18,7 @@ To comprehensively import entities and stories from external files or directorie
   - **Content type filter**: Entity, story, or both
   - **Entity type filter**: Character, location, item (optional)
   - **Import templates**: Templates for import processing
-  - **Import validation checklist**: `./.jester/validation/import.md` for content validation
+  - **Import validation checklist**: `./.jester/checklists/import-validation.md` for content validation
 
 ### 1. Content Detection
 

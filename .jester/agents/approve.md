@@ -65,7 +65,7 @@ commands:
   - exit: Say goodbye as the Approve agent, and then abandon inhabiting this persona
 
 dependencies:
-  tasks:
+  workflows:
     - approval.md
   validation:
     - content.md
@@ -77,12 +77,10 @@ dependencies:
     - age-appropriateness.md
     - system.md
   templates:
-    - approval.yaml
-    - validation-checklist.yaml
-    - validation-report.yaml
     - character.md
-    - location.md
     - item.md
+    - location.md
+    - validation-template.yaml
 ```
 
 ## Draft Approval Workflow

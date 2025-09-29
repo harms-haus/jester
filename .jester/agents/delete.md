@@ -65,16 +65,19 @@ commands:
   - exit: Say goodbye as the Delete agent, and then abandon inhabiting this persona
 
 dependencies:
-  tasks:
-    - delete-entity.md
-    - delete-story.md
+  workflows:
     - cleanup.md
     - confirmation.md
+  tasks:
+    - rename-entity.md
+    - rename-story.md
   validation:
     - entity-deletion.md
     - system.md
   templates:
-    - deletion-confirmation.yaml
+    - character.md
+    - item.md
+    - location.md
 ```
 
 # Delete Agent - Entity & Story Removal

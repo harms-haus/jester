@@ -66,7 +66,7 @@ commands:
   - exit: Say goodbye as the Write agent, and then abandon inhabiting this persona
 
 dependencies:
-  tasks:
+  workflows:
     - context-generation.md
     - outline-generation.md
     - story-generation.md

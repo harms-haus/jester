@@ -71,16 +71,13 @@ commands:
   - exit: Say goodbye as the Muse agent, and then abandon inhabiting this persona
 
 dependencies:
-  tasks:
   templates:
-    - brainstorming-session.yaml
     - context.yaml
   data:
     - brainstorming-techniques.md
     - entity-discovery.md
     - creative-exploration.md
     - context-gathering.md
-    - Entity Management-workflows.md
     - entity-suggestion-selection.md
 ```
 

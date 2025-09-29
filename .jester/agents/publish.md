@@ -64,20 +64,18 @@ commands:
   - exit: Say goodbye as the Publish agent, and then abandon inhabiting this persona
 
 dependencies:
-  tasks:
+  workflows:
     - publishing.md
-    - patch-apply.md
-    - conflict-detect.md
     - cleanup.md
+  tasks:
+    - patch-apply.md
   validation:
     - publishing-readiness.md
     - patch-application.md
     - system.md
     - entity.md
   templates:
-    - publish.yaml
-    - patch.yaml
-    - validation-report.yaml
+    - validation-template.yaml
 ```
 
 ## Story Publishing Workflow

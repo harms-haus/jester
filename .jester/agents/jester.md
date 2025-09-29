@@ -12,8 +12,8 @@ CRITICAL: Read the full YAML BLOCK that FOLLOWS IN THIS FILE to understand your 
 IDE-FILE-RESOLUTION:
   - FOR LATER USE ONLY - NOT FOR ACTIVATION, when executing commands that reference dependencies
   - Dependencies map to .jester/{type}/{name}
-  - type=folder (tasks|templates|checklists|data|utils|etc...), name=file-name
-  - Example: context-generation.md → .jester/data/context-generation.md
+  - type=folder (tasks|templates|workflows|data|utils|etc...), name=file-name
+  - Example: context-generation.md → .jester/workflows/context-generation.md
   - IMPORTANT: Only load these files when user requests specific command execution
 REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "create story"→*write→story-generation task, "brainstorm ideas" would be dependencies->tasks->brainstorming-session combined with dependencies->data->brainstorming-techniques.md), ALWAYS ask for clarification if no clear match.
 activation-instructions:
@@ -79,78 +79,66 @@ commands:
 
 dependencies:
   validation:
-    - content.md
-    - context.md
-    - entity.md
-    - file-organization.md
-    - outline.md
-    - story.md
-    - import.md
-    - patch-creation.md
-    - patch-application.md
-    - entity-deletion.md
-    - system.md
     - age-appropriateness.md
-    - publishing-readiness.md
     - conflict-resolution.md
+    - content.md
+    - entity.md
+    - import.md
+    - outline.md
+    - patch-application.md
+    - publishing-readiness.md
+    - story.md
+    - system.md
   tasks:
-    - context-generation.md
-    - outline-generation.md
-    - story-generation.md
-    - delete-entity.md
-    - delete-story.md
-    - conflict-detect.md
-    - conflict-resolve.md
-    - patch-create.md
     - patch-apply.md
+    - patch-create.md
     - rename-entity.md
     - rename-story.md
   templates:
+    - character.md
     - context.yaml
+    - item.md
+    - location.md
     - outline.md
     - story.md
-    - character.md
-    - location.md
-    - item.md
-    - approval.yaml
-    - deletion-confirmation.yaml
-    - import.yaml
-    - publish.yaml
-    - search.yaml
     - validation.yaml
-    - validation-checklist.yaml
-    - validation-report.yaml
-    - brainstorming-session.yaml
-    - edit.yaml
-    - patch.yaml
-    - result.yaml
     - workflow-menu.yaml
+    - memory/persona-settings.yaml
+    - memory/target-audience-profiles.yaml
   data:
-    - personas/court-jester.md
-    - personas/agatha-christie.md
-    - personas/mary-shelley.md
-    - personas/arthur.md
-    - personas/the-bard.md
-    - elicitation-methods.md
+    - audience-management.md
     - brainstorming-techniques.md
+    - content-discovery.md
+    - context-gathering.md
+    - creative-exploration.md
+    - editing-workflows.md
+    - entity-discovery.md
+    - entity-suggestion-selection.md
+    - metadata-propagation.md
+    - personas/agatha-christie.md
+    - personas/arthur.md
+    - personas/court-jester.md
+    - personas/mary-shelley.md
+    - personas/the-bard.md
+    - plot-templates.md
+    - project-initialization.md
+    - rename-task.md
+    - result-presentation.md
+    - search-queries.md
+    - user-greeting.md
     - validation-principles.md
-    - Entity Management-integration.md
+    - workflow-selection.md
   workflows:
-    - story-creation.yaml
-    - entity-management.yaml
-    - import-pipeline.yaml
-    - validation-pipeline.yaml
-    - publishing-pipeline.yaml
-    - import.md
-    - import-task.md
     - approval.md
-    - publishing.md
     - cleanup.md
     - confirmation.md
-  utils:
-    - file-operations.md
-    - entity-management.md
-    - validation-helpers.md
+    - context-generation.md
+    - editing.md
+    - import-task.md
+    - import.md
+    - outline-generation.md
+    - publishing.md
+    - story-generation.md
 ```
 
 ## Persona System

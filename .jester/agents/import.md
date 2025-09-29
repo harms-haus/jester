@@ -67,23 +67,20 @@ commands:
 dependencies:
   tasks:
     - import-workflow.md
-    - conflict-detect.md
-    - conflict-resolve.md
+  workflows:
+    - import.md
+    - import-task.md
   validation:
     - import.md
     - conflict-resolution.md
     - system.md
   templates:
-    - import.yaml
-    - validation.yaml
     - context.yaml
     - outline.md
     - story.md
     - character.md
     - location.md
     - item.md
-  workflows:
-    - import.md
 ```
 
 ## Content Import Workflow

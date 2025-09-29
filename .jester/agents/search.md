@@ -67,12 +67,8 @@ commands:
 dependencies:
   data:
     - search-queries.md
-    - Entity Management-workflows.md
     - result-presentation.md
     - content-discovery.md
-  templates:
-    - search.yaml
-    - result.yaml
 ```
 
 # Search Agent - Content Discovery

@@ -11,7 +11,7 @@
 - "new story about..."
 - "I want to create"
 - "let's make a story"
-- User has no existing draft files
+- User has no existing draft/reading files
 - First-time user
 
 ### Continue Draft Indicators
