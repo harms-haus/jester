@@ -114,3 +114,4 @@ After completing the checklist:
 Be thorough - it's better to identify entity issues now than have them cause problems later.]]
 
 - [ ] I, the Validate Agent, confirm that all applicable items above have been addressed and entities are consistent and ready for story progression.
+

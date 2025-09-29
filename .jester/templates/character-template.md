@@ -44,3 +44,4 @@ Template for creating character entities with consistent structure and metadata.
 - **Species**: {{SPECIES}}
 - **Occupation**: {{OCCUPATION}}
 ```
+

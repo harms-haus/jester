@@ -31,38 +31,23 @@ entities:
     - id: "{{CHARACTER_ID}}"
       name: "{{CHARACTER_NAME}}"
       type: "character"
-      source: "{{ENTITY_SOURCE}}"  # "local" or "lightrag"
       relevance_score: {{RELEVANCE_SCORE}}  # 0.0-1.0
       description: "{{ENTITY_DESCRIPTION}}"
       relationships: ["{{RELATED_ENTITY_1}}", "{{RELATED_ENTITY_2}}"]
-      lightrag_metadata:
-        discovered_at: "{{DISCOVERED_AT}}"
-        query_used: "{{QUERY_USED}}"
-        confidence: {{CONFIDENCE_SCORE}}
   locations:
     - id: "{{LOCATION_ID}}"
       name: "{{LOCATION_NAME}}"
       type: "location"
-      source: "{{ENTITY_SOURCE}}"  # "local" or "lightrag"
       relevance_score: {{RELEVANCE_SCORE}}  # 0.0-1.0
       description: "{{ENTITY_DESCRIPTION}}"
       atmosphere: "{{LOCATION_ATMOSPHERE}}"
-      lightrag_metadata:
-        discovered_at: "{{DISCOVERED_AT}}"
-        query_used: "{{QUERY_USED}}"
-        confidence: {{CONFIDENCE_SCORE}}
   items:
     - id: "{{ITEM_ID}}"
       name: "{{ITEM_NAME}}"
       type: "item"
-      source: "{{ENTITY_SOURCE}}"  # "local" or "lightrag"
       relevance_score: {{RELEVANCE_SCORE}}  # 0.0-1.0
       description: "{{ENTITY_DESCRIPTION}}"
       purpose: "{{ITEM_PURPOSE}}"
-      lightrag_metadata:
-        discovered_at: "{{DISCOVERED_AT}}"
-        query_used: "{{QUERY_USED}}"
-        confidence: {{CONFIDENCE_SCORE}}
 
 plot_template: "{{PLOT_TEMPLATE}}"  # e.g., "heroes_journey", "pixar", "golden_circle"
 
@@ -89,8 +74,3 @@ metadata:
   created_at: "{{CREATED_AT}}"
   last_modified: "{{LAST_MODIFIED}}"
   version: {{VERSION}}
-  lightrag_integration:
-    enabled: {{LIGHTRAG_ENABLED}}  # true/false
-    entities_discovered: {{LIGHTRAG_ENTITIES_COUNT}}  # number of entities found
-    relationships_discovered: {{LIGHTRAG_RELATIONSHIPS_COUNT}}  # number of relationships found
-    fallback_mode: {{LIGHTRAG_FALLBACK}}  # true if using fallback mode

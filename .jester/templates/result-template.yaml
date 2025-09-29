@@ -14,7 +14,6 @@ metadata:
   confidence_score: {{CONFIDENCE_SCORE}}  # 0.0-1.0
   relevance_score: {{RELEVANCE_SCORE}}  # 0.0-1.0
   match_type: "{{MATCH_TYPE}}"  # "exact", "fuzzy", "semantic", "contextual"
-  source: "{{SOURCE}}"  # "local", "lightrag", "combined"
   ranking_position: {{RANKING_POSITION}}
 
 # Result content

@@ -44,3 +44,4 @@ Template for creating location entities with consistent structure and metadata.
 - **Accessibility**: {{ACCESSIBILITY}}
 - **Population**: {{POPULATION}}
 ```
+

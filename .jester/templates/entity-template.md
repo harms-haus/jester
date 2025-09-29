@@ -126,3 +126,4 @@ Simplified entity template for characters, locations, and items with consistent 
 - **Value**: {{VALUE}}
 - **Origin**: {{ORIGIN}}
 ```
+

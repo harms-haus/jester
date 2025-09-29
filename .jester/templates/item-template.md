@@ -44,3 +44,4 @@ Template for creating item entities with consistent structure and metadata.
 - **Value**: {{VALUE}}
 - **Origin**: {{ORIGIN}}
 ```
+

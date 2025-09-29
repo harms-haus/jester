@@ -4,7 +4,6 @@
 # This template is used by the Search agent for query processing and result management
 
 search_id: "{{SEARCH_ID}}"
-search_type: "{{SEARCH_TYPE}}"  # "local", "lightrag", "combined"
 created_at: "{{CREATED_AT}}"
 last_modified: "{{LAST_MODIFIED}}"
 
@@ -39,11 +38,6 @@ sources:
     directories_searched: ["{{DIR_1}}", "{{DIR_2}}"]
     file_types: ["{{FILE_TYPE_1}}", "{{FILE_TYPE_2}}"]
     files_scanned: {{FILES_SCANNED}}
-  lightrag_database:
-    enabled: {{LIGHTRAG_ENABLED}}  # true/false
-    queries_executed: ["{{QUERY_1}}", "{{QUERY_2}}"]
-    entities_found: {{ENTITIES_FOUND}}
-    relationships_found: {{RELATIONSHIPS_FOUND}}
 
 # Search results
 results:
@@ -69,7 +63,6 @@ processing:
 performance:
   query_processing_time: "{{QUERY_PROCESSING_TIME}}"
   file_scanning_time: "{{FILE_SCANNING_TIME}}"
-  lightrag_query_time: "{{LIGHTRAG_QUERY_TIME}}"
   result_processing_time: "{{RESULT_PROCESSING_TIME}}"
   total_time: "{{TOTAL_TIME}}"
 
