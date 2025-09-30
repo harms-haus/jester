@@ -1,152 +1,95 @@
-
-
 # Editing Workflows
 
 ## Purpose
 
-Comprehensive editing workflows for content, entities, and cross-stage editing operations in the Jester system.
+Comprehensive editing workflows for content, entities, and cross-stage editing operations in the Jester system. These workflows ensure consistency and integrity when making changes to entities, stories, and plot points.
 
-## Content Editing
+## Available Editing Workflows
 
-### Content Editing Process
-"Let me help you edit and improve your content while maintaining consistency and quality."
+This directory contains specialized editing workflows for different types of changes:
 
-### Editing Approaches
-"Using various editing approaches:
+### 1. Entity Management Workflows
 
-**Content Refinement:**
-- Improving clarity and readability
-- Enhancing narrative flow and pacing
-- Strengthening character development
-- Refining dialogue and descriptions
+- **[Renaming Entities](rename-entity.md)** - Safely rename entities and update all references
+- **[Adding Entities to Stories](add-entity.md)** - Add entities to stories with proper integration
+- **[Removing Entities from Stories](remove-entity.md)** - Remove entities while maintaining integrity
+- **[Generic Entity Changes](entity-change.md)** - Handle entity description, relationship, and property changes
 
-**Structural Editing:**
-- Reorganizing content for better flow
-- Adjusting plot structure and pacing
-- Improving scene transitions
-- Enhancing story arc development
+### 2. Story Management Workflows
 
-**Style and Tone:**
-- Maintaining consistent voice and tone
-- Adjusting language for target audience
-- Improving sentence structure and variety
-- Enhancing descriptive language
+- **[Renaming Stories](rename-story.md)** - Safely rename stories and update all references
 
-**Content Integration:**
-- Ensuring consistency across files
-- Maintaining character and setting continuity
-- Updating references and links
-- Preserving story coherence"
+### 3. Plot Structure Workflows
 
-## Entity Editing
+- **[Generic Plot Point Changes](plotpoint-change.md)** - Handle plot point modifications and structure changes
 
-### Entity Editing Process
-"Let me help you edit and improve your story entities while maintaining consistency across your universe."
+## Key Principles
 
-### Entity Types
-"Editing different types of entities:
+### Cross-Contamination Prevention
 
-**Character Editing:**
-- Updating character descriptions and traits
-- Modifying character motivations and goals
-- Adjusting character relationships
-- Enhancing character development arcs
+All workflows emphasize preventing cross-contamination between `reading/` and `universe/` directories:
 
-**Location Editing:**
-- Refining location descriptions
-- Updating atmospheric details
-- Modifying location features and landmarks
-- Enhancing location significance
+- Edits in `reading/` should only trigger secondary edits in `reading/`
+- If a `universe/` file needs changes due to `reading/` edits, create or edit a `.patch` file instead
+- Never directly modify `universe/` files when working in `reading/`
 
-**Item Editing:**
-- Updating item descriptions and properties
-- Modifying item functions and purposes
-- Adjusting item relationships and connections
-- Enhancing item significance and value"
+### Reference Integrity
 
-## Cross-Stage Editing
+All workflows maintain reference integrity through:
 
-### Cross-Stage Editing Process
-"Let me help you edit content across multiple stages while maintaining consistency and integrity."
-
-### Stage Integration
-"Editing across different stages:
-
-**Context to Outline:**
-- Ensuring outline reflects context requirements
-- Maintaining character and setting consistency
-- Updating plot structure as needed
-
-**Outline to Story:**
-- Ensuring story follows outline structure
-- Maintaining character development and plot progression
-- Updating narrative elements
-
-**Story to Entities:**
-- Ensuring entity descriptions match story content
-- Maintaining character consistency
-- Preserving location details
-- Updating item properties"
-
-## Editing Guidelines
+- Wiki-link validation (`[[Entity Name]]` syntax)
+- Bidirectional relationship updates
+- Entity story appearances tracking
+- Cross-reference consistency checks
 
 ### Quality Standards
-- Content meets target audience requirements (check against `./.jester/validation/age-appropriateness.md`)
-- Language is clear and engaging (reading level matches target audience)
-- Structure is logical and well-organized (three-act structure and scene progression)
-- Style is consistent throughout (narrative voice and tone consistency)
 
-### Consistency Checks
-- Character descriptions match across files (character names, traits, and relationships match context file)
-- Setting details are consistent (location names and descriptions match context file)
-- Plot points align with story structure (outline structure matches story implementation)
-- References and links are accurate (all `[[Entity Name]]` links resolve to existing files)
+All editing workflows follow these quality standards:
 
-### Improvement Focus
-- Enhancing readability and engagement
-- Strengthening narrative elements
-- Improving character development
-- Refining plot progression
+#### Consistency Checks
 
-## Editing Results
+- Character descriptions match across files
+- Setting details are consistent
+- Plot points align with story structure
+- References and links are accurate
+- Entity relationships are bidirectional
+- Wiki-links resolve to existing files
 
-### Content Improvements
-- [Improvement 1]: [Description and impact]
-- [Improvement 2]: [Description and impact]
-- [Improvement 3]: [Description and impact]
+#### Validation Requirements
 
-### Structural Changes
-- [Change 1]: [Description and reasoning]
-- [Change 2]: [Description and reasoning]
-- [Change 3]: [Description and reasoning]
+- All `[[Entity Name]]` links have corresponding entity files
+- No orphaned references
+- No broken wiki-link syntax
+- Entity names are consistent across all references
+- Entity types match their usage context
+- Reference context is appropriate
 
-### Style Enhancements
-- [Enhancement 1]: [Description and benefit]
-- [Enhancement 2]: [Description and benefit]
-- [Enhancement 3]: [Description and benefit]
+#### Success Metrics
 
-### Consistency Updates
-- [Update 1]: [Description and scope]
-- [Update 2]: [Description and scope]
-- [Update 3]: [Description and scope]
+- **Reference Integrity**: All references updated correctly
+- **Link Integrity**: All wiki-links resolve properly
+- **System Consistency**: No broken relationships
+- **Content Quality**: Changes maintain story quality
+- **User Experience**: Changes are seamless and intuitive
 
-## Success Metrics
+## Workflow Selection Guide
 
-### Quality Improvements
-- Readability: [X/10]
-- Engagement: [X/10]
-- Consistency: [X/10]
-- Overall Quality: [X/10]
+Choose the appropriate workflow based on your editing task:
 
-### Integration Status
-- Context Integration: [X/10]
-- Outline Integration: [X/10]
-- Story Integration: [X/10]
-- Entity Integration: [X/10]
+| Task | Workflow |
+|------|----------|
+| Rename a character, location, or item | [Renaming Entities](rename-entity.md) |
+| Rename a story title | [Renaming Stories](rename-story.md) |
+| Add an entity to a story | [Adding Entities](add-entity.md) |
+| Remove an entity from a story | [Removing Entities](remove-entity.md) |
+| Update entity description or properties | [Generic Entity Changes](entity-change.md) |
+| Modify plot points or structure | [Generic Plot Point Changes](plotpoint-change.md) |
 
 ## Next Steps
 
-1. Review edited content
-2. Make any additional adjustments
-3. Proceed with next workflow stage
-4. Continue content development
+1. Select the appropriate workflow for your editing task
+2. Follow the workflow steps carefully
+3. Validate all references and links
+4. Check entity relationship integrity
+5. Proceed with next workflow stage
+6. Continue content development
