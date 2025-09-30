@@ -67,6 +67,7 @@ commands:
 dependencies:
   workflows:
     - approval.md
+    - add-entity.md
   validation:
     - content.md
     - file-organization.md
@@ -97,6 +98,7 @@ Approves a specific draft by number:
 - Checks content completeness and quality
 - Moves files to reading stage if validation passes
 - Updates draft status and metadata
+- Creates entity files from context data (see [add-entity.md](../workflows/add-entity.md) for details)
 
 ### `*all`
 Approves all pending drafts:

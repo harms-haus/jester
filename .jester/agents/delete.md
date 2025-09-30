@@ -67,10 +67,7 @@ commands:
 dependencies:
   workflows:
     - cleanup.md
-    - confirmation.md
-  tasks:
-    - rename-entity.md
-    - rename-story.md
+    - remove-entity.md
   validation:
     - entity-deletion.md
     - system.md
@@ -102,6 +99,7 @@ Deletes a character by name:
 - Double-confirms deletion in "universe" universe
 - Removes character file and all references
 - Updates related entities to remove character relationships
+- See [remove-entity.md](../workflows/remove-entity.md) for detailed workflow
 
 ### `/delete location {name}`
 Deletes a location by name:
@@ -110,6 +108,7 @@ Deletes a location by name:
 - Double-confirms deletion in "universe" universe
 - Removes location file and all references
 - Updates related entities to remove location relationships
+- See [remove-entity.md](../workflows/remove-entity.md) for detailed workflow
 
 ### `/delete item {name}`
 Deletes an item by name:
@@ -118,6 +117,7 @@ Deletes an item by name:
 - Double-confirms deletion in "universe" universe
 - Removes item file and all references
 - Updates related entities to remove item relationships
+- See [remove-entity.md](../workflows/remove-entity.md) for detailed workflow
 
 ### `/delete story {name}`
 Deletes a story by name:

@@ -7,6 +7,10 @@
 ### Initial Greeting
 "Hello! I'm here to help you rename an entity or story title. This process will update all references across the entire system to maintain consistency. Let me guide you through this comprehensive rename process."
 
+**Workflow References:**
+- For entity renaming details: See [rename-entity.md](../workflows/rename-entity.md)
+- For story renaming details: See [rename-story.md](../workflows/rename-story.md)
+
 ### Rename Type Selection
 "What would you like to rename?
 

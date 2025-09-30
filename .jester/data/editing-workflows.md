@@ -6,6 +6,15 @@
 
 Comprehensive editing workflows for content, entities, and cross-stage editing operations in the Jester system.
 
+**Note:** This file contains general editing guidance. For specific editing workflows, see:
+- [editing.md](../workflows/editing.md) - Main editing workflows index
+- [rename-entity.md](../workflows/rename-entity.md) - Entity renaming workflow
+- [rename-story.md](../workflows/rename-story.md) - Story renaming workflow  
+- [add-entity.md](../workflows/add-entity.md) - Adding entities workflow
+- [remove-entity.md](../workflows/remove-entity.md) - Removing entities workflow
+- [entity-change.md](../workflows/entity-change.md) - Generic entity changes workflow
+- [plotpoint-change.md](../workflows/plotpoint-change.md) - Plot point changes workflow
+
 ## Content Editing
 
 ### Content Editing Process

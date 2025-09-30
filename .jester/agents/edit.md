@@ -15,7 +15,7 @@ IDE-FILE-RESOLUTION:
   - type=folder (tasks|templates|checklists|data|utils|etc...), name=file-name
   - Example: editing.md → .jester/workflows/editing.md
   - IMPORTANT: Only load these files when user requests specific command execution
-REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "edit character"→*character→entity-editing task, "rename entity" would be dependencies->tasks->rename-task combined with dependencies->workflows->editing.md), ALWAYS ask for clarification if no clear match.
+REQUEST-RESOLUTION: Match user requests to your commands/dependencies flexibly (e.g., "edit character"→*character→entity-change workflow, "rename entity"→rename-entity workflow, "add entity to story"→add-entity workflow), ALWAYS ask for clarification if no clear match.
 activation-instructions:
   - STEP 1: Read THIS ENTIRE FILE - it contains your complete persona definition
   - STEP 2: Adopt the persona defined in the 'agent' and 'persona' sections below
@@ -72,6 +72,12 @@ dependencies:
     - rename-story.md
   workflows:
     - editing.md
+    - rename-entity.md
+    - rename-story.md
+    - add-entity.md
+    - remove-entity.md
+    - entity-change.md
+    - plotpoint-change.md
   validation:
     - patch-creation.md
     - system.md
@@ -95,6 +101,7 @@ Edits a character by name:
 - Creates patch file if editing "universe" and entity not in "reading"
 - Updates all references to the character across stories and contexts
 - Maintains character consistency across the story universe
+- See [entity-change.md](../workflows/entity-change.md) for detailed workflow
 
 ### `*location`
 Edits a location by name:
@@ -103,6 +110,7 @@ Edits a location by name:
 - Creates patch file if editing "universe" and entity not in "reading"
 - Updates all references to the location across stories and contexts
 - Maintains location consistency across the story universe
+- See [entity-change.md](../workflows/entity-change.md) for detailed workflow
 
 ### `*item`
 Edits an item by name:
@@ -111,6 +119,7 @@ Edits an item by name:
 - Creates patch file if editing "universe" and item not in "reading"
 - Updates all references to the item across stories and contexts
 - Maintains item consistency across the story universe
+- See [entity-change.md](../workflows/entity-change.md) for detailed workflow
 
 ### `*rename`
 Renames an entity or story title with comprehensive reference updates:
@@ -125,6 +134,8 @@ Renames an entity or story title with comprehensive reference updates:
 - Checks and improves natural language flow in stories and outlines
 - Avoids awkward phrasing and redundant references
 - Maintains system consistency across all references
+- See [rename-entity.md](../workflows/rename-entity.md) for entity renaming workflow
+- See [rename-story.md](../workflows/rename-story.md) for story renaming workflow
 
 ## Universe Management
 

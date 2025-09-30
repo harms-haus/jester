@@ -4,6 +4,12 @@
 
 Before proceeding with story progression, please go through each item in this checklist. Report the status of each item (e.g., [x] Done, [ ] Not Done, [N/A] Not Applicable) and provide brief comments if necessary.
 
+**Workflow References:**
+- For entity changes: See [entity-change.md](../workflows/entity-change.md)
+- For adding entities: See [add-entity.md](../workflows/add-entity.md)
+- For removing entities: See [remove-entity.md](../workflows/remove-entity.md)
+- For renaming entities: See [rename-entity.md](../workflows/rename-entity.md)
+
 [[LLM: INITIALIZATION INSTRUCTIONS - ENTITY VALIDATION
 
 This checklist is for VALIDATE AGENTS to validate entity consistency and reference integrity before story progression.

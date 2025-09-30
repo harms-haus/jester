@@ -70,6 +70,7 @@ dependencies:
   workflows:
     - import.md
     - import-task.md
+    - add-entity.md
   validation:
     - import.md
     - conflict-resolution.md
@@ -104,6 +105,7 @@ Imports an entity from a file:
 - Imports to appropriate import-staging/ directory
 - Provides feedback on import status
 - Suggests next steps for validation
+- See [add-entity.md](../workflows/add-entity.md) for adding entities to stories after import
 
 ### `*directory`
 Imports multiple entities/stories from a directory:

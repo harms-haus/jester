@@ -6,6 +6,8 @@
 
 To validate entity deletion for safety, impact assessment, and system integrity before removing entities from the system.
 
+**Workflow Reference:** See [remove-entity.md](../workflows/remove-entity.md) for the complete entity removal workflow.
+
 ## Instructions for Delete Agent
 
 Before deleting entities, please go through each item in this checklist. Report the status of each item (e.g., [x] Done, [ ] Not Done, [N/A] Not Applicable) and provide brief comments if necessary.

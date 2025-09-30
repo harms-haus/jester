@@ -100,6 +100,7 @@ Generates a structured YAML context file containing:
 - Only creates the context file
 - Entity files are created only after approval workflow
 - Context contains entity information as structured data only
+- See [add-entity.md](../workflows/add-entity.md) for adding entities to existing stories
 
 ### `*outline`
 Reads a context file and generates a detailed story outline including:
@@ -108,6 +109,7 @@ Reads a context file and generates a detailed story outline including:
 - Location progression and scene transitions
 - Estimated word count and pacing
 - Metadata inheritance from context
+- See [plotpoint-change.md](../workflows/plotpoint-change.md) for modifying plot points after generation
 
 ### `*story`
 Reads an outline file and generates a universe bedtime story including:

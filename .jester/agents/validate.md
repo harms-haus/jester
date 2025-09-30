@@ -73,6 +73,12 @@ dependencies:
     - content.md
     - entity.md
     - system.md
+  workflows:
+    - entity-change.md
+    - add-entity.md
+    - remove-entity.md
+    - rename-entity.md
+    - plotpoint-change.md
   data:
     - validation-principles.md
   templates:
