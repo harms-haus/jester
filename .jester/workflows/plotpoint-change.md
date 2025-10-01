@@ -8,21 +8,13 @@ To handle plot point modifications while maintaining story structure and entity 
 
 ### Story Files
 
-- **Outline files**: Update plot point structure and details
-- **Story files**: Update story content to match plot changes
-- **Context files**: Update plot template or plot points if needed
+- **Outline files**
+- **Story files**
+- **Context files**: (Optional) Update if plot changes affect file contents
 
-### Entity Files
+### Entity Files & Patches
 
-- **Entity story appearances**: Update if plot changes affect entity usage
-- **Entity relationships**: Update if plot changes affect relationships
-
-### Cross-Reference Files
-
-- **Story metadata**: Update plot-related metadata
-- **Wiki-link context**: Update context around plot-related references
-- **Cross-contamination**: Ensure that edits made to the `reading/` only trigger secondary edits in the `reading/` folder.
-- **Edit create patch**: If a file in `universe/` references an edit in `reading/` and needs to be changed because of an edit in `reading/`, DO NOT edit the file in `universe/`; create or edit the `{Entity Name}.patch` file with the change.
+- **Entity story appearances**: (Optional) Update if plot changes affect file contents
 
 ## Workflow Steps
 
@@ -42,19 +34,19 @@ To handle plot point modifications while maintaining story structure and entity 
    - Update outline files with plot changes
    - Update story content to match plot
    - Update context files if needed
-   - Update entity story appearances
+   - Update entity story appearances if needed
+   - DO NOT: cross-contaminate `reading/` and `universe/`
 
 4. **Entity Updates**
    - Update entity relationships if needed
    - Update entity story appearances
    - Update entity usage statistics
-   - DO NOT: cross-contaminate `reading/` and `universe/`
 
 5. **Validation and Verification**
-   - Verify plot structure consistency
+   - Verify plot structure consistency after change
    - Check story content alignment
    - Validate entity relationship updates
-   - Ensure system integrity
+   - Ensure filesystem structure integrity
 
 ## Quality Standards
 
@@ -77,5 +69,5 @@ To handle plot point modifications while maintaining story structure and entity 
 - **Reference Integrity**: All references updated correctly
 - **Link Integrity**: All wiki-links resolve properly
 - **System Consistency**: No broken relationships
-- **Content Quality**: Changes maintain story quality
-- **User Experience**: Changes are seamless and intuitive
+- **Content Quality**: Changes maintain story quality and length
+- **Reading Experience**: Changes are seamless

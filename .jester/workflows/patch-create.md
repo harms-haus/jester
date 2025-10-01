@@ -25,13 +25,12 @@ To create patches for changes to the complete universe when entities aren't avai
 - **Entity mapping**: Determine which entities require patches
 - **Impact assessment**: Assess impact of changes on existing entities
 - **Patch planning**: Plan patch implementation strategy
-- **Dependency analysis**: Identify any dependencies or conflicts
+- **Conflict analysis**: Identify any conflicts
 
 ### 2. Patch Generation
 
 - **Patch file creation**: Create patch files for entity changes with template: `./.jester/templates/entity.patch`
   - **File name**: The file should be named: `{Entity Name}.patch`
-- **Change documentation**: Document changes and rationale
 - **Compatibility check**: Ensure patch compatibility with target entities
 - **Format validation**: Validate patch file format and structure
 - **Metadata inclusion**: Include necessary metadata and timestamps
@@ -41,15 +40,11 @@ To create patches for changes to the complete universe when entities aren't avai
 - **Format validation**: Check patch file format and structure against template
 - **Content validation**: Verify change accuracy and completeness
 - **Conflict detection**: Ensure no conflicts or issues with existing content
-- **Application testing**: Test patch application process
-- **Integrity verification**: Verify patch integrity and completeness
 
 ### 4. Patch Documentation
 
 - **Change rationale**: Document why changes were made
-- **Implementation notes**: Include implementation guidance
-- **Dependencies**: Document any dependencies or requirements
-- **Rollback information**: Include rollback procedures if needed
+- **Conflicts**: Document any conflicts resolved
 - **Version tracking**: Include version and timestamp information
 
 ### 5. Patch Storage
@@ -57,8 +52,6 @@ To create patches for changes to the complete universe when entities aren't avai
 - **Directory organization**: Store patches in appropriate directory
 - **File naming**: Use consistent naming conventions
 - **Access permissions**: Set appropriate file permissions
-- **Backup creation**: Create backup of original entities if needed
-- **Index update**: Update patch index or registry
 
 ### 6. Generate Patch Report
 

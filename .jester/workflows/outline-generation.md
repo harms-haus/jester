@@ -31,7 +31,7 @@
 
 ### 1. Context File Processing
 
-- **Context loading**: Load the context file from draft/ directory
+- **Context loading**: Load the context file from `draft/{NNN}/` directory
 - **Story requirements extraction**: Extract target audience, length, plot template, and themes
 - **Entity information loading**: Load character, location, and item information from context
 - **Template identification**: Identify the chosen plot template
@@ -84,7 +84,7 @@
   - **Status**: Status must be set to "DRAFT" on first creation
 - **File saving**: Save outline file in `./draft/{NNN}/` directory (NNN is the current project index)
 - **Verification**: Verify file creation and content
-- **File name**: Name the file `outline-NNN.md`
+- **File name**: Name the file `outline-{NNN}.md`
 
 ### 8. Generate Outline Report
 

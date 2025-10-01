@@ -27,34 +27,25 @@ To guide stories through the publishing process from reading to universe stage, 
 - **Status check**: Check ready core files' status: It MUST be "PUBLISH" for every core file. Prompt the user to override this block or this workflow must terminate early, reverting any changes made so far.
 - **Entity consistency**: Verify entity consistency and integrity
 - **File organization**: Ensure proper file organization
-- **System readiness**: Verify system readiness for publishing
+- **Story readiness**: Verify story readiness for publishing
 
-### 2. Patch Application
+### 2. Story Publishing
 
-- **Patch discovery**: Identify all pending patches
-- **Patch validation**: Validate patch format and structure
-- **Patch application**: Apply patches to universe entities
-- **Application verification**: Verify patch application success
-- **Conflict handling**: Handle any simple patch conflicts
-- **Complex conflicts**: Request guidance from the user for complex patch conflicts
-
-### 3. Story Publishing
-
-- **File movement**: *Move* core files from reading to universe stage
+- **File management**: *COPY* core files from reading to universe stage
 - **Metadata update**: Update story metadata and status
-- **File placement**: Ensure proper file placement
+- **File placement**: Ensure proper file placement and naming
 - **Accessibility verification**: Verify story accessibility
 - **Status update**: Update system status
 
-### 4.a. New Entity Integration
+### 3. New Entity Integration
 
-- **Entity integration**: Integrate story's *new* entity files into universe
+- **Entity management**: *COPY* story's *new* entity files into universe
 - **System integration**: Integrate entities into system
 
-### 4.b. Existing Entity Patching
+### 4. Existing Entity Patching
 
 - **Entity Patching**: Patch the universe's existing entity file using the `.patch` file for the entity in the project's reading folder
-- **Patch Procedure**: Use the `./.jester/tasks/patch-apply.md` task file to apply the patch
+- **Patch Procedure**: Use the `./.jester/workflows/patch-apply.md` file to apply the patches
 - **Reference update**: Update entity references if the name changed
 - **Rename file**: Rename the file if the name changed.
 
@@ -76,6 +67,8 @@ To guide stories through the publishing process from reading to universe stage, 
   - **Update version**: Increase major version by 1
   - **Update times**: Update last edit
   - **Update status**: Ensure status reads: "PUBLISHED"
+- **Core file cleanup**: Remove story core files from reading directory
+- **Entity file cleanup**: Remove story entity files and patches from reading directory
 
 ### 7. Generate Publishing Report
 

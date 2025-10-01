@@ -99,7 +99,7 @@
   - **Status**: Status must be set to "DRAFT" on first creation
 - **File saving**: Save context file in `./draft/{NNN}/` directory (NNN is the current project index)
 - **Verification**: Verify file creation and content
-- **File name**: Name the file `context-NNN.yaml`
+- **File name**: Name the file `context-{NNN}.yaml`
 
 ### 8. Generate Context Report
 

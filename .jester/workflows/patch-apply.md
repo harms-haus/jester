@@ -22,44 +22,30 @@ To apply patches to the complete universe during the publishing process, ensurin
 ### 1. Patch Discovery
 
 - **Patch identification**: Identify all pending patches
-- **Patch integrity check**: Verify patch file integrity and completeness
-- **Compatibility verification**: Check patch compatibility with current system
-- **Dependency validation**: Validate patch requirements and dependencies
+- **Compatibility verification**: Check patch compatibility with universe files
 - **Application readiness**: Assess readiness for patch application
-
-### 2. Patch Validation
-
-- **Format validation**: Validate patch format and structure from template: `./.jester/templates/entity.patch`
 - **Content validation**: Check for conflicts with existing content
 - **Target verification**: Verify patch target entities exist
-- **Safety assessment**: Ensure patch application safety
-- **Rollback preparation**: Prepare rollback procedures if needed
 
-### 3. Patch Application
+### 2. Patch Application
 
-- **Sequential application**: Apply patches in proper sequence
 - **Entity updates**: Update entity files with patch changes
 - **Reference updates**: Update any affected references
 - **Metadata updates**: Update entity metadata and timestamps
-- **Verification**: Verify each patch application success
 
-### 4. Post-Application Verification
+### 3. Post-Application Verification
 
 - **Application verification**: Verify all patches applied successfully
 - **Error handling**: Handle any application errors or failures
 - **Entity integrity**: Validate entity integrity after changes
-- **Reference integrity**: Check reference integrity and consistency
-- **System validation**: Perform overall system validation
+- **Reference integrity**: Check reference & [[link]] integrity and consistency
 
-### 5. Cleanup Operations
+### 4. Cleanup Operations
 
-- **Applied patch cleanup**: Remove successfully applied patches
+- **Applied patch cleanup**: Remove successfully applied patch files
 - **Temporary file cleanup**: Clean up any temporary files
-- **Backup management**: Manage backup files as needed
-- **Index updates**: Update patch registry or index
-- **Logging**: Log application results and status
 
-### 6. Generate Application Report
+### 5. Generate Application Report
 
 Provide a structured patch application report including:
 

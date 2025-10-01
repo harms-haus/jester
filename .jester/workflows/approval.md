@@ -58,7 +58,7 @@ To comprehensively validate and approve draft stories for progression to the rea
 - **Decision validation**: Validate approval decision
 - **Status update**: Update approval status
 
-### 5.a. Entity File Creation
+### 5.a. New Entity File Creation
 
 - **New entity extraction**: Extract new entity information from context file
 - **Entity file creation**: Create new individual character, location, and item files based on one of these templates:
@@ -67,7 +67,7 @@ To comprehensively validate and approve draft stories for progression to the rea
   - **Item**: `./.jester/templates/item.md`
 - **File organization**: Ensure proper file naming and organization
 
-### 5.b. Changed Entity Patches
+### 5.b. Changed Entity Patch Creation
 
 - **Changed entity extraction**: Extract changed entity information from context file
 - **Patch file creation**: Create *patch* files for entities that exist in universe but not in reading: `./.jester/tasks/patch-create.md`

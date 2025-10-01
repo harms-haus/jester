@@ -25,9 +25,9 @@ The goal is ensuring all content is complete, high-quality, and ready for approv
 1. **File Structure Validation:**
 
    [[LLM: Verify all required files exist and are properly formatted]]
-   - [ ] Context file exists and is properly formatted (`context-NNN.yaml` exists in `draft/{NNN}/` directory)
-   - [ ] Outline file exists and follows template structure (`outline-NNN.md` exists and follows `./.jester/templates/outline.md`)
-   - [ ] Story file exists and meets quality standards (`story-NNN.md` exists and follows `./.jester/templates/story.md`)
+   - [ ] Context file exists and is properly formatted (`context-{NNN}.yaml` exists and follows `./.jester/templates/context.yaml`)
+   - [ ] Outline file exists and follows template structure (`outline-{NNN}.md` exists and follows `./.jester/templates/outline.md`)
+   - [ ] Story file exists and meets quality standards (`story-{NNN}.md` exists and follows `./.jester/templates/story.md`)
    - [ ] All required metadata is present (metadata section contains all required fields per `./.jester/data/metadata-propagation.md`)
 
 2. **Context File Completeness:**

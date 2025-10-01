@@ -93,7 +93,7 @@
   - **Status**: Status must be set to "DRAFT" on first creation
 - **File saving**: Save story file in `./draft/{NNN}/` directory (NNN is the current project index)
 - **Verification**: Verify file creation and content
-- **File name**: Name the file `story-NNN.md`
+- **File name**: Name the file `story-{NNN}.md`
 
 ### 9. Generate Story Report
 
