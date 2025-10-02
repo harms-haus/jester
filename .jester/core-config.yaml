@@ -1,32 +1,10 @@
-markdownExploder: true
 jester:
   jesterFile: .jester/agents/jester.md
-  jesterVersion: v2
-  jesterSharded: true
-  jesterShardedLocation: .jester
-  agentFilePattern: {name}.md
+  jesterVersion: v1
+  agentFilePattern: '{name}.md'
 jesterLoadAlwaysFiles:
-  - .jester/data/brainstorming-techniques.md
-  - .jester/data/validation-principles.md
-jesterDebugLog: .ai/debug-log.md
-jesterStoryLocation: docs/stories
-slashPrefix: Jester
+  - .jester/data/core.md
 memory:
   memoryLocation: .memory
   personaSettings: persona-settings.yaml
   targetAudienceProfiles: target-audience-profiles.yaml
-project:
-  projectStructure:
-    - .git/
-    - universe/
-      - characters/locations/items dirs
-      - contexts/outlines/stories dirs
-    - reading/{NNN} - {Story Title}/
-      - characters/locations/items dirs
-      - {Story Title}-context.yaml/{Story Title}-outline.md/{Story Title}-story.md core files
-    - draft/{NNN}/
-      - context-{NNN}.yaml/outline-{NNN}.md/story-{NNN}.md core files
-    - .memory/
-    - .jester/
-  initializationRequired: true
-  gitRequired: true

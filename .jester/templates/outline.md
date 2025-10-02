@@ -93,3 +93,7 @@ metadata:
   version: {{VERSION}}
   status: {{STATUS}}
 ```
+
+## History
+
+{{HISTORY_LIST}}

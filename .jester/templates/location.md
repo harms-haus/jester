@@ -50,3 +50,6 @@ metadata:
   status: {{STATUS}}
 ```
 
+## History
+
+{{HISTORY_LIST}}

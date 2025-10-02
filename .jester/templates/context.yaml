@@ -75,3 +75,6 @@ metadata:
   last_modified: "{{LAST_MODIFIED}}"
   version: {{VERSION}}
   status: {{STATUS}}
+
+history:
+  {{HISTORY_LIST}}
