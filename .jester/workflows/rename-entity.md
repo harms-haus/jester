@@ -9,7 +9,7 @@ To safely rename an entity (character, location, or item) and update all referen
 ### Entity Files
 
 - **Entity files themselves**: `characters/{Character Name}.md`, `locations/{Location Name}.md`, `items/{Item Name}.md`
-- **Entity patch files**: `characters/{Character Name}.patch`, etc.
+- **Entity patch files**: `characters/{Character Name}.patch.md`, etc.
 - **Universe entity files**: `universe/characters/{Entity Name}.md`, etc.
 
 ### Story Files
@@ -24,7 +24,7 @@ To safely rename an entity (character, location, or item) and update all referen
 - **Story metadata**: Files containing story metadata that reference the entity
 - **Wiki-link references**: All `[[Entity Name]]` references in any markdown file
 - **Cross-contamination**: Ensure that edits made to the `reading/` only trigger secondary edits in the `reading/` folder.
-- **Edit create patch**: If a file in `universe/` references an edit in `reading/` and needs to be changed because of an edit in `reading/`, DO NOT edit the file in `universe/`; create or edit the `{Entity Name}.patch` file with the change.
+- **Edit create patch**: If a file in `universe/` references an edit in `reading/` and needs to be changed because of an edit in `reading/`, DO NOT edit the file in `universe/`; create or edit the `{Entity Name}.patch.md` file with the change.
 
 ## Workflow Steps
 

@@ -46,7 +46,7 @@ Notes:
 **IMPORTANT: NEVER CROSS-CONTAMINATE STORY ROOTS**
 E.G. - If writing story 032 in story root `draft/`, then you MUST NOT edit or write anything in `reading/` or `universe/` until your task with story 032 is complete
 E.G. - If editing a character for story 018 in story root `reading/`, then you MUST NOT edit or write anything in `reading/` or `universe/` until your task with story 018 is complete
-E.G. - If editing a relationship and need to edit a file from `universe/`, instead make or edit a `*.patch` file in `reading/` with the changes
+E.G. - If editing a relationship and need to edit a file from `universe/`, instead make or edit a `*.patch.md` file in `reading/` with the changes
 
 ### Core Story Files
 

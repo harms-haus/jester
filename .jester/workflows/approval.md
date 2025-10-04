@@ -48,8 +48,8 @@ Validate and approve `Draft Stories` for progression to the `Reading Stage`, inc
 
 - **Changed entity extraction:** Extract changed entity information from `context-{NNN}.md`
 - **Patch file creation:** Create patch files for entities that exist in universe but have changed in this story
-- **Patch templates:** Use template `./.jester/templates/entity.patch` to create a new entity patch file
-- **File naming:** Use format `{Entity Name}.patch`
+- **Patch templates:** Use template `./.jester/templates/entity.patch.md` to create a new entity patch file
+- **File naming:** Use format `{Entity Name}.patch.md`
 - **File organization:** Store in appropriate directories:
   - `./reading/../characters/`
   - `./reading/../locations/`
@@ -73,7 +73,7 @@ Validate and approve `Draft Stories` for progression to the `Reading Stage`, inc
 
 ### 5. Clean Up
 
-- **Delete draft files:** Delete the core files in `{jesterStoryLocation}/draft/{NNN}/` and the directory
+- **Delete draft files:** Delete the core files in `./draft/{NNN}/` and the directory
 
 ### 6. Approval Report
 

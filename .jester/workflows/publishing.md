@@ -47,7 +47,7 @@ Guide stories through the publishing process from reading to universe stage, inc
 ### 5. Existing Entity Patching
 
 - **Validate destination**: Check that the destination path is not empty. If the file is missing, HALT IMMEDIATELY and ask the user what to do
-- **Apply patches**: Patch the universe's existing entity file using the `.patch` file for the entity in the project's reading folder
+- **Apply patches**: Patch the universe's existing entity file using the `.patch.md` file for the entity in the project's reading folder
 - **Follow procedure**: Use the `./.jester/workflows/patch-apply.md` file to apply the patches
 - **Update references**: Update entity references if the name changed
 - **Rename files**: Rename the file if the name changed
