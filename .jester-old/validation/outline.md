@@ -2,7 +2,7 @@
 
 # Outline Validation Checklist
 
-## Instructions for Validate Agent
+## Instructions for Agent
 
 Before proceeding with story generation, please go through each item in this checklist. Report the status of each item (e.g., [x] Done, [ ] Not Done, [N/A] Not Applicable) and provide brief comments if necessary.
 

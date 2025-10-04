@@ -1,0 +1,80 @@
+
+
+# Context Template for Write Agent
+# This template is used by the Write agent for context generation
+# IMPORTANT: This template creates ONLY the context file - no entity files are created
+# Entity files are created only after /approve command
+
+title: "{{STORY_TITLE}}"
+target_audience:
+  age_range: "{{AGE_RANGE}}"  # e.g., "5-8", "8-12", "12+"
+  reading_level: "{{READING_LEVEL}}"  # e.g., "beginner", "intermediate", "advanced"
+  selected_members: ["{{SELECTED_MEMBER_1}}", "{{SELECTED_MEMBER_2}}"]  # Array of member IDs
+  calculated_from_members: {{CALCULATED_FROM_MEMBERS}}  # true/false
+
+target_length:
+  min_words: {{MIN_WORDS}}  # e.g., 500
+  max_words: {{MAX_WORDS}}  # e.g., 1500
+  final_target: {{FINAL_TARGET}}  # e.g., 1000
+  calculated_from_members: {{CALCULATED_FROM_MEMBERS}}  # true/false
+  member_preferences:  # Details about member preferences used in calculation
+    "{{MEMBER_ID_1}}":
+      preferred_words: {{MEMBER_PREFERRED_WORDS_1}}
+      weight: {{MEMBER_WEIGHT_1}}  # For averaging when multiple members selected
+    "{{MEMBER_ID_2}}":
+      preferred_words: {{MEMBER_PREFERRED_WORDS_2}}
+      weight: {{MEMBER_WEIGHT_2}}
+
+# Entity information stored as structured data only - no individual entity files created
+entities:
+  characters:
+    - id: "{{CHARACTER_ID}}"
+      name: "{{CHARACTER_NAME}}"
+      type: "character"
+      relevance_score: {{RELEVANCE_SCORE}}  # 0.0-1.0
+      description: "{{ENTITY_DESCRIPTION}}"
+      relationships: ["{{RELATED_ENTITY_1}}", "{{RELATED_ENTITY_2}}"]
+  locations:
+    - id: "{{LOCATION_ID}}"
+      name: "{{LOCATION_NAME}}"
+      type: "location"
+      relevance_score: {{RELEVANCE_SCORE}}  # 0.0-1.0
+      description: "{{ENTITY_DESCRIPTION}}"
+      atmosphere: "{{LOCATION_ATMOSPHERE}}"
+  items:
+    - id: "{{ITEM_ID}}"
+      name: "{{ITEM_NAME}}"
+      type: "item"
+      relevance_score: {{RELEVANCE_SCORE}}  # 0.0-1.0
+      description: "{{ENTITY_DESCRIPTION}}"
+      purpose: "{{ITEM_PURPOSE}}"
+
+plot_template: "{{PLOT_TEMPLATE}}"  # e.g., "heroes_journey", "pixar", "golden_circle"
+
+plot_points:
+  - id: "{{PLOT_POINT_ID}}"
+    title: "{{PLOT_POINT_TITLE}}"
+    description: "{{PLOT_POINT_DESCRIPTION}}"
+    order: {{PLOT_POINT_ORDER}}
+
+location_progression:
+  - from: "{{FROM_LOCATION}}"
+    to: "{{TO_LOCATION}}"
+    description: "{{TRANSITION_DESCRIPTION}}"
+
+morals:
+  - "{{MORAL_1}}"
+  - "{{MORAL_2}}"
+
+themes:
+  - "{{THEME_1}}"
+  - "{{THEME_2}}"
+
+metadata:
+  created_at: "{{CREATED_AT}}"
+  last_modified: "{{LAST_MODIFIED}}"
+  version: {{VERSION}}
+  status: {{STATUS}}
+
+history:
+  {{HISTORY_LIST}}

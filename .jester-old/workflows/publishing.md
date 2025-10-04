@@ -20,33 +20,40 @@ Guide stories through the publishing process from reading to universe stage, inc
 
 ### 1. Load Core Configuration and Inputs
 
+- **Load configuration**: Load `.jester/core-config.yaml`
+- **Halt on missing config**: If the file does not exist, HALT and inform the user: "core-config.yaml not found. This file is required for publishing workflow."
+- **Extract configurations**: Extract key configurations: `jesterStoryLocation`, `jesterDebugLog`
 - **Identify inputs**: Identify and load the following inputs:
   - **Story files**: Story files in reading/ directory
   - **Entity files**: Entity files in reading/ directory
   - **Patch files**: Pending patches for application
   - **Universe structure**: Current universe structure
+  - **Publishing readiness checklist**: publishing-readiness.md for validation
 
 ### 2. Pre-Publish Validation
 
+- **Validate story completeness**: Validate story completeness and quality
 - **Check file presence**: Check all required files are present
-- **Verify status**: Check ready core files' status: It MUST be "PUBLISH" for every core file. If the status is not PUBLISH, then HALT IMMEDIATELY and prompt the user to override this block or this workflow must terminate early, reverting any changes made so far.
+- **Verify status**: Check ready core files' status: It MUST be "PUBLISH" for every core file. Prompt the user to override this block or this workflow must terminate early, reverting any changes made so far.
+- **Verify entity consistency**: Verify entity consistency and integrity
 - **Check organization**: Ensure proper file organization
+- **Verify readiness**: Verify story readiness for publishing
 
 ### 3. Story Publishing
 
-- **Validate destination**: Check that the destination path is empty. If a file exists, HALT IMMEDIATELY and ask the user what to do
 - **Manage files**: *COPY* core files from reading to universe stage
+- **Update metadata**: Update story metadata and status
 - **Place files**: Ensure proper file placement and naming
 - **Verify accessibility**: Verify story accessibility
+- **Update status**: Update system status
 
 ### 4. New Entity Integration
 
-- **Validate destination**: Check that the destination path is empty. If a file exists, HALT IMMEDIATELY and ask the user what to do
 - **Manage entities**: *COPY* story's *new* entity files into universe
+- **Integrate system**: Integrate entities into system
 
 ### 5. Existing Entity Patching
 
-- **Validate destination**: Check that the destination path is not empty. If the file is missing, HALT IMMEDIATELY and ask the user what to do
 - **Apply patches**: Patch the universe's existing entity file using the `.patch` file for the entity in the project's reading folder
 - **Follow procedure**: Use the `./.jester/workflows/patch-apply.md` file to apply the patches
 - **Update references**: Update entity references if the name changed
@@ -56,9 +63,16 @@ Guide stories through the publishing process from reading to universe stage, inc
 
 - **Verify publishing**: Verify publishing process completed successfully
 - **Validate files**: Validate all files are in correct locations
+- **Validate entities**: Validate entity integration
+- **Validate references**: Validate all references are correct
+- **Check integrity**: Check system integrity
 
 ### 7. Cleanup Operations
 
+- **Clean temporary files**: Remove temporary files
+- **Clean staging**: Clean up staging directories
+- **Update references**: Update references and metadata
+- **Perform cleanup**: Perform system cleanup operations
 - **Update metadata**: Update metadata for all files:
   - **Update version**: Increase major version by 1
   - **Update times**: Update last edit
@@ -80,30 +94,51 @@ Provide a structured publishing workflow report including:
 
 #### Pre-Publish Validation
 
+- Story completeness validation
 - File presence check
+- Entity consistency validation
 - File organization check
+- System readiness verification
 
 #### Patch Application
 
 - Patches discovered
+- Patch validation results
 - Patch application results
+- Application verification
 - Conflict resolution
 
 #### Story Publishing
 
 - Files moved to universe
+- Metadata updates completed
 - File placement verification
 - Accessibility verification
+- Status updates
 
 #### Entity Integration
 
 - Entities integrated
 - Reference updates completed
 - Relationships established
+- Consistency maintained
+- System integration
+
+#### Post-Publish Validation
+
+- Publishing verification
+- File validation results
+- Entity validation results
+- Reference validation results
+- System integrity check
 
 #### Cleanup Operations
 
-- Reading files deleted
+- Temporary files removed
+- Staging cleanup completed
+- Reference cleanup completed
+- System cleanup completed
+- Status updates
 
 #### Final Assessment
 

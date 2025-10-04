@@ -63,6 +63,7 @@ All editing workflows follow these quality standards:
 - Entity names are consistent across all references
 - Entity types match their usage context
 - Reference context is appropriate
+- `./.jester/data/audience-appropriateness.md`
 
 #### Success Metrics
 
