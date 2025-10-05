@@ -2,358 +2,223 @@
 
 const fs = require('fs');
 const path = require('path');
-const chalk = require('chalk');
 
 /**
- * Cursor IDE Converter
+ * Cursor IDE Converter for Jester Framework
  * 
- * Converts Jester framework files to Cursor-specific formats:
- * - Converts .md files to .mdc files with proper front matter
- * - Creates .cursorrules file for project-specific AI rules
- * - Creates cursor-config.json for IDE configuration
- * - Places files in the .cursor/ directory as per Cursor documentation
+ * Converts .jester files to Cursor IDE format:
+ * - Creates .cursorrules file with Jester framework instructions
+ * - Preserves file references and locations
  */
 
 /**
- * Convert Jester framework files for Cursor IDE
- * @param {string} sourceDir - Source directory containing .jester files
- * @param {string} targetDir - Target directory (usually .jester)
- * @returns {Promise<boolean>} - Success status
+ * Parse YAML block from markdown content
+ */
+function parseYamlBlock(content) {
+  const yamlMatch = content.match(/```yaml\n([\s\S]*?)\n```/);
+  if (!yamlMatch) {
+    throw new Error('Could not find YAML block in content');
+  }
+  
+  const yamlText = yamlMatch[1];
+  const config = {};
+  
+  // Simple YAML parser for our specific structure
+  const lines = yamlText.split('\n');
+  let currentKey = null;
+  let currentValue = [];
+  let inList = false;
+  let indentLevel = 0;
+  
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const trimmed = line.trim();
+    
+    // Skip empty lines and comments
+    if (!trimmed || trimmed.startsWith('#')) continue;
+    
+    // Check for key-value pairs
+    const colonIndex = line.indexOf(':');
+    if (colonIndex > 0) {
+      const key = line.substring(0, colonIndex).trim();
+      const value = line.substring(colonIndex + 1).trim();
+      
+      if (value) {
+        // Simple key-value
+        config[key] = value;
+        currentKey = null;
+        currentValue = [];
+        inList = false;
+      } else {
+        // Start of a complex value
+        currentKey = key;
+        currentValue = [];
+        inList = false;
+        indentLevel = line.length - line.trimStart().length;
+      }
+    } else if (currentKey) {
+      // Part of a complex value
+      const currentIndent = line.length - line.trimStart().length;
+      
+      if (trimmed.startsWith('-')) {
+        // List item
+        if (!inList) {
+          inList = true;
+          currentValue = [];
+        }
+        currentValue.push(trimmed.substring(1).trim());
+      } else if (currentIndent > indentLevel) {
+        // Indented content (preserve as string)
+        if (!config[currentKey]) {
+          config[currentKey] = '';
+        }
+        config[currentKey] += (config[currentKey] ? '\n' : '') + trimmed;
+      } else {
+        // End of complex value
+        if (inList && currentValue.length > 0) {
+          config[currentKey] = currentValue;
+        }
+        currentKey = null;
+        currentValue = [];
+        inList = false;
+      }
+    }
+  }
+  
+  // Handle final value
+  if (currentKey && inList && currentValue.length > 0) {
+    config[currentKey] = currentValue;
+  }
+  
+  return config;
+}
+
+/**
+ * Convert Jester files for Cursor IDE
+ * @param {string} sourceDir - Source .jester directory
+ * @param {string} targetDir - Target directory (usually same as source)
+ * @returns {boolean} - Success status
  */
 async function convertForCursor(sourceDir, targetDir) {
   try {
-    console.log(chalk.blue('🎯 Converting files for Cursor IDE...'));
+    console.log('🎯 Converting Jester files for Cursor IDE...');
     
-    // Create .cursor directory structure at project root level
-    const projectRoot = path.dirname(targetDir);
-    const cursorDir = path.join(projectRoot, '.cursor');
-    await createCursorDirectoryStructure(cursorDir);
+    // Convert agents/jester.md to Cursor .cursorrules
+    await convertJesterAgentToCursorRules(sourceDir, targetDir);
     
-    // Convert markdown files to .mdc format
-    await convertMarkdownToMdc(sourceDir, cursorDir);
-    
-    // Create .cursorrules file
-    await createCursorRules(cursorDir);
-    
-    // Create cursor-config.json
-    await createCursorConfig(cursorDir);
-    
-    console.log(chalk.green('✅ Cursor conversion completed successfully!'));
+    console.log('✅ Cursor IDE conversion completed successfully!');
     return true;
     
   } catch (error) {
-    console.error(chalk.red('❌ Cursor conversion failed:'), error.message);
+    console.error('❌ Error during Cursor IDE conversion:', error.message);
     return false;
   }
 }
 
 /**
- * Create Cursor directory structure
+ * Convert agents/jester.md to Cursor .cursorrules format
  */
-async function createCursorDirectoryStructure(cursorDir) {
-  console.log(chalk.gray('📁 Creating .cursor directory structure...'));
+async function convertJesterAgentToCursorRules(sourceDir, targetDir) {
+  const jesterAgentPath = path.join(sourceDir, 'agents', 'jester.md');
   
-  // Create main .cursor directory
-  fs.mkdirSync(cursorDir, { recursive: true });
-  
-  // Create subdirectories
-  const subdirs = ['rules', 'config', 'docs'];
-  for (const subdir of subdirs) {
-    const subdirPath = path.join(cursorDir, subdir);
-    fs.mkdirSync(subdirPath, { recursive: true });
-    console.log(chalk.green(`  ✅ Created .cursor/${subdir}/`));
-  }
-}
-
-/**
- * Convert markdown files to .mdc format
- */
-async function convertMarkdownToMdc(sourceDir, cursorDir) {
-  console.log(chalk.gray('📄 Converting markdown files to .mdc format...'));
-  
-  const markdownFiles = getAllMarkdownFiles(sourceDir);
-  let convertedCount = 0;
-  
-  for (const file of markdownFiles) {
-    const relativePath = path.relative(sourceDir, file);
-    const filename = path.basename(file, '.md');
-    const dir = path.dirname(path.join(cursorDir, 'docs', relativePath));
-    
-    // Create directory structure in .cursor/docs
-    fs.mkdirSync(dir, { recursive: true });
-    
-    // Convert to .mdc
-    await convertToMdc(file, dir, filename);
-    convertedCount++;
+  if (!fs.existsSync(jesterAgentPath)) {
+    console.warn('⚠️  agents/jester.md not found, skipping .cursorrules conversion');
+    return;
   }
   
-  console.log(chalk.green(`  ✅ Converted ${convertedCount} markdown files to .mdc`));
-}
-
-/**
- * Convert a single markdown file to .mdc format
- */
-async function convertToMdc(sourceFile, targetDir, filename) {
-  const content = fs.readFileSync(sourceFile, 'utf8');
+  const jesterContent = fs.readFileSync(jesterAgentPath, 'utf8');
   
-  // Generate MDC front matter based on Cursor documentation
-  const frontMatter = generateMdcFrontMatter(filename, content);
-  const mdcContent = frontMatter + '\n' + content;
-  
-  // Write .mdc file
-  const mdcPath = path.join(targetDir, `${filename}.mdc`);
-  fs.writeFileSync(mdcPath, mdcContent, 'utf8');
-  
-  console.log(chalk.green(`    ✅ ${filename}.md → ${filename}.mdc`));
-}
-
-/**
- * Generate MDC front matter according to Cursor documentation
- */
-function generateMdcFrontMatter(filename, content) {
-  // Extract description from content
-  const lines = content.split('\n');
-  let description = 'Jester framework file';
-  
-  // Try to find a description from the first few lines
-  for (let i = 0; i < Math.min(5, lines.length); i++) {
-    const line = lines[i].trim();
-    if (line && !line.startsWith('#') && !line.startsWith('*') && line.length > 10) {
-      description = line.replace(/[#*`]/g, '').trim();
-      break;
-    }
+  // Extract YAML configuration from jester.md
+  let jesterConfig;
+  try {
+    jesterConfig = parseYamlBlock(jesterContent);
+  } catch (error) {
+    throw new Error(`Failed to parse YAML configuration: ${error.message}`);
   }
   
-  // Determine globs based on filename and content
-  let globs = ['**/*'];
-  let alwaysApply = true;
-  
-  if (filename.includes('agent')) {
-    globs = ['**/*.md', '**/*.mdc', '**/*.js', '**/*.ts', '**/*.jsx', '**/*.tsx'];
-    alwaysApply = true;
-  } else if (filename.includes('config')) {
-    globs = ['**/*.json', '**/*.yaml', '**/*.yml', '**/*.config.*'];
-    alwaysApply = true;
-  } else if (filename.includes('template')) {
-    globs = ['**/*.md', '**/*.mdc'];
-    alwaysApply = false;
-  } else if (filename.includes('prompt')) {
-    globs = ['**/*.md', '**/*.mdc', '**/*.txt'];
-    alwaysApply = true;
+  // Create Cursor .cursorrules content
+  const cursorRules = `# Jester Story Framework - Cursor IDE Rules
+
+You are ${jesterConfig.agent?.name || 'Jester'}, ${jesterConfig.persona?.role || 'a story framework assistant'}.
+
+## Identity & Style
+${jesterConfig.persona?.identity ? `Identity: ${jesterConfig.persona.identity}` : ''}
+${jesterConfig.persona?.style ? `Style: ${jesterConfig.persona.style}` : ''}
+${jesterConfig.persona?.focus ? `Focus: ${jesterConfig.persona.focus}` : ''}
+
+## Core Principles
+${jesterConfig.core_principles?.map(principle => `- ${principle}`).join('\n') || ''}
+
+## Command System
+All Jester commands use the \`*\` prefix. When users type these commands, execute the corresponding workflows:
+
+${jesterConfig.commands?.map(cmd => {
+  if (typeof cmd === 'object') {
+    const cmdName = Object.keys(cmd)[0];
+    const cmdDesc = cmd[cmdName];
+    return `- \`*${cmdName}\`: ${cmdDesc}`;
   }
-  
-  // Generate front matter according to Cursor's .mdc format
-  return `---
-description: "${description}"
-globs: ${JSON.stringify(globs)}
-alwaysApply: ${alwaysApply}
-context: "jester-framework"
----`;
-}
+  return `- ${cmd}`;
+}).join('\n') || ''}
 
-/**
- * Create .cursorrules file for project-specific AI rules
- */
-async function createCursorRules(cursorDir) {
-  console.log(chalk.gray('📝 Creating .cursorrules file...'));
-  
-  const cursorRulesPath = path.join(cursorDir, '.cursorrules');
-  const cursorRulesContent = `# Jester Framework Rules for Cursor
+## File Structure & References
+The Jester framework maintains this directory structure:
+- **Agent configurations**: \`.jester/agents/\` - Agent definitions and configurations
+- **Workflows**: \`.jester/workflows/\` - Step-by-step workflow definitions  
+- **Templates**: \`.jester/templates/\` - File templates for various content types
+- **Data files**: \`.jester/data/\` - Reference data, plot structures, and core information
+- **Core config**: \`.jester/core-config.yaml\` - Main framework configuration
 
-## Project Overview
-This is a Jester storytelling framework project. Jester is an AI-powered bedtime story creation system that helps create consistent, personalized stories through a hierarchical command structure.
+**IMPORTANT**: Always preserve file references to their original \`.jester/\` locations. Do not move or rename existing files.
 
-## Agent System
-The project uses a multi-agent system with the following agents:
+## Workflow Execution Rules
+1. Load \`.jester/core-config.yaml\` before any greeting
+2. Only load context files when user requests specific command execution
+3. Follow workflow instructions exactly as written in \`.jester/workflows/\` files
+4. Tasks with elicit=true require user interaction - never skip for efficiency
+5. Maintain character throughout all interactions
+6. Use numbered lists when presenting choices to users
+7. Apply persona system consistently - select random persona at startup, maintain throughout session
+8. Never apply persona to tool output, only to agent-user interactions
 
-### Core Agents
-- **@jester** - Main story generation and management agent
-  - Commands: generate, manage, organize, structure
-  - Use for: Overall story planning and coordination
-  
-- **@muse** - Creative inspiration and brainstorming agent
-  - Commands: inspire, brainstorm, ideate, create
-  - Use for: Creative concepts, character development, plot ideas
-  
-- **@write** - Content creation and editing agent
-  - Commands: write, create, compose, draft
-  - Use for: Writing story content, dialogue, descriptions
-  
-- **@edit** - Story refinement and revision agent
-  - Commands: edit, revise, refine, polish
-  - Use for: Improving existing content, fixing issues
-  
-- **@validate** - Quality assurance and testing agent
-  - Commands: validate, test, check, verify
-  - Use for: Ensuring story quality and consistency
-  
-- **@publish** - Final publication and distribution agent
-  - Commands: publish, deploy, release, distribute
-  - Use for: Finalizing and sharing completed stories
+## Key Behaviors
+- Welcome users and understand their intent, be funny or punny
+- Present clear command options and guidance  
+- Guide users to appropriate specialized agents
+- Maintain context across command transitions
+- Provide essential guidance only - avoid unnecessary elaboration unless sought out
+- Apply persona system consistently
+- Numbered Options - Always use numbered lists when presenting choices
 
-## File Structure
-- \`.jester/\` contains all framework files
-- \`.cursor/\` contains Cursor-specific files and configurations
-- Use \`.mdc\` files for Cursor-specific markdown with front matter
-- Keep original \`.md\` files as backup
+## Usage Examples
+${jesterContent.split('## Examples')[1]?.split('##')[0]?.trim() || ''}
 
-## Best Practices
-1. **Always use the appropriate agent** for the task at hand
-2. **Follow the established story structure** defined in templates
-3. **Maintain consistency** across all content and characters
-4. **Use validation tools** before publishing any content
-5. **Respect the hierarchical command structure** of the framework
+## Critical Rules
+- Read the full YAML BLOCK in agents/jester.md to understand operating params
+- Stay in character until told to exit this mode
+- When executing formal workflows from dependencies, ALL task instructions override any conflicting base behavioral constraints
+- Interactive workflows with elicit=true REQUIRE user interaction and cannot be bypassed for efficiency
+- Keep context tidy - do NOT load any other files during startup aside from assigned story and jesterLoadAlwaysFiles items
+- Do NOT begin story creation until a project is initialized and you are told to proceed
+- On activation, ONLY greet user, auto-run \`*help\`, and then HALT to await user requested assistance or given commands
 
-## Code Style
-- Use clear, descriptive variable and function names
-- Follow the existing code patterns in the framework
-- Add comments for complex logic
-- Maintain consistent formatting
+## File Loading Priority
+1. Always load: \`.jester/core-config.yaml\` and jesterLoadAlwaysFiles items
+2. Load context files only when user selects them for execution via command or relevant request
+3. The agent.customization field ALWAYS takes precedence over any conflicting instructions
+4. CRITICAL WORKFLOW RULE: When executing workflows, follow workflow instructions exactly as written - they are executable tasks, not reference material
 
-## Story Creation Guidelines
-- Start with @jester for overall structure
-- Use @muse for creative brainstorming
-- Write content with @write
-- Refine with @edit
-- Validate with @validate
-- Publish with @publish
-
-## Context Awareness
-- Always consider the target audience (children)
-- Maintain age-appropriate content
-- Ensure stories are educational and entertaining
-- Follow the established character and world consistency rules
+## Error Handling
+Handle errors gracefully to maintain user experience and story continuity.
 `;
   
-  fs.writeFileSync(cursorRulesPath, cursorRulesContent, 'utf8');
-  console.log(chalk.green('  ✅ Created .cursorrules'));
+  // Write the .cursorrules file
+  const cursorRulesPath = path.join(targetDir, '.cursorrules');
+  fs.writeFileSync(cursorRulesPath, cursorRules);
+  
+  console.log('📝 Created Cursor .cursorrules file');
 }
 
-/**
- * Create cursor-config.json for IDE configuration
- */
-async function createCursorConfig(cursorDir) {
-  console.log(chalk.gray('⚙️  Creating cursor-config.json...'));
-  
-  const configPath = path.join(cursorDir, 'cursor-config.json');
-  const configContent = {
-    "version": "1.0.0",
-    "framework": "jester",
-    "description": "Jester storytelling framework configuration for Cursor IDE",
-    "agents": {
-      "@jester": {
-        "description": "Main story generation and management agent",
-        "commands": ["generate", "manage", "organize", "structure"],
-        "priority": "high",
-        "autoActivate": true,
-        "context": "project-wide"
-      },
-      "@muse": {
-        "description": "Creative inspiration and brainstorming agent",
-        "commands": ["inspire", "brainstorm", "ideate", "create"],
-        "priority": "medium",
-        "autoActivate": false,
-        "context": "creative"
-      },
-      "@write": {
-        "description": "Content creation and editing agent",
-        "commands": ["write", "create", "compose", "draft"],
-        "priority": "high",
-        "autoActivate": true,
-        "context": "content"
-      },
-      "@edit": {
-        "description": "Story refinement and revision agent",
-        "commands": ["edit", "revise", "refine", "polish"],
-        "priority": "high",
-        "autoActivate": true,
-        "context": "revision"
-      },
-      "@validate": {
-        "description": "Quality assurance and testing agent",
-        "commands": ["validate", "test", "check", "verify"],
-        "priority": "medium",
-        "autoActivate": false,
-        "context": "quality"
-      },
-      "@publish": {
-        "description": "Final publication and distribution agent",
-        "commands": ["publish", "deploy", "release", "distribute"],
-        "priority": "low",
-        "autoActivate": false,
-        "context": "publication"
-      }
-    },
-    "settings": {
-      "autoConvert": true,
-      "backupOriginals": true,
-      "validateOnSave": true,
-      "enableAgentShortcuts": true,
-      "showAgentSuggestions": true
-    },
-    "paths": {
-      "framework": ".jester/",
-      "cursor": ".cursor/",
-      "stories": "stories/",
-      "assets": "assets/",
-      "output": "output/"
-    },
-    "features": {
-      "mdcSupport": true,
-      "agentIntegration": true,
-      "contextAwareness": true,
-      "autoCompletion": true
-    }
-  };
-  
-  fs.writeFileSync(configPath, JSON.stringify(configContent, null, 2), 'utf8');
-  console.log(chalk.green('  ✅ Created cursor-config.json'));
-}
-
-/**
- * Get all markdown files recursively
- */
-function getAllMarkdownFiles(dir) {
-  const files = [];
-  
-  function traverse(currentDir) {
-    const items = fs.readdirSync(currentDir);
-    
-    for (const item of items) {
-      const fullPath = path.join(currentDir, item);
-      const stat = fs.statSync(fullPath);
-      
-      if (stat.isDirectory()) {
-        traverse(fullPath);
-      } else if (item.endsWith('.md')) {
-        files.push(fullPath);
-      }
-    }
-  }
-  
-  traverse(dir);
-  return files;
-}
-
-// Export the main conversion function
 module.exports = {
   convertForCursor
 };
-
-// If run directly, execute the conversion
-if (require.main === module) {
-  const args = process.argv.slice(2);
-  if (args.length < 2) {
-    console.error('Usage: node cursor.js <sourceDir> <targetDir>');
-    process.exit(1);
-  }
-  
-  convertForCursor(args[0], args[1])
-    .then(success => {
-      process.exit(success ? 0 : 1);
-    })
-    .catch(error => {
-      console.error('Error:', error.message);
-      process.exit(1);
-    });
-}

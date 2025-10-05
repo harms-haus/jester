@@ -1,7 +1,0 @@
-jester:
-  jesterFile: .jester/agents/jester.md
-  jesterVersion: v1
-  agentFilePattern: '{name}.md'
-jesterLoadAlwaysFiles:
-  - .jester/data/core.md
-  - .memory/.preferences
