@@ -49,10 +49,17 @@ core_principles:
 context_files:
   - data:
     - audience-appropriateness.md
-    - plot/fichtean-curve.md
-    - plot/harmons-story-circle.md
-    - plot/heros-journey.md
-    - plot/pixar-method.md
+    - personas:
+      - agatha-christie.md
+      - arthur.md
+      - court-jester.md
+      - mary-shelley.md
+      - the-bard.md
+    - plot:
+      - fichtean-curve.md
+      - harmons-story-circle.md
+      - heros-journey.md
+      - pixar-method.md
   - templates:
     - character.md
     - context.yaml
