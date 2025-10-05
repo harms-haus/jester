@@ -1,7 +1,13 @@
-# Outline Template for Write Agent
-# This template is used by the Write agent for outline generation
+# {{STORY_TITLE}}
 
-## {{STORY_TITLE}}
+```yaml
+metadata:
+  created_at: "{{CREATED_AT}}"
+  last_modified: "{{LAST_MODIFIED}}"
+  version: {{VERSION}}
+  status: {{STATUS}}
+```
+
 
 **Target Audience:** {{AGE_RANGE}} ({{READING_LEVEL}} level)
 **Target Length:** {{MIN_WORDS}}-{{MAX_WORDS}} words ({{FINAL_TARGET}} target)
@@ -85,14 +91,6 @@
 **Reading Time:** {{READING_TIME_MINUTES}} minutes
 
 ---
-
-```yaml
-metadata:
-  created_at: "{{CREATED_AT}}"
-  last_modified: "{{LAST_MODIFIED}}"
-  version: {{VERSION}}
-  status: {{STATUS}}
-```
 
 ## History
 

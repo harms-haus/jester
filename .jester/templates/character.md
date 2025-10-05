@@ -1,13 +1,12 @@
-# Character Template
-
-## Purpose
-
-Template for creating character entities with consistent structure and metadata.
-
-## Template Structure
-
-```markdown
 # {{CHARACTER_NAME}}
+
+```yaml
+metadata:
+  created_at: "{{CREATED_AT}}"
+  last_modified: "{{LAST_MODIFIED}}"
+  version: {{VERSION}}
+  status: {{STATUS}}
+```
 
 ## Description
 
@@ -38,17 +37,8 @@ Template for creating character entities with consistent structure and metadata.
 - **Gender**: {{GENDER}}
 - **Species**: {{SPECIES}}
 - **Occupation**: {{OCCUPATION}}
-```
 
 ---
-
-```yaml
-metadata:
-  created_at: "{{CREATED_AT}}"
-  last_modified: "{{LAST_MODIFIED}}"
-  version: {{VERSION}}
-  status: {{STATUS}}
-```
 
 ## History
 

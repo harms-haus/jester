@@ -1,13 +1,12 @@
-# Location Template
-
-## Purpose
-
-Template for creating location entities with consistent structure and metadata.
-
-## Template Structure
-
-```markdown
 # {{LOCATION_NAME}}
+
+```yaml
+metadata:
+  created_at: "{{CREATED_AT}}"
+  last_modified: "{{LAST_MODIFIED}}"
+  version: {{VERSION}}
+  status: {{STATUS}}
+```
 
 ## Description
 
@@ -38,17 +37,8 @@ Template for creating location entities with consistent structure and metadata.
 - **Size**: {{SIZE}}
 - **Accessibility**: {{ACCESSIBILITY}}
 - **Population**: {{POPULATION}}
-```
 
 ---
-
-```yaml
-metadata:
-  created_at: "{{CREATED_AT}}"
-  last_modified: "{{LAST_MODIFIED}}"
-  version: {{VERSION}}
-  status: {{STATUS}}
-```
 
 ## History
 

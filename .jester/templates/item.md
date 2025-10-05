@@ -1,13 +1,12 @@
-# Item Template
-
-## Purpose
-
-Template for creating item entities with consistent structure and metadata.
-
-## Template Structure
-
-```markdown
 # {{ITEM_NAME}}
+
+```yaml
+metadata:
+  created_at: "{{CREATED_AT}}"
+  last_modified: "{{LAST_MODIFIED}}"
+  version: {{VERSION}}
+  status: {{STATUS}}
+```
 
 ## Description
 
@@ -38,17 +37,8 @@ Template for creating item entities with consistent structure and metadata.
 - **Rarity**: {{RARITY}}
 - **Value**: {{VALUE}}
 - **Origin**: {{ORIGIN}}
-```
 
 ---
-
-```yaml
-metadata:
-  created_at: "{{CREATED_AT}}"
-  last_modified: "{{LAST_MODIFIED}}"
-  version: {{VERSION}}
-  status: {{STATUS}}
-```
 
 ## History
 

@@ -18,48 +18,40 @@ Generate rich, detailed story contexts for bedtime stories that captivate childr
 
 ***CRITICAL: Do not proceed to the next task until the current task is complete***
 
-### 1. Load Core Configuration and Inputs
+### 1. Load Inputs
 
-- **Load configuration**: Load `.jester/core-config.yaml`
-- **Halt on missing config**: If the file does not exist, HALT and inform the user: "core-config.yaml not found. This file is required for context generation."
-- **Extract configurations**: Extract key configurations: `jesterStoryLocation`, `jesterDebugLog`
 - **Identify inputs**: Identify and load the following inputs:
   - **Story requirements**: Concept, target audience, length, preferences
   - **Plot templates**: Available story structure templates
-  - **Character templates**: Character development templates
-  - **Location templates**: Setting development templates
+- **Plot points**: Collect suggested plot points or template
+- **Suggested entities**: Collect suggested entities, new and established
 
-### 2. Story Requirements Gathering
+### 2. Plot Template Selection
 
-- **Collect concept**: Collect story concept and theme
-- **Analyze audience**: Analyze target audience and age requirements
-- **Determine length**: Determine appropriate story length
-- **Gather preferences**: Collect user preferences and requirements
-- **Select template**: Select appropriate plot template
-
-### 3. Plot Template Selection
-
-- **Analyze templates**: Analyze available plot templates
-- **Choose structure**: Choose appropriate story structure
+- **Select template**: If no plot template has been suggested, select an *appropriate* plot from `./.jester/data/plot/`:
+  - [Fichtean Curve](fichtean-curve.md)
+  - [Harmon's Circle](harmons-story-circle.md)
+  - [Hero's Journey](heros-journey.md)
+  - [Pixar Method](pixar-method.md)
 - **Plan structure**: Plan story structure according to template
 - **Define points**: Define key plot points
 - **Integrate themes**: Integrate moral lessons and educational elements
 
-### 4. Character Profile Creation
+### 3. Character Development
 
-- **Develop main character**: Develop detailed main character profile
-- **Create supporting characters**: Create supporting character profiles
-- **Establish relationships**: Establish character relationships
-- **Plan character arcs**: Plan character development throughout story
-- **Define personalities**: Define character personalities and traits
+- **Retrieve established characters**: Find established characters that may fit in the story
+- **Design new characters**: For any gaps in characters, create new ones: `./.jester/workflows/character-creation.md`
 
-### 5. Setting Establishment
+### 4. Location Establishment
 
-- **Create locations**: Create rich, immersive locations
-- **Develop settings**: Develop detailed setting descriptions
-- **Create atmosphere**: Create appropriate atmosphere and mood
-- **Connect locations**: Establish connections between locations
-- **Include sensory details**: Include sensory details for immersion
+- **Retrieve established locations**: Find established locations that may fit in the story
+- **Design new locations**: For any gaps in locations, create new ones: `./.jester/workflows/location-creation.md`
+
+### 5. Item Development
+
+- **Determine necessity**: Determine if any items are required
+- **Retrieve established items**: Find established items that may fit in the story
+- **Design new items**: For any gaps in items, create new ones: `./.jester/workflows/item-creation.md` 
 
 ### 6. Plot Structure Development
 
@@ -72,10 +64,11 @@ Generate rich, detailed story contexts for bedtime stories that captivate childr
 ### 7. Content Validation
 
 - **Check age appropriateness**: Ensure content is appropriate for target audience
-- **Verify coherence**: Verify story coherence and logical flow
-- **Ensure character consistency**: Ensure character consistency
-- **Ensure setting consistency**: Ensure setting consistency
-- **Verify theme integration**: Verify theme integration
+- **Verify coherence**: Verify story coherence to plot structure and logical flow
+- **Ensure character consistency**: Ensure characters develop consistently with their core identity
+- **Ensure setting consistency**: Ensure setting is consistently described and supports physical transition logic
+- **Ensure item consistency**: Ensure items are tracked through the story and could physically exist there
+- **Verify theme integration**: Verify theme integration with story plot points
 - **Check appropriate messaging**: `./.jester/data/audience-appropriateness.md`
 
 ### 8. Context File Creation
@@ -101,19 +94,21 @@ Provide a structured context generation report including:
 
 #### Character Development
 
-- Main character profile
+- Driving character profile
 - Supporting character profiles
 - Character relationships
 - Character arcs planned
 - Personality traits defined
 
-#### Setting Development
+#### Locations Development
 
-- Locations created
-- Setting details developed
-- Atmosphere established
-- Location connections
-- Sensory details included
+- New Locations
+- Chosen established locations
+
+#### Items Development
+
+- New Items
+- Chosen established items
 
 #### Plot Structure
 
@@ -141,28 +136,6 @@ Provide a structured context generation report including:
 ## Error Handling
 
 ***CRITICAL: Handle errors gracefully to maintain user experience***
-
-### Common Error Scenarios
-
-*Note: not as important as regular error handling*
-
-- **Missing Story Concept:**
-  "I need more information about your story idea. Could you tell me more about the adventure, characters, or themes you have in mind?"
-
-- **Incomplete Requirements:**
-  "The story requirements appear to be incomplete. I can try to generate the context, but it might lack detail in certain sections. Would you like to provide more information?"
-
-- **Target Audience Integration:**
-  "I notice you have target audience member profiles available. Would you like me to use their preferences to automatically calculate the age range and story length? This will ensure the story is perfectly tailored to your children's needs."
-
-- **Target Audience Calculation Failure:**
-  "Unable to calculate parameters from target audience members. I'll use default parameters instead. You can check your target audience profiles with '/jester audience list' and update them if needed."
-
-- **Template Mismatch:**
-  "There seems to be a mismatch between your story concept and the chosen plot template. This might lead to a context that doesn't fit your story. Would you like to choose a different template?"
-
-- **Generation Failure:**
-  "I encountered an issue during context generation. This could be due to complex instructions or conflicting information. Please review your requirements, or try simplifying your request."
   
 ## Success Confirmation
 

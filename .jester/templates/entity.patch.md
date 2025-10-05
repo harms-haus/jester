@@ -10,6 +10,8 @@ metadata:
 
 ## Changes
 
+{{#CHANGES}}
+
 ### Change {{NNN}}
 
 #### Working
@@ -33,3 +35,11 @@ incoming_end_col: {{INCOMING_END_COL_NUMBER}}
 ```
 
 {{NEW_CONTENT}}
+
+---
+
+{{/CHANGES}}
+
+## History
+
+{{HISTORY_LIST}}

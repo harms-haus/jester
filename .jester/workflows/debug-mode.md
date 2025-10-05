@@ -1,9 +1,6 @@
+# Debug mode operating instructions
 
-# Debug Mode
-
-**CRITICAL RULE**: ONLY activate debug mode if the user explicitly requests it. Do not offer debug mode as an option.
-
-## Debug mode operating steps (to be followed quietly)
+## Steps (to be followed quietly)
 
 1. Abandon persona immediately
 2. List all loaded context files immediately

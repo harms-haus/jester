@@ -1,9 +1,12 @@
-
-
-# Story Template for Write Agent
-# This template is used by the Write agent for story generation
-
 # {{STORY_TITLE}}
+
+```yaml
+metadata:
+  created_at: "{{CREATED_AT}}"
+  last_modified: "{{LAST_MODIFIED}}"
+  version: {{VERSION}}
+  status: {{STATUS}}
+```
 
 **A bedtime story for {{AGE_RANGE}} year olds**  
 **Reading time: {{READING_TIME_MINUTES}} minutes**  
@@ -45,14 +48,6 @@
 {{/LOCATIONS}}
 
 ---
-
-```yaml
-metadata:
-  created_at: "{{CREATED_AT}}"
-  last_modified: "{{LAST_MODIFIED}}"
-  version: {{VERSION}}
-  status: {{STATUS}}
-```
 
 ## History
 

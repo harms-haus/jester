@@ -6,6 +6,13 @@
 # Entity files are created only after /approve command
 
 title: "{{STORY_TITLE}}"
+
+metadata:
+  created_at: "{{CREATED_AT}}"
+  last_modified: "{{LAST_MODIFIED}}"
+  version: {{VERSION}}
+  status: {{STATUS}}
+  
 target_audience:
   age_range: "{{AGE_RANGE}}"  # e.g., "5-8", "8-12", "12+"
   reading_level: "{{READING_LEVEL}}"  # e.g., "beginner", "intermediate", "advanced"
@@ -69,12 +76,6 @@ morals:
 themes:
   - "{{THEME_1}}"
   - "{{THEME_2}}"
-
-metadata:
-  created_at: "{{CREATED_AT}}"
-  last_modified: "{{LAST_MODIFIED}}"
-  version: {{VERSION}}
-  status: {{STATUS}}
 
 history:
   {{HISTORY_LIST}}
