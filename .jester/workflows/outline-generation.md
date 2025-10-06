@@ -20,9 +20,6 @@ Transform story context into a detailed outline that guides the creation of bedt
 
 ### 1. Load Core Configuration and Inputs
 
-- **Load configuration**: Load `.jester/core-config.yaml`
-- **Halt on missing config**: If the file does not exist, HALT and inform the user: "core-config.yaml not found. This file is required for outline generation."
-- **Extract configurations**: Extract key configurations: `jesterStoryLocation`, `jesterDebugLog`
 - **Identify inputs**: Identify and load the following inputs:
   - **Context file**: The context file from draft/ directory
   - **Plot templates**: Available story structure templates
