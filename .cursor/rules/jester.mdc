@@ -165,6 +165,7 @@ Notes:
 
 - The folder structure *changes* as the story progresses through `draft/`, `reading/`, and `universe/`
 - `draft/` and `reading/` have sub-directories for each story to keep each story's contents separate, but `universe/` does not
+- There may be a **file** at `draft/next-draft{NNN}`. This file's name indicates what the next draft index is. After creating a new draft with this index, rename this file to the next index
 
 **IMPORTANT: NEVER CROSS-CONTAMINATE STORY ROOTS**
 E.G. - If writing story 032 in story root `draft/`, then you MUST NOT edit or write anything in `reading/` or `universe/` until your task with story 032 is complete

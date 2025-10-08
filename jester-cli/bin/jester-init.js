@@ -25,22 +25,16 @@ const IDE_OPTIONS = [
     description: 'AI-powered code editor with agent support'
   },
   { 
-    id: 'vscode', 
-    name: 'VS Code', 
-    available: true, 
-    description: 'Popular code editor with extensions'
-  },
-  { 
     id: 'claude', 
     name: 'Claude Code', 
     available: true, 
     description: 'Anthropic\'s AI coding assistant with terminal integration'
   },
   { 
-    id: 'windsurf', 
-    name: 'Windsurf', 
+    id: 'opencode', 
+    name: 'OpenCode', 
     available: true, 
-    description: 'AI-native development environment with Cascade'
+    description: 'OpenCode CLI agent'
   }
 ];
 
@@ -201,9 +195,8 @@ async function convertForIDE(selectedIDE, targetDir) {
     // Execute the conversion using proper function name mapping
     const functionMap = {
       'cursor': 'convertForCursor',
-      'vscode': 'convertForVSCode', 
       'claude': 'convertForClaude',
-      'windsurf': 'convertForWindsurf'
+      'opencode': 'convertForOpenCode'
     };
     
     const functionName = functionMap[selectedIDE.id];
@@ -238,16 +231,12 @@ function showNextSteps(selectedIDE) {
     console.log(chalk.white('• Cursor-specific files are in .cursor/'));
     console.log(chalk.white('• .mdc files are ready for Cursor\'s AI features'));
   } else if (selectedIDE.id === 'vscode') {
-    console.log(chalk.white('• VS Code workspace is in .vscode/'));
-    console.log(chalk.white('• Open jester.code-workspace to start'));
+    console.log(chalk.white('• OpenCode workspace is in .opencode/'));
+    console.log(chalk.white('• Use @agent-jester to start creating stories'));
   } else if (selectedIDE.id === 'claude') {
     console.log(chalk.white('• Claude-specific files are in .claude/'));
     console.log(chalk.white('• Agents are configured in .claude/agents/'));
     console.log(chalk.white('• Use @jester, @muse, @write, @edit, @validate, @publish'));
-  } else if (selectedIDE.id === 'windsurf') {
-    console.log(chalk.white('• Windsurf-specific files are in .windsurf/'));
-    console.log(chalk.white('• .windsurfrules file contains AI coding guidelines'));
-    console.log(chalk.white('• Cascade rules are configured for agent workflows'));
   }
   
   console.log(chalk.white('• Run: npx jester-cli validate (to check everything)'));

@@ -5,7 +5,6 @@
   "main": "bin/jester-init.js",
   "bin": {
     "jester-init": "./bin/jester-init.js",
-    "jester-init-standalone": "./bin/jester-init-standalone.js",
     "jester-convert": "./bin/jester-convert.js",
     "jester-config": "./bin/jester-config.js",
     "jester-validate": "./bin/jester-validate.js"

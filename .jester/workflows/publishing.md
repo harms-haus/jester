@@ -20,6 +20,7 @@ Guide stories through the publishing process from reading to universe stage, inc
 
 ### 1. Load Core Configuration and Inputs
 
+- **IMPORTANT**: right now, check the file structure recursively of the `./universe/` directory. These file names can be made into links. Keep this in your context for later.
 - **Identify inputs**: Identify and load the following inputs:
   - **Story files**: Story files in reading/ directory
   - **Entity files**: Entity files in reading/ directory
@@ -36,28 +37,45 @@ Guide stories through the publishing process from reading to universe stage, inc
 
 - **Validate destination**: Check that the destination path is empty. If a file exists, HALT IMMEDIATELY and ask the user what to do
 - **Manage files**: *COPY* core files from reading to universe stage
+  - **Read** the file
+  - **Identify** unlinked entity names
+  - **Edit** the file to place [[link brackets]] around any entity name or story title (besides this one) that has a file somewhere in `/universe/`
 - **Place files**: Ensure proper file placement and naming
 - **Verify accessibility**: Verify story accessibility
 
-### 4. New Entity Integration
+### 4. Entity Integration
+
+#### 4.a. New Entities
+
+New entities do not exist in `/universe/`, so check the file structure for existing files that match entity name
 
 - **Validate destination**: Check that the destination path is empty. If a file exists, HALT IMMEDIATELY and ask the user what to do
 - **Manage entities**: *COPY* story's *new* entity files into universe
+  - **Read** the file
+  - **Identify** unlinked entity names
+  - **Edit** the file to place [[link brackets]] around any entity name or story title (besides this one) that has a file somewhere in `/universe/`
+- **Place files**: Ensure proper file placement and naming
+- **Verify accessibility**: Verify story accessibility
 
-### 5. Existing Entity Patching
+#### 4.b. Established Entities
+
+Established entities exist in `/universe/`, so check the file structure for existing files that match entity name
 
 - **Validate destination**: Check that the destination path is not empty. If the file is missing, HALT IMMEDIATELY and ask the user what to do
 - **Apply patches**: Patch the universe's existing entity file using the `.patch.md` file for the entity in the project's reading folder
-- **Follow procedure**: Use the `./.jester/workflows/patch-apply.md` file to apply the patches
+  - **Read patch** file
+  - **Ensure destination** file exists
+  - **Apply changes** systematically in order of target start line number descending
+  - **Validate line numbers** but trust the text-matching more than line numbers
 - **Update references**: Update entity references if the name changed
 - **Rename files**: Rename the file if the name changed
 
-### 6. Post-Publish Validation
+### 5. Post-Publish Validation
 
 - **Verify publishing**: Verify publishing process completed successfully
 - **Validate files**: Validate all files are in correct locations
 
-### 7. Cleanup Operations
+### 6. Cleanup Operations
 
 - **Update metadata**: Update metadata for all files:
   - **Update version**: Increase major version by 1
@@ -66,7 +84,7 @@ Guide stories through the publishing process from reading to universe stage, inc
 - **Remove core files**: Remove story core files from reading directory
 - **Remove entity files**: Remove story entity files and patches from reading directory
 
-### 8. Generate Publishing Report
+### 7. Generate Publishing Report
 
 Provide a structured publishing workflow report including:
 

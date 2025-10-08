@@ -33,12 +33,12 @@ Validate and approve `Draft Stories` for progression to the `Reading Stage`, inc
 
 ### 2. New Entity File Creation
 
-- **New entity extraction:** Extract new entity information from `context-{NNN}.yaml`
-- **Entity file creation:** Create individual entity files using templates from `./.jester/templates/`:
+- **New entity extraction:** Extract entity information from `context-{NNN}.yaml`
+- **Entity file creation:** For each new entity, create a new entity file using templates from `./.jester/templates/`:
   - [Character Template](character.md): For character entities
   - [Location Template](location.md): For location entities  
   - [Item Template](item.md): For item entities
-- **File naming:** Use format `{Entity Name}.md`
+- **File naming:** Use filename `{Entity Name}.md`
 - **File organization:** Store in appropriate directories:
   - `./reading/../characters/`
   - `./reading/../locations/`
@@ -46,10 +46,12 @@ Validate and approve `Draft Stories` for progression to the `Reading Stage`, inc
 
 ### 3. Changed Entity Patch Creation
 
-- **Changed entity extraction:** Extract changed entity information from `context-{NNN}.md`
+- **Changed entity extraction:** Extract entity information from `context-{NNN}.md`
 - **Patch file creation:** Create patch files for entities that exist in universe but have changed in this story
 - **Patch templates:** Use template `./.jester/templates/entity.patch.md` to create a new entity patch file
 - **File naming:** Use format `{Entity Name}.patch.md`
+- **Update information:** with new details, don't remove information unless it's redundant
+- **Ensure brevity:** with details about stories, as the stories themselves have the details
 - **File organization:** Store in appropriate directories:
   - `./reading/../characters/`
   - `./reading/../locations/`

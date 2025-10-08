@@ -21,20 +21,15 @@ const IDE_CONVERTERS = {
     converter: 'cursor.js',
     description: 'AI-powered code editor with agent support'
   },
-  vscode: {
-    name: 'VS Code',
-    converter: 'vscode.js',
-    description: 'Popular code editor with extensions'
+  opencode: {
+    name: 'OpenCode',
+    converter: 'opencode.js',
+    description: 'OpenCode CLI agent'
   },
   claude: {
     name: 'Claude Code',
     converter: 'claude.js',
     description: 'Anthropic\'s AI coding assistant with terminal integration'
-  },
-  windsurf: {
-    name: 'Windsurf',
-    converter: 'windsurf.js',
-    description: 'AI-native development environment with Cascade'
   }
 };
 
@@ -85,9 +80,8 @@ async function main() {
     // Execute the conversion using proper function name mapping
     const functionMap = {
       'cursor': 'convertForCursor',
-      'vscode': 'convertForVSCode', 
       'claude': 'convertForClaude',
-      'windsurf': 'convertForWindsurf'
+      'opencode': 'convertForOpenCode'
     };
     
     const functionName = functionMap[ide];
@@ -147,7 +141,7 @@ function showHelp() {
   console.log(chalk.white('Examples:'));
   console.log(chalk.gray('  npx jester-cli convert'));
   console.log(chalk.gray('  npx jester-cli convert --ide=cursor'));
-  console.log(chalk.gray('  npx jester-cli convert --ide=vscode'));
+  console.log(chalk.gray('  npx jester-cli convert --ide=claude'));
 }
 
 // Run the main function
